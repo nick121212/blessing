@@ -1,0 +1,12 @@
+{
+  "name": "",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  },
+  "ambientDependencies": {
+    "jade":""
+  }
+}
