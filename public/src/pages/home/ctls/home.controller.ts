@@ -11,15 +11,28 @@ export class HomeController {
         $rootScope.user = "NICK";
         $rootScope.title = "DASHBOARD";
 
-        this.toolbar = {
-            type: 'layout',
-            layout: 'row',
-            flex: "none",
-            attributes: {
-                "layout-align": "space-around center"
-            },
-            tools: [{}]
-        };
+        this.toolbar = [{
+            type: 'btn',
+            icon: 'dashboard',
+            title: "菜单",
+            class: "md-icon-button",
+            noTitle: true,
+            click: ($event)=> {
+                this.doOpenNav($event, 'left');
+            }
+        }, {
+            type: "label",
+            title: "{{$root.title}}"
+        }, {
+            type: "placeholder"
+        }, {
+            type: 'btn',
+            title: "{{$root.user}}",
+            icon: 'more_vert',
+            click: ($event)=> {
+                this.doOpenNav($event, 'right');
+            }
+        }];
     }
 
     doOpenNav($event: MouseEvent, directive: string = "left") {

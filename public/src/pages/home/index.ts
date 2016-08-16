@@ -22,13 +22,13 @@ module.config([
     "$httpProvider",
     "$mdThemingProvider",
     "$locationProvider",
-    ($stateProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider, $locationProvider) => {
+    "mdSideMenuSectionsProvider",
+    ($stateProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider, $locationProvider, mdSideMenuSectionsProvider) => {
+        // 初始化路由
         initRouter($urlRouterProvider, $stateProvider);
+        // sideMenu初始化
+        mdSideMenuSectionsProvider.initWithTheme($mdThemingProvider);
 
-        $urlRouterProvider.otherwise(($injector) => {
-            let $state = $injector.get("$state");
-            $state.go("home");
-        });
     }]);
 
 export default module.name;

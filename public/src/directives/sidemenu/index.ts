@@ -6,6 +6,8 @@ import * as _ from 'lodash';
 import section from './section.provider';
 import content from './content.directive';
 import child from './child.directive';
+import mdColor from './mdcolor.directive';
+import search from './search.directive';
 
 import "./styles/sidemenu.scss";
 
@@ -19,11 +21,14 @@ interface IDirectiveScope extends ng.IScope {
 class Controller {
     template: any;
     selectedNodes: Object = {};
+    options: Object = {};
 
     constructor(private $scope, private $compile, private $interpolate, private mdSideMenuSections) {
         this.template = $compile($interpolate(require("./tpls/sidemenu.jade")())({
             opts: mdSideMenuSections.options
         }));
+
+        this.options = this.mdSideMenuSections.options;
     }
 
     showChildren(node) {
@@ -110,5 +115,7 @@ const module = angular.module(_module, []).directive(_name, Directive);
 section(module);
 content(module);
 child(module);
+mdColor(module);
+search(module);
 
 export default _module;

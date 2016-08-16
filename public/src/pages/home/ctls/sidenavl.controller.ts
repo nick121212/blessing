@@ -155,14 +155,15 @@ export class SidenavLeftController {
             showSearchBar: true,
             dirSelectable: false,
             orderBy: 'menuId',
-            filterField: 'menuTitle'
+            filterField: 'menuTitle',
+            filterComparator: (node)=> {
+                // console.log(...arguments);
+
+                return node;
+            }
         };
         this.toolbarTop = {
             type: 'search',
-            attributes: {
-                "md-is-error": false,
-                "md-no-asterisk": true
-            },
             class: "md-icon-float md-block no-tb-margin no-errors no-borders",
             title: "搜索",
             context: this,

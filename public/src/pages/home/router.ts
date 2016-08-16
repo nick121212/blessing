@@ -8,6 +8,12 @@ import {SidenavRightController} from './ctls/sidenavr.controller';
 import {ContentController} from './ctls/content.controller';
 
 export const initRouter = ($urlRouterProvider, $stateProvider) => {
+    // 设置默认路由
+    $urlRouterProvider.otherwise(($injector) => {
+        let $state = $injector.get("$state");
+        $state.go("home");
+    });
+    // 路由规则
     $stateProvider.state("home", {
         url: "/",
         data: {
@@ -22,17 +28,17 @@ export const initRouter = ($urlRouterProvider, $stateProvider) => {
                 controllerAs: "homeCtl",
                 template: require("./tpls/home.template.jade")(),
             },
-            "sidenavLeft@home":{
+            "sidenavLeft@home": {
                 controller: SidenavLeftController,
                 controllerAs: "sideLeftCtl",
                 template: require("./tpls/sidenavl.template.jade")(),
             },
-            "sidenavRight@home":{
+            "sidenavRight@home": {
                 controller: SidenavRightController,
                 controllerAs: "sideRightCtl",
                 template: require("./tpls/sidenavr.template.jade")(),
             },
-            "content@home":{
+            "content@home": {
                 controller: ContentController,
                 controllerAs: "contentCtl",
                 template: require("./tpls/content.template.jade")(),

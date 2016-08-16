@@ -1,5 +1,7 @@
 md-content(flex="100",layout="column",ng-cloak)
-    div(fx-toolbar,ng-model="sideLeftCtl.toolbarTop")
+    //div(fx-toolbar,ng-model="sideLeftCtl.toolbarTop")
+        sideCtl.options
+    fx-side-menu-search
     md-content(flex="100")
         fx-side-menu.side-menu(selected-nodes="sideLeftCtl.selectedNodes",modules="sideLeftCtl.modules")
             md-button.layout-fill(md-style-color="{'background-color': isSelected(node) ? 'warn.300': 'primary.0'}")
