@@ -2,16 +2,48 @@
  * Created by NICK on 16/8/10.
  */
 
-export class SidenavLeftController {
-    public static $inject = ["$rootScope", "materialUtils", "mdSideMenuSections"];
+import * as _ from 'lodash';
 
-    modules: Array<Object>;
-    toolbarTop: Object;
+export class SidenavLeftController {
     toolbarBottom: Object;
-    filterExpression: string = "nick";
+    selectedNodes: any;
+    modules: Object;
 
     constructor(private $rootScope, private materialUtils, private mdSideMenuSections) {
-        mdSideMenuSections.sections = this.modules = [
+        this.toolbarBottom = {
+            type: 'layout',
+            layout: 'row',
+            flex: "flex",
+            attributes: {
+                "layout-align": "space-around center"
+            },
+            tools: [{
+                type: 'btn',
+                title: '刷新',
+                noTitle: true,
+                tooltip: {
+                    position: "top"
+                },
+                click: ($event, ctl)=> {
+                    // console.log(this.nodes);
+                },
+                class: 'md-icon-button',
+                icon: 'refresh'
+            }, {
+                type: 'btn',
+                title: '全部折叠',
+                noTitle: true,
+                tooltip: {
+                    position: "top"
+                },
+                click: ($event, ctl)=> {
+                    // console.log(this.nodes);
+                },
+                class: 'md-icon-button',
+                icon: 'dehaze'
+            }]
+        };
+        mdSideMenuSections.sections = [
             {
                 "menuId": 2,
                 "menuTitle": "系统设置",
@@ -154,54 +186,16 @@ export class SidenavLeftController {
             key: 'menuId',
             showSearchBar: true,
             dirSelectable: false,
-            orderBy: 'menuId',
-            filterField: 'menuTitle',
-            filterComparator: (node)=> {
-                // console.log(...arguments);
+            orderBy: 'lft',
+            filterField: 'menuTitle'
+        };
+        this.modules = mdSideMenuSections.sections;
+        this.selectedNodes = _.keyBy(_.filter(this.modules, (d) => {
+            return d["depth"] === 1;
+        }), "menuId");
 
-                return node;
-            }
-        };
-        this.toolbarTop = {
-            type: 'search',
-            class: "md-icon-float md-block no-tb-margin no-errors no-borders",
-            title: "搜索",
-            context: this,
-            ngModelField: "filterExpression"
-        };
-        this.toolbarBottom = {
-            type: 'layout',
-            layout: 'row',
-            flex: "flex",
-            attributes: {
-                "layout-align": "space-around center"
-            },
-            tools: [{
-                type: 'btn',
-                title: '刷新',
-                noTitle: true,
-                tooltip: {
-                    position: "top"
-                },
-                click: ($event, ctl)=> {
-                    // console.log(this.nodes);
-                },
-                class: 'md-icon-button',
-                icon: 'refresh'
-            }, {
-                type: 'btn',
-                title: '全部折叠',
-                noTitle: true,
-                tooltip: {
-                    position: "top"
-                },
-                click: ($event, ctl)=> {
-                    // console.log(this.nodes);
-                },
-                class: 'md-icon-button',
-                icon: 'dehaze'
-            }]
-        };
+        console.log(this.selectedNodes);
     }
 }
 
+SidenavLeftController.$inject = ["$rootScope", "materialUtils", "mdSideMenuSections"];

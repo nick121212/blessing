@@ -8,6 +8,7 @@ import content from './content.directive';
 import child from './child.directive';
 import mdColor from './mdcolor.directive';
 import search from './search.directive';
+import status from './status.factory';
 
 import "./styles/sidemenu.scss";
 
@@ -20,7 +21,7 @@ interface IDirectiveScope extends ng.IScope {
 
 class Controller {
     template: any;
-    selectedNodes: Object = {};
+    selectedNodes: Object ;
     options: Object = {};
 
     constructor(private $scope, private $compile, private $interpolate, private mdSideMenuSections) {
@@ -31,6 +32,10 @@ class Controller {
         this.options = this.mdSideMenuSections.options;
     }
 
+    /**
+     * 显示和隐藏子菜单
+     * @param node   {Object} 菜单的数据
+     */
     showChildren(node) {
         let opts = this.mdSideMenuSections.options;
 
@@ -43,18 +48,33 @@ class Controller {
         }
     }
 
+    /**
+     * 子节点是否显示
+     * @param node {Object} 菜单的数据
+     * @returns {boolean}
+     */
     isShowChildren(node) {
         let opts = this.mdSideMenuSections.options;
 
-        return this.selectedNodes[node[opts.key]];
+        return !!this.selectedNodes[node[opts.key]];
     }
 
+    /**
+     * 判断是否是叶子节点
+     * @param node   {Object} 菜单的数据
+     * @returns {boolean}
+     */
     isLeaf(node) {
         let opts = this.mdSideMenuSections.options;
 
         return node.rgt - node.lft == 1 || !node[opts.children] || node[opts.children].length == 0;
     }
 
+    /**
+     * 是否选中
+     * @param node    {Object} 菜单的数据
+     * @returns {boolean}
+     */
     isSelected(node) {
         let opts = this.mdSideMenuSections.options;
 
@@ -65,6 +85,12 @@ class Controller {
 
 Controller.$inject = ["$scope", "$compile", "$interpolate", "mdSideMenuSections"];
 
+/**
+ * sidemenu指令
+ * @param mdSideMenuSections
+ * @returns {{restrict: string, replace: boolean, require: string, transclude: boolean, controllerAs: string, scope: {modules: string}, bindToController: {selectedNodes: string}, controller: Controller, compile: (($ele:ng.IAugmentedJQuery, $attr:ng.IAttributes, childTranscludeFn:any)=>($scope:IDirectiveScope, $element:any, attrs:any, $ctrl:any)=>undefined)}}
+ * @constructor
+ */
 function Directive(mdSideMenuSections): ng.IDirective {
     return {
         restrict: 'EA',
@@ -73,14 +99,15 @@ function Directive(mdSideMenuSections): ng.IDirective {
         transclude: true,
         controllerAs: "sideCtl",
         scope: {
-            modules: '=',
-            selectedNodes: '=',
-            orderBy: "@",
-            reverseOrder: "@"
+            modules: '='
+        },
+        bindToController:{
+            selectedNodes: '='
         },
         controller: Controller,
         compile: ($ele: ng.IAugmentedJQuery, $attr: ng.IAttributes, childTranscludeFn)=> {
             return ($scope: IDirectiveScope, $element, attrs, $ctrl)=> {
+                // 监听modules的变化,初始化根节点数据
                 $scope.$watch("modules", function updateNodeOnRootScope(newValue) {
                     let opts = mdSideMenuSections.options;
 
@@ -98,7 +125,7 @@ function Directive(mdSideMenuSections): ng.IDirective {
                         $scope.node = newValue;
                     }
                 });
-
+                // 应用模板
                 $ctrl.template($scope, function (clone) {
                     $element.html('').append(clone);
                 });
@@ -117,5 +144,6 @@ content(module);
 child(module);
 mdColor(module);
 search(module);
+status(module);
 
 export default _module;

@@ -33,6 +33,7 @@
     "angular-material-icons": "^0.7.1",
     "angular-ui-router": "^0.3.1",
     "angular-ui-tree": "^2.16.0",
+    "d3": "^4.2.2",
     "exports-loader": "^0.6.3",
     "expose-loader": "^0.7.1",
     "jade": "^1.11.0",
