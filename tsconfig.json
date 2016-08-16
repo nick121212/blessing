@@ -14,13 +14,11 @@
     "built"
   ],
   "files": [
-    "./typings/angular-material-icons.d.ts",
     "../typings/angular-material/angular-material.d.ts",
     "../typings/angular-ui-router/angular-ui-router.d.ts",
     "../typings/angularjs/angular.d.ts",
     "../typings/node/node.d.ts",
     "../typings/angular-ui-tree/angular-ui-tree.d.ts",
     "../typings/lodash/lodash.d.ts"
-//    "../typings/jquery/jquery.d.ts"
   ]
 }

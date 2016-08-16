@@ -1,0 +1,25 @@
+
+.over-hidden {
+  overflow: hidden;
+}
+
+.no-tb-margin {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.no-borders{
+  .md-input{
+    border:none !important;
+  }
+}
+
+.no-errors {
+  .md-errors-spacer{
+    display: none !important;
+  }
+}
+
+body {
+  @extend .over-hidden;
+}

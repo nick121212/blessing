@@ -1,0 +1,5 @@
+md-button(ng-class="btnCtl.class",aria-label="{{btnCtl.title}}",ng-click="btnCtl.click($event,btnCtl)")
+    md-tooltip(ng-if="btnCtl.tooltip",md-direction="{{btnCtl.tooltip.position}}") {{btnCtl.title}}
+    span(ng-if="!btnCtl.noTitle") {{btnCtl.title}}
+    md-icon
+        ng-md-icon(icon="{{btnCtl.icon}}")

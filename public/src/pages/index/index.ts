@@ -3,16 +3,14 @@
  */
 
 import * as angular from 'angular';
-import * as ngMaterial from 'angular-material';
+import loadingDir from '../../directives/loading';
 
-import loadingDirReg from '../../directives/loading/loading.directive';
+import homeModule from '../home';
 
-const module = angular.module("indexApp", [ngMaterial as string]);
+import './index.scss';
 
-loadingDirReg(module);
+const module = angular.module("indexApp", [homeModule, loadingDir]);
 
 angular.element(document).ready(() => {
-    angular.bootstrap(document, [module.name], {
-        strictDi: true
-    });
+    angular.bootstrap(document, [module.name], {});
 });
