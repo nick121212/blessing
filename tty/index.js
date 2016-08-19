@@ -4,6 +4,7 @@
 
 const tty = require('tty.js');
 
+
 const ttyApp = tty.createServer({
     shell: 'bash',
     users: {
@@ -11,6 +12,8 @@ const ttyApp = tty.createServer({
     },
     port: 7000
 });
+console.log(ttyApp.io);
+
 ttyApp.get('/foo', function (req, res, next) {
     res.send('bar');
 });
