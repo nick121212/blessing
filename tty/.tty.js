@@ -1,4 +1,4 @@
- {
+{
     "users": {
         "hello": "world"
     },
@@ -9,7 +9,10 @@
     "port": 7000,
     "hostname": "0.0.0.0",
     "shell": "sh",
-    "shellArgs": ["arg1", "arg2"],
+    "shellArgs": [
+        "arg1",
+        "arg2"
+    ],
     "static": "./static",
     "limitGlobal": 10000,
     "limitPerUser": 1000,
@@ -18,11 +21,16 @@
     "syncSession": false,
     "sessionTimeout": 600000,
     "log": true,
-    "io": {"log": false},
+    "io": {
+        "log": false
+    },
     "debug": false,
     "term": {
         "termName": "xterm",
-        "geometry": [80, 24],
+        "geometry": [
+            80,
+            24
+        ],
         "scrollback": 1000,
         "visualBell": false,
         "popOnBell": false,
@@ -47,4 +55,4 @@
             "#eeeeec"
         ]
     }
-}
+};
