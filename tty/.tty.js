@@ -6,8 +6,8 @@
         "key": "./server.key",
         "cert": "./server.crt"
     },
-    "port": 8080,
-    "hostname": "127.0.0.1",
+    "port": 7000,
+    "hostname": "0.0.0.0",
     "shell": "sh",
     "shellArgs": ["arg1", "arg2"],
     "static": "./static",
