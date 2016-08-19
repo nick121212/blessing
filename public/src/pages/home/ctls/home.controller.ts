@@ -3,31 +3,34 @@
  */
 
 export class HomeController {
-    public static $inject = ["$rootScope", "materialUtils"];
+    public static $inject = ["$rootScope", "$timeout", "materialUtils"];
 
     toolbar: Object|Array<Object>;
 
-    constructor(private $rootScope, private materialUtils) {
+    title: string = "DASHBOARD";
+
+    constructor(private $rootScope, private $timeout, private materialUtils) {
         $rootScope.user = "NICK";
-        $rootScope.title = "DASHBOARD";
 
         this.toolbar = [{
             type: 'btn',
-            icon: 'dashboard',
+            icon: 'biohazard',
             title: "菜单",
-            class: "md-icon-button",
             noTitle: true,
+            class: "md-icon-button",
             click: ($event)=> {
                 this.doOpenNav($event, 'left');
             }
         }, {
             type: "label",
-            title: "{{$root.title}}"
-        }, {
-            type: "placeholder"
+            noBind: true,
+            attributes: {
+                flex: "100"
+            },
+            title: this.title
         }, {
             type: 'btn',
-            title: "{{$root.user}}",
+            title: '{{$root.user}}',
             icon: 'more_vert',
             click: ($event)=> {
                 this.doOpenNav($event, 'right');

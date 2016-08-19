@@ -1,0 +1,18 @@
+md-content(layout="column",layout-padding)
+    div(layout-align="start center",layout="column")
+        ng-md-icon(icon="biohazard",size="96")
+    //h3 {{loginCtl.title}}
+    md-button.md-block(ng-click="passportLoginController.submit(form)")
+        md-icon
+            ng-md-icon(icon="login")
+        span Login In
+    md-divider(layout="column")
+    div(layout="row",layout-align="space-around center")
+        md-button.md-icon-button
+            md-tooltip 微信
+            md-icon
+                ng-md-icon(icon="wechat")
+        md-button.md-icon-button
+            md-tooltip QQ
+            md-icon
+                ng-md-icon(icon="qqchat")

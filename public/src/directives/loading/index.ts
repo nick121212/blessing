@@ -25,6 +25,6 @@ function Directive(): ng.IDirective {
 
 Directive.$inject = [];
 
-angular.module(`${_name}Module`, []).directive(_name, Directive);
+const module = angular.module(`${_name}Module`, []).directive(_name, Directive);
 
-export default `${_name}Module`;
+export default module.name;

@@ -16,16 +16,15 @@ module.exports = (app)=> {
 
             return model;
         },
-        query: (ctx) => {
-            let {query} = ctx;
-            let filter = query.filter || {};
+        query: (query) => {
+            let filter = query || {};
 
             _.extend({
                 limit: 10,
                 offset: 0
             }, filter);
 
-            if (filter.attributes && typeof filter.attributes === "array") {
+            if (filter.attributes && _.isArray(filter.attributes)) {
                 !filter.attributes.length && delete filter.attributes;
             } else {
                 delete filter.attributes;

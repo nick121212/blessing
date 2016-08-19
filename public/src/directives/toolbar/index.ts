@@ -31,27 +31,34 @@ strategy.register("search", require('./tpls/search.jade')());
 strategy.register("placeholder", require('./tpls/placeholder.jade')());
 strategy.register("label", require('./tpls/label.jade')());
 
+class Controller {
+    constructor(private $scope) {
+        // $scope.ctls = this.ctls;
+    }
+}
+
+Controller.$inject = ["$scope"];
+
 function Directive($rootScope: ng.IRootScopeService, $compile: ng.ICompileService, $interpolate: ng.IInterpolateService): ng.IDirective {
     return {
         restrict: 'EA',
+        require: ["^ngModel"],
         scope: {
+            ctls: '@',
             ngModel: '='
         },
-        require: ["^ngModel"],
-        replace: true,
+        replace: false,
         link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attr: ng.IAttributes) => {
-            let model = $scope.ngModel;
-
-            if (!_.isObject(model) && !_.isArray(model)) {
-                return console.error("ngModel只能是对象或者数组!");
-            }
-
             function diggest(models, $ele, $scope) {
                 _.each(models, (model)=> {
                     if (strategy.get(model['type'])) {
                         let $newScope = $rootScope.$new(true, $scope);
 
                         $newScope[`${model['type']}Ctl`] = model;
+
+                        if ($scope.ctls) {
+                            $newScope[$scope.ctls] = $scope.$parent[$scope.ctls] || {};
+                        }
 
                         let tmp: string = $interpolate(strategy.get(model['type']))($newScope);
                         let $newEle = angular.element(tmp);
@@ -70,14 +77,22 @@ function Directive($rootScope: ng.IRootScopeService, $compile: ng.ICompileServic
                 });
             }
 
-            diggest(_.isArray(model) ? model : [model], $ele, $scope);
+            $scope.$watch('ngModel', (newValue)=> {
+                let model = newValue;
+
+                if (!model) return;
+                if (!_.isObject(model) && !_.isArray(model)) {
+                    return console.error("ngModel只能是对象或者数组!");
+                }
+                diggest(_.isArray(model) ? model : [model], $ele, $scope);
+            });
         }
     }
 }
 
 Directive.$inject = ["$rootScope", "$compile", "$interpolate"];
 
-angular.module(`${_name}Module`, []).directive('fxToolbar', Directive);
+const module = angular.module(`${_name}Module`, []).directive('fxToolbar', Directive);
 
-export default `${_name}Module`;
+export default module.name;
 

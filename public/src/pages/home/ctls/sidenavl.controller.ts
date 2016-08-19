@@ -3,106 +3,73 @@
  */
 
 import * as _ from 'lodash';
+import Dictionary = _.Dictionary;
 
 export class SidenavLeftController {
     toolbarBottom: Object;
-    selectedNodes: any;
-    modules: Object;
+    selectedNodes: Dictionary<any>;
+    modules: Array<any>;
 
     constructor(private $rootScope, private materialUtils, private mdSideMenuSections) {
-        this.toolbarBottom = {
-            type: 'layout',
-            layout: 'row',
-            flex: "flex",
-            attributes: {
-                "layout-align": "space-around center"
-            },
-            tools: [{
-                type: 'btn',
-                title: '刷新',
-                noTitle: true,
-                tooltip: {
-                    position: "top"
+        mdSideMenuSections.sections = [{
+            "menuId": 2,
+            "menuTitle": "系统设置",
+            "icon": "settings",
+            "menuLink": null,
+            "lft": 2,
+            "rgt": 15,
+            "menuParentId": 1,
+            "menuType": 0,
+            "showed": 1,
+            "menuKey": "settings",
+            "columns": null,
+            "depth": 1,
+            "nodes": [
+                {
+                    "menuId": 3,
+                    "menuTitle": "模块管理",
+                    "icon": "view_module",
+                    "menuLink": "#/pages/module",
+                    "lft": 3,
+                    "rgt": 4,
+                    "createAt": 2147483647,
+                    "updateAt": 2147483647,
+                    "menuParentId": 2,
+                    "menuType": 0,
+                    "showed": 1,
+                    "menuKey": "module",
+                    "depth": 2
                 },
-                click: ($event, ctl)=> {
-                    // console.log(this.nodes);
+                {
+                    "menuId": 13,
+                    "menuTitle": "接口设置",
+                    "icon": "extension",
+                    "menuLink": "#/pages/interface",
+                    "lft": 11,
+                    "rgt": 12,
+                    "menuParentId": 2,
+                    "menuType": 0,
+                    "showed": 1,
+                    "menuKey": "interface",
+                    "depth": 2
                 },
-                class: 'md-icon-button',
-                icon: 'refresh'
-            }, {
-                type: 'btn',
-                title: '全部折叠',
-                noTitle: true,
-                tooltip: {
-                    position: "top"
-                },
-                click: ($event, ctl)=> {
-                    // console.log(this.nodes);
-                },
-                class: 'md-icon-button',
-                icon: 'dehaze'
-            }]
-        };
-        mdSideMenuSections.sections = [
-            {
-                "menuId": 2,
-                "menuTitle": "系统设置",
-                "icon": "settings",
-                "menuLink": null,
-                "lft": 2,
-                "rgt": 15,
-                "menuParentId": 1,
-                "menuType": 0,
-                "showed": 1,
-                "menuKey": "settings",
-                "columns": null,
-                "depth": 1,
-                "nodes": [
-                    {
-                        "menuId": 3,
-                        "menuTitle": "模块管理",
-                        "icon": "view_module",
-                        "menuLink": "#/pages/module",
-                        "lft": 3,
-                        "rgt": 4,
-                        "createAt": 2147483647,
-                        "updateAt": 2147483647,
-                        "menuParentId": 2,
-                        "menuType": 0,
-                        "showed": 1,
-                        "menuKey": "module",
-                        "depth": 2
-                    },
-                    {
-                        "menuId": 13,
-                        "menuTitle": "接口设置",
-                        "icon": "extension",
-                        "menuLink": "#/pages/interface",
-                        "lft": 11,
-                        "rgt": 12,
-                        "menuParentId": 2,
-                        "menuType": 0,
-                        "showed": 1,
-                        "menuKey": "interface",
-                        "depth": 2
-                    },
-                    {
-                        "menuId": 14,
-                        "menuTitle": "SCHEMA设置",
-                        "icon": "wallet_giftcard",
-                        "menuLink": "#/pages/schema",
-                        "lft": 13,
-                        "rgt": 14,
-                        "createAt": 2147483647,
-                        "updateAt": 2147483647,
-                        "menuParentId": 2,
-                        "menuType": 0,
-                        "showed": 1,
-                        "menuKey": "schema",
-                        "depth": 2
-                    }
-                ]
-            },
+                {
+                    "menuId": 14,
+                    "menuTitle": "SCHEMA设置",
+                    "icon": "wallet_giftcard",
+                    "menuLink": "#/pages/schema",
+                    "lft": 13,
+                    "rgt": 14,
+                    "createAt": 2147483647,
+                    "updateAt": 2147483647,
+                    "menuParentId": 2,
+                    "menuType": 0,
+                    "showed": 1,
+                    "menuKey": "schema",
+                    "depth": 2
+                }
+            ]
+        },
             {
                 "menuId": 5,
                 "menuTitle": "权限设置",
@@ -193,8 +160,39 @@ export class SidenavLeftController {
         this.selectedNodes = _.keyBy(_.filter(this.modules, (d) => {
             return d["depth"] === 1;
         }), "menuId");
-
-        console.log(this.selectedNodes);
+        this.toolbarBottom = {
+            type: 'layout',
+            layout: 'row',
+            flex: "flex",
+            attributes: {
+                "layout-align": "space-around center"
+            },
+            tools: [{
+                type: 'btn',
+                title: '刷新',
+                noTitle: true,
+                tooltip: {
+                    position: "top"
+                },
+                click: ($event, ctl)=> {
+                    // console.log(this.nodes);
+                },
+                class: 'md-icon-button',
+                icon: 'refresh'
+            }, {
+                type: 'btn',
+                title: '全部折叠',
+                noTitle: true,
+                tooltip: {
+                    position: "top"
+                },
+                click: ($event, ctl)=> {
+                    // console.log(this.nodes);
+                },
+                class: 'md-icon-button',
+                icon: 'dehaze'
+            }]
+        };
     }
 }
 

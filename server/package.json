@@ -26,6 +26,7 @@
   "dependencies": {
     "babel-preset-stage-3": "^6.11.0",
     "babel-runtime": "^6.11.6",
+    "boom": "^3.2.2",
     "common-errors": "^1.0.0",
     "consign": "^0.1.2",
     "handlebars": "^4.0.5",
@@ -34,6 +35,7 @@
     "koa-bodyparser": "^3.2.0",
     "koa-compress": "^2.0.0",
     "koa-conditional-get": "^2.0.0",
+    "koa-cors": "0.0.16",
     "koa-etag": "^3.0.0",
     "koa-log4": "^2.0.1",
     "koa-logger": "^2.0.0",

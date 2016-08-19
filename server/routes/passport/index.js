@@ -4,6 +4,7 @@
 
 import Router from 'koa-router';
 import passport from 'koa-passport';
+import boom from 'boom';
 
 module.exports = (app, logger)=> {
     "use strict";
@@ -11,11 +12,7 @@ module.exports = (app, logger)=> {
     let router = new Router();
 
     router.get('/login', async(ctx, next)=> {
-
-        // throw new Error("没有定义参数!");
-        await ctx.render('login', {
-            title: 'login'
-        });
+        throw boom.unauthorized("用户未登陆或没有权限!");
     });
 
     router.post('/login',

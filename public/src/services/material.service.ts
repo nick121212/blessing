@@ -2,6 +2,8 @@
  * Created by NICK on 16/8/12.
  */
 
+import * as angular from 'angular';
+
 class Service {
     public static _name: string = "materialUtils";
 
@@ -116,6 +118,8 @@ class Service {
     }
 }
 
-export const materialServiceInit = (module)=> {
-    module.service(Service._name, Service.provider);
-};
+const module = angular.module("mdServiceModule",[]);
+
+module.service(Service._name, Service.provider);
+
+export default module.name;

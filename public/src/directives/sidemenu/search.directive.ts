@@ -12,7 +12,7 @@ function Directive(mdSideMenuSections): ng.IDirective {
             $scope.searchText = "";
             $scope.title = "搜索菜单";
             $scope.$watch("searchText", (newVal, oldVal)=> {
-                console.log(oldVal, newVal);
+                // console.log(oldVal, newVal);
                 mdSideMenuSections.options.filterExpression = newVal;
             });
         }

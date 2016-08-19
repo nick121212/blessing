@@ -20,7 +20,7 @@
     "../typings/angularjs/angular.d.ts",
     "../typings/node/node.d.ts",
     "../typings/angular-ui-tree/angular-ui-tree.d.ts",
-    "../typings/lodash/lodash.d.ts"
-//    "../typings/jquery/jquery.d.ts"
+    "../typings/lodash/lodash.d.ts",
+    "../typings/restangular/restangular.d.ts"
   ]
 }

@@ -1,3 +1,10 @@
-span I'am the content container.
-span {{contentCtl.icon}}
-ng-md-icon(icon="{{contentCtl.icon}}",options='{"rotation": "none"}')
+md-content
+    md-input-container.md-block
+        label 搜索图标
+        input(ng-model="contentCtl.filter")
+    md-divider
+    md-button(ng-repeat="icon in contentCtl.icons | filter:contentCtl.filter | orderBy ")
+        div(layout="column")
+            md-icon
+                ng-md-icon(icon="{{icon}}")
+            span {{icon}}

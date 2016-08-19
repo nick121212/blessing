@@ -146,4 +146,4 @@ mdColor(module);
 search(module);
 status(module);
 
-export default _module;
+export default module.name;
