@@ -23,8 +23,8 @@ module.config([
     }])
     .run(["$state", "restUtils", ($state, restUtils: fx.utils.restStatic)=> {
         // 添加全局错误拦截器
-        restUtils.setConfig((restangularConfigurer)=> {
-            restangularConfigurer.setErrorInterceptor((response: restangular.IResponse, deferred, responseHandler)=> {
+        restUtils.setConfig((restAngularConfigure: restangular.IProvider)=> {
+            restAngularConfigure.setErrorInterceptor((response: restangular.IResponse)=> {
                 if (response.status == 401) {
                     console.error(response.data);
                     !$state.is("passport.login") && $state.go("passport.login");
