@@ -112,13 +112,9 @@ class Service {
 
         return new MaterialService();
     }];
-
-    constructor(module: angular.IModule) {
-        module.service(Service._name, Service.provider);
-    }
 }
 
-const module = angular.module("mdServiceModule",[]);
+const module = angular.module("fxMaterialModule",[]);
 
 module.service(Service._name, Service.provider);
 

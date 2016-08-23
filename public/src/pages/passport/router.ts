@@ -10,11 +10,11 @@ export const initRouter = ($urlRouterProvider, $stateProvider) => {
     $stateProvider.state("passport", {
         url: "/passport",
         abstract: true,
-        resolve: {
-            svg: ["svgUtils", (svgUtils)=> {
-                return svgUtils.loadSvgUrl(__dirname + 'svgs/mdi.svg');
-            }]
-        },
+        // resolve: {
+        //     svg: ["svgUtils", (svgUtils: fx.utils.svgStatic)=> {
+        //         return svgUtils.loadSvgUrl(__dirname + 'svgs/mdi.svg');
+        //     }]
+        // },
         views: {
             "": {
                 template: require("./tpls/index.template.jade")()

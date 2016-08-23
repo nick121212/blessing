@@ -8,6 +8,81 @@
 </head>
 
 <body layout="column" ui-view flex class="scale-fade">
-    <fx-loading></fx-loading>
+<fx-loading></fx-loading>
 </body>
+
+<!--<script src="http://localhost:8080/socket.io/socket.io.js"></script>-->
+<!--<script src="http://localhost:8080/term.js"></script>-->
+<!--<script src="http://localhost:8080/options.js"></script>-->
+<!--<script src="http://localhost:8080/tty.js"></script>-->
+
+<!--<script>-->
+<!--window.addEventListener('load', function () {-->
+<!--var parts = document.location.pathname.split('/')-->
+<!--, base = parts.slice(0, parts.length - 1).join('/') + '/'-->
+<!--, resource = base.substring(1) + 'socket.io';-->
+<!--var socket = io.connect("http://localhost:8080", {resource: resource});-->
+<!--var _data = null;-->
+
+<!--socket.on('connect', function () {-->
+<!--var term = new Terminal({-->
+<!--cols: 80,-->
+<!--rows: 25,-->
+<!--screenKeys: true-->
+<!--});-->
+
+<!--term.on('data', function (data) {-->
+<!--socket.emit('data', _data.id, data);-->
+<!--});-->
+
+<!--//            term.on('title', function (title) {-->
+<!--//                console.log(title);-->
+<!--//                document.title = title;-->
+<!--//            });-->
+
+<!--term.open(document.body);-->
+<!--term.write(([-->
+<!--"\x1b[31m",-->
+<!--"                   _ooOoo_",-->
+<!--"                  o8888888o",-->
+<!--"                  88\" . \"88",-->
+<!--"                  (| -_- |)",-->
+<!--"                  O\\  =  /O",-->
+<!--"               ____/`-&#45;&#45;'\\____",-->
+<!--"             .'  \\\\|     |//  `.",-->
+<!--"            /  \\\\|||  :  |||//  \\",-->
+<!--"           /  _||||| -:- |||||-  \\",-->
+<!--"           |   | \\\\\\  -  /// |   |",-->
+<!--"           | \\_|  ''\\-&#45;&#45;/''  |   |",-->
+<!--"           \\  .-\\__  `-`  ___/-. /",-->
+<!--"         ___`. .'  /&#45;&#45;.&#45;&#45;\\  `. . __",-->
+<!--"      .\"\" '<  `.___\\_<|>_/___.'  >'\"\".",-->
+<!--"     | | :  `- \\`.;`\\ _ /`;.`/ - ` : | |",-->
+<!--"     \\  \\ `-.   \\_ __\\ /__ _/   .-` /  /",-->
+<!--"======`-.____`-.___\\_____/___.-`____.-'======",-->
+<!--"                   `=-&#45;&#45;='",-->
+<!--"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",-->
+<!--"         佛祖保佑       永无BUG",-->
+<!--"\x1b[m"-->
+<!--].join('\r\n')));-->
+
+<!--socket.on('data', function (data, key) {-->
+<!--term.write(key);-->
+<!--});-->
+
+<!--socket.on('disconnect', function () {-->
+<!--term.destroy();-->
+<!--});-->
+
+<!--socket.emit('create', 80, 25, function (err, d) {-->
+<!--if (err) {-->
+<!--return console.error(err);-->
+<!--}-->
+<!--_data = d;-->
+<!--});-->
+
+<!--});-->
+<!--}, false);-->
+<!--</script>-->
+
 </html>

@@ -9,11 +9,8 @@ import * as ngMaterial from 'angular-material';
 class Service {
     public static _name: string = "svgUtils";
 
-    public static provider: Array<string | Function> = ["$q", "$templateRequest", "$templateCache", "ngMdIconService", ($q: ng.IQService, $templateRequest, $templateCache, ngMdIconService) => {
+    public static provider: Array<string | Function> = ["$q", "$templateRequest", "$templateCache", "ngMdIconService", ($q: ng.IQService, $templateRequest, $templateCache, ngMdIconService: ngMdIcon.service) => {
         class Service {
-            constructor() {
-            }
-
             /**
              * 获取所有的shapes
              * @returns {any}
@@ -28,6 +25,7 @@ class Service {
              */
             loadSvgUrl(url: string) {
                 let defer = $q.defer();
+                let viewBox;
 
                 if ($templateCache.get(url)) {
                     defer.resolve();
@@ -35,8 +33,12 @@ class Service {
                     $templateRequest(url, true).then((response)=> {
                         let svg = angular.element('<div>').append(response).find('svg')[0];
 
+                        viewBox = svg.attributes["viewBox"];
                         _.each(svg.querySelectorAll("[id]"), (g)=> {
                             ngMdIconService.addShape(g.id, g.innerHTML);
+                            if (viewBox && viewBox.value) {
+                                ngMdIconService.addViewBox(g.id, viewBox.value);
+                            }
                         });
                         defer.resolve();
                     }, defer.resolve);
@@ -48,10 +50,6 @@ class Service {
 
         return new Service();
     }];
-
-    constructor(module: angular.IModule) {
-        module.service(Service._name, Service.provider);
-    }
 }
 
 const module = angular.module("mdSvgModule", [ngMaterialIcons, ngMaterial]);

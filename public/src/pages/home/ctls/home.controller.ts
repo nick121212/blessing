@@ -3,14 +3,14 @@
  */
 
 export class HomeController {
-    public static $inject = ["$rootScope", "$timeout", "materialUtils"];
+    public static $inject = ["$rootScope", "materialUtils"];
 
     toolbar: Object|Array<Object>;
 
     title: string = "DASHBOARD";
 
-    constructor(private $rootScope, private $timeout, private materialUtils) {
-        $rootScope.user = "NICK";
+    constructor(private $rootScope: ng.IRootScopeService, private materialUtils: fx.utils.materialStatic) {
+        $rootScope["user"] = "NICK";
 
         this.toolbar = [{
             type: 'btn',

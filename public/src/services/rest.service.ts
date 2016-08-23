@@ -8,7 +8,7 @@ import 'restangular';
 class Service {
     public static _name: string = "restUtils";
 
-    public static provider: Array<string | Function> = ["Restangular", (restangular) => {
+    public static provider: Array<string | Function> = ["Restangular", (restangular: restangular.IService) => {
         class Service {
 
             private rest;
@@ -41,7 +41,7 @@ class Service {
              * @param baseUrl
              * @returns {any}
              */
-            getRestAngular(router: string, unique: boolean = true, baseUrl: string = "") {
+            getRestAngular(router: string, unique: boolean = true, baseUrl: string = ""): restangular.IElement {
                 let restangu;
                 let restangularP = unique ? this.rest : restangular;
 
@@ -56,13 +56,9 @@ class Service {
 
         return new Service("http://localhost:3000/");
     }];
-
-    constructor(module: angular.IModule) {
-        module.service(Service._name, Service.provider);
-    }
 }
 
-const module = angular.module("mdRestModule", ["restangular"]);
+const module = angular.module("fxRestModule", ["restangular"]);
 
 module.service(Service._name, Service.provider);
 

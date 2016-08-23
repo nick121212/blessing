@@ -8,28 +8,26 @@ import * as uiRouter from 'angular-ui-router';
 import {initRouter} from './router';
 import materialServiceMod from '../../services/material.service';
 import restRegMod from '../../services/rest.service';
+import actionDir from '../../directives/action';
 
 import "restangular";
 
-const module = angular.module("loginModule", [ngMaterial as string, uiRouter as string, materialServiceMod, restRegMod, 'restangular']);
+const module = angular.module("loginModule", [ngMaterial as string, uiRouter as string, materialServiceMod, restRegMod, actionDir, 'restangular']);
 
 module.config([
     "$stateProvider",
     "$urlRouterProvider",
-    "$mdIconProvider",
-    "RestangularProvider",
-    ($stateProvider, $urlRouterProvider, $mdIconProvider, RestangularProvider) => {
+    ($stateProvider, $urlRouterProvider) => {
         // 初始化路由
         initRouter($urlRouterProvider, $stateProvider);
     }])
-    .run(["$state", "restUtils", ($state, restUtils)=> {
+    .run(["$state", "restUtils", ($state, restUtils: fx.utils.restStatic)=> {
         // 添加全局错误拦截器
         restUtils.setConfig((restangularConfigurer)=> {
             restangularConfigurer.setErrorInterceptor((response: restangular.IResponse, deferred, responseHandler)=> {
-                console.log(response, deferred, responseHandler);
                 if (response.status == 401) {
                     console.error(response.data);
-                    $state.go("passport.login");
+                    !$state.is("passport.login") && $state.go("passport.login");
                     return false;
                 }
                 return true;

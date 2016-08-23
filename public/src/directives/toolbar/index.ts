@@ -12,14 +12,14 @@ interface IDirectiveScope extends ng.IScope {
 }
 
 class Strategy {
-    private tools: {[id: string]: String;} = {};
+    private tools: {[id: string]: string;} = {};
 
-    register(key: string, template: String) {
+    register(key: string, template: string) {
         this.tools[key] = template;
     }
 
     get(key: string) {
-        return this.tools[key] || null;
+        return this.tools[key] || "";
     }
 }
 
@@ -60,7 +60,7 @@ function Directive($rootScope: ng.IRootScopeService, $compile: ng.ICompileServic
                             $newScope[$scope.ctls] = $scope.$parent[$scope.ctls] || {};
                         }
 
-                        let tmp: string = $interpolate(strategy.get(model['type']))($newScope);
+                        let tmp: any = $interpolate(strategy.get(model['type']))($newScope);
                         let $newEle = angular.element(tmp);
 
                         _.each(model.attributes, (attr, key)=> {

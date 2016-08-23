@@ -2,6 +2,14 @@ md-content(layout="column",layout-padding)
     div(layout-align="start center",layout="column")
         ng-md-icon(icon="biohazard",size="96")
     //h3 {{loginCtl.title}}
+    //form(layout="column",flex,
+    //     sf-model="loginCtl.formData",
+    //     sf-form="passportLoginController.form",
+    //     sf-schema="passportLoginController.schema",
+    //     ng-submit="passportLoginController.submit(form)")
+
+    div(fx-action="login",ng-model="loginCtl.formData")
+
     md-button.md-block(ng-click="passportLoginController.submit(form)")
         md-icon
             ng-md-icon(icon="login")
@@ -9,10 +17,14 @@ md-content(layout="column",layout-padding)
     md-divider(layout="column")
     div(layout="row",layout-align="space-around center")
         md-button.md-icon-button
-            md-tooltip 微信
-            md-icon
-                ng-md-icon(icon="wechat")
-        md-button.md-icon-button
             md-tooltip QQ
             md-icon
                 ng-md-icon(icon="qqchat")
+        md-button.md-icon-button
+            md-tooltip 微博
+            md-icon
+                ng-md-icon(icon="weibo")
+        md-button.md-icon-button
+            md-tooltip 微信
+            md-icon
+                ng-md-icon(icon="wechat")

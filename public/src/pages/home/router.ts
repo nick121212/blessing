@@ -22,11 +22,6 @@ export const initRouter = ($urlRouterProvider, $stateProvider) => {
                 only: ["user"]
             }
         },
-        resolve: {
-            svg: ["svgUtils", (svgUtils)=> {
-                return svgUtils.loadSvgUrl(__dirname + 'svgs/mdi.svg');
-            }]
-        },
         views: {
             "": {
                 controller: HomeController,
