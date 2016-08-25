@@ -1,20 +1,12 @@
-md-content(layout="column",layout-padding)
-    div(layout-align="start center",layout="column")
+div(layout="column",layout-padding)
+    div(layout-align="center center",layout="column")
         ng-md-icon(icon="biohazard",size="96")
-    //h3 {{loginCtl.title}}
-    //form(layout="column",flex,
-    //     sf-model="loginCtl.formData",
-    //     sf-form="passportLoginController.form",
-    //     sf-schema="passportLoginController.schema",
-    //     ng-submit="passportLoginController.submit(form)")
-
-    div(fx-action="login",ng-model="loginCtl.formData")
-
-    md-button.md-block(ng-click="passportLoginController.submit(form)")
-        md-icon
-            ng-md-icon(icon="login")
-        span Login In
-    md-divider(layout="column")
+    form(fx-form-action,key="{{loginCtl.key}}",ng-model="loginCtl.formData",layout="column",name="loginForm",ng-submit="loginCtl.doSubmit(loginForm)")
+        md-button.md-block(type="submit",flex)
+            md-icon
+                ng-md-icon(icon="login")
+            span Login In
+    md-divider
     div(layout="row",layout-align="space-around center")
         md-button.md-icon-button
             md-tooltip QQ

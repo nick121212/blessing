@@ -6,12 +6,22 @@ import * as _ from 'lodash';
 import Dictionary = _.Dictionary;
 
 export class SidenavLeftController {
+    $inject = ["$rootScope", "materialUtils", "mdSideMenuSections", "toolbarUtils"];
+
     toolbarBottom: Object;
     selectedNodes: Dictionary<any>;
     modules: Array<any>;
 
-    constructor(private $rootScope, private materialUtils, private mdSideMenuSections) {
-        mdSideMenuSections.sections = [{
+    constructor(private $rootScope, private materialUtils, private mdSideMenuSections, private toolbarUtils) {
+        this.initModules().initToolbar();
+    }
+
+    /**
+     * 初始化菜单
+     * @returns {SidenavLeftController}
+     */
+    initModules() {
+        this.mdSideMenuSections.sections = [{
             "menuId": 2,
             "menuTitle": "系统设置",
             "icon": "settings",
@@ -148,7 +158,7 @@ export class SidenavLeftController {
                 ]
             }
         ];
-        mdSideMenuSections.options = {
+        this.mdSideMenuSections.options = {
             children: "nodes",
             key: 'menuId',
             showSearchBar: true,
@@ -156,44 +166,30 @@ export class SidenavLeftController {
             orderBy: 'lft',
             filterField: 'menuTitle'
         };
-        this.modules = mdSideMenuSections.sections;
+        this.modules = this.mdSideMenuSections.sections;
         this.selectedNodes = _.keyBy(_.filter(this.modules, (d) => {
             return d["depth"] === 1;
         }), "menuId");
-        this.toolbarBottom = {
-            type: 'layout',
-            layout: 'row',
-            flex: "flex",
-            attributes: {
-                "layout-align": "space-around center"
-            },
-            tools: [{
-                type: 'btn',
-                title: '刷新',
-                noTitle: true,
-                tooltip: {
-                    position: "top"
-                },
-                click: ($event, ctl)=> {
-                    // console.log(this.nodes);
-                },
-                class: 'md-icon-button',
-                icon: 'refresh'
-            }, {
-                type: 'btn',
-                title: '全部折叠',
-                noTitle: true,
-                tooltip: {
-                    position: "top"
-                },
-                click: ($event, ctl)=> {
-                    // console.log(this.nodes);
-                },
-                class: 'md-icon-button',
-                icon: 'dehaze'
-            }]
-        };
+
+        return this;
+    }
+
+    /**
+     * 初始化底部按钮
+     * @returns {SidenavLeftController}
+     */
+    initToolbar() {
+        this.toolbarBottom = [
+            this.toolbarUtils.layoutBuilder("", "row", "space-around center").toolsBuilder([
+                this.toolbarUtils.btnBuilder("刷新", "md-icon-button", false, "top").iconBuilder("refresh").btnClick(($event)=> {
+                    console.log("resresh");
+                }).toValue(),
+                this.toolbarUtils.btnBuilder("全部折叠", "md-icon-button", false, "top").iconBuilder("dehaze").btnClick(($event)=> {
+                    console.log("dehaze");
+                }).toValue()
+            ]).toValue()
+        ];
+
+        return this;
     }
 }
-
-SidenavLeftController.$inject = ["$rootScope", "materialUtils", "mdSideMenuSections"];

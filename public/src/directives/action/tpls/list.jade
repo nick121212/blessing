@@ -1,0 +1,18 @@
+md-content(layout="row",flex)
+    md-content(layout="column",flex)
+        md-toolbar.md-table-toolbar.md-default
+            div.md-toolbar-tools(fx-toolbar,layout="row",ng-model="listCtl.actionModel.list.toolbars",ctls="listCtl")
+        md-divider
+        md-table-container(flex)
+            table(md-table,flex,ng-model="listCtl.selected",md-process="listCtl.deferred")
+                thead(md-head,md-order="listCtl.queryData.order",md-on-reorder="listCtl.onOrderChange")
+                    tr(md-row)
+                        th(md-column,md-order-by="{{column.name}}",ng-repeat="column in listCtl.actionModel.list.columns") {{column.title}}
+                        th(md-column,ng-if="listCtl.item.toolbar.length")
+                tbody(md-body)
+                    tr(md-row,md-auto-select,ng-repeat="row in listCtl.clientData.rows")
+                        td(md-cell,ng-repeat="column in listCtl.actionModel.list.columns")
+                            section(dy-compile,context="item",html="{{column.content}}") {{column.content}}
+                        td(md-cell)
+                            div(fx-toolbar,ng-model="listCtl.actionModel.list.itemToolbars",ctls="listCtl")
+        md-table-pagination(flex="none",md-boundary-links="0==0",md-page-select="listCtl.showPage",ng-disabled="listCtl.isBusy",md-limit="listCtl.queryData.limit" ,md-limit-options="listCtl.mdLimitOptions", md-page="listCtl.queryData.page" md-on-paginate="listCtl.onPageChange" md-total="{{listCtl.clientData.total}}")

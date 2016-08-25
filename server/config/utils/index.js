@@ -4,6 +4,7 @@ module.exports = (app)=> {
     "use strict";
     return {
         modelNames: {
+            passport: "passport",
             module: "module"
         },
         findModel: (modelName)=> {

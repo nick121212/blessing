@@ -4,6 +4,7 @@
 
 import {LoginController} from './ctls/login.controller';
 import {RegisterController} from './ctls/register.controller';
+import {IndexController} from './ctls/index.controller';
 
 export const initRouter = ($urlRouterProvider, $stateProvider) => {
     // 路由规则
@@ -17,6 +18,8 @@ export const initRouter = ($urlRouterProvider, $stateProvider) => {
         // },
         views: {
             "": {
+                controller: IndexController,
+                controllerAs: "indexCtl",
                 template: require("./tpls/index.template.jade")()
             }
         }

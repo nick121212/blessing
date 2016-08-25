@@ -2,13 +2,28 @@
  * Created by NICK on 16/8/17.
  */
 
-
+/**
+ * 登陆controller
+ */
 export class LoginController {
-    title:string="用户登录";
+    key: string = "login";
+    formData: Object = {username: "nick", password: "nick"};
 
-    constructor(private $rootScope, private $timeout) {
+    constructor(private $state: ng.ui.IStateService, private fxAction) {
+    }
 
+    /**
+     * 登陆,触发登陆操作
+     * @param form 表单
+     */
+    doSubmit(form: ng.IFormController) {
+        let promise: ng.IPromise<any> = this.fxAction.doAction(this.key, this.formData, form);
+
+        promise && promise.then((results)=> {
+            console.log(results);
+            this.$state.go("home.page", {key: "test"});
+        });
     }
 }
 
-LoginController.$inject = ["$rootScope", "$timeout"];
+LoginController.$inject = ["$state", "fxAction"];

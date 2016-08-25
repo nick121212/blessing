@@ -3,39 +3,23 @@
  */
 
 export class HomeController {
-    public static $inject = ["$rootScope", "materialUtils"];
+    public static $inject = ["$rootScope", "materialUtils", "toolbarUtils"];
 
     toolbar: Object|Array<Object>;
-
     title: string = "DASHBOARD";
 
-    constructor(private $rootScope: ng.IRootScopeService, private materialUtils: fx.utils.materialStatic) {
+    constructor(private $rootScope: ng.IRootScopeService, private materialUtils: fx.utils.materialStatic, private toolbarUtils) {
         $rootScope["user"] = "NICK";
 
-        this.toolbar = [{
-            type: 'btn',
-            icon: 'biohazard',
-            title: "菜单",
-            noTitle: true,
-            class: "md-icon-button",
-            click: ($event)=> {
-                this.doOpenNav($event, 'left');
-            }
-        }, {
-            type: "label",
-            noBind: true,
-            attributes: {
-                flex: "100"
-            },
-            title: this.title
-        }, {
-            type: 'btn',
-            title: '{{$root.user}}',
-            icon: 'more_vert',
-            click: ($event)=> {
+        this.toolbar = [
+            toolbarUtils.btnBuilder("logo", "md-icon-button", false).iconBuilder("biohazard").btnClick(($event)=>{
+                this.doOpenNav($event);
+            }).toValue(),
+            toolbarUtils.labelBuilder(this.title).attrBuilder({flex: ""}).toValue(),
+            toolbarUtils.btnBuilder("菜单", "md-icon-button", false).iconBuilder("more_vert").btnClick(($event)=>{
                 this.doOpenNav($event, 'right');
-            }
-        }];
+            }).toValue(),
+        ];
     }
 
     doOpenNav($event: MouseEvent, directive: string = "left") {

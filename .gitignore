@@ -2,3 +2,5 @@ server/node_modules
 public/node_modules
 tty/node_modules
 public/built
+public/src/directives/angular-schema-form-material
+!public/src/directives/angular-schema-form-material/material-decorator.js

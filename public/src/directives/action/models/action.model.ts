@@ -5,30 +5,86 @@
 /**
  * 操作类型
  */
-export enum ActionType{
-    form = 1,
+import {IInterfaceModel} from "./interface.model";
+export enum ActionType {
+    list = 1,
+    form,
+    wizard,
     confirm
 }
-/**
- * 操作的模型
- */
-export interface ActionModel {
-    // 唯一字符串
-    key: string;
-    // 操作的类型
-    type: ActionType;
-    // form操作的时候表单schema
-    formSchema: string|Object;
-    // form操作的时候字段schema
-    dataSchema: string|Object;
+
+export interface IConfirm {
     // confirm操作标题
     confirmTitle: string;
     // confirm操作显示内容
     confirmContent: string;
     // confirm操作ok按钮文字
-    confirmOk: string;
+    confirmOk?: string;
     // confirm操作cancel按钮文字
-    confirmCancel: string;
+    confirmCancel?: string;
+}
+
+export interface IForm {
+    // form操作的时候表单schema
+    formSchema?: string | Array<Object>;
+    // form操作的时候字段schema
+    dataSchema?: string | Object;
+    // form标题
+    title?: string;
+    // 状态
+    status?: number;
+}
+
+export interface IWizard {
+    schemas: Array<IForm>;
+}
+
+export interface IColumn {
+    content: string;
+    title: string;
+    name?: string;
+    sort?: string;
+    unit?: string;
+}
+
+export interface IClientData {
+    total?: number;
+    rows?: Array<any>;
+}
+
+export interface IQueryData {
+    limit?: number;
+    offset?: number;
+    page?: number;
+}
+
+export interface IList {
+    columns: Array<IColumn>;
+    itemToolbars?: Array<Object>;
+    toolbars?: Array<Object>;
+    searchSchemaForm?: IForm;
+    showSearch?: boolean;
+    // clientData: IClientData;
+}
+
+/**
+ * 操作的模型
+ */
+export interface IActionModel {
+    // 唯一字符串
+    key: string;
+    // 操作的类型
+    type: ActionType;
+    // confirm 操作
+    confirm?: IConfirm,
+    // form 操作
+    form?: IForm;
+    // 多表单操作
+    wizard?: IWizard;
+    // 列表操作
+    list?: IList;
+    // 接口列表
+    interfaces?: Array<IInterfaceModel>;
     // 成功后显示的文字
-    successMsg: string;
+    successMsg?: string;
 }

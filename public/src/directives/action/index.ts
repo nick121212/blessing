@@ -4,53 +4,26 @@
 
 import * as angular from 'angular';
 import * as ngMaterial from 'angular-material';
-import {ActionModel, ActionType} from './models/action.model';
-import actProviderRegFunc from './services/action.provider';
 
+import actProviderRegFunc from './services/action.provider';
+import actUtilsFunc from './services/utils.service';
 import restSvrMod from '../../services/rest.service';
+import loginSchFunc from './schemas/login.value';
+import moudlesSchFunc from './schemas/modules.value';
+import formActionFunc from './directives/form.directive';
+
+import listActionFunc from './directives/list.directive';
 
 const _name = "fxAction";
-
-interface IDirectiveScope extends ng.IScope {
-    ngModel: any;
-}
-
-interface IDirectiveAttr extends ng.IAttributes {
-
-}
-
-class Controller {
-    static $inject: Array<string> = [];
-
-
-}
-
-/**
- * 操作指令,某个表单操作
- * @returns {{restrict: string, template: any, scope: {}, replace: boolean, link: (($scope:IDirectiveScope))}}
- * @constructor
- */
-function Directive(materialUtils, fxAction): ng.IDirective {
-    return {
-        restrict: 'EA',
-        // template: require("./tpls/index.jade")(),
-        scope: {
-            ngModel: "=",
-            fxAction: "@"
-        },
-        replace: true,
-        link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attrs: IDirectiveAttr) => {
-            fxAction.getModule();
-        }
-    };
-
-}
-
-Directive.$inject = ["materialUtils", "fxAction"];
-
 const module = angular.module(`${_name}Module`, [ngMaterial, restSvrMod]);
 
-module.directive(_name, Directive);
+actUtilsFunc(module);
 actProviderRegFunc(module);
+formActionFunc(module);
+listActionFunc(module);
+
+moudlesSchFunc(module);
+loginSchFunc(module);
+
 
 export default module.name;

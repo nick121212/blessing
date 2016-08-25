@@ -3,6 +3,8 @@
  */
 
 export class RegisterController {
+    title: string = "用户注册";
+
     constructor(private $rootScope, private $timeout) {
 
     }

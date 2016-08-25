@@ -7,6 +7,8 @@ declare namespace fx.utils {
     interface restStatic {
         setConfig(fn: Function): any;
         getRestAngular(router: string, unique?: boolean, baseUrl?: string): restangular.IElement;
+        getCustom(address: string, port: number, path: string): restangular.IElement;
+        getCustomRestful(address: string, port: number, path: string): restangular.IElement;
     }
     interface rest {
         new(baseUrl: string): restStatic;

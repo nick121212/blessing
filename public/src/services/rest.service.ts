@@ -12,15 +12,66 @@ class Service {
         class Service {
 
             private rest;
-            private restangularConfigurer;
+            private restAngularConfigurer;
 
             constructor(baseUrl: string = "") {
                 restangular.setBaseUrl(baseUrl);
 
-                this.rest = restangular.withConfig((restangularConfigurer)=> {
-                    this.restangularConfigurer = restangularConfigurer;
-                    restangularConfigurer.setFullResponse(true);
+                this.rest = restangular.withConfig((restAngularConfigurer)=> {
+                    this.restAngularConfigurer = restAngularConfigurer;
+                    restAngularConfigurer.setFullResponse(true);
                 });
+            }
+
+            /**
+             * 获取不是restful风格的接口信息
+             * @param address
+             * @param port
+             * @param path
+             * @param params
+             */
+            getCustom(address: string, port: number = 0, path: string) {
+                let baseUrl = "";
+                let restangu: restangular.IElement;
+
+                if (address) {
+                    baseUrl = `${address}`;
+                }
+                if (address && port) {
+                    baseUrl += `:${port}`;
+                }
+
+                if (!path) {
+                    console.error(`path不能为空!`);
+
+                    return null;
+                }
+
+                if (baseUrl) {
+                    restangu = restangular.oneUrl("custom", baseUrl);
+                } else {
+                    restangu = this.rest;
+                }
+
+                _.each(path.split("/"), (p)=> {
+                    restangu = restangu.all(p);
+                });
+
+                return restangu;
+            }
+
+            getCustomRestful(address: string, port: number = 0, path: string) {
+                let baseUrl = "";
+                let restangu: restangular.IElement;
+
+                if (address) {
+                    baseUrl = `${address}`;
+                }
+                if (address && port) {
+                    baseUrl += `:${port}`;
+                }
+
+                return this.getRestAngular(path, false, baseUrl);
             }
 
             /**
@@ -30,7 +81,7 @@ class Service {
              */
             setConfig(fn: Function) {
                 if (_.isFunction(fn)) {
-                    return fn(this.restangularConfigurer);
+                    return fn(this.restAngularConfigurer);
                 }
             }
 
@@ -42,19 +93,19 @@ class Service {
              * @returns {any}
              */
             getRestAngular(router: string, unique: boolean = true, baseUrl: string = ""): restangular.IElement {
-                let restangu;
-                let restangularP = unique ? this.rest : restangular;
+                let restAngular;
+                let restAngularP = unique ? this.rest : restangular;
 
                 if (baseUrl) {
-                    restangu = restangularP.oneUrl(router, baseUrl);
+                    restAngular = restAngularP.oneUrl(router, baseUrl);
                 }
-                restangu = (restangu || restangularP).all(router);
+                restAngular = (restAngular || restAngularP).all(router);
 
-                return restangu;
+                return restAngular;
             }
         }
 
-        return new Service("http://localhost:3000/");
+        return new Service("");
     }];
 }
 

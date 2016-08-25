@@ -10,8 +10,7 @@ module.exports = (app, logger)=> {
             return next();
         } else {
             logger.error("没有登陆的账号");
-
-            ctx.redirect('/login');
+            ctx.redirect('/passport/login');
         }
     });
 };

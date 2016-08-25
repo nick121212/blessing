@@ -8,8 +8,10 @@ import boom from 'boom';
 
 module.exports = (app, logger)=> {
     "use strict";
-
-    let router = new Router();
+    let utils = app.config.utils.index;
+    let router = new Router({
+        prefix: `/${utils.modelNames.passport}`
+    });
 
     router.get('/login', async(ctx, next)=> {
         throw boom.unauthorized("用户未登陆或没有权限!");
@@ -17,18 +19,18 @@ module.exports = (app, logger)=> {
 
     router.post('/login',
         passport.authenticate('local', {
-            successRedirect: '/',
-            failureRedirect: '/login'
-        })
+            failureRedirect: `/${utils.modelNames.passport}/login`
+        }), (res, next)=> {
+            res.body = res.passport.user;
+        }
     );
 
     router.get('/logout', (ctx)=> {
         ctx.logout();
-        ctx.redirect('/login');
+        ctx.redirect(`/${utils.modelNames.passport}/login`);
     });
 
-    app.use(router.routes())
-        .use(router.allowedMethods());
+    app.use(router.routes()).use(router.allowedMethods());
 
     return router;
 };

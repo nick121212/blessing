@@ -11,6 +11,7 @@ module.exports = {
     cache: true,
     debug: true,
     entry: {
+        vendors: ['jquery', 'lodash'],
         'page/index': './src/pages/index/index.ts',
         'page/style': './src/pages/style/index.ts'
     },
@@ -28,8 +29,14 @@ module.exports = {
             'restangular': __dirname + '/node_modules/restangular/dist/restangular',
             'angular.material.css': __dirname + '/node_modules/angular-material/angular-material.css',
             'angular.ui.tree.css': __dirname + '/node_modules/angular-ui-tree/dist/angular-ui-tree.css',
-            "font-awesome.css": __dirname + '/node_modules/font-awesome/css/font-awesome.css',
-            "mdi.svg":__dirname + '/svgs/mdi.svg'
+            'angular-schema-form': __dirname + '/node_modules/angular-schema-form/dist/schema-form',
+            'angular-schema-form-bootstrap': __dirname + '/node_modules/angular-schema-form/dist/bootstrap-decorator',
+            'angular-schema-form-ng-material': __dirname + '/src/directives/angular-schema-form-material/material-decorator',
+            'angular-material-data-table.css':__dirname + '/node_modules/angular-material-data-table/dist/md-data-table.css'
+            // 'md-data-table': __dirname + '/node_modules/md-data-table/dist/md-data-table',
+            // 'md-data-table-template': __dirname + '/node_modules/md-data-table/dist/md-data-table-templates',
+            // 'md-data-table.css': __dirname + '/node_modules/md-data-table/dist/md-data-table-style.css'
+
         }
     },
     module: {
@@ -51,16 +58,12 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             title: 'My App',
-            // <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no">
             template: 'index.html', // Load a custom template
             // inject: 'body' // Inject all scripts into the body
         }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': 'development'
         }),
-        // new webpack.ProvidePlugin({
-        //     _: 'lodash'
-        // }),
         new ExtractTextPlugin("dashboard.css")
     ]
 };
