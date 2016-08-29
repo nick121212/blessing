@@ -32,7 +32,8 @@ module.exports = {
             'angular-schema-form': __dirname + '/node_modules/angular-schema-form/dist/schema-form',
             'angular-schema-form-bootstrap': __dirname + '/node_modules/angular-schema-form/dist/bootstrap-decorator',
             'angular-schema-form-ng-material': __dirname + '/src/directives/angular-schema-form-material/material-decorator',
-            'angular-material-data-table.css':__dirname + '/node_modules/angular-material-data-table/dist/md-data-table.css'
+            'angular-material-data-table.css':__dirname + '/node_modules/angular-material-data-table/dist/md-data-table.css',
+            'angular-motion.css':__dirname + '/node_modules/angular-motion/dist/angular-motion.css'
             // 'md-data-table': __dirname + '/node_modules/md-data-table/dist/md-data-table',
             // 'md-data-table-template': __dirname + '/node_modules/md-data-table/dist/md-data-table-templates',
             // 'md-data-table.css': __dirname + '/node_modules/md-data-table/dist/md-data-table-style.css'

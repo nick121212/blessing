@@ -12,11 +12,11 @@ export class HomeController {
         $rootScope["user"] = "NICK";
 
         this.toolbar = [
-            toolbarUtils.btnBuilder("logo", "md-icon-button", false).iconBuilder("biohazard").btnClick(($event)=>{
+            toolbarUtils.btnBuilder("logo", "md-icon-button", false).iconBuilder("biohazard").btnClick(($event)=> {
                 this.doOpenNav($event);
             }).toValue(),
             toolbarUtils.labelBuilder(this.title).attrBuilder({flex: ""}).toValue(),
-            toolbarUtils.btnBuilder("菜单", "md-icon-button", false).iconBuilder("more_vert").btnClick(($event)=>{
+            toolbarUtils.btnBuilder($rootScope["user"], null, true).iconBuilder("more_vert").btnClick(($event)=> {
                 this.doOpenNav($event, 'right');
             }).toValue(),
         ];

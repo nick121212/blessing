@@ -1,18 +1,28 @@
-md-content(layout="row",flex)
+md-content(layout="row",flex,style="overflow:hidden;")
     md-content(layout="column",flex)
         md-toolbar.md-table-toolbar.md-default
-            div.md-toolbar-tools(fx-toolbar,layout="row",ng-model="listCtl.actionModel.list.toolbars",ctls="listCtl")
+            div.md-toolbar-tools(fx-toolbar,layout="row",ng-model="listCtl.actionModel.list.toolbars",ctls="listCtl",ng-disabled="listCtl.isBusy")
         md-divider
         md-table-container(flex)
-            table(md-table,flex,ng-model="listCtl.selected",md-process="listCtl.deferred")
+            table(md-table,flex,md-row-select,ng-model="listCtl.selected",md-progress="listCtl.promise")
                 thead(md-head,md-order="listCtl.queryData.order",md-on-reorder="listCtl.onOrderChange")
                     tr(md-row)
-                        th(md-column,md-order-by="{{column.name}}",ng-repeat="column in listCtl.actionModel.list.columns") {{column.title}}
+                        th(md-column,md-numeric="column.numeric",md-order-by="{{column.name}}",ng-repeat="column in listCtl.actionModel.list.columns") {{column.title}}
                         th(md-column,ng-if="listCtl.item.toolbar.length")
                 tbody(md-body)
                     tr(md-row,md-auto-select,ng-repeat="row in listCtl.clientData.rows")
                         td(md-cell,ng-repeat="column in listCtl.actionModel.list.columns")
-                            section(dy-compile,context="item",html="{{column.content}}") {{column.content}}
+                            section(dy-compile,item="row",html="{{column.content}}") {{column.content}}
                         td(md-cell)
-                            div(fx-toolbar,ng-model="listCtl.actionModel.list.itemToolbars",ctls="listCtl")
+                            div(fx-toolbar,ng-model="listCtl.actionModel.list.itemToolbars",ctls="")
         md-table-pagination(flex="none",md-boundary-links="0==0",md-page-select="listCtl.showPage",ng-disabled="listCtl.isBusy",md-limit="listCtl.queryData.limit" ,md-limit-options="listCtl.mdLimitOptions", md-page="listCtl.queryData.page" md-on-paginate="listCtl.onPageChange" md-total="{{listCtl.clientData.total}}")
+    md-content.am-fade-and-slide-right(layout="column",flex-gt-sm="30",flex="100",md-whiteframe="2",ng-show="listCtl.actionModel.list.showSearchPanel")
+        md-toolbar.md-table-toolbar.md-warn
+            div.md-toolbar-tools(fx-toolbar,layout="row",ng-model="listCtl.actionModel.list.searchToolbars",ctls="listCtl",ng-disabled="listCtl.isBusy")
+        form.md-margin(fx-form-action,key="{{listCtl.actionModel.list.searchActionKey}}",ng-model="listCtl.filterData",flex,layout="column",name="searchForm",ng-submit="listCtl.doSearch($event)")
+            span(flex)
+            md-divider
+            md-button.md-block(type="submit",ng-disabled="listCtl.isBusy")
+                md-icon
+                    ng-md-icon(icon="filter")
+                span 过滤一下

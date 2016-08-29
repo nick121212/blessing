@@ -5,41 +5,113 @@
 import {IActionModel, ActionType} from '../models/action.model';
 import {MethodType} from '../models/interface.model';
 
-const key = "modulesListAction";
+class ModuleList {
+    static $inject = ["toolbarUtils", "actionUtils"];
+    static key: string = "modulesListAction";
 
-/**
- * 返回用户登录界面的schema
- * @returns {IActionModel}
- * @constructor
- */
-function SchemaValue(toolbarUtils, actionUtils) {
-    let actionModel: IActionModel = {
-        key: key,
-        type: ActionType.list,
-        list: {
-            columns: [actionUtils.columnBuilder("item.key", "KEY", "key").toValue()],
-            toolbars: [
-                toolbarUtils.labelBuilder("{{listCtl.title}}").attrBuilder({flex: ""}).toValue(),
-                toolbarUtils.btnBuilder("刷新", "", true).iconBuilder("refresh", {fill: "black"}).btnClick(($event)=> {
-                    console.log("refresh");
-                }).toValue()
-            ]
-        },
-        interfaces: [{
-            key: "modulesList",
-            method: MethodType.GET,
-            address: "",
-            port: null,
-            path: "modules",
-            isRestful: true
-        }]
-    };
+    constructor(toolbarUtils, actionUtils) {
+        let actionModel: IActionModel = {
+            key: ModuleList.key,
+            type: ActionType.list,
+            title: "模块管理",
+            icon: "view-module",
+            list: {
+                columns: [
+                    actionUtils.columnBuilder("<span>KEY:{{item.key}}</span>", "KEY", "key").toValue(),
+                    actionUtils.columnBuilder("<span>{{ item.content|currency:'CHY￥':1 }}</span>", "金额(元)", "content").columnUnitBuilder("元", true).toValue()
+                ],
+                searchActionKey: "modulesSearchAction",
+                showRefreshBtn: true,
+                showSearchBtn: true,
+                showSearchPanel: false,
+                toolbars: [],
+                itemToolbars: []
+            },
+            actions: [ModuleAdd.key, ModuleSearch.key],
+            interfaces: [{
+                key: "modulesList",
+                method: MethodType.GET,
+                address: "",
+                port: null,
+                path: "modules",
+                isRestful: true
+            }]
+        };
 
-    return actionModel;
+        return actionModel;
+    }
+}
+class ModuleAdd {
+    static $inject = ["toolbarUtils", "actionUtils"];
+    static key: string = "modulesAddAction";
+
+    constructor(toolbarUtils, actionUtils) {
+        let actionModel: IActionModel = {
+            key: ModuleList.key,
+            type: ActionType.form,
+            title: "新建模块",
+            icon: "add",
+            form: {
+                dataSchema: {
+                    type: "object",
+                    properties: {
+                        username: {
+                            type: "string",
+                            title: "KEY"
+                        }
+                    }
+                },
+                formSchema: [{
+                    key: "username",
+                    type: "string",
+                    placeHolder: "KEY",
+                    description: "请输入key来进行搜索,不支持模糊查询",
+                    showHints: true,
+                    htmlClass: "md-block"
+                }]
+            }
+        };
+
+        return actionModel;
+    }
+}
+class ModuleSearch {
+    static $inject = ["toolbarUtils", "actionUtils"];
+    static key: string = "modulesSearchAction";
+
+    constructor(toolbarUtils, actionUtils) {
+        let actionModel: IActionModel = {
+            key: ModuleList.key,
+            icon: "search",
+            type: ActionType.form,
+            title: "模块搜索表单",
+            form: {
+                dataSchema: {
+                    type: "object",
+                    properties: {
+                        username: {
+                            type: "string",
+                            title: "KEY"
+                        }
+                    }
+                },
+                formSchema: [{
+                    key: "username",
+                    type: "string",
+                    placeHolder: "KEY",
+                    description: "请输入key来进行搜索,不支持模糊查询",
+                    showHints: true,
+                    htmlClass: "md-block"
+                }]
+            }
+        };
+
+        return actionModel;
+    }
 }
 
-SchemaValue.$inject = ["toolbarUtils", "actionUtils"];
-
 export default (module: ng.IModule) => {
-    module.service(key, SchemaValue);
+    module.service(ModuleList.key, ModuleList);
+    module.service(ModuleSearch.key, ModuleSearch);
+    module.service(ModuleAdd.key, ModuleAdd);
 }

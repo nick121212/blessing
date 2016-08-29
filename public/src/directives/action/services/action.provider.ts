@@ -31,8 +31,48 @@ class Provider {
             defer.resolve(this.$injector.get(key));
         } else {
             this.mdUtils.showErrMsg(`没有找到key[${key}]!`);
-            defer.reject("没有找到!");
+            defer.reject(key);
+            // this.doAction("modulesSearchAction", {
+            //     filter: {
+            //         where: {
+            //             key: key
+            //         }
+            //     }
+            // }).then((res)=> {
+            //     if (res.total > 0) {
+            //         return defer.resolve(res.rows[0]);
+            //     }
+            //     defer.reject(key);
+            // }, defer.reject);
         }
+
+        return defer.promise;
+    }
+
+    getModels(keys: Array<string|IActionModel>) {
+        const defer = this.$q.defer();
+        const actionModels = {};
+        const notFoundsKeys = [];
+        const promises: {[id: string]: ng.IPromise<any>} = {};
+
+        _.each(keys, (key)=> {
+            if (_.isObject(key)) {
+                actionModels[(key as IActionModel).key] = key;
+            }
+            else {
+                promises[key as string] = this.getModel(key as string).then((actionModel)=> {
+                    actionModels[key as string] = actionModel;
+                }).catch((key)=> {
+                    notFoundsKeys.push(key);
+                });
+            }
+        });
+
+        this.$q.all(promises).then(()=> {
+            defer.resolve(actionModels);
+        }).catch(()=> {
+            defer.resolve(actionModels);
+        });
 
         return defer.promise;
     }
@@ -52,7 +92,7 @@ class Provider {
         }
 
         return this.getModel(key).then((model: IActionModel)=> {
-            let interfacesRest:{ [id: string]: ng.IPromise<any>; } = {};
+            let interfacesRest: { [id: string]: ng.IPromise<any>; } = {};
 
             _.each(model.interfaces, (interfaceModel: IInterfaceModel)=> {
                 let restAngular = interfaceModel.isRestful ? this.restUtils.getCustomRestful(interfaceModel.address, interfaceModel.port, interfaceModel.path)
@@ -63,7 +103,7 @@ class Provider {
                         promise = restAngular.post(data, null);
                         break;
                     case MethodType.GET:
-                        promise = restAngular.getList(data);
+                        promise = restAngular.customGET("", data, null);
                         break;
                 }
                 interfacesRest[interfaceModel.key] = promise;

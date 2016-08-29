@@ -6,10 +6,14 @@
 import * as ngMaterial from 'angular-material';
 import * as uiRouter from 'angular-ui-router';
 import * as ngMaterialIcons from 'angular-material-icons';
+import * as mdDataTable from 'angular-material-data-table';
+
 import {initRouter} from './router';
 import materialServiceMod from '../../services/material.service';
 import restRegMod from '../../services/rest.service';
 import actionDir from '../../directives/action';
+import dyCompileFunc from '../../directives/dycompile';
+
 import 'angular-animate';
 import 'angular-aria';
 
@@ -18,13 +22,10 @@ import 'objectPath';
 import 'angular-schema-form';
 import 'angular-schema-form-ng-material';
 
-import * as mdDataTable from 'angular-material-data-table';
-
-// import 'md-data-table.css';
-// import 'md-data-table-template';
-// import 'md-data-table';
 
 const module = angular.module("pageModule", [ngMaterialIcons, actionDir, "schemaForm", mdDataTable, ngMaterial as string, uiRouter as string, materialServiceMod, restRegMod]);
+
+dyCompileFunc(module);
 
 module.config([
     "$stateProvider",

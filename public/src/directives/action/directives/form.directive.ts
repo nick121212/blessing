@@ -20,8 +20,12 @@ class Controller {
     ngModel: Object;
 
     constructor(private $scope, private fxAction) {
+
+    }
+
+    getActionModel() {
         if (this.key) {
-            fxAction.getModel(this.key).then((model)=> {
+            this.fxAction.getModel(this.key).then((model)=> {
                 this.actionModel = model;
             });
         }
@@ -38,6 +42,7 @@ function Directive(): ng.IDirective {
         restrict: 'EA',
         template: require("../tpls/form.jade")(),
         scope: true,
+        require: "^fxFormAction",
         bindToController: {
             ngModel: "=",
             key: "@"
@@ -46,11 +51,14 @@ function Directive(): ng.IDirective {
         controllerAs: 'formCtl',
         replace: false,
         transclude: true,
-        link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attrs: IDirectiveAttr) => {
-
+        link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attrs: IDirectiveAttr, $ctl: Controller) => {
+            $scope.$watch(()=> {
+                return $ctl.key;
+            }, ()=> {
+                $ctl.getActionModel();
+            });
         }
     };
-
 }
 
 export default (module: ng.IModule)=> {

@@ -31,21 +31,27 @@ strategy.register("btn", require('./tpls/btn.jade')());
 strategy.register("layout", require('./tpls/layout.jade')());
 strategy.register("label", require('./tpls/label.jade')());
 strategy.register("menu", require('./tpls/menu.jade')());
+strategy.register("menuItem", require('./tpls/menu-item.jade')());
 
 class Controller {
-    static $inject = ["$scope", "$rootScope", "$compile", "$interpolate"];
+    static $inject = ["$scope", "$rootScope", "$compile", "$interpolate", "materialUtils"];
 
     ctls: string;
     ngModel: Object;
+    ngDisabled: Object;
 
-    constructor(private $scope: ng.IScope, private $rootScope: ng.IRootScopeService, private $compile: ng.ICompileService, private $interpolate: ng.IInterpolateService) {
+    constructor(private $scope: ng.IScope, private $rootScope: ng.IRootScopeService, private $compile: ng.ICompileService, private $interpolate: ng.IInterpolateService, private materialUtils: fx.utils.materialStatic) {
 
     }
+
+    openMenu($mdOpenMenu, ev) {
+        $mdOpenMenu(ev);
+    };
 
     dig(models, $ele, $scope) {
         _.each(models, (model)=> {
             let template = strategy.get(model['type']);
-            let $newScope = this.$rootScope.$new(true, $scope);
+            let $newScope = $scope.$new(true, $scope);
             let tmp: string, $newEle: JQuery;
 
             if (!template) {
@@ -54,6 +60,8 @@ class Controller {
             if (!template) {
                 return console.error("没有模板或者找不到类型!");
             }
+            model.disabled = `${this.ngDisabled}`;
+            model.materialUtils = this.materialUtils;
             // 设置controllerAs
             $newScope[`${model['type']}Ctl`] = model;
             if (this.ctls) {
@@ -84,11 +92,12 @@ function Directive(): ng.IDirective {
         scope: {},
         bindToController: {
             ctls: '@',
+            ngDisabled: '@',
             ngModel: '='
         },
         controllerAs: 'toolbarCtl',
         controller: Controller,
-        replace: false,
+        replace: true,
         link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attr: ng.IAttributes, $ctl: Controller) => {
             $scope.$watchCollection(()=> {
                 return $ctl[0].ngModel;

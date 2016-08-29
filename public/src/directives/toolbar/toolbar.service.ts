@@ -11,8 +11,23 @@ class Service {
     public static provider: Array<string | Function> = [() => {
 
         class Base {
-            constructor(protected data?: Object) {
+            constructor(public data?: any) {
 
+            }
+
+            disabledBuilder(disabled: string|boolean) {
+                this.data = _.extend({}, this.data, {
+                    disabled: disabled
+                });
+
+                return this;
+            }
+
+            noOptions(tooltip: boolean = false, icon: boolean = false) {
+                tooltip && delete this.data.tooltip;
+                icon && delete this.data.icon;
+
+                return this;
             }
 
             tooltipBuilder(title: string = "", position: string = "bottom") {
@@ -26,7 +41,7 @@ class Service {
                 return this;
             }
 
-            iconBuilder(icon: string, style?: [{(id: string): any}]) {
+            iconBuilder(icon: string, style?: [{(id: string): any}], options?: [{(id: string): any}]) {
                 this.data = _.extend({}, this.data, {
                     icon: {
                         icon: icon,
@@ -54,7 +69,7 @@ class Service {
             }
 
             btnClick(func: Function) {
-                if(func && _.isFunction(func)){
+                if (func && _.isFunction(func)) {
                     this.data = _.extend({}, this.data, {
                         onClick: func
                     });
@@ -63,13 +78,22 @@ class Service {
                 return this;
             }
 
-            toValue() {
+            menuOptionsBuilder(width: number = 4, items: Array<any> = []) {
+                this.data = _.extend({}, this.data, {
+                    width: width || 4,
+                    items: items || []
+                });
+
+                return this;
+            }
+
+            toValue(): any {
                 return this.data;
             }
         }
 
         class Service extends Base {
-            constructor(protected data?: Object) {
+            constructor(public data?: any) {
                 super(data);
             }
 
@@ -80,7 +104,7 @@ class Service {
              * @param showTitle
              * @returns {Service}
              */
-            btnBuilder(title: string, className: string, showTitle: boolean = true, tooltipPosition: string = "bottom"): Object {
+            btnBuilder(title: string, className: string, showTitle: boolean = true, tooltipPosition: string = "bottom"): Service {
                 const service = new Service({
                     type: "btn",
                     title: title,
@@ -93,19 +117,35 @@ class Service {
                 return service;
             }
 
+            menuBuilder(title: string, className: string, showTitle: boolean = true, tooltipPosition: string = "bottom"): Service {
+                const service = this.btnBuilder(title, className, showTitle, tooltipPosition);
+
+                service.data.type = "menu";
+
+                return service;
+            }
+
+            menuItemBuilder(title: string, className: string, showTitle: boolean = true, tooltipPosition: string = "bottom"): Service {
+                const service = this.btnBuilder(title, className, showTitle, tooltipPosition);
+
+                service.data.type = "menuItem";
+
+                return service;
+            }
+
             /**
              * label配置生成方法
              * @param title
              * @returns {Service}
              */
-            labelBuilder(title: string) {
+            labelBuilder(title: string): Service {
                 return new Service({
                     type: "label",
                     title: title
                 });
             }
 
-            layoutBuilder(flex: string = "none", layout: string = "none", layoutAlign: string = "none none") {
+            layoutBuilder(flex: string = "none", layout: string = "none", layoutAlign: string = "none none"): Service {
                 return new Service({
                     type: "layout",
                     flex: flex,

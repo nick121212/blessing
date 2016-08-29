@@ -16,6 +16,15 @@ class Service {
 
             }
 
+            columnUnitBuilder(unit: string, numeric: boolean|string = false) {
+                this.data = _.extend({}, this.data, {
+                    unit: unit,
+                    numeric: numeric
+                });
+
+                return this;
+            }
+
             toValue(): T {
                 return this.data;
             }

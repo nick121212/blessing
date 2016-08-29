@@ -14,6 +14,7 @@ function SchemaValue() {
     let actionModel: IActionModel = {
         key: "login",
         type: ActionType.form,
+        icon: "",
         form: {
             dataSchema: {
                 type: "object",

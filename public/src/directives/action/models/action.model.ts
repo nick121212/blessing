@@ -62,10 +62,13 @@ export interface IList {
     columns: Array<IColumn>;
     itemToolbars?: Array<Object>;
     toolbars?: Array<Object>;
-    searchSchemaForm?: IForm;
-    showSearch?: boolean;
-    // clientData: IClientData;
+    searchToolbars?: Array<Object>;
+    searchActionKey?: String;
+    showSearchBtn?: boolean;
+    showRefreshBtn?: boolean;
+    showSearchPanel?: boolean;
 }
+
 
 /**
  * 操作的模型
@@ -73,6 +76,10 @@ export interface IList {
 export interface IActionModel {
     // 唯一字符串
     key: string;
+    // 图标
+    icon?: string;
+    // 标题
+    title?: string;
     // 操作的类型
     type: ActionType;
     // confirm 操作
@@ -83,6 +90,8 @@ export interface IActionModel {
     wizard?: IWizard;
     // 列表操作
     list?: IList;
+    // 子操作
+    actions?: Array<IActionModel|string>;
     // 接口列表
     interfaces?: Array<IInterfaceModel>;
     // 成功后显示的文字
