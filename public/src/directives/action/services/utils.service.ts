@@ -7,9 +7,14 @@ import {IActionModel, IColumn} from "../models/action.model";
 
 
 class Service {
-    public static _name: string = "actionUtils";
+    public static _builderName: string = "actionUtils";
+    public static _toolbarName: string = "toolbarActionUtils";
 
-    public static provider: Array<string | Function> = [() => {
+    /**
+     * 构建服务
+     * @type {()=>Service<T>[]}
+     */
+    public static builder: Array<string | Function> = [() => {
 
         class Base<T> {
             constructor(protected data?: T) {
@@ -55,8 +60,26 @@ class Service {
 
         return new Service();
     }];
+
+    /**
+     * 工具栏服务
+     * @type {()=>Service[]}
+     */
+    public static toolbar: Array<string|Function> = ['fxAction', 'toolbarUtils', (fxAction, toolbarUtils)=> {
+        class Service {
+            constructor() {
+            }
+
+            initToolbar(key: string) {
+
+            }
+        }
+
+        return new Service();
+    }];
 }
 
 export default (module: ng.IModule)=> {
-    module.service(Service._name, Service.provider);
+    module.service(Service._builderName, Service.builder);
+    module.service(Service._toolbarName, Service.toolbar);
 };

@@ -56,6 +56,9 @@ export interface IQueryData {
     limit?: number;
     offset?: number;
     page?: number;
+    where?: any;
+    attributes?: any;
+    order?: Array<string>;
 }
 
 export interface IList {

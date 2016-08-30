@@ -12,8 +12,6 @@ import passportModule from '../passport';
 
 import './index.scss';
 
-console.log(angular);
-
 const module = angular.module("indexApp", [passportModule, homeModule, pageModule, loadingDir]);
 
 angular.element(document).ready(() => {

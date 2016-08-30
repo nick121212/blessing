@@ -27,6 +27,7 @@
     "./src/services/rest.service.d.ts",
     "./src/services/svg.service.d.ts",
     "./typings/angular-material-data-table.d.ts",
-    "./typings/angular-material-icons.d.ts"
+    "./typings/angular-material-icons.d.ts",
+    "./typings/json-path-processor.d.ts"
   ]
 }

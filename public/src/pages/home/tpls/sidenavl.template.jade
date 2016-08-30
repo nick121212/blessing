@@ -10,4 +10,4 @@ md-content(flex="100",layout="column",ng-cloak)
                     md-icon
                         ng-md-icon(options='{"rotation": "none"}',ng-if="!sideCtl.isLeaf(node)",icon="{{ sideCtl.isShowChildren(node)?'expand_more':'chevron_right' }}")
     md-divider
-    div(fx-toolbar,ng-model="sideLeftCtl.toolbarBottom")
+    div(fx-toolbar,items="sideLeftCtl.toolbarBottom")

@@ -44,6 +44,7 @@
     "font-awesome": "^4.6.3",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
+    "json-path-processor": "^0.2.3",
     "lodash": "^4.0.0",
     "md-data-table": "github:iamisti/mdDataTable",
     "node-sass": "^3.8.0",

@@ -12,6 +12,15 @@ export enum MethodType{
     PUT,
     HEAD
 }
+
+
+export interface IJpp {
+    set?: {[id: string]: string},
+    copy?: {[id: string]: string},
+    move?: {[id: string]: string},
+    del?: {[id: string]: string}
+}
+
 /**
  * 操作的模型
  */
@@ -32,5 +41,5 @@ export interface IInterfaceModel {
     params?: boolean|Object;
     // 是否是restful接口
     isRestful: boolean;
-
+    jpp?: IJpp;
 }

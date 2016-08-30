@@ -34,6 +34,15 @@ class ModuleList {
                 address: "",
                 port: null,
                 path: "modules",
+                jpp: {
+                    set: {
+                        "total": "count",
+                        "rows": "rows"
+                    },
+                    copy: {},
+                    move: {},
+                    del: {}
+                },
                 isRestful: true
             }]
         };
@@ -47,7 +56,7 @@ class ModuleAdd {
 
     constructor(toolbarUtils, actionUtils) {
         let actionModel: IActionModel = {
-            key: ModuleList.key,
+            key: ModuleAdd.key,
             type: ActionType.form,
             title: "新建模块",
             icon: "add",
@@ -55,18 +64,25 @@ class ModuleAdd {
                 dataSchema: {
                     type: "object",
                     properties: {
-                        username: {
+                        key: {
                             type: "string",
                             title: "KEY"
+                        },
+                        content: {
+                            type: "string",
+                            title: "CONTENT"
                         }
                     }
                 },
                 formSchema: [{
-                    key: "username",
+                    key: "key",
                     type: "string",
                     placeHolder: "KEY",
-                    description: "请输入key来进行搜索,不支持模糊查询",
-                    showHints: true,
+                    htmlClass: "md-block"
+                }, {
+                    key: "content",
+                    type: "string",
+                    placeHolder: "CONTENT",
                     htmlClass: "md-block"
                 }]
             }
@@ -81,7 +97,7 @@ class ModuleSearch {
 
     constructor(toolbarUtils, actionUtils) {
         let actionModel: IActionModel = {
-            key: ModuleList.key,
+            key: ModuleSearch.key,
             icon: "search",
             type: ActionType.form,
             title: "模块搜索表单",

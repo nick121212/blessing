@@ -11,8 +11,9 @@ import restSvrMod from '../../services/rest.service';
 import loginSchFunc from './schemas/login.value';
 import moudlesSchFunc from './schemas/modules.value';
 import formActionFunc from './directives/form.directive';
-
 import listActionFunc from './directives/list.directive';
+import dialogFormFunc from './directives/dialog-form.directive';
+import searchActionFunc from './directives/search.directive';
 
 const _name = "fxAction";
 const module = angular.module(`${_name}Module`, [ngMaterial, restSvrMod]);
@@ -24,6 +25,8 @@ listActionFunc(module);
 
 moudlesSchFunc(module);
 loginSchFunc(module);
+dialogFormFunc(module);
+searchActionFunc(module);
 
 
 export default module.name;

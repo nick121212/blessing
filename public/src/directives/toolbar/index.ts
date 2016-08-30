@@ -37,6 +37,7 @@ class Controller {
     static $inject = ["$scope", "$rootScope", "$compile", "$interpolate", "materialUtils"];
 
     ctls: string;
+    items: Object;
     ngModel: Object;
     ngDisabled: Object;
 
@@ -46,7 +47,7 @@ class Controller {
 
     openMenu($mdOpenMenu, ev) {
         $mdOpenMenu(ev);
-    };
+    }
 
     dig(models, $ele, $scope) {
         _.each(models, (model)=> {
@@ -60,10 +61,12 @@ class Controller {
             if (!template) {
                 return console.error("没有模板或者找不到类型!");
             }
+
             model.disabled = `${this.ngDisabled}`;
             model.materialUtils = this.materialUtils;
+            model.ngModel = this.ngModel;
             // 设置controllerAs
-            $newScope[`${model['type']}Ctl`] = model;
+            $newScope[`${model['type']}Ctl`] = _.clone(model);
             if (this.ctls) {
                 $newScope[this.ctls] = $scope.$parent[this.ctls] || {};
             }
@@ -88,25 +91,26 @@ class Controller {
 function Directive(): ng.IDirective {
     return {
         restrict: 'EA',
-        require: [_name, "^ngModel"],
+        require: [_name],
         scope: {},
         bindToController: {
             ctls: '@',
             ngDisabled: '@',
+            items: "=",
             ngModel: '='
         },
         controllerAs: 'toolbarCtl',
         controller: Controller,
-        replace: true,
+        replace: false,
         link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attr: ng.IAttributes, $ctl: Controller) => {
             $scope.$watchCollection(()=> {
-                return $ctl[0].ngModel;
+                return $ctl[0].items;
             }, (newValue)=> {
                 let model = newValue;
 
                 if (!model) return;
                 if (!_.isObject(model) && !_.isArray(model)) {
-                    return console.error("ngModel只能是对象或者数组!");
+                    return console.error("items只能是对象或者数组!");
                 }
                 $ctl[0].dig(_.isArray(model) ? model : [model], $ele, $scope);
             });

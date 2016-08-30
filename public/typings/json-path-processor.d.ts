@@ -1,7 +1,6 @@
 declare namespace JppJS {
-
     interface Jpp {
-        value(path:string):any;
+        value(path?:string):any;
         get(path):Jpp;
         set(path:string, value:any, create:boolean):Jpp;
         copy(from:string, to:string, skip:boolean):Jpp;

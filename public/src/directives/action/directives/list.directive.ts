@@ -11,15 +11,15 @@ class Controller {
     mdLimitOptions: Array<number> = [10, 30, 50, 100, 300];
     actionModel: IActionModel;
     clientData: IClientData = {};
-    ngModel: Object;
-    onOrderChange: Function;
-    onPageChange: Function;
-    queryData: IQueryData = {};
+    queryData: IQueryData = {page: 1, limit: 10};
     isBusy: boolean = false;
     showPage: boolean = false;
     selected: Array<Object> = [];
     promise: ng.IPromise<any>;
-    filterData: Object = {};
+
+    onOrderChange: Function;
+    onPageChange: Function;
+    doSearchBind: Function;
 
     /**
      * 构造函数
@@ -30,18 +30,15 @@ class Controller {
      * @param toolbarUtils
      */
     constructor(private $scope, private $q, private $timeout, private fxAction, private toolbarUtils) {
-        if (this.key) {
-            fxAction.getModel(this.key).then((model) => {
-                this.actionModel = model;
-                this.initToolbar();
-                this.initItemToolbar();
-                this.doSearch();
-            });
-        }
+        fxAction.getModel(this.key).then((model) => {
+            this.actionModel = model;
+            this.initToolbar();
+            this.initItemToolbar();
+            this.doSearch();
+        });
         this.onOrderChange = this.orderChange.bind(this);
         this.onPageChange = this.pageChange.bind(this);
-        this.queryData.page = 1;
-        this.queryData.limit = 10;
+        this.doSearchBind = this.doSearch.bind(this);
     }
 
     /**
@@ -61,24 +58,7 @@ class Controller {
             this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("{{listCtl.actionModel.list.showSearchPanel?'关闭搜索栏':'打开搜索栏'}}", "md-icon-button", false).iconBuilder("{{listCtl.actionModel.list.showSearchPanel?'window-open':'window-closed'}}", {fill: "black"}).btnClick(($event)=> {
                 this.actionModel.list.showSearchPanel = !this.actionModel.list.showSearchPanel;
             }).toValue());
-            // 初始化搜索栏
-            this.initSearchToolbar();
         }
-    }
-
-    /**
-     * 初始化搜索toolbar
-     */
-    initSearchToolbar() {
-        this.actionModel.list.searchToolbars = [
-            this.toolbarUtils.labelBuilder(`${this.actionModel.title}搜索`).attrBuilder({flex: ""}).toValue(),
-            this.toolbarUtils.btnBuilder("清空搜索条件", "md-icon-button", false).iconBuilder("do_not_disturb_alt").btnClick(($event)=> {
-                this.clearFilterData();
-            }).toValue(),
-            this.toolbarUtils.btnBuilder("关闭搜索栏", "md-icon-button", false).iconBuilder("{{listCtl.actionModel.list.showSearchPanel?'window-open':'window-closed'}}").btnClick(($event)=> {
-                this.actionModel.list.showSearchPanel = !this.actionModel.list.showSearchPanel;
-            }).toValue()
-        ];
     }
 
     /**
@@ -90,8 +70,8 @@ class Controller {
         this.fxAction.getModels(this.actionModel.actions).then((actionModels)=> {
             _.forEach(actionModels, (actionModel: IActionModel)=> {
                 if (actionModel.type = ActionType.form) {
-                    menuTool.items.push(this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event)=> {
-                        console.log(actionModel);
+                    menuTool.items.push(this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any)=> {
+                        this.fxAction.doActionModel($event, actionModel, item);
                     }).toValue());
                 }
             });
@@ -101,21 +81,26 @@ class Controller {
     }
 
     /**
-     * 删除搜索字段
-     */
-    clearFilterData() {
-        this.filterData = {};
-    }
-
-    /**
      * 更改排序回调
      * @param order
      */
     orderChange(order: string) {
-        console.log(order, this.key);
-        console.log(this.queryData);
+        let orders = order.split('-');
 
-        this.doSearch();
+        // 返回的order信息是  -key|key,前面带"-"的是倒序
+        if (orders.length > 0) {
+            switch (orders.length) {
+                case 1:
+                    orders.push("asc");
+                    break;
+                case 2:
+                    orders = _.reverse(orders);
+                    orders[1] = "desc";
+                    break;
+            }
+            this.queryData.order = orders;
+            this.doSearch();
+        }
     }
 
     /**
@@ -131,32 +116,24 @@ class Controller {
         if (page > 0) {
             this.queryData.offset = (page - 1) * limit;
         }
-        console.log(this.queryData.page, this.queryData.limit, this.queryData.offset);
         this.doSearch();
     }
 
     /**
      * 搜索数据
-     * @param clearParams
+     * @param filterData {Object} 搜索数据
      */
-    doSearch(clearParams: boolean = false) {
+    doSearch(filterData?: any) {
         this.isBusy = true;
-        this.promise = this.fxAction.doAction(this.key, this.filterData).then(()=> {
-            let defer = this.$q.defer();
 
-            this.clientData = {
-                total: 100,
-                rows: [{
-                    key: "100",
-                    content: "80.5"
-                }]
-            };
+        this.queryData.where = filterData || {};
+        this.promise = this.fxAction.doAction(this.key, this.queryData);
 
-            this.$timeout(()=> {
-                defer.resolve();
-            }, 3000);
-
-            return defer.promise;
+        if(!this.promise) {
+            return;
+        }
+        this.promise.then((result)=> {
+            this.fxAction.doDealResult(this.actionModel, result, this.clientData);
         }).finally(()=> {
             this.isBusy = false
         });
@@ -174,8 +151,8 @@ function Directive(): ng.IDirective {
         template: require("../tpls/list.jade")(),
         scope: true,
         bindToController: {
-            ngModel: "=",
-            key: "@"
+            key: "@",
+            selected: '=?'
         },
         controller: Controller,
         controllerAs: 'listCtl',

@@ -24,11 +24,9 @@ class Controller {
     }
 
     getActionModel() {
-        if (this.key) {
-            this.fxAction.getModel(this.key).then((model)=> {
-                this.actionModel = model;
-            });
-        }
+        this.fxAction.getModel(this.key).then((model)=> {
+            this.actionModel = model;
+        });
     }
 }
 
@@ -44,7 +42,7 @@ function Directive(): ng.IDirective {
         scope: true,
         require: "^fxFormAction",
         bindToController: {
-            ngModel: "=",
+            formData: "=ngModel",
             key: "@"
         },
         controller: Controller,
