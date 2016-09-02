@@ -18,8 +18,9 @@ class Controller {
         this.formData = this.formData || {};
     }
 
-    doSubmit(form) {
-        console.log(form, this.formData);
+    doSubmit($form) {
+        this.fxAction.doFormCheck($form);
+        // console.log($form, this.formData);
     }
 
     getActionModel() {
@@ -44,7 +45,7 @@ function Directive(): ng.IDirective {
     return {
         restrict: 'EA',
         template: require("../tpls/form-dialog.jade")(),
-        scope: true,
+        scope: {},
         require: `^${_dirName}`,
         bindToController: {
             key: "@",
@@ -53,13 +54,15 @@ function Directive(): ng.IDirective {
         controller: Controller,
         controllerAs: 'dialogFormCtl',
         replace: true,
-        transclude: true,
-        link: ($scope, $ele: ng.IAugmentedJQuery, $attrs, $ctl: Controller) => {
-            $scope.$watch(()=> {
-                return $ctl.key;
-            }, ()=> {
-                $ctl.getActionModel();
-            });
+        compile: ($ele)=> {
+            // $ele.replaceWith(angular.element($ele.html()));
+            return ($scope, $ele: ng.IAugmentedJQuery, $attrs, $ctl: Controller) => {
+                $scope.$watch(()=> {
+                    return $ctl.key;
+                }, ()=> {
+                    $ctl.getActionModel();
+                });
+            };
         }
     };
 }

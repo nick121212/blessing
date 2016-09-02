@@ -23,7 +23,6 @@ class Controller {
     disabled: boolean;
     toolbars: Array<any>;
     isShow: boolean;
-    title: string;
     doSearch: Function;
 
     constructor(private fxAction, private toolbarUtils) {
@@ -45,11 +44,11 @@ class Controller {
      */
     initSearchToolbar() {
         this.toolbars = [
-            this.toolbarUtils.labelBuilder(`${this.title}搜索`).attrBuilder({flex: ""}).toValue(),
+            this.toolbarUtils.labelBuilder('{{searchCtl.title}}搜索').attrBuilder({flex: ""}).toValue(),
             this.toolbarUtils.btnBuilder("清空搜索条件", "md-icon-button", false).iconBuilder("clear_all").btnClick(($event)=> {
                 this.clearFilterData();
             }).toValue(),
-            this.toolbarUtils.btnBuilder("关闭搜索栏", "md-icon-button", false).iconBuilder("{{listCtl.actionModel.list.showSearchPanel?'window-open':'window-closed'}}").btnClick(($event)=> {
+            this.toolbarUtils.btnBuilder("关闭搜索栏", "md-icon-button", false).iconBuilder("{{searchCtl.isShow?'window-open':'window-closed'}}").btnClick(($event)=> {
                 this.isShow = !this.isShow;
             }).toValue()
         ];
@@ -80,8 +79,8 @@ function Directive(): ng.IDirective {
             key: "@",
             disabled: '=',
             isShow: '=',
-            title: '=',
-            doSearch: '=?'
+            doSearch: '=?',
+            title: '=?'
         },
         require: `^${_name}`,
         controller: Controller,
@@ -89,9 +88,9 @@ function Directive(): ng.IDirective {
         replace: true,
         link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attrs, $ctl: Controller) => {
             // $scope.$watch(()=> {
-            //     return $ctl.key;
+            //     return $ctl.title;
             // }, ()=> {
-            //     $ctl.getActionModel();
+            //     console.log($ctl.title);
             // });
         }
     };

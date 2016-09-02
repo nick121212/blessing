@@ -10,6 +10,7 @@ export class LoginController {
     formData: Object = {username: "nick", password: "nick"};
 
     constructor(private $state: ng.ui.IStateService, private fxAction) {
+        console.log($state);
     }
 
     /**
@@ -21,7 +22,7 @@ export class LoginController {
 
         promise && promise.then((results)=> {
             console.log(results);
-            this.$state.go("home.page", {key: "test"});
+            this.$state.go("home.page", {key: "modulesListAction"});
         });
     }
 }

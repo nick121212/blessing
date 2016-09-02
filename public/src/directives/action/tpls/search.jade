@@ -1,6 +1,6 @@
-md-content.am-fade-and-slide-right(layout="column",flex-gt-sm="30",flex="100",md-whiteframe="2",ng-show="searchCtl.isShow")
+md-content.nga-fast.nga-stagger-fast.nga-slide-right(layout="column",flex-gt-sm="30",flex="100",md-whiteframe="2",ng-show="searchCtl.isShow")
     md-toolbar.md-table-toolbar.md-warn
-        div.md-toolbar-tools(fx-toolbar,layout="row",items="searchCtl.toolbars",ctls="listCtl",ng-disabled="listCtl.isBusy")
+        div.md-toolbar-tools(fx-toolbar,layout="row",items="searchCtl.toolbars",ctls="searchCtl",ng-disabled="searchCtl.disabled")
     form.md-margin(fx-form-action,key="{{searchCtl.key}}",ng-model="searchCtl.formData",flex,layout="column",name="searchForm",ng-submit="searchCtl.doPreSearch($event,searchForm)")
         span(flex)
         md-divider

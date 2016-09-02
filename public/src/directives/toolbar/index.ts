@@ -27,6 +27,7 @@ class Strategy {
 
 const strategy = new Strategy();
 
+strategy.register("icon", require('./tpls/icon.jade')());
 strategy.register("btn", require('./tpls/btn.jade')());
 strategy.register("layout", require('./tpls/layout.jade')());
 strategy.register("label", require('./tpls/label.jade')());

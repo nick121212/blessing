@@ -153,6 +153,12 @@ class Service {
                     layoutAlign: layoutAlign
                 });
             }
+
+            noneBuilder(type: string) {
+                return new Service({
+                    type: type
+                });
+            }
         }
 
         return new Service();

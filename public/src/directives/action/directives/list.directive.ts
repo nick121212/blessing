@@ -31,7 +31,7 @@ class Controller {
      */
     constructor(private $scope, private $q, private $timeout, private fxAction, private toolbarUtils) {
         fxAction.getModel(this.key).then((model) => {
-            this.actionModel = model;
+            this.actionModel = _.cloneDeep(model);
             this.initToolbar();
             this.initItemToolbar();
             this.doSearch();
@@ -46,19 +46,32 @@ class Controller {
      */
     initToolbar() {
         // 添加标题label
-        this.actionModel.list.toolbars.unshift(this.toolbarUtils.labelBuilder(this.actionModel.title).attrBuilder({flex: ""}).toValue());
-        // 添加刷新按钮
-        if (this.actionModel.list.showRefreshBtn) {
-            this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("刷新", "md-icon-button", false).iconBuilder("refresh", {fill: "black"}).btnClick(($event)=> {
-                this.doSearch();
-            }).toValue());
-        }
-        // 添加显示/隐藏搜索按钮
-        if (this.actionModel.list.showSearchBtn) {
-            this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("{{listCtl.actionModel.list.showSearchPanel?'关闭搜索栏':'打开搜索栏'}}", "md-icon-button", false).iconBuilder("{{listCtl.actionModel.list.showSearchPanel?'window-open':'window-closed'}}", {fill: "black"}).btnClick(($event)=> {
-                this.actionModel.list.showSearchPanel = !this.actionModel.list.showSearchPanel;
-            }).toValue());
-        }
+        this.actionModel.list.toolbars.push(this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon, {fill: "black"}).toValue());
+        this.actionModel.list.toolbars.push(this.toolbarUtils.labelBuilder(`${this.actionModel.title}`).attrBuilder({flex: ""}).toValue());
+        //
+        this.fxAction.getModels(this.actionModel.actions).then((actionModels)=> {
+            _.forEach(actionModels, (actionModel: IActionModel)=> {
+                if (actionModel.type !== ActionType.list) {
+                    this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder(actionModel.title, "md-icon-button", false).tooltipBuilder("").iconBuilder(actionModel.icon, {fill: "black"}).btnClick(($event, item: any)=> {
+                        this.fxAction.doActionModel($event, actionModel, item);
+                    }).toValue());
+                }
+            });
+            // 添加刷新按钮
+            if (this.actionModel.list.showRefreshBtn) {
+                this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("刷新", "md-icon-button", false).iconBuilder("refresh", {fill: "black"}).btnClick(($event)=> {
+                    this.doSearch();
+                }).toValue());
+            }
+            // 添加显示/隐藏搜索按钮
+            if (this.actionModel.list.showSearchBtn) {
+                this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("{{listCtl.actionModel.list.showSearchPanel?'关闭搜索栏':'打开搜索栏'}}", "md-icon-button", false).iconBuilder("{{listCtl.actionModel.list.showSearchPanel?'window-open':'window-closed'}}", {fill: "black"}).btnClick(($event)=> {
+                    this.actionModel.list.showSearchPanel = !this.actionModel.list.showSearchPanel;
+                }).toValue());
+            }
+        });
+
+
     }
 
     /**
@@ -67,7 +80,7 @@ class Controller {
     initItemToolbar() {
         const menuTool: any = this.toolbarUtils.menuBuilder("", "md-icon-button").tooltipBuilder("").iconBuilder("more_vert").noOptions(true, false).menuOptionsBuilder().toValue();
 
-        this.fxAction.getModels(this.actionModel.actions).then((actionModels)=> {
+        this.fxAction.getModels(this.actionModel.itemActions).then((actionModels)=> {
             _.forEach(actionModels, (actionModel: IActionModel)=> {
                 if (actionModel.type = ActionType.form) {
                     menuTool.items.push(this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any)=> {
@@ -98,7 +111,7 @@ class Controller {
                     orders[1] = "desc";
                     break;
             }
-            this.queryData.order = orders;
+            // this.queryData.order = orders;
             this.doSearch();
         }
     }
@@ -129,7 +142,7 @@ class Controller {
         this.queryData.where = filterData || {};
         this.promise = this.fxAction.doAction(this.key, this.queryData);
 
-        if(!this.promise) {
+        if (!this.promise) {
             return;
         }
         this.promise.then((result)=> {

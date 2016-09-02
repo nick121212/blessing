@@ -100,7 +100,7 @@ class Service {
             /**
              * 打开sidenav
              */
-            buildToggler(navId: string) {
+            buildToggle(navId: string) {
                 return () => {
                     $mdSidenav(navId).toggle()
                         .then(() => {

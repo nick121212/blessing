@@ -11,23 +11,15 @@
   },
   "exclude": [
     "node_modules",
-    "built"
+    "built",
+    "typings"
   ],
   "files": [
-    "../typings/angular-material/angular-material.d.ts",
-    "../typings/angular-ui-router/angular-ui-router.d.ts",
-    "../typings/angularjs/angular.d.ts",
-    "../typings/node/node.d.ts",
-    "../typings/angular-ui-tree/angular-ui-tree.d.ts",
-    "../typings/tv4/tv4.d.ts",
-    "../typings/object-path/object-path.d.ts",
-    "../typings/lodash/lodash.d.ts",
-    "../typings/restangular/restangular.d.ts",
+    "../typings/tsd.d.ts",
     "./src/services/material.service.d.ts",
     "./src/services/rest.service.d.ts",
     "./src/services/svg.service.d.ts",
     "./typings/angular-material-data-table.d.ts",
-    "./typings/angular-material-icons.d.ts",
-    "./typings/json-path-processor.d.ts"
+    "./typings/angular-material-icons.d.ts"
   ]
 }

@@ -3,9 +3,22 @@
  */
 
 export class SidenavRightController {
-    public static $inject = ["$rootScope", "materialUtils"];
+    public static $inject = ["fxAction"];
 
-    constructor(private $rootScope, private materialUtils) {
+    constructor(private fxAction) {
+
+    }
+
+    doExit($event: MouseEvent) {
+        this.fxAction.getModel('logout').then((model)=> {
+            const promise = this.fxAction.doActionModel($event, model);
+
+            if (promise) {
+                promise.then(()=> {
+                    console.log("logout");
+                });
+            }
+        });
 
     }
 }

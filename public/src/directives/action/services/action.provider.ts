@@ -5,7 +5,7 @@
 import * as _ from 'lodash';
 import {IActionModel, ActionType, IClientData} from "../models/action.model";
 import {IInterfaceModel, MethodType} from "../models/interface.model";
-import * as Jpp from 'jsonPathProcessor';
+import * as pointer from 'json-pointer';
 
 class Provider {
     static $inject = ["$rootScope", "$injector", "restUtils", "materialUtils", "$q", "$mdDialog"];
@@ -78,15 +78,33 @@ class Provider {
      * @param $event
      * @param actionModel
      * @param item
+     * @return {Promise<any>}
      */
     doActionModel($event, actionModel: IActionModel, item?: any) {
         if (actionModel.type == ActionType.form) {
-            this.$mdDialog.show({
+            return this.$mdDialog.show({
                 targetEvent: $event,
+                clickOutsideToClose: false,
+                escapeToClose: false,
+                // fullscreen: true,
                 controller: function ($scope) {
                     $scope['item'] = item;
+                    $scope['key'] = actionModel.key;
                 },
-                template: `<fx-dialog-form-action ng-model="item" key="${actionModel.key}"></fx-dialog-form-action>`
+                template: require("../tpls/form-dialog-action.jade")()
+            });
+        }
+
+        if (actionModel.type == ActionType.confirm) {
+            const confirm = this.$mdDialog.confirm()
+                .title(actionModel.confirm.confirmTitle)
+                .textContent(actionModel.confirm.confirmContent)
+                .ariaLabel(actionModel.confirm.confirmTitle)
+                .targetEvent($event)
+                .ok(actionModel.confirm.confirmOk || "确定")
+                .cancel(actionModel.confirm.confirmCancel || "取消");
+            return this.$mdDialog.show(confirm).then(()=> {
+                return this.doAction(actionModel.key, {});
             });
         }
     }
@@ -121,26 +139,16 @@ class Provider {
             let result = results[iInterface.key];
 
             if (result) {
-                let source = Jpp(result);
-                let destination = Jpp(clientData);
+                // let source = Jpp(result);
+                // let destination = Jpp(clientData);
 
                 // 接口数据拷贝到本地
                 _.forEach(iInterface.jpp.set, (val, key)=> {
-                    let jppVal = source.get(val);
-
-                    destination.set(key, jppVal.value(), true);
-                });
-                // 本地数据的拷贝
-                _.forEach(iInterface.jpp.copy, (val, key)=> {
-                    destination.copy(key, val, true);
-                });
-                // 本地数据的移动
-                _.forEach(iInterface.jpp.move, (val, key)=> {
-                    destination.move(key, val);
+                    pointer.set(clientData, key, pointer.get(result, val));
                 });
                 // 本地数据的删除
                 _.forEach(iInterface.jpp.del, (val, key)=> {
-                    destination.del(key);
+                    pointer.remove(clientData, key);
                 });
             }
         });

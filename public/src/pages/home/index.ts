@@ -43,7 +43,7 @@ module.config([
         // });
     }])
     .run(["$rootScope", "$state", "$q", "svgUtils", ($rootScope: ng.IRootScopeService, $state, $q: ng.IQService, svgUtils: fx.utils.svgStatic)=> {
-        let state: {$$isFinish?: boolean,toState?: uiRouter.IState,toParams?: Object,options?: Object} = {};
+        let state: {$$isFinish?: boolean,toState?: ng.ui.IState,toParams?: Object,options?: Object} = {};
 
         // 处理路回调
         function handleResolve() {

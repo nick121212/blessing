@@ -94,6 +94,8 @@ export interface IActionModel {
     // 列表操作
     list?: IList;
     // 子操作
+    itemActions?: Array<IActionModel|string>;
+    // 子操作
     actions?: Array<IActionModel|string>;
     // 接口列表
     interfaces?: Array<IInterfaceModel>;

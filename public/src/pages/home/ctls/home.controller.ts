@@ -23,7 +23,7 @@ export class HomeController {
     }
 
     doOpenNav($event: MouseEvent, directive: string = "left") {
-        this.materialUtils.buildToggler(directive).call(this, $event);
+        this.materialUtils.buildToggle(directive).call(this, $event);
     }
 }
 

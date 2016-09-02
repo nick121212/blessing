@@ -25,7 +25,7 @@ module.exports = (app, logger)=> {
         }
     );
 
-    router.get('/logout', (ctx)=> {
+    router.post('/logout', (ctx)=> {
         ctx.logout();
         ctx.redirect(`/${utils.modelNames.passport}/login`);
     });

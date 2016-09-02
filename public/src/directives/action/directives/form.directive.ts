@@ -17,7 +17,7 @@ class Controller {
 
     actionModel: IActionModel;
     key: string;
-    ngModel: Object;
+    formData: Object;
 
     constructor(private $scope, private fxAction) {
 

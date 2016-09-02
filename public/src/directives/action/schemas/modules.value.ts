@@ -27,7 +27,8 @@ class ModuleList {
                 toolbars: [],
                 itemToolbars: []
             },
-            actions: [ModuleAdd.key, ModuleSearch.key],
+            itemActions: [ModuleAdd.key],
+            actions: [ModuleAdd.key],
             interfaces: [{
                 key: "modulesList",
                 method: MethodType.GET,
@@ -36,8 +37,8 @@ class ModuleList {
                 path: "modules",
                 jpp: {
                     set: {
-                        "total": "count",
-                        "rows": "rows"
+                        "/total": "/count",
+                        "/rows": "/rows"
                     },
                     copy: {},
                     move: {},
@@ -63,27 +64,58 @@ class ModuleAdd {
             form: {
                 dataSchema: {
                     type: "object",
+                    required: ["key", "content"],
                     properties: {
                         key: {
                             type: "string",
                             title: "KEY"
                         },
-                        content: {
+                        title: {
                             type: "string",
-                            title: "CONTENT"
+                            title: "模块名称"
+                        },
+                        icon: {
+                            type: "string",
+                            title: "图标"
+                        },
+                        parentKey: {
+                            type: "string",
+                            title: "父亲节点KEY"
+                        },
+                        description: {
+                            type: "string",
+                            title: "描述",
+                            maxLength: "500"
+                        },
+                        showed: {
+                            type: "boolean",
+                            title: "是否显示"
                         }
                     }
                 },
                 formSchema: [{
-                    key: "key",
-                    type: "string",
-                    placeHolder: "KEY",
+                    key: "parentKey",
+                    type: "text",
                     htmlClass: "md-block"
                 }, {
-                    key: "content",
-                    type: "string",
-                    placeHolder: "CONTENT",
+                    key: "key",
+                    type: "text",
                     htmlClass: "md-block"
+                }, {
+                    key: "title",
+                    type: "text",
+                    htmlClass: "md-block"
+                }, {
+                    key: "icon",
+                    type: "text",
+                    htmlClass: "md-block"
+                }, {
+                    key: "description",
+                    type: "textarea",
+                    htmlClass: "md-block"
+                }, {
+                    key: "showed",
+                    type: "checkbox"
                 }]
             }
         };

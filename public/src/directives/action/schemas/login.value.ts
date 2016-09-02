@@ -10,7 +10,7 @@ import {MethodType} from '../models/interface.model';
  * @returns {IActionModel}
  * @constructor
  */
-function SchemaValue() {
+function LoginSchemaValue() {
     let actionModel: IActionModel = {
         key: "login",
         type: ActionType.form,
@@ -64,8 +64,34 @@ function SchemaValue() {
     return actionModel;
 }
 
-export default (module: ng.IModule)=> {
-    const model = SchemaValue();
+function LogoutSchemaValue() {
+    let actionModel: IActionModel = {
+        key: "logout",
+        type: ActionType.confirm,
+        icon: "",
+        confirm: {
+            confirmTitle: '用户中心?',
+            confirmContent: '确定要退出么?',
+            confirmOk: "果断退出",
+            confirmCancel: '在看看'
+        },
+        interfaces: [{
+            key: "logoutAction",
+            method: MethodType.POST,
+            address: "",
+            port: null,
+            path: "/passport/logout",
+            isRestful: false
+        }]
+    };
 
-    module.value(model.key, model);
+    return actionModel;
+}
+
+export default (module: ng.IModule)=> {
+    const models = [LoginSchemaValue(), LogoutSchemaValue()];
+
+    _.each(models, (model)=> {
+        module.value(model.key, model);
+    });
 }

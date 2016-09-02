@@ -14,7 +14,7 @@ declare namespace fx.utils {
         showErrMsg(msg: string): ng.IPromise<any>;
         showMsg(msg: string): ng.IPromise<any>;
         openMenu($mdOpenMenu: Function, $event: MouseEvent): void;
-        buildToggler(navId: string): Function;
+        buildToggle(navId: string): Function;
     }
 
 }
