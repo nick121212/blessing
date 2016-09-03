@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a852fbb4-3296-487b-829b-49d811ca8dcc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/directives/dialog-form.directive.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/directives/dialog-form.directive.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/models/interface.model.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/models/interface.model.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/schemas/modules.value.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/schemas/modules.value.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controllers/module/updateItem.js" afterPath="$PROJECT_DIR$/server/controllers/module/updateItem.js" />
     </list>
     <ignored path="blessing.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,7 +39,7 @@
       <file leaf-file-name="action.provider.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="885">
               <caret line="190" column="104" selection-start-line="190" selection-start-column="104" selection-end-line="190" selection-end-column="115" />
               <folding />
             </state>
@@ -81,28 +77,28 @@
       <file leaf-file-name="action.model.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/src/directives/action/models/action.model.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="100" column="32" selection-start-line="100" selection-start-column="32" selection-end-line="100" selection-end-column="32" />
+            <state relative-caret-position="-285">
+              <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="interface.model.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="interface.model.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/src/directives/action/models/interface.model.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="43" column="24" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+            <state relative-caret-position="180">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dialog-form.directive.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dialog-form.directive.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/src/directives/action/directives/dialog-form.directive.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+            <state relative-caret-position="216">
+              <caret line="60" column="21" selection-start-line="60" selection-start-column="21" selection-end-line="60" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -160,7 +156,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/public/typings/json-path-processor.d.ts" />
-        <option value="$PROJECT_DIR$/public/src/directives/action/models/action.model.ts" />
         <option value="$PROJECT_DIR$/public/src/directives/toolbar/tpls/icon.jade" />
         <option value="$PROJECT_DIR$/public/src/directives/toolbar/index.ts" />
         <option value="$PROJECT_DIR$/public/src/directives/toolbar/toolbar.service.ts" />
@@ -207,9 +202,10 @@
         <option value="$PROJECT_DIR$/public/src/directives/action/directives/list.directive.ts" />
         <option value="$PROJECT_DIR$/server/controllers/module/updateItem.js" />
         <option value="$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts" />
-        <option value="$PROJECT_DIR$/public/src/directives/action/models/interface.model.ts" />
         <option value="$PROJECT_DIR$/public/src/directives/action/schemas/modules.value.ts" />
         <option value="$PROJECT_DIR$/public/src/directives/action/directives/dialog-form.directive.ts" />
+        <option value="$PROJECT_DIR$/public/src/directives/action/models/action.model.ts" />
+        <option value="$PROJECT_DIR$/public/src/directives/action/models/interface.model.ts" />
       </list>
     </option>
   </component>
@@ -624,7 +620,7 @@
       <workItem from="1472451036963" duration="29064000" />
       <workItem from="1472569930810" duration="19513000" />
       <workItem from="1472800770177" duration="7516000" />
-      <workItem from="1472887533284" duration="2710000" />
+      <workItem from="1472887533284" duration="4243000" />
     </task>
     <task id="LOCAL-00001" summary="firest add">
       <created>1470822334282</created>
@@ -780,11 +776,18 @@
       <option name="project" value="LOCAL" />
       <updated>1472888587819</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="action指令修改">
+      <created>1472890489780</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1472890489780</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="296144000" />
+    <option name="totallyTimeSpent" value="297677000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -979,6 +982,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1184,22 +1188,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="190" column="104" selection-start-line="190" selection-start-column="104" selection-end-line="190" selection-end-column="115" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/directives/action/models/action.model.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="100" column="32" selection-start-line="100" selection-start-column="32" selection-end-line="100" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/src/directives/action/schemas/modules.value.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
@@ -1216,18 +1204,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/directives/action/models/interface.model.ts">
+    <entry file="file://$PROJECT_DIR$/public/src/directives/action/directives/dialog-form.directive.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="43" column="24" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+        <state relative-caret-position="216">
+          <caret line="60" column="21" selection-start-line="60" selection-start-column="21" selection-end-line="60" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/directives/action/directives/dialog-form.directive.ts">
+    <entry file="file://$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+        <state relative-caret-position="885">
+          <caret line="190" column="104" selection-start-line="190" selection-start-column="104" selection-end-line="190" selection-end-column="115" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/src/directives/action/models/action.model.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/src/directives/action/models/interface.model.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -13,7 +13,6 @@ export enum MethodType{
     HEAD
 }
 
-
 export interface IJpp {
     set?: {[id: string]: string},
     copy?: {[id: string]: string},
@@ -41,6 +40,8 @@ export interface IInterfaceModel {
     params?: boolean|Object;
     // 是否是restful接口
     isRestful: boolean;
+    // 数据拷贝等
+    jpp?: IJpp;
     // put和delete请求时候带参数
     idFieldPath?: string;
 }
