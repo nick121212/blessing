@@ -6,14 +6,29 @@ import * as _ from 'lodash';
 import Dictionary = _.Dictionary;
 
 export class SidenavLeftController {
-    $inject = ["$rootScope", "materialUtils", "mdSideMenuSections", "toolbarUtils"];
+    $inject = ["mdSideMenuSections", "toolbarUtils", "faAction"];
 
     toolbarBottom: Object;
     selectedNodes: Dictionary<any>;
     modules: Array<any>;
 
-    constructor(private $rootScope, private materialUtils, private mdSideMenuSections, private toolbarUtils) {
+    constructor(private mdSideMenuSections, private toolbarUtils, private fxAction) {
         this.initModules().initToolbar();
+    }
+
+    menuLoop(nodes: _.Dictionary, depth: number = 0) {
+        let nodes = _.filter(nodes, (d) => {
+            return d["depth"] === depth;
+        });
+
+        _.forEach(nodes, (node) => {
+            if (nodes[node["parentKey"]]) {
+                !nodes[node["parentKey"]].nodes && (nodes[node["parentKey"]].nodes = []);
+                // node["menuLink"] = node["link"];
+                node["showed"] && nodes[node["parentKey"]].nodes.push(node);
+            }
+        });
+        nodes.length && this.menuLoop(nodes, depth + 1);
     }
 
     /**
@@ -158,6 +173,21 @@ export class SidenavLeftController {
                 ]
             }
         ];
+
+        let promise = this.fxAction.doAction('moduleMenuAction', null);
+
+        promise && promise.then((result)=> {
+            let nodes: Array<Object> = [];
+
+            _.forEach(result, (iiterface)=> {
+                if (_.isArray(iiterface)) {
+                    nodes = nodes.concat(iiterface);
+                }
+            });
+
+            console.log(nodes);
+        });
+
         this.mdSideMenuSections.options = {
             children: "nodes",
             key: 'menuId',

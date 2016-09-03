@@ -7,7 +7,8 @@
  */
 import {IInterfaceModel} from "./interface.model";
 export enum ActionType {
-    list = 1,
+    none = 0,
+    list,
     form,
     wizard,
     confirm

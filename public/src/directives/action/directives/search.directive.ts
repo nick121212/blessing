@@ -85,14 +85,7 @@ function Directive(): ng.IDirective {
         require: `^${_name}`,
         controller: Controller,
         controllerAs: 'searchCtl',
-        replace: true,
-        link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attrs, $ctl: Controller) => {
-            // $scope.$watch(()=> {
-            //     return $ctl.title;
-            // }, ()=> {
-            //     console.log($ctl.title);
-            // });
-        }
+        replace: true
     };
 
 }

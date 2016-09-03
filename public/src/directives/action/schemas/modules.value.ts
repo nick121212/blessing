@@ -54,6 +54,29 @@ class ModuleList {
         return actionModel;
     }
 }
+class ModuleMenus {
+    static $inject = ["toolbarUtils", "actionUtils"];
+    static key: string = "moduleMenuAction";
+
+    constructor(toolbarUtils, actionUtils) {
+        let actionModel: IActionModel = {
+            key: ModuleMenus.key,
+            type: ActionType.list,
+            title: "模块管理",
+            icon: "view-module",
+            interfaces: [{
+                key: "moduleMenu",
+                method: MethodType.GET,
+                address: "",
+                port: null,
+                path: "/modules/menu",
+                isRestful: false
+            }]
+        };
+
+        return actionModel;
+    }
+}
 class ModuleAdd {
     static $inject = ["toolbarUtils", "actionUtils"];
     static key: string = "modulesAddAction";
@@ -252,8 +275,9 @@ class ModuleSearch {
 }
 
 export default (module: ng.IModule) => {
-    module.service(ModuleList.key, ModuleList);
-    module.service(ModuleSearch.key, ModuleSearch);
-    module.service(ModuleAdd.key, ModuleAdd);
-    module.service(ModuleEdit.key, ModuleEdit);
+    const services = [ModuleMenus, ModuleList, ModuleSearch, ModuleAdd, ModuleEdit];
+
+    _.each(services, (service)=> {
+        module.service(service.key, service);
+    });
 }

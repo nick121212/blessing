@@ -13,6 +13,9 @@ export enum MethodType{
     HEAD
 }
 
+/**
+ * 数据拷贝移动操作
+ */
 export interface IJpp {
     set?: {[id: string]: string},
     copy?: {[id: string]: string},
