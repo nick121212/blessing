@@ -15,7 +15,7 @@ export class PageController {
         //     console.log(modules);
         // });
 
-        console.log($stateParams);
+        // console.log($stateParams);
 
         this.key = $stateParams["key"];
     }

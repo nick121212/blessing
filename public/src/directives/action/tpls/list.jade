@@ -8,12 +8,13 @@ md-content(layout="row",flex,style="overflow:hidden;")
                 thead(md-head,md-order="listCtl.queryData.order",md-on-reorder="listCtl.onOrderChange")
                     tr(md-row)
                         th(md-column,md-numeric="column.numeric",md-order-by="{{column.name}}",ng-repeat="column in listCtl.actionModel.list.columns") {{column.title}}
-                        th(md-column,ng-if="listCtl.item.toolbar.length")
+                        th(md-column,md-numeric,ng-if="listCtl.item.toolbar.length")
                 tbody(md-body)
                     tr(md-row,md-auto-select,ng-repeat="row in listCtl.clientData.rows")
                         td(md-cell,ng-repeat="column in listCtl.actionModel.list.columns")
                             section(dy-compile,item="row",html="{{column.content}}") {{column.content}}
-                        td(md-cell)
+                        td(md-cell,layout="row")
+                            span(flex)
                             div(fx-toolbar,items="listCtl.actionModel.list.itemToolbars",ctls="listCtl",ng-model="row",ng-disabled="listCtl.isBusy")
         md-table-pagination(flex="none",md-boundary-links="0==0",md-page-select="listCtl.showPage",ng-disabled="listCtl.isBusy",md-limit="listCtl.queryData.limit" ,md-limit-options="listCtl.mdLimitOptions", md-page="listCtl.queryData.page" md-on-paginate="listCtl.onPageChange" md-total="{{listCtl.clientData.total}}")
 

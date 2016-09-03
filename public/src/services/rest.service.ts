@@ -12,14 +12,14 @@ class Service {
         class Service {
 
             private rest;
-            private restAngularConfigurer;
+            private restAngularConfig;
 
             constructor(baseUrl: string = "") {
+                // this.rest = restangular;
                 restangular.setBaseUrl(baseUrl);
-
-                this.rest = restangular.withConfig((restAngularConfigurer)=> {
-                    this.restAngularConfigurer = restAngularConfigurer;
-                    restAngularConfigurer.setFullResponse(true);
+                this.rest = restangular.withConfig((restAngularConfig)=> {
+                    this.restAngularConfig = restAngularConfig;
+                    // restAngularConfig.setFullResponse(true);
                 });
             }
 
@@ -62,7 +62,6 @@ class Service {
 
             getCustomRestful(address: string, port: number = 0, path: string) {
                 let baseUrl = "";
-                let restangu: restangular.IElement;
 
                 if (address) {
                     baseUrl = `${address}`;
@@ -71,7 +70,7 @@ class Service {
                     baseUrl += `:${port}`;
                 }
 
-                return this.getRestAngular(path, false, baseUrl);
+                return this.getRestAngular(path, true, baseUrl);
             }
 
             /**
@@ -81,7 +80,7 @@ class Service {
              */
             setConfig(fn: Function) {
                 if (_.isFunction(fn)) {
-                    return fn(this.restAngularConfigurer);
+                    return fn(this.restAngularConfig);
                 }
             }
 
@@ -96,10 +95,16 @@ class Service {
                 let restAngular;
                 let restAngularP = unique ? this.rest : restangular;
 
+                console.log(unique);
+
                 if (baseUrl) {
                     restAngular = restAngularP.oneUrl(router, baseUrl);
                 }
                 restAngular = (restAngular || restAngularP).all(router);
+
+                // restAngular.withConfig(function () {
+                //     console.log(arguments)
+                // })
 
                 return restAngular;
             }

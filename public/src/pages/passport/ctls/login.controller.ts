@@ -10,7 +10,7 @@ export class LoginController {
     formData: Object = {username: "nick", password: "nick"};
 
     constructor(private $state: ng.ui.IStateService, private fxAction) {
-        console.log($state);
+        // console.log($state);
     }
 
     /**

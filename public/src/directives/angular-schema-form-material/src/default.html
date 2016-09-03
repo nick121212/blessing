@@ -1,6 +1,7 @@
 <md-input-container class="schema-form-{{::form.type}} {{::form.htmlClass}}"
-                    ng-class="{'has-error': hasError(), 'has-success': hasSuccess(), 'has-feedback': form.feedback !== false}"
-                    sf-messages sf-layout sf-material-class="md-input-has-value">
+                    md-is-error="ngModel.$error && ngModel.$invalid"
+                    sf-layout
+                    sf-material-class="md-input-has-value">
     <label ng-show="showTitle()" for="{{::form.key|sfCamelKey}}">{{::form.title}}</label>
     <md-icon ng-if="form.icon">
         <ng-md-icon icon="{{ form.icon.leftIcon }}" ng-style="form.icon.style"></ng-md-icon>
@@ -18,5 +19,8 @@
            schema-validate="form"
            name="{{::form.key|sfCamelKey}}"
            aria-describedby="{{::form.key|sfCamelKey}}Status"/>
+    <div ng-messages="ngModel.$error" aria-live="assertive">
+        <div sf-message ng-message></div>
+    </div>
     <div class="hint md-char-counter" ng-if="form.showHints" ng-bind="form.description"></div>
 </md-input-container>

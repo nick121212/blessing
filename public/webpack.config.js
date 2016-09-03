@@ -25,6 +25,7 @@ module.exports = {
         // exclude: /node_modules|bower_components/,
         // root: 'node_modules',
         alias: {
+            'restangular': __dirname + '/node_modules/restangular/dist/restangular',
             'svg-morpheus': __dirname + '/node_modules/svg-morpheus/compile/unminified/svg-morpheus',
             'angular-schema-form': __dirname + '/node_modules/angular-schema-form/dist/schema-form',
             'angular-schema-form-ng-material': __dirname + '/src/directives/angular-schema-form-material/material-decorator',

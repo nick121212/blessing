@@ -6,7 +6,7 @@ module.exports = (app)=> {
             username: 'root',
             password: '',
             database: 'blessing',
-            force: true,
+            force: false,
             options: {
                 dialect: 'mysql',
                 host: 'localhost',

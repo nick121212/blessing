@@ -17,8 +17,11 @@ class ModuleList {
             icon: "view-module",
             list: {
                 columns: [
-                    actionUtils.columnBuilder("<span>KEY:{{item.key}}</span>", "KEY", "key").toValue(),
-                    actionUtils.columnBuilder("<span>{{ item.content|currency:'CHY￥':1 }}</span>", "金额(元)", "content").columnUnitBuilder("元", true).toValue()
+                    actionUtils.columnBuilder("<span>{{::item.key}}</span>", "KEY", "key").toValue(),
+                    actionUtils.columnBuilder("<span>{{ ::item.title }}</span>", "模块名称").toValue(),
+                    actionUtils.columnBuilder(`<ng-md-icon icon="{{ ::item.icon }}"></ng-md-icon>`, "图标").toValue(),
+                    actionUtils.columnBuilder(`<span>{{ ::item.lft }}</span>`, "lft").toValue(),
+                    actionUtils.columnBuilder(`<span>{{ ::item.rgt }}</span>`, "rgt").toValue()
                 ],
                 searchActionKey: "modulesSearchAction",
                 showRefreshBtn: true,
@@ -64,7 +67,7 @@ class ModuleAdd {
             form: {
                 dataSchema: {
                     type: "object",
-                    required: ["key", "content"],
+                    required: ["key", "title", "icon"],
                     properties: {
                         key: {
                             type: "string",
@@ -117,7 +120,15 @@ class ModuleAdd {
                     key: "showed",
                     type: "checkbox"
                 }]
-            }
+            },
+            interfaces: [{
+                key: "modulesAdd",
+                method: MethodType.POST,
+                address: "",
+                port: null,
+                path: "modules",
+                isRestful: true
+            }]
         };
 
         return actionModel;

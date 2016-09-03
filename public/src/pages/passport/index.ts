@@ -26,7 +26,7 @@ module.config([
         restUtils.setConfig((restAngularConfigure: restangular.IProvider)=> {
             restAngularConfigure.setErrorInterceptor((response: restangular.IResponse)=> {
                 if (response.status == 401) {
-                    console.error(response.data);
+                    console.error("login",response.data);
                     !$state.is("passport.login") && $state.go("passport.login");
                     return false;
                 }

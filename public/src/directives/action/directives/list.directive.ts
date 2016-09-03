@@ -70,15 +70,13 @@ class Controller {
                 }).toValue());
             }
         });
-
-
     }
 
     /**
      * 初始化单项的Item的toolbar
      */
     initItemToolbar() {
-        const menuTool: any = this.toolbarUtils.menuBuilder("", "md-icon-button").tooltipBuilder("").iconBuilder("more_vert").noOptions(true, false).menuOptionsBuilder().toValue();
+        const menuTool: any = this.toolbarUtils.menuBuilder("", "md-icon-button").tooltipBuilder("操作菜单").iconBuilder("menu").menuOptionsBuilder().toValue();
 
         this.fxAction.getModels(this.actionModel.itemActions).then((actionModels)=> {
             _.forEach(actionModels, (actionModel: IActionModel)=> {

@@ -1,11 +1,11 @@
-md-content
-    md-input-container.md-block
+md-content(layout="column")
+    md-input-container.md-block.no-errors
         label 搜索图标
         input(ng-model="contentCtl.filter")
-    md-divider
-    md-button(ng-repeat="icon in contentCtl.icons | filter:contentCtl.filter | orderBy ")
-        div(layout="column")
-            md-icon
-                ng-md-icon(icon="{{icon}}")
-            span {{icon}}
+    md-content(flex)
+        md-button(ng-repeat="icon in contentCtl.icons | filter:contentCtl.filter | orderBy ")
+            div(layout="column")
+                md-icon
+                    ng-md-icon(icon="{{::icon}}")
+                span {{::icon}}
 

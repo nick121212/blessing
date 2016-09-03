@@ -33,6 +33,18 @@ module.config([
     ($stateProvider, $urlRouterProvider) => {
         // 初始化路由
         initRouter($urlRouterProvider, $stateProvider);
+    }])
+    .run(["$state", "restUtils", "materialUtils", ($state, restUtils: fx.utils.restStatic, materialUtils: fx.utils.materialStatic)=> {
+        // 添加全局错误拦截器
+        restUtils.setConfig((restAngularConfigure: restangular.IProvider)=> {
+            restAngularConfigure.setErrorInterceptor((response: restangular.IResponse)=> {
+                if (response.status !== 401) {
+                    materialUtils.showErrMsg(response.data.msg);
+                    return false;
+                }
+                return true;
+            });
+        });
     }]);
 
 export default module.name;

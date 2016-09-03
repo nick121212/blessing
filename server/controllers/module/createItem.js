@@ -5,12 +5,30 @@ exports = module.exports = (app, logger) => {
     let Model = utils.findModel(utils.modelNames.module);
     let {models, sequelize, Sequelize} = app.config.db.index;
 
+    /**
+     * 创建模块数据
+     * 1、验证数据的合法性
+     * 2、判断数据库中是否存在【key】的模块,有则报错
+     * 3、判断父级模块是否存在,如果存在,而创建的模块又是父级模块,则报错
+     * 4、更新数据库中的模块的左右值
+     * 5、创建新数据,数据的左值=父级模块的右值,右值=父级模块的右值+2
+     */
     return async(ctx, next) => {
+        let model = ctx.request.body;
         let trans = await sequelize.transaction();
-        let model = ctx.body;
 
-        if (typeof model !== "object" || !model.title) {
+        if (typeof model !== "object" || !model.title || !model.key) {
             throw boom.badData('数据没有填写完整!');
+        }
+
+        let findModel = await Model.count({
+            where: {
+                key: model.key
+            }
+        });
+
+        if (findModel) {
+            throw boom.badData(`已经存在【${model.key}】的模块!`);
         }
 
         let parentModel = await Model.findOne({
@@ -33,7 +51,7 @@ exports = module.exports = (app, logger) => {
                     transaction: trans,
                     bind: [parentModel.rgt]
                 });
-                await sequelize.query('update menu set rgt=rgt+2 where rgt >= $1;', {
+                await sequelize.query('update module set rgt=rgt+2 where rgt >= $1;', {
                     transaction: trans,
                     bind: [parentModel.rgt]
                 });
@@ -49,13 +67,12 @@ exports = module.exports = (app, logger) => {
 
             await trans.commit();
 
-            ctx.body =newModel;
+            ctx.body = newModel;
         }
         catch (e) {
             await trans.rollback();
 
             throw e;
         }
-
     };
 };

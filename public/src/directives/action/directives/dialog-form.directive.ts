@@ -7,19 +7,29 @@ import {IActionModel} from '../models/action.model';
 const _dirName = 'fxDialogFormAction';
 
 class Controller {
-    static $inject = ["$scope", "fxAction", "toolbarUtils", "$mdDialog"];
+    static $inject = ["$scope", "fxAction", "materialUtils", "toolbarUtils", "$mdDialog"];
 
     formData: {};
     actionModel: IActionModel;
     key: string;
     toolbars: Array<any>;
 
-    constructor(private $scope, private fxAction, private toolbarUtils, private $mdDialog) {
+    constructor(private $scope, private fxAction, private materialUtils: fx.utils.materialStatic, private toolbarUtils, private $mdDialog) {
         this.formData = this.formData || {};
     }
 
     doSubmit($form) {
-        this.fxAction.doFormCheck($form);
+        let promise = this.fxAction.doAction(this.key, this.formData, $form);
+
+        if (promise) {
+            promise.then((result)=> {
+                console.log(result);
+
+                this.$mdDialog.cancel().then(()=> {
+                    this.materialUtils.showMsg(this.actionModel.successMsg || "操作成功!");
+                });
+            });
+        }
         // console.log($form, this.formData);
     }
 
@@ -27,6 +37,7 @@ class Controller {
         this.fxAction.getModel(this.key).then((model)=> {
             this.actionModel = model;
             this.toolbars = [
+                this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon).toValue(),
                 this.toolbarUtils.labelBuilder(this.actionModel.title).attrBuilder({flex: ""}).toValue(),
                 this.toolbarUtils.btnBuilder("关闭", "md-icon-button", false).iconBuilder("close").btnClick(($event)=> {
                     this.$mdDialog.cancel();
@@ -53,9 +64,9 @@ function Directive(): ng.IDirective {
         },
         controller: Controller,
         controllerAs: 'dialogFormCtl',
-        replace: true,
+        replace: false,
         compile: ($ele)=> {
-            // $ele.replaceWith(angular.element($ele.html()));
+            $ele.replaceWith(angular.element($ele.html()));
             return ($scope, $ele: ng.IAugmentedJQuery, $attrs, $ctl: Controller) => {
                 $scope.$watch(()=> {
                     return $ctl.key;
