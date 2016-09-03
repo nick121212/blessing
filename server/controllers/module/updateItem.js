@@ -6,7 +6,7 @@ exports = module.exports = (app, logger) => {
 
     return async(ctx, next) => {
         let key = ctx.params["key"];
-        let model = ctx.body;
+        let model = ctx.request.body;
 
         if (!key) {
             throw boom.badData(`key不能为空`);

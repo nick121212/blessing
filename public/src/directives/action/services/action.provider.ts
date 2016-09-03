@@ -165,7 +165,7 @@ class Provider {
      * @param $form
      * @returns {IPromise<TResult>}
      */
-    doAction(key: string, queryData: Object, $form?: ng.IFormController) {
+    doAction(key: string, queryData: Object|restangular.IElement, $form?: ng.IFormController) {
         let actionModel;
 
         if (!this.doFormCheck($form)) {
@@ -186,6 +186,9 @@ class Provider {
                         break;
                     case MethodType.GET:
                         promise = restAngular.customGET("", queryData, null);
+                        break;
+                    case MethodType.PUT:
+                        promise = restAngular.customPUT(queryData,pointer.get(queryData, interfaceModel.idFieldPath));
                         break;
                 }
                 interfacesRest[interfaceModel.key] = promise;

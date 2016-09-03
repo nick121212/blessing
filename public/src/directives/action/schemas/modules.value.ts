@@ -30,7 +30,7 @@ class ModuleList {
                 toolbars: [],
                 itemToolbars: []
             },
-            itemActions: [ModuleAdd.key],
+            itemActions: [ModuleEdit.key],
             actions: [ModuleAdd.key],
             interfaces: [{
                 key: "modulesList",
@@ -134,6 +134,88 @@ class ModuleAdd {
         return actionModel;
     }
 }
+class ModuleEdit {
+    static $inject = ["toolbarUtils", "actionUtils"];
+    static key: string = "modulesEditAction";
+
+    constructor(toolbarUtils, actionUtils) {
+        let actionModel: IActionModel = {
+            key: ModuleEdit.key,
+            type: ActionType.form,
+            title: "修改模块",
+            icon: "edit",
+            form: {
+                dataSchema: {
+                    type: "object",
+                    required: ["key", "title", "icon"],
+                    properties: {
+                        key: {
+                            type: "string",
+                            title: "KEY"
+                        },
+                        title: {
+                            type: "string",
+                            title: "模块名称"
+                        },
+                        icon: {
+                            type: "string",
+                            title: "图标"
+                        },
+                        parentKey: {
+                            type: "string",
+                            title: "父亲节点KEY"
+                        },
+                        description: {
+                            type: "string",
+                            title: "描述",
+                            maxLength: "500"
+                        },
+                        showed: {
+                            type: "boolean",
+                            title: "是否显示"
+                        }
+                    }
+                },
+                formSchema: [{
+                    key: "parentKey",
+                    type: "text",
+                    readonly: true,
+                    htmlClass: "md-block"
+                }, {
+                    key: "key",
+                    type: "text",
+                    htmlClass: "md-block"
+                }, {
+                    key: "title",
+                    type: "text",
+                    htmlClass: "md-block"
+                }, {
+                    key: "icon",
+                    type: "text",
+                    htmlClass: "md-block"
+                }, {
+                    key: "description",
+                    type: "textarea",
+                    htmlClass: "md-block"
+                }, {
+                    key: "showed",
+                    type: "checkbox"
+                }]
+            },
+            interfaces: [{
+                key: "modulesEdit",
+                method: MethodType.PUT,
+                idFieldPath: "/key",
+                address: "",
+                port: null,
+                path: "modules",
+                isRestful: true
+            }]
+        };
+
+        return actionModel;
+    }
+}
 class ModuleSearch {
     static $inject = ["toolbarUtils", "actionUtils"];
     static key: string = "modulesSearchAction";
@@ -173,4 +255,5 @@ export default (module: ng.IModule) => {
     module.service(ModuleList.key, ModuleList);
     module.service(ModuleSearch.key, ModuleSearch);
     module.service(ModuleAdd.key, ModuleAdd);
+    module.service(ModuleEdit.key, ModuleEdit);
 }

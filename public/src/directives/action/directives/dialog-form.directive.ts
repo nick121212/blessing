@@ -23,14 +23,13 @@ class Controller {
 
         if (promise) {
             promise.then((result)=> {
-                console.log(result);
-
                 this.$mdDialog.cancel().then(()=> {
                     this.materialUtils.showMsg(this.actionModel.successMsg || "操作成功!");
                 });
             });
         }
-        // console.log($form, this.formData);
+
+        return promise;
     }
 
     getActionModel() {

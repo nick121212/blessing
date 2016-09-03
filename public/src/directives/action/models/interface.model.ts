@@ -41,5 +41,6 @@ export interface IInterfaceModel {
     params?: boolean|Object;
     // 是否是restful接口
     isRestful: boolean;
-    jpp?: IJpp;
+    // put和delete请求时候带参数
+    idFieldPath?: string;
 }
