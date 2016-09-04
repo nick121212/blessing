@@ -95,16 +95,10 @@ class Service {
                 let restAngular;
                 let restAngularP = unique ? this.rest : restangular;
 
-                console.log(unique);
-
                 if (baseUrl) {
                     restAngular = restAngularP.oneUrl(router, baseUrl);
                 }
                 restAngular = (restAngular || restAngularP).all(router);
-
-                // restAngular.withConfig(function () {
-                //     console.log(arguments)
-                // })
 
                 return restAngular;
             }

@@ -16,19 +16,19 @@ export class SidenavLeftController {
         this.initModules().initToolbar();
     }
 
-    menuLoop(nodes: _.Dictionary, depth: number = 0) {
-        let nodes = _.filter(nodes, (d) => {
-            return d["depth"] === depth;
-        });
-
-        _.forEach(nodes, (node) => {
-            if (nodes[node["parentKey"]]) {
-                !nodes[node["parentKey"]].nodes && (nodes[node["parentKey"]].nodes = []);
-                // node["menuLink"] = node["link"];
-                node["showed"] && nodes[node["parentKey"]].nodes.push(node);
-            }
-        });
-        nodes.length && this.menuLoop(nodes, depth + 1);
+    menuLoop(nodes: _.Dictionary<any>, depth: number = 0) {
+        // let nodes = _.filter(nodes, (d) => {
+        //     return d["depth"] === depth;
+        // });
+        //
+        // _.forEach(nodes, (node) => {
+        //     if (nodes[node["parentKey"]]) {
+        //         !nodes[node["parentKey"]].nodes && (nodes[node["parentKey"]].nodes = []);
+        //         // node["menuLink"] = node["link"];
+        //         node["showed"] && nodes[node["parentKey"]].nodes.push(node);
+        //     }
+        // });
+        // nodes.length && this.menuLoop(nodes, depth + 1);
     }
 
     /**
@@ -177,7 +177,7 @@ export class SidenavLeftController {
         let promise = this.fxAction.doAction('moduleMenuAction', null);
 
         promise && promise.then((result)=> {
-            let nodes: Array<Object> = [];
+            let nodes: Array<any> = [];
 
             _.forEach(result, (iiterface)=> {
                 if (_.isArray(iiterface)) {

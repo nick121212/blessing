@@ -14,7 +14,7 @@ class Controller {
     key: string;
     toolbars: Array<any>;
 
-    constructor(private $scope, private fxAction, private materialUtils: fx.utils.materialStatic, private toolbarUtils, private $mdDialog) {
+    constructor(private $scope, private fxAction, private materialUtils: fx.utils.materialStatic, private toolbarUtils, private $mdDialog: ng.material.IDialogService) {
         this.formData = this.formData || {};
     }
 
@@ -23,9 +23,7 @@ class Controller {
 
         if (promise) {
             promise.then((result)=> {
-                this.$mdDialog.cancel().then(()=> {
-                    this.materialUtils.showMsg(this.actionModel.successMsg || "操作成功!");
-                });
+                this.$mdDialog.hide(result);
             });
         }
 

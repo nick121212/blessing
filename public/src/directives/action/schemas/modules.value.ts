@@ -30,7 +30,7 @@ class ModuleList {
                 toolbars: [],
                 itemToolbars: []
             },
-            itemActions: [ModuleEdit.key],
+            itemActions: [ModuleEdit.key, ModuleDelete.key],
             actions: [ModuleAdd.key],
             interfaces: [{
                 key: "modulesList",
@@ -87,6 +87,7 @@ class ModuleAdd {
             type: ActionType.form,
             title: "新建模块",
             icon: "add",
+            refreshList:true,
             form: {
                 dataSchema: {
                     type: "object",
@@ -167,6 +168,7 @@ class ModuleEdit {
             type: ActionType.form,
             title: "修改模块",
             icon: "edit",
+            refreshList:true,
             form: {
                 dataSchema: {
                     type: "object",
@@ -239,11 +241,39 @@ class ModuleEdit {
         return actionModel;
     }
 }
+class ModuleDelete {
+    static key: string = "modulesDeleteAction";
+
+    constructor() {
+        let actionModel: IActionModel = {
+            key: ModuleDelete.key,
+            type: ActionType.confirm,
+            title: "删除模块",
+            icon: "delete",
+            refreshList: true,
+            confirm: {
+                confirmTitle: "",
+                confirmContent: "确定要删除模块吗!"
+            },
+            interfaces: [{
+                key: "modulesDelete",
+                method: MethodType.DELETE,
+                idFieldPath: "/key",
+                address: "",
+                port: null,
+                path: "modules",
+                isRestful: true
+            }]
+        };
+
+        return actionModel;
+    }
+}
 class ModuleSearch {
     static $inject = ["toolbarUtils", "actionUtils"];
     static key: string = "modulesSearchAction";
 
-    constructor(toolbarUtils, actionUtils) {
+    constructor() {
         let actionModel: IActionModel = {
             key: ModuleSearch.key,
             icon: "search",
@@ -275,9 +305,9 @@ class ModuleSearch {
 }
 
 export default (module: ng.IModule) => {
-    const services = [ModuleMenus, ModuleList, ModuleSearch, ModuleAdd, ModuleEdit];
+    const services1: Array<any> = [ModuleDelete, ModuleMenus, ModuleList, ModuleSearch, ModuleAdd, ModuleEdit];
 
-    _.each(services, (service)=> {
-        module.service(service.key, service);
+    _.each(services1, (ser)=> {
+        module.service(ser.key, ser);
     });
 }

@@ -5,7 +5,7 @@
 import {IActionModel, IClientData, IQueryData, ActionType} from '../models/action.model';
 
 class Controller {
-    static $inject = ["$scope", "$q", "$timeout", "fxAction", "toolbarUtils"];
+    static $inject = ["$scope", "$q", "$timeout", "fxAction", "toolbarUtils", "materialUtils"];
 
     key: string;
     mdLimitOptions: Array<number> = [10, 30, 50, 100, 300];
@@ -29,7 +29,7 @@ class Controller {
      * @param fxAction
      * @param toolbarUtils
      */
-    constructor(private $scope, private $q, private $timeout, private fxAction, private toolbarUtils) {
+    constructor(private $scope, private $q, private $timeout, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic) {
         fxAction.getModel(this.key).then((model) => {
             this.actionModel = _.cloneDeep(model);
             this.initToolbar();
@@ -39,6 +39,20 @@ class Controller {
         this.onOrderChange = this.orderChange.bind(this);
         this.onPageChange = this.pageChange.bind(this);
         this.doSearchBind = this.doSearch.bind(this);
+    }
+    /**
+     * 按钮的点击事件
+     * @param $event
+     * @param actionModel
+     * @param item
+     */
+    doClickActionMenu($event, actionModel, item) {
+        this.fxAction.doActionModel($event, actionModel, item).then((result)=> {
+            this.materialUtils.showMsg(`${actionModel.successMsg || "操作成功!"}`);
+            if (actionModel.refreshList) {
+                this.doSearch(this.queryData.where || {});
+            }
+        });
     }
 
     /**
@@ -50,17 +64,18 @@ class Controller {
         this.actionModel.list.toolbars.push(this.toolbarUtils.labelBuilder(`${this.actionModel.title}`).attrBuilder({flex: ""}).toValue());
         //
         this.fxAction.getModels(this.actionModel.actions).then((actionModels)=> {
+            // 添加顶部按钮
             _.forEach(actionModels, (actionModel: IActionModel)=> {
                 if (actionModel.type !== ActionType.list) {
                     this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder(actionModel.title, "md-icon-button", false).tooltipBuilder("").iconBuilder(actionModel.icon, {fill: "black"}).btnClick(($event, item: any)=> {
-                        this.fxAction.doActionModel($event, actionModel, item);
+                        this.doClickActionMenu($event, actionModel, item);
                     }).toValue());
                 }
             });
             // 添加刷新按钮
             if (this.actionModel.list.showRefreshBtn) {
                 this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("刷新", "md-icon-button", false).iconBuilder("refresh", {fill: "black"}).btnClick(($event)=> {
-                    this.doSearch();
+                    this.doSearch(this.queryData.where || {});
                 }).toValue());
             }
             // 添加显示/隐藏搜索按钮
@@ -80,12 +95,16 @@ class Controller {
 
         this.fxAction.getModels(this.actionModel.itemActions).then((actionModels)=> {
             _.forEach(actionModels, (actionModel: IActionModel)=> {
-                if (actionModel.type = ActionType.form) {
-                    menuTool.items.push(this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any)=> {
-                        this.fxAction.doActionModel($event, actionModel, item);
-                    }).toValue());
+                switch (actionModel.type) {
+                    case  ActionType.form:
+                    case  ActionType.confirm:
+                        menuTool.items.push(this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any)=> {
+                            this.doClickActionMenu($event, actionModel, item);
+                        }).toValue());
+                        break;
                 }
             });
+
             this.actionModel.list.itemToolbars = [menuTool];
         });
         this.actionModel.list.itemToolbars = [menuTool];
@@ -110,7 +129,7 @@ class Controller {
                     break;
             }
             // this.queryData.order = orders;
-            this.doSearch();
+            this.doSearch(this.queryData.where || {});
         }
     }
 
@@ -127,7 +146,7 @@ class Controller {
         if (page > 0) {
             this.queryData.offset = (page - 1) * limit;
         }
-        this.doSearch();
+        this.doSearch(this.queryData.where || {});
     }
 
     /**

@@ -8,10 +8,10 @@
 import {IInterfaceModel} from "./interface.model";
 export enum ActionType {
     none = 0,
-    list,
-    form,
-    wizard,
-    confirm
+    list = 1,
+    form = 2,
+    wizard = 3,
+    confirm = 4
 }
 
 export interface IConfirm {
@@ -102,4 +102,6 @@ export interface IActionModel {
     interfaces?: Array<IInterfaceModel>;
     // 成功后显示的文字
     successMsg?: string;
+    // 执行成功后是否刷新列表
+    refreshList?: boolean ;
 }

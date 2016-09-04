@@ -86,7 +86,6 @@ class Provider {
                 targetEvent: $event,
                 clickOutsideToClose: false,
                 escapeToClose: false,
-                // fullscreen: true,
                 controller: function ($scope) {
                     $scope['item'] = item;
                     $scope['key'] = actionModel.key;
@@ -103,8 +102,9 @@ class Provider {
                 .targetEvent($event)
                 .ok(actionModel.confirm.confirmOk || "确定")
                 .cancel(actionModel.confirm.confirmCancel || "取消");
+
             return this.$mdDialog.show(confirm).then(()=> {
-                return this.doAction(actionModel.key, {});
+                return this.doAction(actionModel.key, item);
             });
         }
     }
@@ -188,8 +188,10 @@ class Provider {
                         promise = restAngular.customGET("", queryData, null);
                         break;
                     case MethodType.PUT:
-                        promise = restAngular.customPUT(queryData,pointer.get(queryData, interfaceModel.idFieldPath));
+                        promise = restAngular.customPUT(queryData, pointer.get(queryData, interfaceModel.idFieldPath));
                         break;
+                    case MethodType.DELETE:
+                        promise = restAngular.customDELETE(pointer.get(queryData, interfaceModel.idFieldPath), null)
                 }
                 interfacesRest[interfaceModel.key] = promise;
             });
