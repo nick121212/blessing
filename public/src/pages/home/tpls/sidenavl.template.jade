@@ -6,7 +6,7 @@ md-content(flex="100",layout="column",ng-cloak)
                 md-content(flex="100",layout="row")
                     md-icon
                         ng-md-icon(icon="{{ node.icon||'apps'}}")
-                    md-content(flex="100") {{node.menuTitle}}
+                    md-content(flex="100") {{node.title}}
                     md-icon
                         ng-md-icon(options='{"rotation": "none"}',ng-if="!sideCtl.isLeaf(node)",icon="{{ sideCtl.isShowChildren(node)?'expand_more':'chevron_right' }}")
     md-divider
