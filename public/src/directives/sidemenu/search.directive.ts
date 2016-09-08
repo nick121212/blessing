@@ -1,9 +1,10 @@
 interface IDirectiveScope extends ng.IScope {
     searchText: string;
     title: string;
+    timeID: any;
 }
 
-function Directive(mdSideMenuSections): ng.IDirective {
+function Directive(mdSideMenuSections, $timeout): ng.IDirective {
     return {
         restrict: 'EA',
         template: require("./tpls/search.jade"),
@@ -11,15 +12,18 @@ function Directive(mdSideMenuSections): ng.IDirective {
         link: function ($scope: IDirectiveScope) {
             $scope.searchText = "";
             $scope.title = "搜索菜单";
+
             $scope.$watch("searchText", (newVal, oldVal)=> {
-                // console.log(oldVal, newVal);
-                mdSideMenuSections.options.filterExpression = newVal;
+                $timeout.cancel($scope.timeID);
+                $scope.timeID = $timeout(()=> {
+                    mdSideMenuSections.options.filterExpression = newVal;
+                }, 1000);
             });
         }
     };
 }
 
-Directive.$inject = ["mdSideMenuSections"];
+Directive.$inject = ["mdSideMenuSections", "$timeout"];
 
 export default (module: ng.IModule)=> {
     module.directive('fxSideMenuSearch', Directive);

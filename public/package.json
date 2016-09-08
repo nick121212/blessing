@@ -59,7 +59,11 @@
     "nganimationcss": "git+https://github.com/theoinglis/ngAnimate.css.git",
     "node-sass": "^3.8.0",
     "objectpath": "^1.2.1",
+    "socket.io": "^1.4.8",
+    "socket.io-client": "^1.4.8",
     "svg-morpheus": "^0.3.0",
+    "term.js": "0.0.7",
+    "tty.js": "^0.2.15",
     "tv4": "^1.2.7",
     "ui-router": "^1.0.0-alpha.3"
   }

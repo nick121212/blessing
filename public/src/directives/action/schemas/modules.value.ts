@@ -17,11 +17,11 @@ class ModuleList {
             icon: "view-module",
             list: {
                 columns: [
-                    actionUtils.columnBuilder("<span>{{::item.key}}</span>", "KEY", "key").toValue(),
+                    actionUtils.columnBuilder("<span>{{::item.key}}</span>", "KEY").toValue(),
                     actionUtils.columnBuilder("<span>{{ ::item.title }}</span>", "模块名称").toValue(),
                     actionUtils.columnBuilder(`<ng-md-icon icon="{{ ::item.icon }}"></ng-md-icon>`, "图标").toValue(),
-                    actionUtils.columnBuilder(`<span>{{ ::item.lft }}</span>`, "lft").toValue(),
-                    actionUtils.columnBuilder(`<span>{{ ::item.rgt }}</span>`, "rgt").toValue()
+                    actionUtils.columnBuilder(`<span>{{ ::item.lft }}</span>`, "lft", "lft").toValue(),
+                    actionUtils.columnBuilder(`<span>{{ ::item.rgt }}</span>`, "rgt", "rgt").toValue()
                 ],
                 searchActionKey: "modulesSearchAction",
                 showRefreshBtn: true,
@@ -87,7 +87,7 @@ class ModuleAdd {
             type: ActionType.form,
             title: "新建模块",
             icon: "add",
-            refreshList:true,
+            refreshList: true,
             form: {
                 dataSchema: {
                     type: "object",
@@ -168,7 +168,7 @@ class ModuleEdit {
             type: ActionType.form,
             title: "修改模块",
             icon: "edit",
-            refreshList:true,
+            refreshList: true,
             form: {
                 dataSchema: {
                     type: "object",
@@ -283,14 +283,14 @@ class ModuleSearch {
                 dataSchema: {
                     type: "object",
                     properties: {
-                        username: {
+                        key: {
                             type: "string",
                             title: "KEY"
                         }
                     }
                 },
                 formSchema: [{
-                    key: "username",
+                    key: "key",
                     type: "string",
                     placeHolder: "KEY",
                     description: "请输入key来进行搜索,不支持模糊查询",

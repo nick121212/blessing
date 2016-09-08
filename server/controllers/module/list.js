@@ -3,7 +3,7 @@ exports = module.exports = (app, logger) => {
     let Model = utils.findModel(utils.modelNames.module);
 
     return async(ctx, next) => {
-        let filter = utils.query(ctx.params);
+        let filter = utils.query(ctx.query);
         let result = await Model.findAndCountAll(filter);
 
         ctx.body = result;

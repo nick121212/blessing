@@ -9,22 +9,25 @@ export class SidenavLeftController {
     $inject = ["mdSideMenuSections", "toolbarUtils", "faAction"];
 
     toolbarBottom: Object;
-    selectedNodes: Dictionary<any> = [];
+    selectedNodes = {};
     modules: Array<any>;
 
     constructor(private mdSideMenuSections, private toolbarUtils, private fxAction) {
         this.initModules().initToolbar();
     }
 
+    /**
+     * 计算模块的层级关系
+     */
     getModules() {
         let promise = this.fxAction.doAction('moduleMenuAction', null);
 
-        promise && promise.then((result)=> {
+        promise && promise.then((results)=> {
             let nodes: Array<any> = [];
 
-            _.forEach(result, (iiterface)=> {
-                if (_.isArray(iiterface)) {
-                    nodes = nodes.concat(iiterface);
+            _.forEach(results, (result)=> {
+                if (_.isArray(result)) {
+                    nodes = nodes.concat(result);
                 }
             });
 
@@ -59,7 +62,7 @@ export class SidenavLeftController {
 
             this.mdSideMenuSections.sections = root["nodes"];
             this.modules = this.mdSideMenuSections.sections;
-            this.selectedNodes = nodesGroupByDepth[1] || [];
+            this.selectedNodes = _.keyBy(nodesGroupByDepth[1], "key") || {};
         });
     }
 
@@ -89,10 +92,12 @@ export class SidenavLeftController {
         this.toolbarBottom = [
             this.toolbarUtils.layoutBuilder("", "row", "space-around center").toolsBuilder([
                 this.toolbarUtils.btnBuilder("刷新", "md-icon-button", false, "top").iconBuilder("refresh").btnClick(($event)=> {
-                    console.log("resresh");
+                    this.getModules();
                 }).toValue(),
                 this.toolbarUtils.btnBuilder("全部折叠", "md-icon-button", false, "top").iconBuilder("dehaze").btnClick(($event)=> {
-                    console.log("dehaze");
+                    _.forEach(this.selectedNodes, (val, key)=> {
+                        delete this.selectedNodes[key];
+                    })
                 }).toValue()
             ]).toValue()
         ];

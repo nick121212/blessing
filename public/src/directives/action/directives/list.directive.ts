@@ -11,7 +11,7 @@ class Controller {
     mdLimitOptions: Array<number> = [10, 30, 50, 100, 300];
     actionModel: IActionModel;
     clientData: IClientData = {};
-    queryData: IQueryData = {page: 1, limit: 10};
+    queryData: IQueryData = {offset: 0, limit: 10, page: 1};
     isBusy: boolean = false;
     showPage: boolean = false;
     selected: Array<Object> = [];
@@ -40,6 +40,7 @@ class Controller {
         this.onPageChange = this.pageChange.bind(this);
         this.doSearchBind = this.doSearch.bind(this);
     }
+
     /**
      * 按钮的点击事件
      * @param $event
@@ -115,22 +116,8 @@ class Controller {
      * @param order
      */
     orderChange(order: string) {
-        let orders = order.split('-');
-
-        // 返回的order信息是  -key|key,前面带"-"的是倒序
-        if (orders.length > 0) {
-            switch (orders.length) {
-                case 1:
-                    orders.push("asc");
-                    break;
-                case 2:
-                    orders = _.reverse(orders);
-                    orders[1] = "desc";
-                    break;
-            }
-            // this.queryData.order = orders;
-            this.doSearch(this.queryData.where || {});
-        }
+        this.queryData.order = order;
+        this.doSearch(this.queryData.where || {});
     }
 
     /**
@@ -165,7 +152,7 @@ class Controller {
         this.promise.then((result)=> {
             this.fxAction.doDealResult(this.actionModel, result, this.clientData);
         }).finally(()=> {
-            this.isBusy = false
+            this.isBusy = false;
         });
     }
 }

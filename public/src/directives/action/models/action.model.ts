@@ -59,7 +59,7 @@ export interface IQueryData {
     page?: number;
     where?: any;
     attributes?: any;
-    order?: Array<string>;
+    order?: string;
 }
 
 export interface IList {

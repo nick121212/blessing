@@ -12,7 +12,7 @@ import {initRouter} from './router';
 import materialServiceMod from '../../services/material.service';
 import restRegMod from '../../services/rest.service';
 import actionDir from '../../directives/action';
-import dyCompileFunc from '../../directives/dycompile';
+import dyCompileMod from '../../directives/dycompile';
 
 import 'angular-animate';
 import 'angular-aria';
@@ -22,10 +22,7 @@ import 'objectPath';
 import 'angular-schema-form';
 import 'angular-schema-form-ng-material';
 
-
-const module = angular.module("pageModule", [ngMaterialIcons, actionDir, "schemaForm", mdDataTable, ngMaterial as string, uiRouter as string, materialServiceMod, restRegMod]);
-
-dyCompileFunc(module);
+const module = angular.module("pageModule", [ngMaterialIcons, dyCompileMod, actionDir, "schemaForm", mdDataTable, ngMaterial as string, uiRouter as string, materialServiceMod, restRegMod]);
 
 module.config([
     "$stateProvider",
@@ -40,9 +37,7 @@ module.config([
             restAngularConfigure.setErrorInterceptor((response: restangular.IResponse)=> {
                 if (response.status !== 401) {
                     materialUtils.showErrMsg(response.data.msg);
-                    return false;
                 }
-                return true;
             });
         });
     }]);

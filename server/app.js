@@ -19,11 +19,8 @@ consign({
     .into(app, logger);
 
 
-const conf = tty.config.readConfig(), ttyApp = tty.createServer(_.extend({port: 3001}, conf));
-
-ttyApp.get('/foo', function (req, res, next) {
-    res.send('bar');
-});
+const conf = tty.config.readConfig(), ttyApp = tty.createServer(_.extend(conf,
+    {port: 3001}));
 ttyApp.listen();
 
 app.listen(3000, () => console.log('server started 3000'));

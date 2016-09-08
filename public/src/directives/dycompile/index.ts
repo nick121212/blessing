@@ -54,9 +54,8 @@ class CompileDirective {
     ];
 }
 
-/**
- * 初始化函数
- */
-export default (module: ng.IModule) => {
-    module.directive(CompileDirective._name, CompileDirective.directive);
-}
+const moduleName = "dyCompile";
+
+const module = angular.module(moduleName, []).directive(CompileDirective._name, CompileDirective.directive);
+
+export default moduleName;

@@ -14,6 +14,7 @@ import svgUtilsMod from '../../services/svg.service';
 import toolbar from '../../directives/toolbar';
 import sidemenu from '../../directives/sidemenu';
 import 'expose?SVGMorpheus!exports?SVGMorpheus!svg-morpheus';
+import {ActionType} from '../../directives/action/models/action.model';
 
 const module = angular.module("homeModule", [toolbar, sidemenu, svgUtilsMod, materialService, ngMaterial, uiRouter as string, ngMaterialIcons]);
 
@@ -30,17 +31,6 @@ module.config([
         // sideMenu初始化
         mdSideMenuSectionsProvider.initWithTheme($mdThemingProvider);
         // 装饰模式,修正data数据
-        // $stateProvider.decorator('data', function (state, parent) {
-        //     let result, data = parent(state);
-        //
-        //     result = _.extend({
-        //         svg: ["svgUtils", (svgUtils: fx.utils.svgStatic)=> {
-        //             return svgUtils.loadSvgUrl(__dirname + 'svgs/mdi.svg');
-        //         }]
-        //     }, data);
-        //
-        //     return result;
-        // });
     }])
     .run(["$rootScope", "$state", "$q", "svgUtils", ($rootScope: ng.IRootScopeService, $state, $q: ng.IQService, svgUtils: fx.utils.svgStatic)=> {
         let state: {$$isFinish?: boolean,toState?: ng.ui.IState,toParams?: Object,options?: Object} = {};
@@ -50,11 +40,11 @@ module.config([
             state.$$isFinish = true;
             $state.go(state.toState.name, state.toParams, state.options);
         }
-
         // 注册路由更改事件
         $rootScope.$on("$stateChangeStart", (evt, toState, toParams, fromState, fromParams)=> {
             console.log("$stateChangeStart", evt, toState, toParams, fromState, fromParams);
         });
+        // 处理首次加载的时候,加载2个svg文件
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, options) {
             if (!state.$$isFinish) {
                 _.extend(state, {
@@ -72,5 +62,30 @@ module.config([
             }
         });
     }]);
+
+// 添加一个操作,显示ICON的KEY值表单
+module.value("iconInfoDetailForm", {
+    key: "iconInfoDetailForm",
+    icon: "search",
+    type: ActionType.form,
+    title: "ICON详情",
+    form: {
+        dataSchema: {
+            type: "object",
+            properties: {
+                key: {
+                    type: "string",
+                    title: "KEY"
+                }
+            }
+        },
+        formSchema: [{
+            key: "key",
+            type: "string",
+            placeHolder: "KEY",
+            htmlClass: "md-block"
+        }]
+    }
+});
 
 export default module.name;
