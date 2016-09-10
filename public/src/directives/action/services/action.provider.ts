@@ -81,7 +81,9 @@ class Provider {
      * @return {Promise<any>}
      */
     doActionModel($event, actionModel: IActionModel, item?: any) {
-        if (actionModel.type == ActionType.form) {
+
+        // 弹出表单的操作
+        if (actionModel.type === ActionType.form || actionModel.type === ActionType.wizard) {
             return this.$mdDialog.show({
                 targetEvent: $event,
                 clickOutsideToClose: false,
@@ -95,7 +97,8 @@ class Provider {
             });
         }
 
-        if (actionModel.type == ActionType.confirm) {
+        // 弹出确认表单操作
+        if (actionModel.type === ActionType.confirm) {
             const confirm = this.$mdDialog.confirm()
                 .title(actionModel.confirm.confirmTitle)
                 .textContent(actionModel.confirm.confirmContent)

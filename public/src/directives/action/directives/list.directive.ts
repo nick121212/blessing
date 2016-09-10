@@ -28,6 +28,7 @@ class Controller {
      * @param $timeout
      * @param fxAction
      * @param toolbarUtils
+     * @param materialUtils
      */
     constructor(private $scope, private $q, private $timeout, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic) {
         fxAction.getModel(this.key).then((model) => {
@@ -49,10 +50,12 @@ class Controller {
      */
     doClickActionMenu($event, actionModel, item) {
         this.fxAction.doActionModel($event, actionModel, item).then((result)=> {
-            this.materialUtils.showMsg(`${actionModel.successMsg || "操作成功!"}`);
-            if (actionModel.refreshList) {
-                this.doSearch(this.queryData.where || {});
-            }
+            console.log(result);
+            this.materialUtils.showMsg(`${actionModel.successMsg || "操作成功!"}`).finally(()=> {
+                if (actionModel.refreshList) {
+                    this.doSearch(this.queryData.where || {});
+                }
+            });
         });
     }
 
@@ -63,7 +66,7 @@ class Controller {
         // 添加标题label
         this.actionModel.list.toolbars.push(this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon, {fill: "black"}).toValue());
         this.actionModel.list.toolbars.push(this.toolbarUtils.labelBuilder(`${this.actionModel.title}`).attrBuilder({flex: ""}).toValue());
-        //
+        // 获取操作按钮
         this.fxAction.getModels(this.actionModel.actions).then((actionModels)=> {
             // 添加顶部按钮
             _.forEach(actionModels, (actionModel: IActionModel)=> {
@@ -96,34 +99,34 @@ class Controller {
         const keys = [];
         let itemActionsObj = _.keyBy(this.actionModel.itemActions, "key");
 
+        // 提取所有的keys
         _.each(this.actionModel.itemActions, (item)=> {
             keys.push(item.key);
         });
+        // 处理所有提取的keys
         this.fxAction.getModels(keys).then((actionModels)=> {
             _.forEach(actionModels, (actionModel: IActionModel, key)=> {
                 let condition = itemActionsObj[key].condition;
 
+                // 添加操作按钮
                 switch (actionModel.type) {
                     case  ActionType.form:
                     case  ActionType.confirm:
                         let menu = this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any)=> {
                             this.doClickActionMenu($event, actionModel, item);
                         });
-
+                        // 处理显示/隐藏逻辑
                         if (condition) {
                             menu.conditionBuilder(condition);
-                        }else{
-
                         }
-
+                        // 添加到操作
                         menuTool.items.push(menu.toValue());
                         break;
                 }
             });
-
+            // 单挑数据的操作按钮数据
             this.actionModel.list.itemToolbars = [menuTool];
         });
-        this.actionModel.list.itemToolbars = [menuTool];
     }
 
     /**

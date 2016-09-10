@@ -67,7 +67,7 @@ class Service {
              * msg:提示的信息
              */
             showErrMsg(msg: string) {
-                $mdToast.show($mdToast.simple()
+                return $mdToast.show($mdToast.simple()
                     .textContent(msg || "error")
                     .position("bottom right")
                     .action("关闭")
@@ -81,7 +81,7 @@ class Service {
              * msg:提示的信息
              * */
             showMsg(msg: string) {
-                $mdToast.show($mdToast.simple()
+                return $mdToast.show($mdToast.simple()
                     .textContent(msg || "success")
                     .position("top right")
                     .action("关闭")
