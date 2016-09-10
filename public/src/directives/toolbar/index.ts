@@ -63,9 +63,16 @@ class Controller {
                 return console.error("没有模板或者找不到类型!");
             }
 
+            model = _.cloneDeep(model);
+
             model.disabled = `${this.ngDisabled}`;
             model.materialUtils = this.materialUtils;
             model.ngModel = this.ngModel;
+            if (model.conditionBase) {
+                model.condition = `${model['type']}Ctl.${model.conditionBase}`;
+            } else {
+                model.condition = "true";
+            }
             // 设置controllerAs
             $newScope[`${model['type']}Ctl`] = _.clone(model);
             if (this.ctls) {

@@ -73,6 +73,11 @@ export interface IList {
     showSearchPanel?: boolean;
 }
 
+export interface IItemActionSet {
+    key: string,
+    condition?: string;
+}
+
 
 /**
  * 操作的模型
@@ -94,8 +99,10 @@ export interface IActionModel {
     wizard?: IWizard;
     // 列表操作
     list?: IList;
+    // 开启条件
+    condition?: string;
     // 子操作
-    itemActions?: Array<IActionModel|string>;
+    itemActions?: Array<IItemActionSet>;
     // 子操作
     actions?: Array<IActionModel|string>;
     // 接口列表

@@ -34,7 +34,8 @@ module.exports = {
             'angular.material.css': __dirname + '/node_modules/angular-material/angular-material.css',
             'angular.ui.tree.css': __dirname + '/node_modules/angular-ui-tree/dist/angular-ui-tree.css',
             'angular-material-data-table.css': __dirname + '/node_modules/angular-material-data-table/dist/md-data-table.css',
-            'angular-motion.css': __dirname + '/node_modules/nganimationcss/build/nga.all.css'
+            'angular-motion.css': __dirname + '/node_modules/nganimationcss/build/nga.all.css',
+            'angular-loading-bar.css': __dirname + '/node_modules/angular-loading-bar/build/loading-bar.css'
         }
     },
     module: {

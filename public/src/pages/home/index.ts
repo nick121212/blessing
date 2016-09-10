@@ -10,7 +10,6 @@ import * as _ from 'lodash';
 import {initRouter} from './router';
 import materialService from '../../services/material.service';
 import svgUtilsMod from '../../services/svg.service';
-
 import toolbar from '../../directives/toolbar';
 import sidemenu from '../../directives/sidemenu';
 import 'expose?SVGMorpheus!exports?SVGMorpheus!svg-morpheus';
@@ -25,21 +24,20 @@ module.config([
     "$mdThemingProvider",
     "$locationProvider",
     "mdSideMenuSectionsProvider",
-    ($stateProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider, $locationProvider, mdSideMenuSectionsProvider) => {
+    ($stateProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider, $locationProvider, mdSideMenuSectionsProvider, cfpLoadingBarProvider: angular.loadingBar.ILoadingBarProvider) => {
         // 初始化路由
         initRouter($urlRouterProvider, $stateProvider);
         // sideMenu初始化
         mdSideMenuSectionsProvider.initWithTheme($mdThemingProvider);
-        // 装饰模式,修正data数据
+
     }])
     .run(["$rootScope", "$state", "$q", "svgUtils", ($rootScope: ng.IRootScopeService, $state, $q: ng.IQService, svgUtils: fx.utils.svgStatic)=> {
         let state: {$$isFinish?: boolean,toState?: ng.ui.IState,toParams?: Object,options?: Object} = {};
-
         // 处理路回调
-        function handleResolve() {
+        let handleResolve = ()=> {
             state.$$isFinish = true;
             $state.go(state.toState.name, state.toParams, state.options);
-        }
+        };
         // 注册路由更改事件
         $rootScope.$on("$stateChangeStart", (evt, toState, toParams, fromState, fromParams)=> {
             console.log("$stateChangeStart", evt, toState, toParams, fromState, fromParams);

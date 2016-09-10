@@ -93,15 +93,30 @@ class Controller {
      */
     initItemToolbar() {
         const menuTool: any = this.toolbarUtils.menuBuilder("", "md-icon-button").tooltipBuilder("操作菜单").iconBuilder("expand_more").menuOptionsBuilder().toValue();
+        const keys = [];
+        let itemActionsObj = _.keyBy(this.actionModel.itemActions, "key");
 
-        this.fxAction.getModels(this.actionModel.itemActions).then((actionModels)=> {
-            _.forEach(actionModels, (actionModel: IActionModel)=> {
+        _.each(this.actionModel.itemActions, (item)=> {
+            keys.push(item.key);
+        });
+        this.fxAction.getModels(keys).then((actionModels)=> {
+            _.forEach(actionModels, (actionModel: IActionModel, key)=> {
+                let condition = itemActionsObj[key].condition;
+
                 switch (actionModel.type) {
                     case  ActionType.form:
                     case  ActionType.confirm:
-                        menuTool.items.push(this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any)=> {
+                        let menu = this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any)=> {
                             this.doClickActionMenu($event, actionModel, item);
-                        }).toValue());
+                        });
+
+                        if (condition) {
+                            menu.conditionBuilder(condition);
+                        }else{
+
+                        }
+
+                        menuTool.items.push(menu.toValue());
                         break;
                 }
             });

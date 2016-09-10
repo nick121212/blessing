@@ -15,9 +15,9 @@ class Service {
 
             }
 
-            disabledBuilder(disabled: string|boolean) {
+            conditionBuilder(condition: string) {
                 this.data = _.extend({}, this.data, {
-                    disabled: disabled
+                    conditionBase: condition
                 });
 
                 return this;

@@ -5,6 +5,9 @@
 import {IActionModel, ActionType} from '../models/action.model';
 import {MethodType} from '../models/interface.model';
 
+/**
+ * 模块查询
+ */
 class ModuleList {
     static $inject = ["toolbarUtils", "actionUtils"];
     static key: string = "modulesListAction";
@@ -30,7 +33,7 @@ class ModuleList {
                 toolbars: [],
                 itemToolbars: []
             },
-            itemActions: [ModuleEdit.key, ModuleDelete.key],
+            itemActions: [{key: ModuleEdit.key}, {key: ModuleDelete.key}],
             actions: [ModuleAdd.key],
             interfaces: [{
                 key: "modulesList",
@@ -54,6 +57,9 @@ class ModuleList {
         return actionModel;
     }
 }
+/**
+ * 模块侧边栏
+ */
 class ModuleMenus {
     static $inject = ["toolbarUtils", "actionUtils"];
     static key: string = "moduleMenuAction";
@@ -77,6 +83,9 @@ class ModuleMenus {
         return actionModel;
     }
 }
+/**
+ * 模块增加
+ */
 class ModuleAdd {
     static $inject = ["toolbarUtils", "actionUtils"];
     static key: string = "modulesAddAction";
@@ -158,6 +167,9 @@ class ModuleAdd {
         return actionModel;
     }
 }
+/**
+ * 模块修改
+ */
 class ModuleEdit {
     static $inject = ["toolbarUtils", "actionUtils"];
     static key: string = "modulesEditAction";
@@ -241,6 +253,9 @@ class ModuleEdit {
         return actionModel;
     }
 }
+/**
+ * 模块删除
+ */
 class ModuleDelete {
     static key: string = "modulesDeleteAction";
 
@@ -269,6 +284,9 @@ class ModuleDelete {
         return actionModel;
     }
 }
+/**
+ * 模块搜索
+ */
 class ModuleSearch {
     static $inject = ["toolbarUtils", "actionUtils"];
     static key: string = "modulesSearchAction";
@@ -305,9 +323,9 @@ class ModuleSearch {
 }
 
 export default (module: ng.IModule) => {
-    const services1: Array<any> = [ModuleDelete, ModuleMenus, ModuleList, ModuleSearch, ModuleAdd, ModuleEdit];
+    const services: Array<any> = [ModuleDelete, ModuleMenus, ModuleList, ModuleSearch, ModuleAdd, ModuleEdit];
 
-    _.each(services1, (ser)=> {
+    _.each(services, (ser)=> {
         module.service(ser.key, ser);
     });
 }

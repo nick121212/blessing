@@ -86,6 +86,7 @@ class Provider {
                 targetEvent: $event,
                 clickOutsideToClose: false,
                 escapeToClose: false,
+                fullscreen: true,
                 controller: function ($scope) {
                     $scope['item'] = item;
                     $scope['key'] = actionModel.key;
@@ -139,9 +140,6 @@ class Provider {
             let result = results[iInterface.key];
 
             if (result) {
-                // let source = Jpp(result);
-                // let destination = Jpp(clientData);
-
                 // 接口数据拷贝到本地
                 _.forEach(iInterface.jpp.set, (val, key)=> {
                     pointer.set(clientData, key, pointer.get(result, val));
@@ -152,8 +150,6 @@ class Provider {
                 });
             }
         });
-
-        console.log(clientData);
 
         return clientData;
     }

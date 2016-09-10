@@ -10,5 +10,6 @@
 /// <reference path="angular-material/angular-material.d.ts" />
 /// <reference path="angularjs/angular-animate.d.ts" />
 /// <reference path="angular-ui-router/angular-ui-router.d.ts" />
+/// <reference path="angular-loading-bar/angular-loading-bar.d.ts" />
 /// <reference path="json-pointer/json-pointer.d.ts" />
 /// <reference path="socket.io-client/socket.io-client.d.ts" />
