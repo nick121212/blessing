@@ -70,7 +70,7 @@ function LogoutSchemaValue() {
         type: ActionType.confirm,
         icon: "",
         confirm: {
-            confirmTitle: '用户中心?',
+            confirmTitle: '用户中心',
             confirmContent: '确定要退出么?',
             confirmOk: "果断退出",
             confirmCancel: '在看看'

@@ -3,9 +3,6 @@
  */
 
 export class PageController {
-
-    private $rest;
-
     key: string;
 
     constructor(private $stateParams: ng.ui.IStateParamsService) {

@@ -158,33 +158,33 @@ class Provider {
     }
 
     /**
-     * 执行操作,调用interface中的接口信息
+     * 获取接口列表,使用restangular处理接口地址,最后调用接口
      * @param key
      * @param queryData
      * @param $form
      * @returns {IPromise<TResult>}
      */
     doAction(key: string, queryData: Object|restangular.IElement, $form?: ng.IFormController) {
-        let actionModel;
-
         if (!this.doFormCheck($form)) {
             return;
         }
 
-        return this.getModel(key).then((model: IActionModel)=> {
+        return this.getModel(key).then((actionModel: IActionModel)=> {
             let interfacesRest: { [id: string]: ng.IPromise<any>; } = {};
 
-            actionModel = model;
-            _.each(model.interfaces, (interfaceModel: IInterfaceModel)=> {
-                let restAngular = interfaceModel.isRestful ? this.restUtils.getCustomRestful(interfaceModel.address, interfaceModel.port, interfaceModel.path)
-                    : this.restUtils.getCustom(interfaceModel.address, interfaceModel.port, interfaceModel.path);
-                let promise: ng.IPromise<any>;
+            // 获取接口列表,使用restangular处理接口地址,最后调用接口,返回promise
+            _.each(actionModel.interfaces, (interfaceModel: IInterfaceModel)=> {
+                let promise: ng.IPromise<any>,
+                    restAngular = interfaceModel.isRestful
+                        ? this.restUtils.getCustomRestful(interfaceModel.address, interfaceModel.port, interfaceModel.path)
+                        : this.restUtils.getCustom(interfaceModel.address, interfaceModel.port, interfaceModel.path);
+
                 switch (interfaceModel.method) {
                     case MethodType.POST:
                         promise = restAngular.post(queryData, null);
                         break;
                     case MethodType.GET:
-                        promise = restAngular.customGET("", queryData, null);
+                        promise = restAngular.customGET(null, queryData, null);
                         break;
                     case MethodType.PUT:
                         promise = restAngular.customPUT(queryData, pointer.get(queryData, interfaceModel.idFieldPath));
