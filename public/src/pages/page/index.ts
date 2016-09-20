@@ -4,7 +4,7 @@
  */
 
 import * as ngMaterial from 'angular-material';
-import * as uiRouter from 'angular-ui-router';
+import uiRouter from 'angular-ui-router';
 import * as ngMaterialIcons from 'angular-material-icons';
 import * as mdDataTable from 'angular-material-data-table';
 
@@ -14,20 +14,14 @@ import restRegMod from '../../services/rest.service';
 import actionDir from '../../directives/action';
 import dyCompileMod from '../../directives/dycompile';
 
-import 'angular-animate';
-import 'angular-aria';
+import './index.scss';
 
-import 'tv4';
-import 'objectPath';
-import 'angular-schema-form';
-import 'angular-schema-form-ng-material';
-
-const module = angular.module("pageModule", [ngMaterialIcons, dyCompileMod, actionDir, "schemaForm", mdDataTable, ngMaterial as string, uiRouter as string, materialServiceMod, restRegMod]);
+const module = angular.module("pageModule", [ngMaterialIcons, dyCompileMod, actionDir, mdDataTable, ngMaterial as string, 'ui.router', materialServiceMod, restRegMod]);
 
 module.config([
     "$stateProvider",
     "$urlRouterProvider",
-    ($stateProvider, $urlRouterProvider) => {
+    ($stateProvider, $urlRouterProvider, sfErrorMessageProvider) => {
         // 初始化路由
         initRouter($urlRouterProvider, $stateProvider);
     }])

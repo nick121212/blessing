@@ -68,8 +68,12 @@ class Controller {
             model.disabled = `${this.ngDisabled}`;
             model.materialUtils = this.materialUtils;
             model.ngModel = this.ngModel;
-            if (model.conditionBase) {
-                model.condition = `${model['type']}Ctl.${model.conditionBase}`;
+            if (model.conditionInfo && model.conditionInfo.condition) {
+                if (model.conditionInfo.prefix) {
+                    model.condition = `${model['type']}Ctl.${model.conditionInfo.condition}`;
+                } else {
+                    model.condition = `${model.conditionInfo.condition}`;
+                }
             } else {
                 model.condition = "true";
             }

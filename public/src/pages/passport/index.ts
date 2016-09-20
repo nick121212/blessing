@@ -4,7 +4,7 @@
  */
 
 import * as ngMaterial from 'angular-material';
-import * as uiRouter from 'angular-ui-router';
+import uiRouter from 'angular-ui-router';
 import {initRouter} from './router';
 import materialServiceMod from '../../services/material.service';
 import restRegMod from '../../services/rest.service';
@@ -12,7 +12,7 @@ import actionDir from '../../directives/action';
 
 import "restangular";
 
-const module = angular.module("loginModule", [ngMaterial as string, uiRouter as string, materialServiceMod, restRegMod, actionDir, 'restangular']);
+const module = angular.module("loginModule", [ngMaterial as string, 'ui.router', materialServiceMod, restRegMod, actionDir, 'restangular']);
 
 module.config([
     "$stateProvider",

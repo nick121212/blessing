@@ -5,3 +5,4 @@ public/typings
 public/src/directives/angular-schema-form-material
 !public/src/directives/angular-schema-form-material/material-decorator.js
 typings
+public/npm-debug.log

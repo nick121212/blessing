@@ -13,3 +13,7 @@
 /// <reference path="angular-loading-bar/angular-loading-bar.d.ts" />
 /// <reference path="json-pointer/json-pointer.d.ts" />
 /// <reference path="socket.io-client/socket.io-client.d.ts" />
+/// <reference path="angularjs/angular-mocks.d.ts" />
+/// <reference path="jsoneditor/jsoneditor.d.ts" />
+/// <reference path="d3/d3.d.ts" />
+/// <reference path="validator/validator.d.ts" />

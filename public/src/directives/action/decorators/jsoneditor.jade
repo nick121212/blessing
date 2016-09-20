@@ -1,0 +1,7 @@
+md-input-container(aria-label="{{::form.title}}",md-is-error="ngModel.$error && ngModel.$invalid",class="{{::form.htmlClass}} schema-form-jsoneditor")
+    h3(ng-show="form.title && form.showHints") {{ form.title }}
+    div(ng-jsoneditor,flex,sf-field-model,prefer-text="form.preferText",sf-changed="form",schema-validate="form",ng-model="$$value$$",options="form.jsonOptions",style="height: 300px;")
+    input.hide
+    div(ng-messages="ngModel.$error",aria-live="assertive",md-auto-hide="false")
+        div(sf-message,ng-message)
+    div.md-char-counter {{ form.description }}

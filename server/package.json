@@ -46,13 +46,17 @@
     "koa-router": "^7.0.0",
     "koa-session2": "^1.0.8",
     "koa-slow": "^2.1.0",
+    "koa-socket": "^4.4.0",
     "koa-views": "^5.0.2",
     "lodash": "^4.14.1",
     "mysql": "^2.11.1",
+    "node-uuid": "^1.4.7",
     "passport-local": "^1.0.0",
     "qs-middleware": "^1.0.1",
     "sequelize": "^3.23.6",
+    "sequelize-cli": "^2.4.0",
     "sequelize-import": "^1.2.1",
+    "sequelize-json": "^2.1.2",
     "tty.js": "^0.2.15"
   },
   "devDependencies": {

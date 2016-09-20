@@ -2,11 +2,19 @@ import Koa from 'koa';
 import consign from 'consign';
 import log4js from 'koa-log4';
 import _ from 'lodash';
+import IO from 'koa-socket';
+
 const app = new Koa();
+const io = new IO({
+    namespace: 'crawler'
+});
 const logger = log4js.getLogger("index");
 const tty = require('tty.js');
 
+io.attach(app);
+
 consign({
+    verbose: false,
     extensions: ['.js', '.json', '.node']
 })
     .include('config')
@@ -16,7 +24,7 @@ consign({
     .then('auth')
     .then('routes')
     .then('controllers')
-    .into(app, logger);
+    .into(app, logger, io);
 
 
 const conf = tty.config.readConfig(), ttyApp = tty.createServer(_.extend(conf,

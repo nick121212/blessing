@@ -5,14 +5,15 @@ module.exports = (app, log)=> {
     return {
         modelNames: {
             passport: "passport",
-            module: "module"
+            module: "module",
+            crawler_setting: "crawler_setting",
         },
         findModel: (modelName)=> {
             let {models, sequelize, Sequelize} = app.config.db.index;
             let model = models[modelName];
 
             if (!model) {
-                throw new Error("没有找到模型!!!");
+                throw new Error(`没有找到模型${modelName}!!!`);
             }
 
             return model;
@@ -33,7 +34,7 @@ module.exports = (app, log)=> {
 
             filter.limit = ~~filter.limit;
             filter.offset = ~~filter.offset;
-            filter.where = JSON.parse(filter.where);
+            filter.where && (filter.where = JSON.parse(filter.where));
             if (_.isEmpty(filter.where)) {
                 delete filter.where;
             }

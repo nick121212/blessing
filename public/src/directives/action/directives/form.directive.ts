@@ -20,7 +20,7 @@ class Controller {
     formData: Object;
 
     constructor(private $scope, private fxAction) {
-
+        this.formData = this.formData || {};
     }
 
     getActionModel() {
@@ -43,11 +43,12 @@ function Directive(): ng.IDirective {
         require: "^fxFormAction",
         bindToController: {
             formData: "=ngModel",
-            key: "@"
+            actionModel: "=?",
+            key: "@?"
         },
         controller: Controller,
         controllerAs: 'formCtl',
-        replace: false,
+        replace: true,
         transclude: true,
         link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attrs: IDirectiveAttr, $ctl: Controller) => {
             $scope.$watch(()=> {

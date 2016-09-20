@@ -3,16 +3,19 @@
  */
 
 import {IActionModel} from '../models/action.model';
+import * as _ from 'lodash';
 
 const _dirName = 'fxDialogFormAction';
 
 class Controller {
     static $inject = ["$scope", "fxAction", "materialUtils", "toolbarUtils", "$mdDialog"];
 
-    formData: {};
+    private submitCallBack: Function;
+
+    formData: Object;
     actionModel: IActionModel;
-    key: string;
     toolbars: Array<any>;
+    key: string;
 
     constructor(private $scope, private fxAction, private materialUtils: fx.utils.materialStatic, private toolbarUtils, private $mdDialog: ng.material.IDialogService) {
         this.formData = this.formData || {};
@@ -23,7 +26,11 @@ class Controller {
 
         if (promise) {
             promise.then((result)=> {
-                this.$mdDialog.hide(result);
+                this.actionModel.closeDialog === true && this.$mdDialog.hide(result);
+
+                if (_.isFunction(this.submitCallBack)) {
+                    this.submitCallBack();
+                }
             });
         }
 
@@ -53,11 +60,12 @@ function Directive(): ng.IDirective {
     return {
         restrict: 'EA',
         template: require("../tpls/form-dialog.jade")(),
-        scope: {},
+        scope: true,
         require: `^${_dirName}`,
         bindToController: {
             key: "@",
-            formData: '=ngModel'
+            formData: '=ngModel',
+            submitCallBack: '=?ngSubmit'
         },
         controller: Controller,
         controllerAs: 'dialogFormCtl',

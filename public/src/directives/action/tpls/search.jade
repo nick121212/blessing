@@ -1,10 +1,10 @@
 md-content.nga-fast.nga-stagger-fast.nga-slide-right(layout="column",flex-gt-sm="30",flex="100",md-whiteframe="2",ng-show="searchCtl.isShow")
     md-toolbar.md-table-toolbar.md-warn
         div.md-toolbar-tools(fx-toolbar,layout="row",items="searchCtl.toolbars",ctls="searchCtl",ng-disabled="searchCtl.disabled")
-    form.md-margin(fx-form-action,key="{{searchCtl.key}}",ng-model="searchCtl.formData",flex,layout="column",name="searchForm",ng-submit="searchCtl.doPreSearch($event,searchForm)")
-        span(flex)
-        md-divider
-        md-button.md-block(type="submit",ng-disabled="searchCtl.disabled")
-            md-icon
-                ng-md-icon(icon="filter")
-            span 过滤一下
+    form.md-margin(flex,name="searchForm",ng-submit="searchCtl.doPreSearch($event,searchForm)")
+        div(fx-form-action,key="{{searchCtl.key}}",ng-model="searchCtl.formData",layout="column")
+    md-divider
+    md-button.md-block(ng-disabled="searchCtl.disabled",ng-click="searchCtl.doPreSearch($event,searchForm)")
+        md-icon
+            ng-md-icon(icon="filter")
+        span 过滤一下

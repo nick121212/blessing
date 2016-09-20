@@ -3,11 +3,11 @@
  */
 
 export class PageController {
+    static $inject = ["$stateParams"];
+
     key: string;
 
     constructor(private $stateParams: ng.ui.IStateParamsService) {
         this.key = $stateParams["key"];
     }
 }
-
-PageController.$inject = ["$stateParams"];

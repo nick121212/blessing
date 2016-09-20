@@ -50,7 +50,6 @@ class Controller {
      */
     doClickActionMenu($event, actionModel, item) {
         this.fxAction.doActionModel($event, actionModel, item).then((result)=> {
-            console.log(result);
             this.materialUtils.showMsg(`${actionModel.successMsg || "操作成功!"}`).finally(()=> {
                 if (actionModel.refreshList) {
                     this.doSearch(this.queryData.where || {});
@@ -72,7 +71,7 @@ class Controller {
             _.forEach(actionModels, (actionModel: IActionModel)=> {
                 if (actionModel.type !== ActionType.list) {
                     this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder(actionModel.title, "md-icon-button", false).tooltipBuilder("").iconBuilder(actionModel.icon, {fill: "black"}).btnClick(($event, item: any)=> {
-                        this.doClickActionMenu($event, actionModel, item);
+                        this.doClickActionMenu($event, actionModel, item || {});
                     }).toValue());
                 }
             });
@@ -104,13 +103,14 @@ class Controller {
             keys.push(item.key);
         });
         // 处理所有提取的keys
-        this.fxAction.getModels(keys).then((actionModels)=> {
+        keys.length && this.fxAction.getModels(keys).then((actionModels)=> {
             _.forEach(actionModels, (actionModel: IActionModel, key)=> {
                 let condition = itemActionsObj[key].condition;
 
                 // 添加操作按钮
                 switch (actionModel.type) {
                     case  ActionType.form:
+                    case  ActionType.wizard:
                     case  ActionType.confirm:
                         let menu = this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any)=> {
                             this.doClickActionMenu($event, actionModel, item);

@@ -3,6 +3,8 @@
  */
 
 import {PageController} from './ctls/page.controller';
+import {WizardController} from './ctls/page.wizard.controller';
+import {D3Controller} from './ctls/page.d3.controller';
 
 export const initRouter = ($urlRouterProvider, $stateProvider) => {
     // 路由规则
@@ -19,6 +21,30 @@ export const initRouter = ($urlRouterProvider, $stateProvider) => {
                 controller: PageController,
                 controllerAs: "pageCtl",
                 template: require("./tpls/page.template.jade")()
+            }
+        }
+    }).state("home.wizard", {
+        url: "wizard",
+        data: {
+            permissions: {
+                except: ["anonymous"],
+                only: ["user"]
+            }
+        },
+        views: {
+            "content": {
+                controller: WizardController,
+                controllerAs: "pageCtl",
+                template: require("./tpls/page.wizard.template.jade")()
+            }
+        }
+    }).state('home.d3', {
+        url: "d3",
+        views: {
+            "content": {
+                controller: D3Controller,
+                controllerAs: "pageCtl",
+                template: "<svg flex id='homed3'></svg>"
             }
         }
     });

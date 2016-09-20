@@ -2,9 +2,6 @@
  * Created by NICK on 16/8/16.
  */
 
-// angular.module('sidemenu')
-//     .provider('mdSideMenuSections', []);
-
 function Provider() {
     var _sections = [],
         _theme,

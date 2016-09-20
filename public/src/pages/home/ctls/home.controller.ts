@@ -6,7 +6,7 @@ export class HomeController {
     public static $inject = ["$rootScope", "materialUtils", "toolbarUtils"];
 
     toolbar: Object|Array<Object>;
-    title: string = "DASHBOARD";
+    title: string = "CRAWLER";
 
     constructor(private $rootScope: ng.IRootScopeService, private materialUtils: fx.utils.materialStatic, private toolbarUtils) {
         $rootScope["user"] = "NICK";

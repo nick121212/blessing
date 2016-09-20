@@ -26,7 +26,7 @@ class ModuleList {
                     actionUtils.columnBuilder(`<span>{{ ::item.lft }}</span>`, "lft", "lft").toValue(),
                     actionUtils.columnBuilder(`<span>{{ ::item.rgt }}</span>`, "rgt", "rgt").toValue()
                 ],
-                searchActionKey: "modulesSearchAction",
+                searchActionKey: ModuleSearch.key,
                 showRefreshBtn: true,
                 showSearchBtn: true,
                 showSearchPanel: false,
@@ -34,7 +34,7 @@ class ModuleList {
                 itemToolbars: []
             },
             itemActions: [{key: ModuleEdit.key}, {key: ModuleDelete.key}],
-            actions: [ModuleAdd.key],
+            actions: [ModuleAdd.key, ModuleWizardAdd.key],
             interfaces: [{
                 key: "modulesList",
                 method: MethodType.GET,
@@ -309,7 +309,7 @@ class ModuleSearch {
                 },
                 formSchema: [{
                     key: "key",
-                    type: "string",
+                    type: "text",
                     placeHolder: "KEY",
                     description: "请输入key来进行搜索,不支持模糊查询",
                     showHints: true,
@@ -322,8 +322,38 @@ class ModuleSearch {
     }
 }
 
+/**
+ * 模块搜索
+ */
+class ModuleWizardAdd {
+    static $inject = ["toolbarUtils", "actionUtils"];
+    static key: string = "ModuleWizardAddAction";
+
+    constructor() {
+        let actionModel: IActionModel = {
+            key: ModuleWizardAdd.key,
+            icon: "add_circle_outline",
+            type: ActionType.wizard,
+            title: "新建模块",
+            interfaces: [{
+                key: "modulesAdd",
+                method: MethodType.POST,
+                address: "",
+                port: null,
+                path: "modules",
+                isRestful: true
+            }],
+            wizard: {
+                actions: [ModuleAdd.key, ModuleEdit.key]
+            }
+        };
+
+        return actionModel;
+    }
+}
+
 export default (module: ng.IModule) => {
-    const services: Array<any> = [ModuleDelete, ModuleMenus, ModuleList, ModuleSearch, ModuleAdd, ModuleEdit];
+    const services: Array<any> = [ModuleWizardAdd, ModuleDelete, ModuleMenus, ModuleList, ModuleSearch, ModuleAdd, ModuleEdit];
 
     _.each(services, (ser)=> {
         module.service(ser.key, ser);

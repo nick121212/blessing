@@ -1,36 +1,52 @@
-<div  class="schema-form-array {{form.htmlClass}}"
-      sf-field-model="sf-new-array"
-      sf-new-array>
-  <label class="control-label" ng-show="showTitle()">{{ form.title }}</label>
-  <md-list class="list-group" sf-field-model ui-sortable="form.sortOptions">
-    <md-list-item layout="row" class="list-group-item"
-             sf-field-model="ng-repeat"
-             ng-repeat="item in modelArray track by $index"
-             schema-form-array-items
-             class="{{form.fieldHtmlClass}}">
-      <md-button flex="none" flex-order="2"
-                 type="button"
-                 ng-hide="form.readonly || form.remove === null"
-                 ng-click="deleteFromArray($index)"
-                 ng-disabled="form.schema.minItems >= modelArray.length"
-                 class="md-icon-button" aria-label="More"
-                 style="position: relative; z-index: 20;">
-        <md-icon>close</md-icon>
-      </md-button>
-    </md-list-item>
-  </md-list>
-  <div class="clearfix" style="padding: 15px;" ng-model="modelArray" schema-validate="form">
-    <div class="help-block"
-         ng-show="(hasError() && errorMessage(schemaError())) || form.description"
-         ng-bind-html="(hasError() && errorMessage(schemaError())) || form.description"></div>
+<div class="schema-form-array {{form.htmlClass}}"
+     sf-field-model="sf-new-array"
+     sf-new-array>
 
-    <md-button ng-hide="form.readonly || form.add === null"
-            ng-click="appendToArray()"
-            ng-disabled="form.schema.maxItems <= modelArray.length"
-            type="button"
-            class="btn md-raised md-primary {{ form.style.add || 'btn-default' }} pull-right">
-      <i class="glyphicon glyphicon-plus"></i>
-      {{ form.add || 'Add'}}
-    </md-button>
-  </div>
+    <md-toolbar class="md-warn">
+        <div class="md-toolbar-tools">
+            <h2 flex>{{ ::form.title }}</h2>
+            <md-button ng-hide="form.readonly || form.add === null"
+                       ng-click="appendToArray()"
+                       ng-disabled="form.schema.maxItems <= modelArray.length"
+                       class="md-icon-button {{ form.style.add || 'btn-default' }}">
+                <md-icon>
+                    <ng-md-icon icon="add_circle_outline"></ng-md-icon>
+                </md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-content sf-layout flex layout-padding class="md-whiteframe-1dp">
+        <md-list sf-field-model ui-sortable="form.sortOptions">
+            <md-list-item layout="row" class="list-group-item"
+                          sf-field-model="ng-repeat-start"
+                          ng-repeat-start="item in modelArray track by $index"
+                          schema-form-array-items
+                          class="{{form.fieldHtmlClass}}">
+                <md-button flex-order="2"
+                           ng-hide="form.readonly || form.remove === null"
+                           ng-click="deleteFromArray($index)"
+                           ng-disabled="form.schema.minItems >= modelArray.length"
+                           class="md-icon-button"
+                           aria-label="Delete">
+                    <md-icon>
+                        <ng-md-icon icon="close-circle-outline"></ng-md-icon>
+                    </md-icon>
+                </md-button>
+            </md-list-item>
+            <md-divider ng-repeat-end=""></md-divider>
+        </md-list>
+    </md-content>
+
+    <md-input-container style="margin-top:0;" class="md-block" md-is-error="ngModel.$error && ngModel.$invalid">
+        <input type="text" class="ng-hide"
+               name="{{::form.key|sfCamelKey}}"
+               ng-model="$$value$$"
+               sf-field-model
+               schema-validate="form">
+        <div ng-messages="ngModel.$error" aria-live="assertive">
+            <div sf-message ng-message></div>
+        </div>
+        <div class="hint md-char-counter" ng-if="form.showHints" ng-bind="form.description"></div>
+    </md-input-container>
 </div>

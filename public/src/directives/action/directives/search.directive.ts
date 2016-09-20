@@ -4,6 +4,7 @@
 
 import {IActionModel, ActionType} from '../models/action.model';
 import * as _ from 'lodash';
+import * as pointer from 'json-pointer';
 
 const _name = "fxSearchAction";
 
@@ -59,8 +60,16 @@ class Controller {
      * @param $form
      */
     doPreSearch($event, $form: ng.IFormController) {
+        const searchData = {};
+
         if (this.fxAction.doFormCheck($form) && _.isFunction(this.doSearch)) {
-            this.doSearch(this.formData);
+            _.forEach(this.formData, (data, key: string)=> {
+                if (key.substr(0, 1) === "/") {
+                    pointer.set(searchData, key, data);
+                }
+            });
+
+            this.doSearch(searchData);
         }
     }
 }

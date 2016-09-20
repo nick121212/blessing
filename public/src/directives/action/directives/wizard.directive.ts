@@ -1,0 +1,183 @@
+/**
+ * Created by NICK on 16/8/9.
+ */
+
+import {IActionModel, ISchemaForm, ActionType} from '../models/action.model';
+
+interface IDirectiveScope extends ng.IScope {
+
+}
+
+interface IDirectiveAttr extends ng.IAttributes {
+
+}
+
+class Controller {
+    static $inject = ["$scope", "$timeout", "fxAction", "toolbarUtils", "materialUtils"];
+
+    isShow: boolean = true;
+    actionModel: IActionModel;
+    key: string;
+    formData: Object;
+    selectedIndex: number = 0;
+    toolbars: Array<any>;
+    $forms: {[id: string]: ng.IFormController};
+
+    constructor(private $scope, private $timeout, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic) {
+        this.initToolbar();
+
+        this.$scope.$on("$destroy", ()=> {
+            this.formData = null;
+            this.$forms = null;
+            this.toolbars = null;
+            this.actionModel = null;
+        });
+    }
+
+    /**
+     * 初始化form，因为有多个form，所以需要用一个对象来保存所有的表单对象，用于后期验证表单的$valid
+     * @param action
+     * @param $scope
+     */
+    initForm(action: IActionModel, $scope: ng.IScope) {
+        if (!this.$forms) {
+            this.$forms = {};
+        }
+        this.$forms[action.key] = $scope[`${action.key}Form`];
+    }
+
+    /**
+     * 判断是否需要显示form
+     * @param action
+     * @param index
+     * @returns {boolean}
+     */
+    showForm(action: IActionModel, index: number) {
+        return index === 0 || this.$forms.hasOwnProperty(action.key) || index == this.selectedIndex || index == this.selectedIndex + 1;
+    }
+
+    /**
+     * 验证当前表单是否正确
+     * @returns {boolean}
+     */
+    doCheckCurrentForm() {
+        let actionModel = this.actionModel.wizard.actions[this.selectedIndex];
+
+        // 验证表单是否正确
+        if (this.$forms) {
+            let formController = this.$forms[`${(actionModel as IActionModel).key}`];
+
+            if (!this.fxAction.doFormCheck(formController)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * 重置表单数据
+     */
+    reset() {
+        this.formData = {};
+        this.selectedIndex = 0;
+
+        _.forEach(this.$forms, ($form)=> {
+            $form.$setPristine();
+            $form.$setUntouched();
+        });
+        this.isShow = false;
+        this.$timeout(()=> {
+            this.isShow = true;
+        }, 0);
+    }
+
+    /**
+     * 添加wizard的按钮组,包括上一步,下一步和完成按钮
+     * 每个按钮都需要验证表单的正确性
+     * 每个按钮如果有接口操作,都需要调用接口,接口返回正常才可用
+     */
+    initToolbar() {
+        this.toolbars = [
+            this.toolbarUtils.btnBuilder("上一步", null, true, "top").iconBuilder("navigate_before").conditionBuilder("wizardCtl.selectedIndex>0", false).btnClick(($event)=> {
+                this.selectedIndex && this.selectedIndex--;
+            }).toValue(),
+            this.toolbarUtils.btnBuilder("下一步", null, true, "top").iconBuilder(null, null, "navigate_next").conditionBuilder("wizardCtl.selectedIndex < wizardCtl.actionModel.wizard.actions.length-1", false).btnClick(($event)=> {
+                if (this.doCheckCurrentForm() && _.isArray(this.actionModel.wizard.actions) && this.actionModel.wizard.actions.length > this.selectedIndex) {
+                    this.selectedIndex++;
+                }
+            }).toValue(),
+            this.toolbarUtils.btnBuilder("完成", "md-primary", true, "top").iconBuilder("done_all").conditionBuilder("wizardCtl.selectedIndex===wizardCtl.actionModel.wizard.actions.length-1", false).btnClick(($event)=> {
+                if (this.doCheckCurrentForm()) {
+                    this.fxAction.doAction(this.actionModel.key, this.formData).then(()=> {
+                        this.materialUtils.showMsg(this.actionModel.successMsg || "操作成功！");
+                        this.reset();
+                    });
+                }
+            }).toValue()
+        ];
+    }
+
+    /**
+     * 通过key来获取数据
+     */
+    getActionModel() {
+        let actionModel;
+
+        this.fxAction.getModel(this.key).then((model: IActionModel)=> {
+            actionModel = _.cloneDeep(model);
+
+            return this.fxAction.getModels(model.wizard.actions);
+        }).then((actionModels: Array<IActionModel>)=> {
+            let actions = [];
+
+            _.each(actionModel.wizard.actions, (action)=> {
+                if (_.isString(action)) {
+                    action = actionModels[action];
+                }
+                // 如果是form的话，判断dataSchema是否存在，不存在则使用wizard的defaultSchema
+                if (action && (action.type === ActionType.form || action.type === ActionType.wizard)) {
+                    if (!action.form.dataSchema && action.type === ActionType.form) {
+                        action.form.dataSchema = actionModel.wizard.defaultSchema.dataSchema;
+                    }
+                    actions.push(action);
+                }
+            });
+            actionModel.wizard.actions = actions;
+            this.actionModel = actionModel;
+        });
+    }
+}
+
+/**
+ * 操作指令,某个表单操作
+ * @returns {{restrict: string, template: any, scope: {}, replace: boolean, link: (($scope:IDirectiveScope))}}
+ * @constructor
+ */
+function Directive(): ng.IDirective {
+    return {
+        restrict: 'EA',
+        template: require("../tpls/wizard.jade")(),
+        scope: true,
+        require: "^fxWizardAction",
+        bindToController: {
+            formData: "=ngModel",
+            key: "@"
+        },
+        controller: Controller,
+        controllerAs: 'wizardCtl',
+        replace: true,
+        transclude: true,
+        link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attr: IDirectiveAttr, $ctl: Controller) => {
+            $scope.$watch(()=> {
+                return $ctl.key;
+            }, ()=> {
+                $ctl.getActionModel();
+            });
+        }
+    };
+}
+
+export default (module: ng.IModule)=> {
+    module.directive("fxWizardAction", Directive);
+}

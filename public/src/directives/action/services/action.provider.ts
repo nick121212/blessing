@@ -24,17 +24,22 @@ class Provider {
 
     /**
      * 查找操作模型,如果本地没有,则去服务器中查找
-     * @param key  {String}  操作的kEY
+     * @param key  {String}  操作的KEY
      * @returns {IPromise<T>}
      */
     getModel(key: string) {
         const defer = this.$q.defer();
 
-        if (this.$injector.has(key)) {
-            defer.resolve(this.$injector.get(key));
+        if (!key) {
+            defer.reject();
         } else {
-            this.mdUtils.showErrMsg(`没有找到key[${key}]!`);
-            defer.reject(key);
+
+            if (this.$injector.has(key)) {
+                defer.resolve(_.cloneDeepWith(this.$injector.get(key)));
+            } else {
+                this.mdUtils.showErrMsg(`没有找到key[${key}]!`);
+                defer.reject(key);
+            }
         }
 
         return defer.promise;
@@ -80,36 +85,43 @@ class Provider {
      * @param item
      * @return {Promise<any>}
      */
-    doActionModel($event, actionModel: IActionModel, item?: any) {
+    doActionModel($event, actionModel: IActionModel, item?: any, callback?: Function) {
+        // 表单和多级表单操作,弹出dialog
+        // 确认框操作,弹出确认窗口
+        switch (actionModel.type) {
+            case ActionType.wizard:
+            case ActionType.form:
+                const templates = {
+                    [ActionType.form]: require("../tpls/form-dialog-action.jade")(),
+                    [ActionType.wizard]: require("../tpls/wizard-dialog-action.jade")()
+                };
 
-        // 弹出表单的操作
-        if (actionModel.type === ActionType.form || actionModel.type === ActionType.wizard) {
-            return this.$mdDialog.show({
-                targetEvent: $event,
-                clickOutsideToClose: false,
-                escapeToClose: false,
-                fullscreen: true,
-                controller: function ($scope) {
-                    $scope['item'] = item;
-                    $scope['key'] = actionModel.key;
-                },
-                template: require("../tpls/form-dialog-action.jade")()
-            });
-        }
+                return this.$mdDialog.show({
+                    targetEvent: $event,
+                    clickOutsideToClose: false,
+                    escapeToClose: false,
+                    fullscreen: true,
+                    controller: function ($scope) {
+                        $scope['item'] = item || {};
+                        $scope['key'] = actionModel.key;
+                        $scope['submit'] = callback;
+                    },
+                    template: templates[actionModel.type]
+                }).then(()=> {
+                    item = null;
+                });
+            case ActionType.confirm:
+                const confirm = this.$mdDialog.confirm()
+                    .title(actionModel.confirm.confirmTitle)
+                    .textContent(actionModel.confirm.confirmContent)
+                    .ariaLabel(actionModel.confirm.confirmTitle)
+                    .targetEvent($event)
+                    .ok(actionModel.confirm.confirmOk || "确定")
+                    .cancel(actionModel.confirm.confirmCancel || "取消");
 
-        // 弹出确认表单操作
-        if (actionModel.type === ActionType.confirm) {
-            const confirm = this.$mdDialog.confirm()
-                .title(actionModel.confirm.confirmTitle)
-                .textContent(actionModel.confirm.confirmContent)
-                .ariaLabel(actionModel.confirm.confirmTitle)
-                .targetEvent($event)
-                .ok(actionModel.confirm.confirmOk || "确定")
-                .cancel(actionModel.confirm.confirmCancel || "取消");
-
-            return this.$mdDialog.show(confirm).then(()=> {
-                return this.doAction(actionModel.key, item);
-            });
+                return this.$mdDialog.show(confirm).then(()=> {
+                    return this.doAction(actionModel.key, item);
+                });
         }
     }
 
@@ -174,11 +186,12 @@ class Provider {
 
             // 获取接口列表,使用restangular处理接口地址,最后调用接口,返回promise
             _.each(actionModel.interfaces, (interfaceModel: IInterfaceModel)=> {
+                // 获取接口的地址
                 let promise: ng.IPromise<any>,
                     restAngular = interfaceModel.isRestful
                         ? this.restUtils.getCustomRestful(interfaceModel.address, interfaceModel.port, interfaceModel.path)
                         : this.restUtils.getCustom(interfaceModel.address, interfaceModel.port, interfaceModel.path);
-
+                // 判断接口请求类型,做提交操作
                 switch (interfaceModel.method) {
                     case MethodType.POST:
                         promise = restAngular.post(queryData, null);
@@ -197,6 +210,7 @@ class Provider {
 
             return interfacesRest;
         }).then((interfacesRest)=> {
+            // 返回promise
             return this.$q.all(interfacesRest);
         });
     }

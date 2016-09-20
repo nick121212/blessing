@@ -4,6 +4,8 @@
 
 import Sequelize from 'sequelize';
 import sequelizeImport from 'sequelize-import';
+import * as fs from 'fs';
+import * as path from 'path';
 
 module.exports = (app, logger)=> {
     "use strict";
@@ -14,8 +16,12 @@ module.exports = (app, logger)=> {
         exclude: ['index.js']
     });
 
-    sequelize.sync({force: config.db.force}).then(()=> {
-
+    sequelize.sync({force: false}).then(()=> {
+        // config.db.force && sequelize.query(fs.readFileSync(path.resolve(__dirname, './sqls/blessing_module.sql'), 'utf-8'), {
+        //     type: sequelize.QueryTypes.DESCRIBE
+        // }).then(function (metadata) {
+        //     console.log(metadata);
+        // });
     }).catch((err)=> {
         logger.error(err);
     });

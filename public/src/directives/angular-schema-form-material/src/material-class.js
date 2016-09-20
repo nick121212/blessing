@@ -1,9 +1,11 @@
-angular.module('schemaForm').directive('sfMaterialClass', function($compile, $timeout) {
+angular.module('schemaForm').directive('sfMaterialClass', function ($compile, $timeout) {
     return {
-        restrict : 'A',
-        scope    : false,
-        link     : function(scope, element, attrs, ngModel) {
-            function reduceHelper(obj, i) {return obj[i]}
+        restrict: 'A',
+        scope: false,
+        link: function (scope, element, attrs, ngModel) {
+            function reduceHelper(obj, i) {
+                return obj[i]
+            }
 
             var modelValue;
             try {
@@ -14,7 +16,7 @@ angular.module('schemaForm').directive('sfMaterialClass', function($compile, $ti
 
             // Element class is not set in DOM if executed immediately.
             // I don't understand exactly why but it's probably related to other directive job.
-            $timeout(function() {
+            $timeout(function () {
                 if (modelValue !== null && typeof modelValue !== 'undefined' && modelValue !== false) {
                     element.addClass(attrs.sfMaterialClass);
                 }

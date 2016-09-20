@@ -15,9 +15,12 @@ class Service {
 
             }
 
-            conditionBuilder(condition: string) {
+            conditionBuilder(condition: string, prefix: boolean = true) {
                 this.data = _.extend({}, this.data, {
-                    conditionBase: condition
+                    conditionInfo: {
+                        condition: condition,
+                        prefix: prefix
+                    }
                 });
 
                 return this;
@@ -41,10 +44,11 @@ class Service {
                 return this;
             }
 
-            iconBuilder(icon: string, style?: [{(id: string): any}], options?: [{(id: string): any}]) {
+            iconBuilder(icon: string, style?: [{(id: string): any}], ricon?: string, options?: [{(id: string): any}]) {
                 this.data = _.extend({}, this.data, {
                     icon: {
                         icon: icon,
+                        ricon: ricon,
                         style: style
                     }
                 });

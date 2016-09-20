@@ -3,9 +3,20 @@
  */
 
 export class SidenavRightController {
-    public static $inject = ["fxAction"];
+    public static $inject = ["$mdColorPalette", "fxAction"];
 
-    constructor(private fxAction) {
+    colors: Array<string>;
+
+    constructor(private $mdColorPalette: ng.material.IColorPalette, private fxAction) {
+        this.colors = Object.keys($mdColorPalette);
+    }
+
+    selectTheme(color) {
+        console.log(color);
+    }
+
+    showTheme($event) {
+        console.log($event);
     }
 
     /**
@@ -22,7 +33,6 @@ export class SidenavRightController {
                 });
             }
         });
-
     }
 }
 

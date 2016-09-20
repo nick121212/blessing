@@ -25,7 +25,7 @@ export interface IConfirm {
     confirmCancel?: string;
 }
 
-export interface IForm {
+export interface ISchemaForm {
     // form操作的时候表单schema
     formSchema?: string | Array<Object>;
     // form操作的时候字段schema
@@ -34,10 +34,14 @@ export interface IForm {
     title?: string;
     // 状态
     status?: number;
+    // 数据的JSON路径,默认应该为"/"
+    path?: string;
 }
 
 export interface IWizard {
-    schemas: Array<IForm>;
+    defaultSchema?: ISchemaForm;
+    // schemas?: Array<ISchemaForm>;
+    actions: Array<string|IActionModel>;
 }
 
 export interface IColumn {
@@ -94,7 +98,7 @@ export interface IActionModel {
     // confirm 操作
     confirm?: IConfirm,
     // form 操作
-    form?: IForm;
+    form?: ISchemaForm;
     // 多表单操作
     wizard?: IWizard;
     // 列表操作
@@ -111,4 +115,6 @@ export interface IActionModel {
     successMsg?: string;
     // 执行成功后是否刷新列表
     refreshList?: boolean ;
+    // 执行成功后是否需要关闭dialog
+    closeDialog?: boolean;
 }
