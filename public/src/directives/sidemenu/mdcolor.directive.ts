@@ -54,8 +54,6 @@ function Directive(mdSideMenuSections): ng.IDirective {
     }
 }
 
-Directive.$inject = ["mdSideMenuSections"];
-
 export default (module: ng.IModule)=> {
-    module.directive(_name, Directive);
+    module.directive(_name, ["mdSideMenuSections", Directive]);
 };

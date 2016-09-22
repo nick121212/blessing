@@ -20,6 +20,8 @@ interface IDirectiveScope extends ng.IScope {
 }
 
 class Controller {
+    static $inject = ["$scope", "$compile", "$interpolate", "mdSideMenuSections"];
+
     template: any;
     selectedNodes: Object;
     options: Object = {};
@@ -83,7 +85,6 @@ class Controller {
 
 }
 
-Controller.$inject = ["$scope", "$compile", "$interpolate", "mdSideMenuSections"];
 
 /**
  * sidemenu指令
@@ -135,9 +136,7 @@ function Directive(mdSideMenuSections): ng.IDirective {
     };
 }
 
-Directive.$inject = ["mdSideMenuSections"];
-
-const module = angular.module(_module, ["ngAnimate", "ngMaterial"]).directive(_name, Directive);
+const module = angular.module(_module, ["ngAnimate", "ngMaterial"]).directive(_name, ["mdSideMenuSections", Directive]);
 
 section(module);
 content(module);

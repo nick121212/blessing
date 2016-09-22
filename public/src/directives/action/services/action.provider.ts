@@ -123,6 +123,8 @@ class Provider {
                     return this.doAction(actionModel.key, item);
                 });
         }
+
+        return null;
     }
 
     /**

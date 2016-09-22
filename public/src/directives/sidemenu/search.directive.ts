@@ -23,8 +23,6 @@ function Directive(mdSideMenuSections, $timeout): ng.IDirective {
     };
 }
 
-Directive.$inject = ["mdSideMenuSections", "$timeout"];
-
 export default (module: ng.IModule)=> {
-    module.directive('fxSideMenuSearch', Directive);
+    module.directive('fxSideMenuSearch', ["mdSideMenuSections", "$timeout", Directive]);
 };

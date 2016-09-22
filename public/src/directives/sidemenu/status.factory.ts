@@ -26,8 +26,6 @@ function Factory($rootScope, mdSideMenuSections): any {
     };
 }
 
-Factory.$inject = ["$rootScope", "mdSideMenuSections"];
-
 export default (module: ng.IModule)=> {
-    module.factory('fxSideMenuFactory', Factory);
+    module.factory('fxSideMenuFactory', ["$rootScope", "mdSideMenuSections", Factory]);
 };
