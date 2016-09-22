@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         initDomain: {type: DataTypes.STRING(30)},
         proxySettings: JsonField(sequelize, 'crawlerSetting', 'proxySettings'),//{type: DataTypes.TEXT},
         pages: JsonField(sequelize, 'crawlerSetting', 'pages'),//{type: DataTypes.TEXT},
-        areas: JsonField(sequelize, 'crawlerSetting', 'areas'),//{type: DataTypes.TEXT},
         description: {type: DataTypes.TEXT, allowNull: true},
     }, {
         hooks: {
