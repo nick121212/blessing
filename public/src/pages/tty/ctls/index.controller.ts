@@ -38,7 +38,7 @@ export class TtyController {
     }
 
     init() {
-        this.socket = io('http://0.0.0.0:3000/crawler');
+        this.socket = io('http://114.55.146.215:3000/crawler');
         // this.socket.on('connect', function () {
         //     console.log("connected!!");
         // });
