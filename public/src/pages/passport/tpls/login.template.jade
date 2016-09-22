@@ -1,11 +1,12 @@
 div(layout="column",layout-padding)
     div(layout-align="center center",layout="column")
         ng-md-icon(icon="biohazard",size="96")
-    form(fx-form-action,key="{{loginCtl.key}}",ng-model="loginCtl.formData",layout="column",name="loginForm",ng-submit="loginCtl.doSubmit(loginForm)")
-        md-button.md-block(type="submit",flex)
-            md-icon
-                ng-md-icon(icon="login")
-            span Login In
+    form(name="loginForm")
+        div(fx-form-action,key="{{loginCtl.key}}",ng-model="loginCtl.formData",layout="column",ng-submit="loginCtl.doSubmit(loginForm)")
+    md-button.md-block(flex,ng-click="loginCtl.doSubmit(loginForm)")
+        md-icon
+            ng-md-icon(icon="login")
+        span Login In
     md-divider
     div(layout="row",layout-align="space-around center")
         md-button.md-icon-button
