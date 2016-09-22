@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         description: {type: DataTypes.TEXT, allowNull: true},
     }, {
         hooks: {
-
+    // /srv/blessing/server/config/db/sqls/blessing-2016-09-22-1.sql
         }
     });
 };

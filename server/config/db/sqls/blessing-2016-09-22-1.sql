@@ -31,7 +31,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `module` WRITE;
 /*!40000 ALTER TABLE `module` DISABLE KEYS */;
-INSERT INTO `module` VALUES (3,'root','DASHBOARD','dashboard',NULL,1,20,NULL,'DASHBOARD',1,'2016-09-04 04:32:31','2016-09-04 04:32:31'),(4,'settings','系统设置','settings',NULL,2,9,'root','系统设置',1,'2016-09-04 04:49:02','2016-09-04 04:49:02'),(5,'permission','权限设置','people_outline',NULL,10,11,'root','权限设置',1,'2016-09-04 13:48:31','2016-09-05 09:31:35'),(6,'user','用户设置','person',NULL,12,13,'root','用户设置\n\n\n\n\nhello world',1,'2016-09-04 14:09:44','2016-09-07 04:35:03'),(7,'schema','SCHEMA设置','chair-school',NULL,3,4,'settings','管理SCHEMA',1,'2016-09-05 09:27:03','2016-09-09 02:40:21'),(8,'interface','接口设置','extension',NULL,5,6,'settings','接口管理\n\n\nhelodf',1,'2016-09-05 09:42:01','2016-09-09 02:40:11'),(9,'cmdb','CMDB','web_asset',NULL,14,15,'root','资产管理模块',1,'2016-09-08 10:02:26','2016-09-08 10:02:26'),(10,'module','模块管理','file-tree',NULL,7,8,'settings','模块管理',1,'2016-09-09 02:39:55','2016-09-09 02:39:55'),(14,'crawler','爬虫管理','bug',NULL,16,19,'root','爬虫的相关设置',1,'2016-09-18 04:30:14','2016-09-18 04:30:38'),(15,'crawler_settings','爬虫配置文件管理','content-save-settings',NULL,17,18,'crawler','爬虫配置文件的管理',1,'2016-09-18 04:34:03','2016-09-18 04:34:03');
+INSERT INTO `module` VALUES ('cmdb','CMDB','web_asset',NULL,14,15,'root','资产管理模块',1,'2016-09-08 10:02:26','2016-09-08 10:02:26'),('crawler','爬虫管理','bug',NULL,16,19,'root','爬虫的相关设置',1,'2016-09-18 04:30:14','2016-09-18 04:30:38'),('crawler_settings','爬虫配置文件管理','content-save-settings',NULL,17,18,'crawler','爬虫配置文件的管理',1,'2016-09-18 04:34:03','2016-09-18 04:34:03'),('interface','接口设置','extension',NULL,5,6,'settings','接口管理\n\n\nhelodf',1,'2016-09-05 09:42:01','2016-09-09 02:40:11'),('module','模块管理','file-tree',NULL,7,8,'settings','模块管理',1,'2016-09-09 02:39:55','2016-09-09 02:39:55'),('permission','权限设置','people_outline',NULL,10,11,'root','权限设置',1,'2016-09-04 13:48:31','2016-09-05 09:31:35'),('root','DASHBOARD','dashboard',NULL,1,20,NULL,'DASHBOARD',1,'2016-09-04 04:32:31','2016-09-04 04:32:31'),('schema','SCHEMA设置','chair-school',NULL,3,4,'settings','管理SCHEMA',1,'2016-09-05 09:27:03','2016-09-09 02:40:21'),('settings','系统设置','settings',NULL,2,9,'root','系统设置',1,'2016-09-04 04:49:02','2016-09-04 04:49:02'),('user','用户设置','person',NULL,12,13,'root','用户设置\n\n\n\n\nhello world',1,'2016-09-04 14:09:44','2016-09-07 04:35:03');
 /*!40000 ALTER TABLE `module` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -44,4 +44,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-22 19:34:06
+-- Dump completed on 2016-09-22 19:37:06
