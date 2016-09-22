@@ -16,7 +16,7 @@ module.exports = (app, logger)=> {
         exclude: ['index.js']
     });
 
-    sequelize.sync({force: false}).then(()=> {
+    sequelize.sync().then(()=> {
         // config.db.force && sequelize.query(fs.readFileSync(path.resolve(__dirname, './sqls/blessing_module.sql'), 'utf-8'), {
         //     type: sequelize.QueryTypes.DESCRIBE
         // }).then(function (metadata) {
