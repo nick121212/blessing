@@ -17,10 +17,10 @@ exports = module.exports = (app, logger) => {
         // sql.push(' order by node.lft');
 
 
-        sql.push('select node.*,(count(parent.id)-1) as depth');
+        sql.push('select node.*,(count(parent.key)-1) as depth');
         sql.push('  from module as node, module as parent');
         sql.push('  where node.lft between parent.lft and parent.rgt');
-        sql.push('  group by node.id');
+        sql.push('  group by node.key');
         sql.push('  order by node.lft;');
 
 

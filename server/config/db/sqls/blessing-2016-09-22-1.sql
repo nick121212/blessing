@@ -15,7 +15,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
+-- /srv/blessing/server/config/db/sqls/blessing-2016-09-22-1.sql
 -- Dumping data for table `crawlerSetting`
 --
 
