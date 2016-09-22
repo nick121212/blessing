@@ -85,7 +85,7 @@ class Provider {
      * @param item
      * @return {Promise<any>}
      */
-    doActionModel($event: MouseEvent, actionModel: IActionModel, item?: any, callback?: Function) {
+    doActionModel($event: MouseEvent, actionModel: IActionModel, item?: any, callback?: Function): ng.IPromise<any> {
         // 表单和多级表单操作,弹出dialog
         // 确认框操作,弹出确认窗口
         switch (actionModel.type) {

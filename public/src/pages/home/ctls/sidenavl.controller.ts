@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import Dictionary = _.Dictionary;
 
 export class SidenavLeftController {
-    $inject = ["mdSideMenuSections", "toolbarUtils", "faAction"];
+    static $inject = ["mdSideMenuSections", "toolbarUtils", "fxAction"];
 
     toolbarBottom: Object;
     selectedNodes = {};

@@ -27,6 +27,9 @@ class Controller {
     options: Object = {};
 
     constructor(private $scope, private $compile, private $interpolate, private mdSideMenuSections) {
+
+        console.log("----", arguments);
+
         this.template = $compile($interpolate(require("./tpls/sidemenu.jade")())({
             opts: mdSideMenuSections.options
         }));

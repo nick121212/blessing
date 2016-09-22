@@ -68,10 +68,10 @@ module.exports = {
             'process.env.NODE_ENV': 'development'
         }),
         new ExtractTextPlugin("dashboard.css"),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        })
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     }
+        // })
     ]
 };
