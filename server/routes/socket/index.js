@@ -25,6 +25,26 @@ module.exports = (app, logger, crawlerSocket)=> {
                 crawlerSocket.broadcast('crawler:join', {id: id, data: data});
             });
 
+            crawlerSocket.on('crawler:chip', (ctx, data)=> {
+                let id = ctx.socket.id;
+
+                crawlerSocket.broadcast('crawler:chip', {
+                    socketId: id
+                });
+            });
+
+            crawlerSocket.on('crawler:update', (ctx, data)=> {
+                let id = ctx.socket.id;
+
+                if (crawlers.hasOwnProperty(id)) {
+                    _.extend(crawlers[id], data)
+                    crawlerSocket.broadcast('crawler:update', {
+                        socketId: id,
+                        data: data
+                    });
+                }
+            });
+
             crawlerSocket.on('disconnect', (ctx)=> {
                 let id = ctx.socket.id;
 

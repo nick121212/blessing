@@ -13,14 +13,17 @@ export class TtyController {
     crawlers: {[id: string]: any};
 
     constructor(private $scope: ng.IScope, private $stateParams: ng.ui.IStateParamsService, private toolbarUtils, private materialUtils: fx.utils.materialStatic, private fxAction) {
+        this.crawlers = {};
         this.itemToolbar = [
             toolbarUtils.btnBuilder("执行操作", "", true).btnClick(($event, crawler)=> {
                 this.fxAction.getModel("crawlerSettingAckAction").then((actionModel)=> {
                     this.fxAction.doActionModel($event, actionModel, crawler, ()=> {
-                        console.log(crawler);
-
                         this.socket.emit('ack', crawler, (result)=> {
-                            console.log(result);
+                            if (result.ret === 0) {
+                                this.materialUtils.showMsg("操作成功！");
+                            } else {
+                                this.materialUtils.showErrMsg(result.msg);
+                            }
                         });
 
                     });
@@ -35,36 +38,45 @@ export class TtyController {
     }
 
     init() {
-        const _this = this;
-
-        _this.crawlers = {};
-        _this.socket = io('http://localhost:3000/crawler');
+        this.socket = io('http://localhost:3000/crawler');
         // this.socket.on('connect', function () {
         //     console.log("connected!!");
         // });
-        _this.socket.on('disconnect', ()=> {
-            _this.crawlers = {};
-        });
+        // 失去连接
+        this.socket.on('disconnect', (()=> {
+            this.crawlers = {};
+            this.materialUtils.showErrMsg("socket失去连接！！！");
+        }).bind(this));
         // 爬虫进程退出事件
-        _this.socket.on("crawler:left", (socketId)=> {
-            if (_this.crawlers.hasOwnProperty(socketId)) {
-                _this.materialUtils.safeApply(_this.$scope, ()=> {
-                    delete _this.crawlers[socketId];
+        this.socket.on("crawler:left", ((socketId)=> {
+            if (this.crawlers.hasOwnProperty(socketId)) {
+                this.materialUtils.safeApply(this.$scope, ()=> {
+                    delete this.crawlers[socketId];
                 });
             }
-        });
-        // 爬虫进程连接事件
-        _this.socket.on('crawler:join', (data)=> {
-            if (!_this.crawlers) {
-                _this.crawlers = {};
+        }).bind(this));
+        // 爬虫进程更新事件
+        this.socket.on("crawler:update", ((result)=> {
+            if (this.crawlers.hasOwnProperty(result.socketId)) {
+                this.materialUtils.safeApply(this.$scope, ()=> {
+                    _.extend(this.crawlers[result.socketId], result.data);
+                });
             }
-            _this.materialUtils.safeApply(_this.$scope, ()=> {
-                _this.crawlers[data.id] = data.data;
+        }).bind(this));
+        // 爬虫进程连接事件
+        this.socket.on('crawler:join', ( (data)=> {
+            if (!this.crawlers) {
+                this.crawlers = {};
+            }
+            this.materialUtils.safeApply(this.$scope, ()=> {
+                this.crawlers[data.id] = data.data;
             });
-        });
+        }).bind(this));
 
-        _this.socket.emit("getCrawlers", {}, (crawlers)=> {
-            _this.crawlers = crawlers;
-        });
+        this.socket.emit("getCrawlers", {}, ((crawlers)=> {
+            this.materialUtils.safeApply(this.$scope, ()=> {
+                this.crawlers = crawlers;
+            });
+        }).bind(this));
     }
 }

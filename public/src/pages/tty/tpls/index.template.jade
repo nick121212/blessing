@@ -1,22 +1,19 @@
-md-content.md-padding(layout-xs="column",layout="row")
-    div(flex-xs flex-gt-xs="50" layout="column")
-        md-card(md-theme="dark-blue",md-theme-watch,ng-repeat="crawler in ttyCtl.crawlers")
-            md-card-title
-                md-card-title-text
-                    span.md-headline {{crawler.hostname}}
-                    span.md-subhead {{crawler.pid}}
-                md-card-title-media
-                    div.md-media-sm.card-media
-            md-card-content
-                md-list
-                    md-list-item(ng-disabled="true")
-                        p IP:
-                        p.md-secondary
-                            span(ng-repeat="ip in crawler.ip") {{ip}}
-                    md-list-item(ng-disabled="true")
-                        p 是否开始:
-                        md-checkbox.md-secondary(ng-model="crawler.downloader.isStart",ng-disabled="true")
-                    md-list-item(ng-disabled="true")
-                        p 当前爬取配置文件KEY:
-                        p.md-secondary(ng-bind="crawler.downloader.key")
-            md-card-actions(layout="row",layout-align="end center",fx-toolbar,ng-model="crawler",items="ttyCtl.itemToolbar",ctls="ttyCtl")
+md-content.gridListdemoBasicUsage(flex)
+    md-grid-list.md-margin(flex, md-cols="4",md-row-height="1:1",md-gutter="3px")
+        md-grid-tile(ng-repeat="crawler in ttyCtl.crawlers",ng-class="{true:'green',false:'gray'}[!!crawler.downloader.isStart]")
+            md-grid-tile-header
+                h3 [{{crawler.hostname}}]--[{{crawler.pid}}]--[{{crawler.downloader.key}}]
+            md-list
+                md-list-item(ng-disabled="true")
+                    span 是否开始爬取:
+                    md-checkbox.md-secondary(ng-model="crawler.downloader.isStart",ng-disabled="true")
+                md-list-item(ng-disabled="true")
+                    span 错误日志:
+                    span.md-secondary {{crawler.error.message}}
+                md-list-item(ng-disabled="true")
+                    span 成功日志:
+                    span.md-secondary {{crawler.success.message}}
+                md-list-item(ng-disabled="true")
+                    span 更新时间:
+                    span.md-secondary {{crawler.updateAt | json}}
+            md-grid-tile-footer(fx-toolbar,ng-model="crawler",items="ttyCtl.itemToolbar",ctls="ttyCtl")

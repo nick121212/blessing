@@ -1,58 +1,42 @@
+<div class="schema-form-array {{form.htmlClass}}"
+     sf-field-model="sf-new-array"
+     sf-new-array>
 
-<div sf-array="form" ng-init="selected = { tab: 0 }"
-     class="clearfix schema-form-tabarray schema-form-tabarray-{{form.tabType || 'left'}} {{form.htmlClass}}">
-  <div ng-if="!form.tabType || form.tabType !== 'right'"
-       ng-class="{'col-xs-3': !form.tabType || form.tabType === 'left'}">
-    <ul class="nav nav-tabs"
-        ng-class="{ 'tabs-left': !form.tabType || form.tabType === 'left'}">
-      <li ng-repeat="item in modelArray track by $index"
-          ng-click="$event.preventDefault() || (selected.tab = $index)"
-          ng-class="{active: selected.tab === $index}">
-          <a href="#">{{interp(form.title,{'$index':$index, value: item}) || $index}}</a>
-      </li>
-      <li ng-hide="form.readonly" ng-click="$event.preventDefault() || (selected.tab = appendToArray().length - 1)">
-        <a href="#">
-          <i class="glyphicon glyphicon-plus"></i>
-          {{ form.add || 'Add'}}
-          </a>
-      </li>
-    </ul>
-  </div>
+    <md-toolbar class="md-warn">
+        <div class="md-toolbar-tools">
+            <h2 flex>{{ ::form.title }}</h2>
+            <md-button ng-hide="form.readonly || form.add === null"
+                       ng-click="appendToArray()"
+                       class="md-icon-button {{ form.style.add || 'btn-default' }}">
+                <md-tooltip>
+                    新增
+                </md-tooltip>
+                <md-icon>
+                    <ng-md-icon icon="add_circle_outline"></ng-md-icon>
+                </md-icon>
+            </md-button>
+            <md-button ng-hide="form.readonly || form.del === null"
+                       ng-click="deleteFromArray(form.selectedIndex)"
+                       class="md-icon-button {{ form.style.del || 'btn-default' }}">
+                <md-tooltip>
+                    删除
+                </md-tooltip>
+                <md-icon>
+                    <ng-md-icon icon="close-circle-outline"></ng-md-icon>
+                </md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
 
-  <div ng-class="{'col-xs-9': !form.tabType || form.tabType === 'left' || form.tabType === 'right'}">
-    <div class="tab-content {{form.fieldHtmlClass}}">
-      <div class="tab-pane clearfix"
-           ng-repeat="item in modelArray track by $index"
-           ng-show="selected.tab === $index"
-           ng-class="{active: selected.tab === $index}">
-           <sf-decorator ng-init="arrayIndex = $index" form="copyWithIndex($index)"></sf-decorator>
-
-
-           <button ng-hide="form.readonly"
-                   ng-click="selected.tab = deleteFromArray($index).length - 1"
-                   type="button"
-                   class="btn {{ form.style.remove || 'btn-default' }} pull-right">
-             <i class="glyphicon glyphicon-trash"></i>
-             {{ form.remove || 'Remove'}}
-           </button>
-      </div>
-    </div>
-  </div>
-
-  <div ng-if="form.tabType === 'right'" class="col-xs-3">
-    <ul class="nav nav-tabs tabs-right">
-      <li ng-repeat="item in modelArray track by $index"
-          ng-click="$event.preventDefault() || (selected.tab = $index)"
-          ng-class="{active: selected.tab === $index}">
-          <a href="#">{{interp(form.title,{'$index':$index, value: item}) || $index}}</a>
-      </li>
-      <li ng-hide="form.readonly" ng-click="$event.preventDefault() || appendToArray()">
-        <a href="#">
-          <i class="glyphicon glyphicon-plus"></i>
-          {{ form.add || 'Add'}}
-          </a>
-      </li>
-    </ul>
-  </div>
-
+    <md-tabs md-selected="form.selectedIndex"
+             md-dynamic-height
+             md-border-bottom
+             md-autoselect>
+        <md-tab ng-repeat="item in modelArray track by $index"
+                ng-disabled="item.disabled"
+                label="{{ (form.title + ($index+1)) || item.title}}">
+            <div class="tab{{$index%4}}" layout-padding schema-form-array-items ng-init="copyWithIndex($index)">
+            </div>
+        </md-tab>
+    </md-tabs>
 </div>

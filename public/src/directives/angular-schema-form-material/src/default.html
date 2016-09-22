@@ -1,5 +1,5 @@
 <md-input-container class="schema-form-{{::form.type}} {{::form.htmlClass}}"
-                    md-is-error="ngModel.$error && ngModel.$invalid"
+                    md-is-error="hasError()"
                     sf-layout
                     sf-material-class="md-input-has-value">
     <label ng-show="showTitle()" for="{{::form.key|sfCamelKey}}">{{::form.title}}</label>
@@ -7,14 +7,13 @@
         <ng-md-icon icon="{{ form.icon.leftIcon }}" ng-style="form.icon.style"></ng-md-icon>
     </md-icon>
     <input sf-field-model
-           ng-show="::form.key"
            type="{{::form.type}}"
            step="any"
+           ng-model="$$value$$"
            sf-changed="form"
            placeholder="{{form.placeholder}}"
            id="{{::form.key|sfCamelKey}}"
            ng-class="::form.fieldHtmlClass"
-           sf-type-parser="form.schema"
            ng-disabled="::form.readonly"
            schema-validate="form"
            name="{{::form.key|sfCamelKey}}"

@@ -46,6 +46,16 @@ crawlerSchFunc(module);
 autoCompleteFunc(module);
 jsonEditorFunc(module);
 
+
+function sfLayout(args) {
+    var layoutDiv = args.fieldFrag.querySelector('[sf-layout]');
+
+    if (layoutDiv && args.form.grid) {
+        Object.getOwnPropertyNames(args.form.grid).forEach(function (property, idx, array) {
+            layoutDiv.setAttribute(property, args.form.grid[property]);
+        });
+    }
+};
 // 处理默认的错误信息
 module
     .config(["sfErrorMessageProvider", (sfErrorMessageProvider)=> {
@@ -84,7 +94,14 @@ module
             'materialDecorator',
             'autocomplete-1',
             "./decorators/autocomplete-1.jade",
-            [sfBuilderProvider.builders.sfField, sfBuilderProvider.builders.condition, autoCompleteBuilder.builder, sfBuilderProvider.builders.transclusion]
+            [sfBuilderProvider.builders.sfField, sfLayout, sfBuilderProvider.builders.condition, autoCompleteBuilder.builder, sfBuilderProvider.builders.transclusion]
+        );
+        // section--schema-section组件
+        schemaFormDecoratorsProvider.defineAddOn(
+            'materialDecorator',
+            'section-1',
+            "./decorators/section-1.jade",
+            [sfBuilderProvider.builders.sfField, sfBuilderProvider.builders.ngModel, sfBuilderProvider.builders.condition, sfBuilderProvider.builders.simpleTransclusion, sfBuilderProvider.builders.array]
         );
     }])
     // 打包工具的原因,只能把模板字符串写入cache中
@@ -92,6 +109,7 @@ module
         $templateCache.put('./decorators/jsoneditor.jade', require("./decorators/jsoneditor.jade")());
         $templateCache.put('./decorators/card.jade', require("./decorators/card.jade")());
         $templateCache.put('./decorators/autocomplete-1.jade', require("./decorators/autocomplete-1.jade")());
+        $templateCache.put('./decorators/section-1.jade', require("./decorators/section-1.jade")());
     }]);
 
 

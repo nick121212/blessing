@@ -21,7 +21,7 @@ const dataSchema = {
             type: "array",
             title: "域名白名单",
             default: [],
-            minItems: 2,
+            // minItems: 2,
             items: {
                 type: "string",
                 format: "url-ip",
@@ -32,7 +32,7 @@ const dataSchema = {
             type: "array",
             title: "路径白名单",
             default: [],
-            minItems: 2,
+            // minItems: 2,
             items: {
                 type: "object",
                 title: "路径配置",
@@ -98,8 +98,83 @@ const dataSchema = {
             }
         },
         pages: {
-            type: "object",
-            title: "分析页面配置"
+            type: "array",
+            title: "分析页面配置",
+            items: {
+                type: "object",
+                required: ["key", "fieldKey"],
+                title: "分析页面配置",
+                properties: {
+                    key: {
+                        type: "string",
+                        title: "页面的KEY"
+                    },
+                    areas: {
+                        type: "array",
+                        title: "页面区域",
+                        items: {
+                            type: "object",
+                            required: ["selector", "dealStrategy", "key"],
+                            properties: {
+                                key: {
+                                    type: "string",
+                                    title: "区域KEY"
+                                },
+                                selector: {
+                                    type: "string",
+                                    title: "选择器"
+                                },
+                                dealStrategy: {
+                                    type: "string",
+                                    default: "jsdom",
+                                    title: "分析策略"
+                                }
+                            }
+                        }
+                    },
+                    rule: {
+                        type: "array",
+                        title: "匹配规则",
+                        default: [],
+                        items: {
+                            type: "object",
+                            title: "路径配置",
+                            required: ["regexp", "scope"],
+                            properties: {
+                                regexp: {
+                                    type: "string",
+                                    title: "正则规则"
+                                },
+                                scope: {
+                                    type: "string",
+                                    title: "修饰符"
+                                }
+                            }
+                        }
+                    },
+                    fieldKey: {
+                        type: "string",
+                        title: "主键字段"
+                    },
+                    strict: {
+                        type: "boolean",
+                        title: "是否启用严格模式"
+                    },
+                    strictFields: {
+                        type: "array",
+                        title: "严格模式下，验证字段",
+                        default: [],
+                        items: {
+                            type: "string",
+                            title: "验证字段"
+                        }
+                    },
+                    fields: {
+                        type: "object",
+                        title: "分析字段配置"
+                    }
+                }
+            }
         },
         description: {
             type: "string",
@@ -170,7 +245,7 @@ class AddFirst {
         let actionModel: IActionModel = {
             key: AddFirst.key,
             type: ActionType.form,
-            title: "新建爬虫配置文件-基础设置",
+            title: "基础设置",
             icon: "add",
             form: {
                 formSchema: [{
@@ -220,7 +295,7 @@ class AddSecond {
         let actionModel: IActionModel = {
             key: AddSecond.key,
             type: ActionType.form,
-            title: "新建爬虫配置文件-白名单设置",
+            title: "白名单设置",
             icon: "add",
             form: {
                 formSchema: [{
@@ -233,17 +308,16 @@ class AddSecond {
                 }, {
                     key: "whitePathList",
                     type: "array",
+                    fieldHtmlClass: "layout-row flex",
                     startEmpty: true,
                     description: "路径白名单，配置可以爬取的路径列表",
                     showHints: true,
-                    htmlClass: "md-block",
-                    grid: {layout: 'column'},
                     items: [{
                         type: "section",
-                        grid: {layout: "row", flex: ""},
+                        htmlClass: "layout-row flex",
                         items: [{
                             key: "whitePathList[].regexp",
-                            grid: {flex: ""},
+                            htmlClass: "md-block flex",
                             type: "text"
                         }, {
                             key: "whitePathList[].scope",
@@ -266,7 +340,7 @@ class AddThird {
         let actionModel: IActionModel = {
             key: AddThird.key,
             type: ActionType.form,
-            title: "新建爬虫配置文件-其他设置",
+            title: "其他设置",
             icon: "add",
             form: {
                 formSchema: [{
@@ -311,15 +385,110 @@ class AddForth {
 
     constructor(toolbarUtils, actionUtils) {
         let actionModel: IActionModel = {
-            key: AddForth.key,
+            key: AddFifth.key,
             type: ActionType.form,
-            title: "新建爬虫配置文件-页面配置",
+            title: "页面配置",
             icon: "add",
             form: {
                 formSchema: [{
                     key: "pages",
-                    type: "jeditor",
-                    htmlClass: "md-block"
+                    type: "tabarray",
+                    startEmpty: true,
+                    fieldHtmlClass: "layout-column flex",
+                    items: [{
+                        type: "section",
+                        grid: {flex: ""},
+                        items: [{
+                            key: "pages[].key",
+                            type: "text",
+                            htmlClass: "md-block"
+                        }, {
+                            key: "pages[].fieldKey",
+                            type: "text",
+                            htmlClass: "md-block"
+                        }, {
+                            key: "pages[].strict",
+                            type: "switch",
+                            htmlClass: "md-block"
+                        }, {
+                            key: "pages[].strictFields",
+                            startEmpty: true,
+                            type: "chips",
+                            htmlClass: "md-block"
+                        }, {
+                            key: "pages[].rule",
+                            type: "array",
+                            startEmpty: true,
+                            items: [{
+                                type: "section",
+                                htmlClass: "layout-row flex",
+                                items: [{
+                                    key: "pages[].rule[].regexp",
+                                    htmlClass: "md-block flex",
+                                    type: "text"
+                                }, {
+                                    key: "pages[].rule[].scope",
+                                    type: "text"
+                                }]
+                            }]
+                        }]
+                    }]
+                }]
+            }
+        };
+
+        return actionModel;
+    }
+}
+
+class AddFifth {
+    static $inject = ["toolbarUtils", "actionUtils"];
+    static key: string = "crawlerSettingAddFifthAction";
+
+    constructor(toolbarUtils, actionUtils) {
+        let actionModel: IActionModel = {
+            key: AddFifth.key,
+            type: ActionType.form,
+            title: "页面配置",
+            icon: "add",
+            form: {
+                formSchema: [{
+                    key: "pages",
+                    type: "tabarray",
+                    items: [{
+                        type: "section",
+                        htmlClass: "column-row flex",
+                        items: [{
+                            key: "pages[].key",
+                            type: "text",
+                            htmlClass: "md-block"
+                        }, {
+                            key: "pages[].areas",
+                            type: "array",
+                            startEmpty: true,
+                            description: "区域配置，用户优化分析性能，减少dom的查询。",
+                            showHints: true,
+                            items: [{
+                                type: "section",
+                                grid: {flex: "", layout: "row"},
+                                items: [{
+                                    key: "pages[].areas[].key",
+                                    type: "text"
+                                }, {
+                                    key: "pages[].areas[].selector",
+                                    htmlClass: "md-block flex",
+                                    type: "text"
+                                }, {
+                                    key: "pages[].areas[].dealStrategy",
+                                    type: "text"
+                                }]
+                            }]
+                        }, {
+                            key: "pages[].fields",
+                            type: "jeditor",
+                            htmlClass: "md-block"
+                        }]
+                    }]
                 }]
             }
         };
@@ -342,7 +511,7 @@ class Add {
                 defaultSchema: {
                     dataSchema: dataSchema
                 },
-                actions: [AddFirst.key, AddSecond.key, AddThird.key, AddForth.key]
+                actions: [AddFirst.key, AddSecond.key, AddThird.key, AddForth.key, AddFifth.key]
             },
             interfaces: [{
                 key: "crawlerSettingAdd",
@@ -403,7 +572,7 @@ class Edit {
                 defaultSchema: {
                     dataSchema: dataSchema
                 },
-                actions: [AddFirst.key, AddSecond.key, AddThird.key, AddForth.key]
+                actions: [AddFirst.key, AddSecond.key, AddThird.key, AddForth.key, AddFifth.key]
             },
             interfaces: [{
                 key: "crawlerSettingEdit",
@@ -543,10 +712,9 @@ class Ack {
                 }, {
                     key: "key",
                     type: "autocomplete-1",
-                    condition: "model.action==='crawler:start'",
+                    condition: "model.action==='crawler:start' || model.action==='crawler:reset'",
                     acOptions: {
                         textField: "key",
-                        // keyField: "key",
                         dataField: "rows",
                         noCache: false,
                         search: "/where/key/$like",
@@ -596,7 +764,7 @@ class Ack {
 }
 
 export default (module: ng.IModule) => {
-    const services: Array<any> = [List, Search, Add, Edit, Delete, Copy, Ack, AddFirst, AddSecond, AddThird, AddForth];
+    const services: Array<any> = [List, Search, Add, Edit, Delete, Copy, Ack, AddFirst, AddSecond, AddThird, AddForth, AddFifth];
 
     _.each(services, (ser)=> {
         module.service(ser.key, ser);

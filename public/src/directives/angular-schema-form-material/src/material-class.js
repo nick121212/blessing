@@ -8,8 +8,13 @@ angular.module('schemaForm').directive('sfMaterialClass', function ($compile, $t
             }
 
             var modelValue;
+
             try {
-                modelValue = scope.form.key.reduce(reduceHelper, scope.model);
+                if (scope.item) {
+                    modelValue = scope.form.key.slice(scope.form.key.length - 1).reduce(reduceHelper, scope.item || scope.model);
+                } else {
+                    modelValue = scope.form.key.reduce(reduceHelper, scope.model);
+                }
             } catch (e) {
                 modelValue = undefined;
             }

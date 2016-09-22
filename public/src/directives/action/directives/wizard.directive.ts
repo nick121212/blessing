@@ -60,8 +60,8 @@ class Controller {
      * 验证当前表单是否正确
      * @returns {boolean}
      */
-    doCheckCurrentForm() {
-        let actionModel = this.actionModel.wizard.actions[this.selectedIndex];
+    doCheckCurrentForm(index?: number) {
+        let actionModel = this.actionModel.wizard.actions[_.isUndefined(index) ? this.selectedIndex : index];
 
         // 验证表单是否正确
         if (this.$forms) {
@@ -76,16 +76,31 @@ class Controller {
     }
 
     /**
+     * 检查所有的表单是否正确
+     * @returns {boolean}
+     */
+    doCheckForms() {
+        let res = true;
+
+        _.each(this.actionModel.wizard.actions, (action, index)=> {
+            res = this.doCheckCurrentForm(index);
+
+            if (!res) {
+                this.selectedIndex = index;
+                return false;
+            }
+        });
+
+        return res;
+    }
+
+    /**
      * 重置表单数据
      */
     reset() {
         this.formData = {};
+        this.$forms = {};
         this.selectedIndex = 0;
-
-        _.forEach(this.$forms, ($form)=> {
-            $form.$setPristine();
-            $form.$setUntouched();
-        });
         this.isShow = false;
         this.$timeout(()=> {
             this.isShow = true;
@@ -108,7 +123,7 @@ class Controller {
                 }
             }).toValue(),
             this.toolbarUtils.btnBuilder("完成", "md-primary", true, "top").iconBuilder("done_all").conditionBuilder("wizardCtl.selectedIndex===wizardCtl.actionModel.wizard.actions.length-1", false).btnClick(($event)=> {
-                if (this.doCheckCurrentForm()) {
+                if (this.doCheckForms()) {
                     this.fxAction.doAction(this.actionModel.key, this.formData).then(()=> {
                         this.materialUtils.showMsg(this.actionModel.successMsg || "操作成功！");
                         this.reset();
