@@ -80,6 +80,10 @@ const dataSchema = {
                     type: "string",
                     title: "字符编码"
                 },
+                ua: {
+                    type: "string",
+                    title: "USERAGENT"
+                },
                 ipInfo: {
                     type: "object",
                     title: "代理ip设置",
@@ -356,6 +360,11 @@ class AddThird {
                     }, {
                         key: "proxySettings.charset",
                         type: "text",
+                        htmlClass: "md-block"
+                    }, {
+                        key: "proxySettings.ua",
+                        type: "textarea",
+                        maxLength: 300,
                         htmlClass: "md-block"
                     }, {
                         key: "proxySettings.ipInfo",
