@@ -13,4 +13,4 @@ md-content.gridListdemoBasicUsage(flex,layout="row")
     md-divider
     md-list(flex="20",style="overflow:auto;")
         md-list-item(ng-repeat="log in ttyCtl.logs")
-            span {{log.date}} {{log.message}}
+            span {{log.date | date}} {{log.message}}

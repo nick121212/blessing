@@ -23,7 +23,7 @@ export class LoginController {
 
         promise && promise.then(()=> {
             this.materialUtils.showMsg("登陆成功,正在跳转!").then(()=> {
-                this.$state.go("home.page", {key: "modulesListAction"});
+                this.$state.go("home");
             });
         });
     }
