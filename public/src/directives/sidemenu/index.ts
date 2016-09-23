@@ -24,6 +24,7 @@ class Controller {
 
     template: any;
     selectedNodes: Object;
+    doLink: Function;
     options: Object = {};
 
     constructor(private $scope, private $compile, private $interpolate, private mdSideMenuSections) {
@@ -35,6 +36,13 @@ class Controller {
         }));
 
         this.options = this.mdSideMenuSections.options;
+    }
+
+    doLinkPre($event, node) {
+        if (_.isFunction(this.doLink)) {
+            this.doLink($event, node);
+        }
+        console.log(node);
     }
 
     /**
@@ -106,7 +114,8 @@ function Directive(mdSideMenuSections): ng.IDirective {
             modules: '='
         },
         bindToController: {
-            selectedNodes: '='
+            selectedNodes: '=',
+            doLink: '=?ngClick'
         },
         controller: Controller,
         compile: ($ele: ng.IAugmentedJQuery, $attr: ng.IAttributes, childTranscludeFn)=> {

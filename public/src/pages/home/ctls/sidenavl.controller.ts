@@ -6,14 +6,16 @@ import * as _ from 'lodash';
 import Dictionary = _.Dictionary;
 
 export class SidenavLeftController {
-    static $inject = ["mdSideMenuSections", "toolbarUtils", "fxAction"];
+    static $inject = ["mdSideMenuSections", "toolbarUtils", "fxAction", "$state"];
 
     toolbarBottom: Object;
     selectedNodes = {};
     modules: Array<any>;
+    doLinkBind: Function;
 
-    constructor(private mdSideMenuSections, private toolbarUtils, private fxAction) {
+    constructor(private mdSideMenuSections, private toolbarUtils, private fxAction, private $state: angular.ui.IStateService) {
         this.initModules().initToolbar();
+        this.doLinkBind = this.doLink.bind(this);
     }
 
     /**
@@ -103,5 +105,16 @@ export class SidenavLeftController {
         ];
 
         return this;
+    }
+
+    /**
+     * 点击左侧导航栏事件
+     * @param $event
+     * @param node
+     */
+    doLink($event, node) {
+        if (node && node.link && node.key) {
+            this.$state.go(node.link, node);
+        }
     }
 }

@@ -5,12 +5,48 @@
 import {IActionModel, ActionType} from '../models/action.model';
 import {MethodType} from '../models/interface.model';
 
+const dataSchema = {
+    type: "object",
+    required: ["key", "title", "icon"],
+    properties: {
+        key: {
+            type: "string",
+            title: "KEY"
+        },
+        title: {
+            type: "string",
+            title: "模块名称"
+        },
+        link: {
+            type: "string",
+            title: "路由状态名"
+        },
+        icon: {
+            type: "string",
+            title: "图标"
+        },
+        parentKey: {
+            type: "string",
+            title: "父亲节点KEY"
+        },
+        description: {
+            type: "string",
+            title: "描述",
+            maxLength: "500"
+        },
+        showed: {
+            type: "boolean",
+            title: "是否显示"
+        }
+    }
+};
+
 /**
  * 模块查询
  */
 class ModuleList {
     static $inject = ["toolbarUtils", "actionUtils"];
-    static key: string = "modulesListAction";
+    static key: string = "module";
 
     constructor(toolbarUtils, actionUtils) {
         let actionModel: IActionModel = {
@@ -98,37 +134,7 @@ class ModuleAdd {
             icon: "add",
             refreshList: true,
             form: {
-                dataSchema: {
-                    type: "object",
-                    required: ["key", "title", "icon"],
-                    properties: {
-                        key: {
-                            type: "string",
-                            title: "KEY"
-                        },
-                        title: {
-                            type: "string",
-                            title: "模块名称"
-                        },
-                        icon: {
-                            type: "string",
-                            title: "图标"
-                        },
-                        parentKey: {
-                            type: "string",
-                            title: "父亲节点KEY"
-                        },
-                        description: {
-                            type: "string",
-                            title: "描述",
-                            maxLength: "500"
-                        },
-                        showed: {
-                            type: "boolean",
-                            title: "是否显示"
-                        }
-                    }
-                },
+                dataSchema: dataSchema,
                 formSchema: [{
                     key: "parentKey",
                     type: "text",
@@ -139,6 +145,10 @@ class ModuleAdd {
                     htmlClass: "md-block"
                 }, {
                     key: "title",
+                    type: "text",
+                    htmlClass: "md-block"
+                }, {
+                    key: "link",
                     type: "text",
                     htmlClass: "md-block"
                 }, {
@@ -154,7 +164,7 @@ class ModuleAdd {
                     type: "checkbox"
                 }]
             },
-            closeDialog:true,
+            closeDialog: true,
             interfaces: [{
                 key: "modulesAdd",
                 method: MethodType.POST,
@@ -183,37 +193,7 @@ class ModuleEdit {
             icon: "edit",
             refreshList: true,
             form: {
-                dataSchema: {
-                    type: "object",
-                    required: ["key", "title", "icon"],
-                    properties: {
-                        key: {
-                            type: "string",
-                            title: "KEY"
-                        },
-                        title: {
-                            type: "string",
-                            title: "模块名称"
-                        },
-                        icon: {
-                            type: "string",
-                            title: "图标"
-                        },
-                        parentKey: {
-                            type: "string",
-                            title: "父亲节点KEY"
-                        },
-                        description: {
-                            type: "string",
-                            title: "描述",
-                            maxLength: "500"
-                        },
-                        showed: {
-                            type: "boolean",
-                            title: "是否显示"
-                        }
-                    }
-                },
+                dataSchema: dataSchema,
                 formSchema: [{
                     key: "parentKey",
                     type: "text",
@@ -225,6 +205,10 @@ class ModuleEdit {
                     htmlClass: "md-block"
                 }, {
                     key: "title",
+                    type: "text",
+                    htmlClass: "md-block"
+                }, {
+                    key: "link",
                     type: "text",
                     htmlClass: "md-block"
                 }, {
@@ -240,7 +224,7 @@ class ModuleEdit {
                     type: "checkbox"
                 }]
             },
-            closeDialog:true,
+            closeDialog: true,
             interfaces: [{
                 key: "modulesEdit",
                 method: MethodType.PUT,
@@ -300,21 +284,21 @@ class ModuleSearch {
             type: ActionType.form,
             title: "模块搜索表单",
             form: {
-                dataSchema: {
-                    type: "object",
-                    properties: {
-                        key: {
-                            type: "string",
-                            title: "KEY"
-                        }
-                    }
-                },
+                dataSchema: dataSchema,
                 formSchema: [{
                     key: "key",
                     type: "text",
+                    required: false,
                     placeHolder: "KEY",
                     description: "请输入key来进行搜索,不支持模糊查询",
                     showHints: true,
+                    copyValueTo: ["/key/$eq"],
+                    htmlClass: "md-block"
+                }, {
+                    key: "showed",
+                    type: "select",
+                    copyValueTo: ["/showed/$eq"],
+                    titleMap: [{value: null, name: "全部"}, {value: true, name: "显示"}, {value: false, name: "不显示"}],
                     htmlClass: "md-block"
                 }]
             }
