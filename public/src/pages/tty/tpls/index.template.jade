@@ -1,19 +1,14 @@
-md-content.gridListdemoBasicUsage(flex)
-    md-grid-list.md-margin(flex, md-cols="4",md-row-height="1:1",md-gutter="3px")
-        md-grid-tile(ng-repeat="crawler in ttyCtl.crawlers",ng-class="{true:'green',false:'gray'}[!!crawler.downloader.isStart]")
-            md-grid-tile-header
-                h3 [{{crawler.hostname}}]--[{{crawler.pid}}]--[{{crawler.downloader.key}}]
-            md-list
-                md-list-item(ng-disabled="true")
-                    span 是否开始爬取:
-                    md-checkbox.md-secondary(ng-model="crawler.downloader.isStart",ng-disabled="true")
-                md-list-item(ng-disabled="true")
-                    span 错误日志:
-                    span.md-secondary {{crawler.error.message}}
-                md-list-item(ng-disabled="true")
-                    span 成功日志:
-                    span.md-secondary {{crawler.success.message}}
-                md-list-item(ng-disabled="true")
-                    span 更新时间:
-                    span.md-secondary {{crawler.updateAt | json}}
-            md-grid-tile-footer(fx-toolbar,ng-model="crawler",items="ttyCtl.itemToolbar",ctls="ttyCtl")
+md-content.gridListdemoBasicUsage(flex,layout="row")
+    md-card(ng-repeat="crawler in ttyCtl.crawlers",style="height:300px;width:300px;")
+        md-card-title
+            md-card-title-text
+                span.md-headline [{{crawler.hostname}}]--[{{crawler.pid}}]--[{{crawler.downloader.key}}]
+        md-card-content
+            md-checkbox.md-secondary(ng-model="crawler.downloader.isStart",ng-disabled="true") 是否开始爬取
+            p {{crawler.updateAt | date}}
+        md-card-actions(fx-toolbar,ng-model="crawler",items="ttyCtl.itemToolbar",ctls="ttyCtl")
+
+    md-divider
+    md-list(flex,style="overflow:auto;")
+        md-list-item(ng-repeat="log in ttyCtl.logs")
+            span {{log.message}}
