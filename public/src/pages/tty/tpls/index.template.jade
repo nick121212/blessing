@@ -1,14 +1,14 @@
 md-content.gridListdemoBasicUsage(flex,layout="row")
-    md-card(ng-repeat="crawler in ttyCtl.crawlers",style="height:300px;width:300px;")
-        md-card-title
-            md-card-title-text
-                span.md-headline [{{crawler.hostname}}]--[{{crawler.pid}}]--[{{crawler.downloader.key}}]
-        md-card-content
-            md-checkbox.md-secondary(ng-model="crawler.downloader.isStart",ng-disabled="true") 是否开始爬取
-            p {{crawler.updateAt | date}}
-        md-card-actions(fx-toolbar,ng-model="crawler",items="ttyCtl.itemToolbar",ctls="ttyCtl")
-
+    div(flex="80",layout="row")
+        md-card(ng-repeat="crawler in ttyCtl.crawlers",style="height:300px;width:300px;")
+            md-card-title
+                md-card-title-text
+                    span.md-headline [{{crawler.hostname}}]--[{{crawler.pid}}]--[{{crawler.downloader.key}}]
+            md-card-content
+                md-checkbox.md-secondary(ng-model="crawler.downloader.isStart",ng-disabled="true") 是否开始爬取
+                p {{crawler.updateAt | date}}
+            md-card-actions(fx-toolbar,ng-model="crawler",items="ttyCtl.itemToolbar",ctls="ttyCtl")
     md-divider
-    md-list(flex,style="overflow:auto;")
+    md-list(flex="20",style="overflow:auto;")
         md-list-item(ng-repeat="log in ttyCtl.logs")
-            span {{log.message}}
+            span {{log.date}} {{log.message}}
