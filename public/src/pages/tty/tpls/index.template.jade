@@ -7,7 +7,7 @@ md-content.gridListdemoBasicUsage(flex,layout="row")
             md-card-content
                 md-checkbox.md-secondary(ng-model="crawler.downloader.isStart",ng-disabled="true") 是否开始爬取
                 p {{crawler.updateAt | date}}
-            md-card-actions(fx-toolbar,ng-model="crawler",items="ttyCtl.itemToolbar",ctls="ttyCtl")
+            md-card-actions(fx-toolbar,ng-model="crawler",items="ttyCtl.itemToolbar",ctls="ttyCtl",ng-if="!!!crawler.chip")
     md-divider
     md-list(flex="20",style="overflow:auto;")
         md-list-item(ng-repeat="log in ttyCtl.logs")
