@@ -13,6 +13,7 @@ class Controller {
     actionModel: IActionModel;
     key: string;
     toolbars: Array<any>;
+    submitCallBack: Function;
 
     constructor(private $scope, private fxAction, private materialUtils: fx.utils.materialStatic, private toolbarUtils, private $mdDialog: ng.material.IDialogService) {
         this.formData = this.formData || {};
@@ -45,7 +46,8 @@ function Directive(): ng.IDirective {
         require: `^${_dirName}`,
         bindToController: {
             key: "@",
-            formData: '=ngModel'
+            formData: '=ngModel',
+            submitCallBack: "=?ngSubmit",
         },
         controller: Controller,
         controllerAs: 'dialogWizardCtl',

@@ -13,7 +13,7 @@ interface IDirectiveAttr extends ng.IAttributes {
 }
 
 class Controller {
-    static $inject = ["$scope", "$timeout", "fxAction", "toolbarUtils", "materialUtils"];
+    static $inject = ["$scope", "$timeout", "fxAction", "toolbarUtils", "materialUtils", "$mdDialog"];
 
     isShow: boolean = true;
     actionModel: IActionModel;
@@ -22,8 +22,10 @@ class Controller {
     selectedIndex: number = 0;
     toolbars: Array<any>;
     $forms: {[id: string]: ng.IFormController};
+    isBusy: boolean;
+    submitCallBack: Function;
 
-    constructor(private $scope, private $timeout, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic) {
+    constructor(private $scope, private $timeout, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic, private $mdDialog) {
         this.initToolbar();
 
         this.$scope.$on("$destroy", ()=> {
@@ -122,11 +124,19 @@ class Controller {
                     this.selectedIndex++;
                 }
             }).toValue(),
-            this.toolbarUtils.btnBuilder("完成", "md-primary", true, "top").iconBuilder("done_all").conditionBuilder("wizardCtl.selectedIndex===wizardCtl.actionModel.wizard.actions.length-1", false).btnClick(($event)=> {
+            this.toolbarUtils.btnBuilder("完成", "md-primary", true, "top").iconBuilder("done_all").conditionBuilder("!wizardCtl.isBusy && wizardCtl.selectedIndex===wizardCtl.actionModel.wizard.actions.length-1", false).btnClick(($event)=> {
                 if (this.doCheckForms()) {
-                    this.fxAction.doAction(this.actionModel.key, this.formData).then(()=> {
-                        this.materialUtils.showMsg(this.actionModel.successMsg || "操作成功！");
-                        this.reset();
+                    this.isBusy = true;
+                    this.fxAction.doAction(this.actionModel.key, this.formData).then((result)=> {
+                        this.actionModel.closeDialog === true && this.$mdDialog.hide(result);
+
+                        if (_.isFunction(this.submitCallBack)) {
+                            this.submitCallBack();
+                        }
+                        // this.materialUtils.showMsg(this.actionModel.successMsg || "操作成功！");
+                        // this.reset();
+                    }).finally(()=> {
+                        this.isBusy = false;
                     });
                 }
             }).toValue()
@@ -177,6 +187,7 @@ function Directive(): ng.IDirective {
         require: "^fxWizardAction",
         bindToController: {
             formData: "=ngModel",
+            submitCallBack: "=?ngSubmit",
             key: "@"
         },
         controller: Controller,

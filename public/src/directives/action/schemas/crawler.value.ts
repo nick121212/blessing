@@ -522,6 +522,7 @@ class Add {
                 },
                 actions: [AddFirst.key, AddSecond.key, AddThird.key, AddForth.key, AddFifth.key]
             },
+            closeDialog:true,
             interfaces: [{
                 key: "crawlerSettingAdd",
                 method: MethodType.POST,
@@ -550,8 +551,9 @@ class Copy {
                 defaultSchema: {
                     dataSchema: dataSchema
                 },
-                actions: [AddFirst.key, AddSecond.key, AddThird.key, AddForth.key]
+                actions: [AddFirst.key, AddSecond.key, AddThird.key, AddForth.key, AddFifth.key]
             },
+            closeDialog:true,
             interfaces: [{
                 key: "crawlerSettingAdd",
                 method: MethodType.POST,
@@ -583,6 +585,7 @@ class Edit {
                 },
                 actions: [AddFirst.key, AddSecond.key, AddThird.key, AddForth.key, AddFifth.key]
             },
+            closeDialog:true,
             interfaces: [{
                 key: "crawlerSettingEdit",
                 method: MethodType.PUT,

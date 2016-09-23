@@ -34,7 +34,7 @@ class ModuleList {
                 itemToolbars: []
             },
             itemActions: [{key: ModuleEdit.key}, {key: ModuleDelete.key}],
-            actions: [ModuleAdd.key, ModuleWizardAdd.key],
+            actions: [ModuleAdd.key],
             interfaces: [{
                 key: "modulesList",
                 method: MethodType.GET,
@@ -154,6 +154,7 @@ class ModuleAdd {
                     type: "checkbox"
                 }]
             },
+            closeDialog:true,
             interfaces: [{
                 key: "modulesAdd",
                 method: MethodType.POST,
@@ -239,6 +240,7 @@ class ModuleEdit {
                     type: "checkbox"
                 }]
             },
+            closeDialog:true,
             interfaces: [{
                 key: "modulesEdit",
                 method: MethodType.PUT,
@@ -322,38 +324,8 @@ class ModuleSearch {
     }
 }
 
-/**
- * 模块搜索
- */
-class ModuleWizardAdd {
-    static $inject = ["toolbarUtils", "actionUtils"];
-    static key: string = "ModuleWizardAddAction";
-
-    constructor() {
-        let actionModel: IActionModel = {
-            key: ModuleWizardAdd.key,
-            icon: "add_circle_outline",
-            type: ActionType.wizard,
-            title: "新建模块",
-            interfaces: [{
-                key: "modulesAdd",
-                method: MethodType.POST,
-                address: "",
-                port: null,
-                path: "modules",
-                isRestful: true
-            }],
-            wizard: {
-                actions: [ModuleAdd.key, ModuleEdit.key]
-            }
-        };
-
-        return actionModel;
-    }
-}
-
 export default (module: ng.IModule) => {
-    const services: Array<any> = [ModuleWizardAdd, ModuleDelete, ModuleMenus, ModuleList, ModuleSearch, ModuleAdd, ModuleEdit];
+    const services: Array<any> = [ModuleDelete, ModuleMenus, ModuleList, ModuleSearch, ModuleAdd, ModuleEdit];
 
     _.each(services, (ser)=> {
         module.service(ser.key, ser);

@@ -16,6 +16,7 @@ class Controller {
     actionModel: IActionModel;
     toolbars: Array<any>;
     key: string;
+    isBusy: boolean;
 
     constructor(private $scope, private fxAction, private materialUtils: fx.utils.materialStatic, private toolbarUtils, private $mdDialog: ng.material.IDialogService) {
         this.formData = this.formData || {};
@@ -24,6 +25,7 @@ class Controller {
     doSubmit($form) {
         let promise = this.fxAction.doAction(this.key, this.formData, $form);
 
+        this.isBusy = true;
         if (promise) {
             promise.then((result)=> {
                 this.actionModel.closeDialog === true && this.$mdDialog.hide(result);
@@ -31,6 +33,8 @@ class Controller {
                 if (_.isFunction(this.submitCallBack)) {
                     this.submitCallBack();
                 }
+            }).finally(()=> {
+                this.isBusy = false;
             });
         }
 

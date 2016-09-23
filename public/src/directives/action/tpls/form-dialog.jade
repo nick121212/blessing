@@ -5,7 +5,7 @@ md-dialog(aria-label="dialogFormCtl.actionModel.title")
         form(layout="column",name="dialogForm")
             div(fx-form-action,key="{{dialogFormCtl.key}}",ng-model="dialogFormCtl.formData")
     md-dialog-actions(layout="rows")
-        md-button(ng-click="dialogFormCtl.doSubmit(dialogForm)")
+        md-button(ng-click="dialogFormCtl.doSubmit(dialogForm)",ng-disabled="dialogFormCtl.isBusy")
             md-icon
                 ng-md-icon(icon="{{dialogFormCtl.actionModel.icon}}")
             span {{dialogFormCtl.actionModel.title}}
