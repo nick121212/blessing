@@ -5,6 +5,8 @@ md-content.gridListdemoBasicUsage(flex,layout="row")
                 md-card-title-text
                     span.md-headline [{{crawler.hostname}}]--[{{crawler.pid}}]--[{{crawler.downloader.key}}]
             md-card-content
+                md-checkbox.md-secondary(ng-model="crawler.chip",ng-disabled="true") 是否更换IP服务
+            md-card-content
                 md-checkbox.md-secondary(ng-model="crawler.downloader.isStart",ng-disabled="true") 是否开始爬取
                 p {{crawler.updateAt | date}}
             md-card-actions(fx-toolbar,ng-model="crawler",items="ttyCtl.itemToolbar",ctls="ttyCtl",ng-if="!!!crawler.chip")
