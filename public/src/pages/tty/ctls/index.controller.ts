@@ -22,6 +22,13 @@ export class TtyController {
                     this.fxAction.doActionModel($event, actionModel, crawler, ()=> {
                         this.socket.emit('ack', crawler, (result)=> {
                             if (result.ret === 0) {
+                                if (result.showResult) {
+                                    return this.fxAction.getModel("resultAction").then((actionModel)=> {
+                                        this.fxAction.doActionModel($event, actionModel, result, ()=> {
+                                            this.materialUtils.close();
+                                        });
+                                    });
+                                }
                                 this.materialUtils.showMsg("操作成功！");
                             } else {
                                 this.materialUtils.showErrMsg(result.msg);

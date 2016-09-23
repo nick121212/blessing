@@ -13,6 +13,7 @@ import restSvrMod from '../../services/rest.service';
 import loginSchFunc from './schemas/login.value';
 import moduleSchFunc from './schemas/modules.value';
 import crawlerSchFunc from './schemas/crawler.value';
+import commonSchFunc from './schemas/common.value';
 import formActionFunc from './directives/form.directive';
 import listActionFunc from './directives/list.directive';
 import dialogFormFunc from './directives/dialog-form.directive';
@@ -43,6 +44,7 @@ wizardActionFunc(module);
 wizardDialogActionFunc(module);
 builderActionFunc(module);
 crawlerSchFunc(module);
+commonSchFunc(module);
 autoCompleteFunc(module);
 jsonEditorFunc(module);
 

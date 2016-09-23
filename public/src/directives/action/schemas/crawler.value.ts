@@ -678,6 +678,10 @@ class Ack {
                             type: "object",
                             title: "可选项",
                             properties: {
+                                url: {
+                                    type: "string",
+                                    title: "测试的地址"
+                                },
                                 type: {
                                     type: "string",
                                     default: "forever",
@@ -690,7 +694,7 @@ class Ack {
                                 },
                                 startDeal: {
                                     type: "boolean",
-                                    default: false,
+                                    default: true,
                                     title: "开启html处理模块"
                                 },
                                 startDownload: {
@@ -715,13 +719,13 @@ class Ack {
                         {"value": "crawler:stop", "name": "停止爬虫", "group": ""},
                         {"value": "crawler:create", "name": "开启一个新爬虫", "group": ""},
                         {"value": "crawler:reset", "name": "重置一个数据库", "group": ""},
-                        {"value": "crawler:chip", "name": "更改代理ip", "group": ""}
+                        {"value": "crawler:test", "name": "测试地址", "group": ""}
                     ],
                     htmlClass: "md-block"
                 }, {
                     key: "key",
                     type: "autocomplete-1",
-                    condition: "model.action==='crawler:start' || model.action==='crawler:reset'",
+                    condition: "model.action==='crawler:start' || model.action==='crawler:reset'  || model.action==='crawler:test'",
                     acOptions: {
                         textField: "key",
                         dataField: "rows",
@@ -743,6 +747,10 @@ class Ack {
                             {"value": "forever", "name": "FOREVER启动"},
                             {"value": "", "name": "NODE启动"}
                         ]
+                    }, {
+                        key: "options.url",
+                        htmlClass: "md-block",
+                        type: "text"
                     }, {
                         key: "options.startCrawler",
                         condition: "model.action==='crawler:start'",
