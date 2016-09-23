@@ -7,6 +7,7 @@ import {IActionModel, ActionType, IClientData} from "../models/action.model";
 import {IInterfaceModel, MethodType} from "../models/interface.model";
 import * as pointer from 'json-pointer';
 
+
 class Provider {
     static $inject = ["$rootScope", "$injector", "restUtils", "materialUtils", "$q", "$mdDialog"];
 
@@ -101,11 +102,16 @@ class Provider {
                     clickOutsideToClose: false,
                     escapeToClose: false,
                     fullscreen: true,
-                    controller: function ($scope) {
-                        $scope['item'] = item || {};
-                        $scope['key'] = actionModel.key;
-                        $scope['submit'] = callback;
+                    resolve: {
+                        item: item || {},
+                        key: actionModel.key,
+                        submit: callback
                     },
+                    // controller: ["$scope", function ($scope) {
+                    //     $scope['item'] = item || {};
+                    //     $scope['key'] = actionModel.key;
+                    //     $scope['submit'] = callback;
+                    // }],
                     template: templates[actionModel.type]
                 }).then(()=> {
                     item = null;

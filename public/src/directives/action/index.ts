@@ -98,13 +98,13 @@ module
             "./decorators/autocomplete-1.jade",
             [sfBuilderProvider.builders.sfField, sfLayout, sfBuilderProvider.builders.condition, autoCompleteBuilder.builder, sfBuilderProvider.builders.transclusion]
         );
-        // section--schema-section组件
-        schemaFormDecoratorsProvider.defineAddOn(
-            'materialDecorator',
-            'section-1',
-            "./decorators/section-1.jade",
-            [sfBuilderProvider.builders.sfField, sfBuilderProvider.builders.ngModel, sfBuilderProvider.builders.condition, sfBuilderProvider.builders.simpleTransclusion, sfBuilderProvider.builders.array]
-        );
+        // // section--schema-section组件
+        // schemaFormDecoratorsProvider.defineAddOn(
+        //     'materialDecorator',
+        //     'section-1',
+        //     "./decorators/section-1.jade",
+        //     [sfBuilderProvider.builders.sfField, sfBuilderProvider.builders.ngModel, sfBuilderProvider.builders.condition, sfBuilderProvider.builders.simpleTransclusion, sfBuilderProvider.builders.array]
+        // );
     }])
     // 打包工具的原因,只能把模板字符串写入cache中
     .run(["$templateCache", "autoCompleteBuilder", ($templateCache: ng.ITemplateCacheService)=> {

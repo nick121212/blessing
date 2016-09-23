@@ -99,8 +99,6 @@ function Directive(): ng.IDirective {
 
 }
 
-Directive.$inject = [];
-
 export default (module: ng.IModule)=> {
     module.directive(_name, Directive);
 }
