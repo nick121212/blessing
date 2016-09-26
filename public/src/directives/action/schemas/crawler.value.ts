@@ -38,6 +38,10 @@ const dataSchema = {
                 title: "路径配置",
                 required: ["regexp", "scope"],
                 properties: {
+                    enable: {
+                        type: "boolean",
+                        title: "是否启用"
+                    },
                     regexp: {
                         type: "string",
                         title: "正则规则"
@@ -45,7 +49,11 @@ const dataSchema = {
                     scope: {
                         type: "string",
                         title: "修饰符"
-                    }
+                    },
+                    description: {
+                        type: "string",
+                        title: "介绍"
+                    },
                 }
             }
         },
@@ -320,11 +328,24 @@ class AddSecond {
                         type: "section",
                         htmlClass: "layout-row flex",
                         items: [{
+                            key: "whitePathList[].enable",
+                            type: "select",
+                            titleMap: [{
+                                name: "启用",
+                                value: true
+                            }, {
+                                name: "不启用",
+                                value: false
+                            }]
+                        }, {
                             key: "whitePathList[].regexp",
                             htmlClass: "md-block flex",
                             type: "text"
                         }, {
                             key: "whitePathList[].scope",
+                            type: "text"
+                        }, {
+                            key: "whitePathList[].description",
                             type: "text"
                         }]
                     }]
@@ -522,7 +543,7 @@ class Add {
                 },
                 actions: [AddFirst.key, AddSecond.key, AddThird.key, AddForth.key, AddFifth.key]
             },
-            closeDialog:true,
+            closeDialog: true,
             interfaces: [{
                 key: "crawlerSettingAdd",
                 method: MethodType.POST,
@@ -553,7 +574,7 @@ class Copy {
                 },
                 actions: [AddFirst.key, AddSecond.key, AddThird.key, AddForth.key, AddFifth.key]
             },
-            closeDialog:true,
+            closeDialog: true,
             interfaces: [{
                 key: "crawlerSettingAdd",
                 method: MethodType.POST,
@@ -585,7 +606,7 @@ class Edit {
                 },
                 actions: [AddFirst.key, AddSecond.key, AddThird.key, AddForth.key, AddFifth.key]
             },
-            closeDialog:true,
+            closeDialog: true,
             interfaces: [{
                 key: "crawlerSettingEdit",
                 method: MethodType.PUT,
