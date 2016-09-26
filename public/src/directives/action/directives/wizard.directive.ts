@@ -160,7 +160,7 @@ class Controller {
                 if (_.isString(action)) {
                     action = actionModels[action];
                 }
-                // 如果是form的话，判断dataSchema是否存在，不存在则使用wizard的defaultSchema
+                // 如果是form/wizard的话，判断dataSchema是否存在，不存在则使用wizard的defaultSchema
                 if (action && (action.type === ActionType.form || action.type === ActionType.wizard)) {
                     if (!action.form.dataSchema && action.type === ActionType.form) {
                         action.form.dataSchema = actionModel.wizard.defaultSchema.dataSchema;

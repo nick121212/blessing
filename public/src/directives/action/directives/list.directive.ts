@@ -50,11 +50,12 @@ class Controller {
      */
     doClickActionMenu($event, actionModel, item) {
         this.fxAction.doActionModel($event, actionModel, item).then((result)=> {
-            this.materialUtils.showMsg(`${actionModel.successMsg || "操作成功!"}`).finally(()=> {
+            this.materialUtils.showMsg(`${actionModel.successMsg || "操作成功!"}`);
+            this.$timeout(()=> {
                 if (actionModel.refreshList) {
                     this.doSearch(this.queryData.where || {});
                 }
-            });
+            }, 200);
         });
     }
 
@@ -62,7 +63,7 @@ class Controller {
      * 初始化顶部toolbar
      */
     initToolbar() {
-        // 添加标题label
+        // 添加标题label和icon
         this.actionModel.list.toolbars.push(this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon, {fill: "black"}).toValue());
         this.actionModel.list.toolbars.push(this.toolbarUtils.labelBuilder(`${this.actionModel.title}`).attrBuilder({flex: ""}).toValue());
         // 获取操作按钮
