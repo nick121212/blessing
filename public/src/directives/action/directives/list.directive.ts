@@ -1,7 +1,3 @@
-/**
- * Created by NICK on 16/8/9.
- */
-
 import {IActionModel, IClientData, IQueryData, ActionType} from '../models/action.model';
 
 class Controller {

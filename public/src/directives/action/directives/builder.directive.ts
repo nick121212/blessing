@@ -1,7 +1,3 @@
-/**
- * Created by NICK on 16/8/9.
- */
-
 import {IActionModel, ActionType} from '../models/action.model';
 import * as _ from 'lodash';
 

@@ -1,8 +1,4 @@
 /**
- * Created by NICK on 16/8/22.
- */
-
-/**
  * 操作类型
  */
 export enum MethodType{

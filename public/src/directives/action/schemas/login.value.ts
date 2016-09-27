@@ -1,7 +1,3 @@
-/**
- * Created by NICK on 16/8/23.
- */
-
 import {IActionModel, ActionType} from '../models/action.model';
 import {MethodType} from '../models/interface.model';
 

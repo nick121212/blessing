@@ -1,7 +1,3 @@
-/**
- * Created by NICK on 16/9/19.
- */
-
 import * as pointer from 'json-pointer';
 
 function Provider() {

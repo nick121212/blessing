@@ -1,21 +1,35 @@
-/**
- * Created by NICK on 16/8/10.
- */
-
 import * as io from 'socket.io-client';
 
 export class TtyController {
     static $inject = ["$scope", "$stateParams", "toolbarUtils", "materialUtils", "fxAction"];
 
-    toolbar: Array<Object>;
+    toolbar: Array<any>;
+    toolbar_logs: Array<any>;
     itemToolbar: Array<Object>;
     socket: SocketIOClient.Socket;
     crawlers: {[id: string]: any};
     logs: Array<any>;
+    showLogs: boolean = true;
 
     constructor(private $scope: ng.IScope, private $stateParams: ng.ui.IStateParamsService, private toolbarUtils, private materialUtils: fx.utils.materialStatic, private fxAction) {
         this.crawlers = {};
         this.logs = [];
+        this.toolbar_logs = [
+            this.toolbarUtils.labelBuilder('爬取日志').attrBuilder({flex: ""}).toValue(),
+            this.toolbarUtils.btnBuilder("清空日志", "md-icon-button", false).iconBuilder("clear_all").btnClick(($event)=> {
+                this.logs.length = 0;
+            }).toValue(),
+            this.toolbarUtils.btnBuilder("{{ttyCtl.showLogs?'关闭日志':'打开日志'}}", "md-icon-button", false).iconBuilder("{{ttyCtl.showLogs?'window-open':'window-closed'}}").btnClick(($event)=> {
+                this.showLogs = !this.showLogs;
+            }).toValue()
+        ];
+        this.toolbar = [
+            this.toolbarUtils.noneBuilder("icon").iconBuilder('power-socket', {fill: "black"}).toValue(),
+            this.toolbarUtils.labelBuilder('爬虫进程管理').attrBuilder({flex: ""}).toValue(),
+            this.toolbarUtils.btnBuilder("{{ttyCtl.showLogs?'关闭日志':'打开日志'}}", "md-icon-button", false).iconBuilder("{{ttyCtl.showLogs?'window-open':'window-closed'}}", {fill: "black"}).btnClick(($event)=> {
+                this.showLogs = !this.showLogs;
+            }).toValue()
+        ];
         this.itemToolbar = [
             toolbarUtils.btnBuilder("执行操作", "", true).btnClick(($event, crawler)=> {
                 this.fxAction.getModel("crawlerSettingAckAction").then((actionModel)=> {

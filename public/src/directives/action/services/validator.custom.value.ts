@@ -1,7 +1,3 @@
-/**
- * Created by NICK on 16/9/18.
- */
-
 import * as tv4 from "tv4";
 import * as validator from 'validator';
 

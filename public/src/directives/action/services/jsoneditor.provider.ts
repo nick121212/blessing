@@ -1,7 +1,3 @@
-/**
- * Created by NICK on 16/9/19.
- */
-
 
 function Provider() {
     function Builder(args) {

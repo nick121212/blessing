@@ -1,7 +1,3 @@
-/**
- * Created by NICK on 16/8/23.
- */
-
 import {IActionModel, ActionType} from '../models/action.model';
 import {MethodType} from '../models/interface.model';
 
@@ -120,6 +116,13 @@ const dataSchema = {
                     key: {
                         type: "string",
                         title: "页面的KEY"
+                    },
+                    priority: {
+                        type: "number",
+                        default: 0,
+                        minimum: 0,
+                        maximum: 10,
+                        title: "爬取的优先级，数字越大越优先"
                     },
                     areas: {
                         type: "array",
@@ -431,6 +434,10 @@ class AddForth {
                         items: [{
                             key: "pages[].key",
                             type: "text",
+                            htmlClass: "md-block"
+                        }, {
+                            key: "pages[].priority",
+                            type: "number",
                             htmlClass: "md-block"
                         }, {
                             key: "pages[].fieldKey",

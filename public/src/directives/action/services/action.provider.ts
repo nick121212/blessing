@@ -1,7 +1,3 @@
-/**
- * Created by NICK on 16/8/16.
- */
-
 import * as _ from 'lodash';
 import {IActionModel, ActionType, IClientData} from "../models/action.model";
 import {IInterfaceModel, MethodType} from "../models/interface.model";
