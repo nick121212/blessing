@@ -17,13 +17,14 @@ class Provider {
     static _name: string = 'fxAction';
 
     constructor(private $rootScope: ng.IRootScopeService, private $injector: ng.auto.IInjectorService, private restUtils: fx.utils.restStatic, private mdUtils: fx.utils.materialStatic, private $q: ng.IQService, private $mdDialog: ng.material.IDialogService) {
+        //return new Provider($rootScope, $injector, restUtils, mdUtils, $q, $mdDialog);
         return this;
     }
 
     $get: Array<string|Function> = ["$injector", ($injector)=> {
         const service = $injector.invoke(Provider, this, null);
 
-        return service;
+        return new Provider(service.$rootScope, service.$injector, service.restUtils, service.mdUtils, service.$q, service.$mdDialog);
     }];
 
     /**
