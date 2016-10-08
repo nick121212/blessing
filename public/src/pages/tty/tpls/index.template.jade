@@ -14,7 +14,9 @@ md-content(layout="row",flex,style="overflow:hidden;")
                     md-checkbox.md-secondary(ng-model="crawler.chip",ng-disabled="true") 是否更换IP服务
                 md-card-content
                     md-checkbox.md-secondary(ng-model="crawler.downloader.isStart",ng-disabled="true") 是否开始爬取
-                    p {{crawler.updateAt | date}}
+                md-card-content
+                    md-checkbox.md-secondary(ng-model="crawler.downloader.isStartDeal",ng-disabled="true") 是否开始HTML分析
+                p {{crawler.updateAt | date}}
                 md-card-actions(fx-toolbar,ng-model="crawler",items="ttyCtl.itemToolbar",ctls="ttyCtl",ng-if="!crawler.chip")
     //搜索表单
     md-content.nga-fast.nga-stagger-fast.nga-slide-right(layout="column",flex-gt-sm="30",flex="100",md-whiteframe="2",ng-show="ttyCtl.showLogs")
