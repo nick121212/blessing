@@ -750,13 +750,14 @@ class Ack {
                         {"value": "crawler:stop", "name": "停止爬虫", "group": ""},
                         {"value": "crawler:create", "name": "开启一个新爬虫", "group": ""},
                         {"value": "crawler:reset", "name": "重置一个数据库", "group": ""},
-                        {"value": "crawler:test", "name": "测试地址", "group": ""}
+                        {"value": "crawler:test", "name": "测试地址", "group": ""},
+                        {"value": "crawler:retrydeal", "name": "重新分析一个网址", "group": ""}
                     ],
                     htmlClass: "md-block"
                 }, {
                     key: "key",
                     type: "autocomplete-1",
-                    condition: "model.action==='crawler:start' || model.action==='crawler:reset'  || model.action==='crawler:test'",
+                    condition: "model.action==='crawler:start' || model.action==='crawler:retrydeal' || model.action==='crawler:reset' || model.action==='crawler:test'",
                     acOptions: {
                         textField: "key",
                         dataField: "rows",
