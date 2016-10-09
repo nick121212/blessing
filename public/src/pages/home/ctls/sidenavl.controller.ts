@@ -6,14 +6,14 @@ import * as _ from 'lodash';
 import Dictionary = _.Dictionary;
 
 export class SidenavLeftController {
-    static $inject = ["mdSideMenuSections", "toolbarUtils", "fxAction", "$state"];
+    static $inject = ["mdSideMenuSections", "toolbarUtils", "fxAction", "$state", "$stateParams"];
 
     toolbarBottom: Object;
     selectedNodes = {};
     modules: Array<any>;
     doLinkBind: Function;
 
-    constructor(private mdSideMenuSections, private toolbarUtils, private fxAction, private $state: angular.ui.IStateService) {
+    constructor(private mdSideMenuSections, private toolbarUtils, private fxAction, private $state: angular.ui.IStateService, private $stateParams: ng.ui.IStateParamsService, private fxSideMenuFactory) {
         this.initModules().initToolbar();
         this.doLinkBind = this.doLink.bind(this);
     }
@@ -65,6 +65,8 @@ export class SidenavLeftController {
             this.mdSideMenuSections.sections = root["nodes"];
             this.modules = this.mdSideMenuSections.sections;
             this.selectedNodes = _.keyBy(nodesGroupByDepth[1], "key") || {};
+
+            // this.fxSideMenuFactory.onStateChangeStart(null, this.$state.current, this.$stateParams);
         });
     }
 

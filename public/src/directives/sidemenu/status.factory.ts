@@ -1,11 +1,13 @@
 function Factory($rootScope, mdSideMenuSections): any {
     let onStateChangeStart = function (event, toState, toParams) {
+        let options = mdSideMenuSections.options;
+
         function digest(sections, currentSection) {
             !mdSideMenuSections.selectedNode && sections.forEach(function (section) {
                 if (section[mdSideMenuSections.options.children] && section[mdSideMenuSections.options.children].length) {
                     return digest(section[mdSideMenuSections.options.children], section);
                 }
-                if (section.isShow && section.menuLink.search(location.hash) >= 0) {
+                if (section.showed && toState.name == section.link && toParams.key == section.key) {
                     mdSideMenuSections.selectedNode = section;
                     return false;
                 }

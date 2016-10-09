@@ -7,7 +7,7 @@ import {TtyController} from './ctls/index.controller';
 export const initRouter = ($urlRouterProvider, $stateProvider) => {
     // 路由规则
     $stateProvider.state("home.tty", {
-        url: "tty",
+        url: "tty/:key",
         data: {
             permissions: {
                 except: ["anonymous"],

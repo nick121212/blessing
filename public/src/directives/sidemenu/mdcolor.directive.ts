@@ -10,7 +10,7 @@ function Directive(mdSideMenuSections): ng.IDirective {
         scope: {
             mdStyleColor: '='
         },
-        link: ($scope, $element)=> {
+        link: ($scope, $element, $attrs)=> {
             let themeColors, split, hueR, colorR, colorA, hueA, colorValue,
                 _apply_color = ()=> {
                     for (let p in $scope[_name]) {
@@ -47,9 +47,8 @@ function Directive(mdSideMenuSections): ng.IDirective {
                 if ((oldVal && newVal) && oldVal !== newVal) {
                     _apply_color();
                 }
-            });
-
-            _apply_color();
+            }, true);
+            // _apply_color();
         }
     }
 }

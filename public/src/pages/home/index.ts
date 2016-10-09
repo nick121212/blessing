@@ -31,7 +31,7 @@ module.config([
         mdSideMenuSectionsProvider.initWithTheme($mdThemingProvider);
 
     }])
-    .run(["$rootScope", "$state", "$q", "svgUtils", ($rootScope: ng.IRootScopeService, $state, $q: ng.IQService, svgUtils: fx.utils.svgStatic)=> {
+    .run(["$rootScope", "$state", "$q", "svgUtils", "fxSideMenuFactory", ($rootScope: ng.IRootScopeService, $state, $q: ng.IQService, svgUtils: fx.utils.svgStatic)=> {
         let state: {$$isFinish?: boolean,toState?: ng.ui.IState,toParams?: Object,options?: Object} = {};
         // 处理路回调
         let handleResolve = ()=> {

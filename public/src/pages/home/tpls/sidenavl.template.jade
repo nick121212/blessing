@@ -2,11 +2,11 @@ md-content(flex="100",layout="column",ng-cloak)
     fx-side-menu-search
     md-content(flex="100")
         fx-side-menu.side-menu(selected-nodes="sideLeftCtl.selectedNodes",modules="sideLeftCtl.modules",ng-click="sideLeftCtl.doLinkBind")
-            md-button.layout-fill(ng-click="sideCtl.doLinkPre($event,node)",md-style-color="{'background-color': isSelected(node) ? 'warn.300': 'primary.0'}")
-                md-content(flex="100",layout="row")
+            md-button.layout-fill(ng-click="sideCtl.doLinkPre($event,node)",md-style-color="{'background-color': sideCtl.isSelected(node) ? 'warn.300': 'primary.0','color':sideCtl.isSelected(node)?'background.A100':'background.900'}")
+                div(flex="100",layout="row")
                     md-icon
                         ng-md-icon(icon="{{ node.icon||'apps'}}")
-                    md-content(flex="100") {{node.title}}
+                    div(flex="100") {{node.title}}
                     md-icon
                         ng-md-icon(options='{"rotation": "none"}',ng-if="!sideCtl.isLeaf(node)",icon="{{ sideCtl.isShowChildren(node)?'expand_more':'chevron_right' }}")
     md-divider
