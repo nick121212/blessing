@@ -23,21 +23,6 @@ export const initRouter = ($urlRouterProvider, $stateProvider) => {
                 template: require("./tpls/page.template.jade")()
             }
         }
-    }).state("home.wizard", {
-        url: "wizard",
-        data: {
-            permissions: {
-                except: ["anonymous"],
-                only: ["user"]
-            }
-        },
-        views: {
-            "content": {
-                controller: WizardController,
-                controllerAs: "pageCtl",
-                template: require("./tpls/page.wizard.template.jade")()
-            }
-        }
     }).state('home.d3', {
         url: "d3",
         views: {

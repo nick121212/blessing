@@ -4,8 +4,6 @@
 
 import Sequelize from 'sequelize';
 import sequelizeImport from 'sequelize-import';
-import * as fs from 'fs';
-import * as path from 'path';
 
 module.exports = (app, logger)=> {
     "use strict";
@@ -15,6 +13,7 @@ module.exports = (app, logger)=> {
     let models = sequelizeImport(__dirname + '/../../models', sequelize, {
         exclude: ['index.js']
     });
+
 
     sequelize.sync().then(()=> {
         // config.db.force && sequelize.query(fs.readFileSync(path.resolve(__dirname, './sqls/blessing_module.sql'), 'utf-8'), {

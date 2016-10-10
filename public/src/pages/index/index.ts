@@ -12,10 +12,11 @@ import pageModule from '../page';
 import homeModule from '../home';
 import passportModule from '../passport';
 import ttyModule from '../tty';
+import saltModule from '../salt';
 
 import './index.scss';
 
-const module = angular.module("indexApp", [ngAnimate, "angular-loading-bar", passportModule, homeModule, pageModule, loadingDir, ttyModule]);
+const module = angular.module("indexApp", [ngAnimate, "angular-loading-bar", passportModule, homeModule, pageModule, loadingDir, ttyModule, saltModule]);
 
 module.config(["cfpLoadingBarProvider", "$mdThemingProvider", "$mdAriaProvider", (cfpLoadingBarProvider, $mdThemingProvider, $mdAriaProvider)=> {
     // ng-loading-bar设置
@@ -25,14 +26,7 @@ module.config(["cfpLoadingBarProvider", "$mdThemingProvider", "$mdAriaProvider",
     $mdThemingProvider.alwaysWatchTheme(true);
     // 取消aria-label警告
     $mdAriaProvider.disableWarnings();
-    // 更改默认样式
-    // $mdThemingProvider
-    //     .theme('default')
-    //     .primaryPalette('blue')
-    //     .accentPalette('teal')
-    //     .warnPalette('red')
-    //     .backgroundPalette('grey');
-
+    // 定义样式
     $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
     $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
     $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();

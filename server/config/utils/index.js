@@ -1,12 +1,13 @@
 import _ from 'lodash';
 
 module.exports = (app, log)=> {
-    "use strict";
     return {
         modelNames: {
             passport: "passport",
             module: "module",
             crawler_setting: "crawler_setting",
+            schedule: "schedule",
+            backup: 'backup'
         },
         findModel: (modelName)=> {
             let {models, sequelize, Sequelize} = app.config.db.index;

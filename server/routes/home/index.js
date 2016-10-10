@@ -10,8 +10,6 @@ module.exports = (app, logger)=> {
     let router = new Router({
         prefix: '/home'
     });
-    let {serquelize, models}  = app.config.db.index;
-    let Model = models['module'];
 
     router.get('/', async(ctx)=> {
         await ctx.render('index', {

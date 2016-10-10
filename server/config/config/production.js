@@ -1,3 +1,5 @@
+import path from 'path';
+
 module.exports = (app)=> {
     "use strict";
 
@@ -6,6 +8,7 @@ module.exports = (app)=> {
             username: 'root',
             password: '',
             database: 'blessing',
+            backup: path.resolve(__dirname, '../../uploads/backup'),
             force: false,
             options: {
                 dialect: 'mysql',

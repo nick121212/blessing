@@ -65,7 +65,13 @@ export class TtyController {
         // this.socket = io('http://localhost:3000/crawler');
         // 已经连接
         this.socket.on('connect', function () {
-            console.log("connected!!");
+            // console.log("connected!!");
+            // 获取所有爬虫进程
+            this.socket.emit("getCrawlers", {}, ((crawlers)=> {
+                this.materialUtils.safeApply(this.$scope, ()=> {
+                    this.crawlers = crawlers;
+                });
+            }).bind(this));
         });
         // 失去连接
         this.socket.on('disconnect', (()=> {
@@ -106,11 +112,6 @@ export class TtyController {
                 this.crawlers[data.id] = data.data;
             });
         }).bind(this));
-        // 获取所有爬虫进程
-        this.socket.emit("getCrawlers", {}, ((crawlers)=> {
-            this.materialUtils.safeApply(this.$scope, ()=> {
-                this.crawlers = crawlers;
-            });
-        }).bind(this));
+
     }
 }

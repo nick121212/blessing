@@ -14,6 +14,7 @@ import loginSchFunc from './schemas/login.value';
 import moduleSchFunc from './schemas/modules.value';
 import crawlerSchFunc from './schemas/crawler.value';
 import commonSchFunc from './schemas/common.value';
+import saltFunc from './schemas/salt.api.value';
 import formActionFunc from './directives/form.directive';
 import listActionFunc from './directives/list.directive';
 import dialogFormFunc from './directives/dialog-form.directive';
@@ -47,7 +48,7 @@ crawlerSchFunc(module);
 commonSchFunc(module);
 autoCompleteFunc(module);
 jsonEditorFunc(module);
-
+saltFunc(module);
 
 function sfLayout(args) {
     var layoutDiv = args.fieldFrag.querySelector('[sf-layout]');
