@@ -10,12 +10,13 @@ export class TtyController {
     crawlers: {[id: string]: any};
     logs: Array<any>;
     showLogs: boolean = true;
+    errorCount: number = 0;
 
     constructor(private $scope: ng.IScope, private $stateParams: ng.ui.IStateParamsService, private toolbarUtils, private materialUtils: fx.utils.materialStatic, private fxAction) {
         this.crawlers = {};
         this.logs = [];
         this.toolbar_logs = [
-            this.toolbarUtils.labelBuilder('爬取日志').attrBuilder({flex: ""}).toValue(),
+            this.toolbarUtils.labelBuilder('爬取日志-{{ttyCtl.errorCount/(this.logs.length||1)}}%').attrBuilder({flex: ""}).toValue(),
             this.toolbarUtils.btnBuilder("清空日志", "md-icon-button", false).iconBuilder("clear_all").btnClick(($event)=> {
                 this.logs.length = 0;
             }).toValue(),
@@ -31,7 +32,7 @@ export class TtyController {
             }).toValue()
         ];
         this.itemToolbar = [
-            toolbarUtils.btnBuilder("执行操作", "", true).btnClick(($event, crawler)=> {
+            toolbarUtils.btnBuilder("执行操作", "", true, "top").btnClick(($event, crawler)=> {
                 this.fxAction.getModel("crawlerSettingAckAction").then((actionModel)=> {
                     this.fxAction.doActionModel($event, actionModel, crawler, ()=> {
                         this.socket.emit('ack', crawler, (result)=> {
@@ -65,14 +66,13 @@ export class TtyController {
         // this.socket = io('http://localhost:3000/crawler');
         // 已经连接
         this.socket.on('connect', function () {
-            // console.log("connected!!");
             // 获取所有爬虫进程
             this.socket.emit("getCrawlers", {}, ((crawlers)=> {
                 this.materialUtils.safeApply(this.$scope, ()=> {
                     this.crawlers = crawlers;
                 });
             }).bind(this));
-        });
+        }.bind(this));
         // 失去连接
         this.socket.on('disconnect', (()=> {
             this.crawlers = {};
@@ -101,6 +101,11 @@ export class TtyController {
             }
             this.materialUtils.safeApply(this.$scope, ()=> {
                 this.logs.unshift(result.data);
+
+                this.errorCount = _.filter(this.logs, (log)=> {
+                    return !!log.isError;
+                }).length;
+
             });
         }).bind(this));
         // 爬虫进程连接事件
