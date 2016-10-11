@@ -206,10 +206,10 @@ class Provider {
                         promise = restAngular.post(queryData, null);
                         break;
                     case MethodType.GET:
-                        promise = restAngular.customGET(null, queryData, null);
+                        promise = restAngular.customGET(interfaceModel.params ? pointer.get(queryData, interfaceModel.idFieldPath) : null, queryData, null);
                         break;
                     case MethodType.PUT:
-                        promise = restAngular.customPUT(queryData, pointer.get(queryData, interfaceModel.idFieldPath));
+                        promise = restAngular.customPUT(_.isObject(queryData) ? queryData : null, pointer.get(queryData, interfaceModel.idFieldPath));
                         break;
                     case MethodType.DELETE:
                         promise = restAngular.customDELETE(pointer.get(queryData, interfaceModel.idFieldPath), null)

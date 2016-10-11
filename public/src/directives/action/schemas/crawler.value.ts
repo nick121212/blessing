@@ -220,6 +220,7 @@ class List {
                     actionUtils.columnBuilder(`<span>{{ ::item.downloader }}</span>`, "下载策略").toValue(),
                     actionUtils.columnBuilder(`<span>{{ ::item.description }}</span>`, "详情").toValue()
                 ],
+                showPagination:true,
                 searchActionKey: Search.key,
                 showRefreshBtn: true,
                 showSearchBtn: true,

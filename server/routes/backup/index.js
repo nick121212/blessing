@@ -11,7 +11,9 @@ module.exports = (app)=> {
     });
 
     router.get('/', app.controllers[utils.modelNames.backup]['list'])
-        .put('/:key', app.controllers[utils.modelNames.backup]['createItem'])
+        .get('/:key', app.controllers[utils.modelNames.backup]['getItem'])
+        .post('/', app.controllers[utils.modelNames.backup]['createItem'])
+        .put('/:key', app.controllers[utils.modelNames.backup]['updateItem'])
         .delete('/:key', app.controllers[utils.modelNames.backup]['removeItem']);
 
     app.use(router.routes()).use(router.allowedMethods());

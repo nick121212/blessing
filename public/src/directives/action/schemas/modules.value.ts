@@ -59,6 +59,7 @@ class ModuleList {
                     actionUtils.columnBuilder(`<span>{{ ::item.lft }}</span>`, "lft", "lft").toValue(),
                     actionUtils.columnBuilder(`<span>{{ ::item.rgt }}</span>`, "rgt", "rgt").toValue()
                 ],
+                showPagination:true,
                 searchActionKey: ModuleSearch.key,
                 showRefreshBtn: true,
                 showSearchBtn: true,
@@ -225,7 +226,7 @@ class ModuleEdit {
             interfaces: [{
                 key: "modulesEdit",
                 method: MethodType.PUT,
-                idFieldPath: "/key",
+                idFieldPath: "/id",
                 address: "",
                 port: null,
                 path: "modules",
@@ -256,7 +257,7 @@ class ModuleDelete {
             interfaces: [{
                 key: "modulesDelete",
                 method: MethodType.DELETE,
-                idFieldPath: "/key",
+                idFieldPath: "/id",
                 address: "",
                 port: null,
                 path: "modules",

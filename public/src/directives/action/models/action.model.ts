@@ -65,6 +65,7 @@ export interface IQueryData {
 export interface IList {
     columns: Array<IColumn>;
     itemToolbars?: Array<Object>;
+    showPagination: boolean;
     toolbars?: Array<Object>;
     searchToolbars?: Array<Object>;
     searchActionKey?: String;

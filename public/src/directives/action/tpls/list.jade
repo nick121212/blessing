@@ -18,6 +18,6 @@ md-content(layout="row",flex,style="overflow:hidden;")
                         td(md-cell,layout="row")
                             span(flex)
                             div(fx-toolbar,items="listCtl.actionModel.list.itemToolbars",ctls="listCtl",ng-model="row",ng-disabled="listCtl.isBusy")
-        md-table-pagination(flex="none",md-boundary-links="0==0",md-page-select="listCtl.showPage",ng-disabled="listCtl.isBusy",md-limit="listCtl.queryData.limit" ,md-limit-options="listCtl.mdLimitOptions", md-page="listCtl.queryData.page" md-on-paginate="listCtl.onPageChange" md-total="{{listCtl.clientData.total}}")
+        md-table-pagination(ng-if="listCtl.actionModel.list.showPagination",flex="none",md-boundary-links="0==0",md-page-select="listCtl.showPage",ng-disabled="listCtl.isBusy",md-limit="listCtl.queryData.limit" ,md-limit-options="listCtl.mdLimitOptions", md-page="listCtl.queryData.page" md-on-paginate="listCtl.onPageChange" md-total="{{listCtl.clientData.total}}")
     //搜索表单
     div(fx-search-action,do-search="listCtl.doSearchBind",is-show="listCtl.actionModel.list.showSearchPanel",key="{{listCtl.actionModel.list.searchActionKey}}",title="listCtl.actionModel.title",disabled="listCtl.isBusy",ng-model="listCtl.filterData")

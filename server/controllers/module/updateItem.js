@@ -9,12 +9,12 @@ exports = module.exports = (app, logger) => {
         let model = ctx.request.body;
 
         if (!key) {
-            throw boom.badData(`key不能为空`);
+            throw boom.badData(`id不能为空`);
         }
 
         let modelInstance = await Model.findOne({
             where: {
-                key: key
+                id: key
             }
         });
 

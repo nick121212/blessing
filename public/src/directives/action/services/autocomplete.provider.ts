@@ -14,6 +14,10 @@ function Provider() {
 
         init(modelValue, formData) {
             this.formData = formData;
+
+            if (modelValue) {
+                this.onChange(modelValue);
+            }
         }
 
         /**

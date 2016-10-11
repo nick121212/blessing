@@ -9,16 +9,16 @@ exports = module.exports = (app, logger) => {
         let key = ctx.params["key"];
 
         if (!key) {
-            throw boom.badData(`key不能为空`);
+            throw boom.badData(`id不能为空`);
         }
         let trans = await sequelize.transaction();
         let model = await Model.findOne({
             where: {
-                key: key
+                id: key
             }
         });
         if (!model) {
-            throw boom.badData(`找不到key:${key}的数据或者已删除!`);
+            throw boom.badData(`找不到id:${key}的数据或者已删除!`);
         }
 
         try {

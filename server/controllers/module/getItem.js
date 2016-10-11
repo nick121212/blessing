@@ -13,7 +13,7 @@ exports = module.exports = (app, logger) => {
 
         let model = await Model.findOne({
             where: {
-                key: key
+                id: key
             }
         });
 
