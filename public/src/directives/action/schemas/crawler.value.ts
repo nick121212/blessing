@@ -26,9 +26,7 @@ class List {
                 searchActionKey: Search.key,
                 showRefreshBtn: true,
                 showSearchBtn: true,
-                showSearchPanel: false,
-                toolbars: [],
-                itemToolbars: []
+                showSearchPanel: false
             },
             itemActions: [{key: Edit.key}, {key: Delete.key}, {key: Copy.key}],
             actions: [Add.key],

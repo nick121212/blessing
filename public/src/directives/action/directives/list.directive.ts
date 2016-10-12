@@ -32,6 +32,7 @@ class Controller {
             this.initToolbar();
             this.initItemToolbar();
             this.doSearch();
+            this.queryData = _.extend({offset: 0, limit: 10, page: 1}, model.list.queryData || {});
         });
         this.onOrderChange = this.orderChange.bind(this);
         this.onPageChange = this.pageChange.bind(this);
@@ -59,6 +60,7 @@ class Controller {
      * 初始化顶部toolbar
      */
     initToolbar() {
+        this.actionModel.list.toolbars=[];
         // 添加标题label和icon
         this.actionModel.list.toolbars.push(this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon, {fill: "black"}).toValue());
         this.actionModel.list.toolbars.push(this.toolbarUtils.labelBuilder(`${this.actionModel.title}`).attrBuilder({flex: ""}).toValue());

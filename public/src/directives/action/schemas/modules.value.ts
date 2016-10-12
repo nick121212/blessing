@@ -22,6 +22,7 @@ class List {
                     actionUtils.columnBuilder(`<span>{{ ::item.lft }}</span>`, "lft", "lft").toValue(),
                     actionUtils.columnBuilder(`<span>{{ ::item.rgt }}</span>`, "rgt", "rgt").toValue()
                 ],
+                queryData: {limit: 50},
                 showPagination: true,
                 searchActionKey: Search.key,
                 showRefreshBtn: true,

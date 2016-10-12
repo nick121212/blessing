@@ -72,6 +72,7 @@ export interface IList {
     showSearchBtn?: boolean;
     showRefreshBtn?: boolean;
     showSearchPanel?: boolean;
+    queryData?: IQueryData;
 }
 
 export interface IItemActionSet {

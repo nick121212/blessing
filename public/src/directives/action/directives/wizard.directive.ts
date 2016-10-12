@@ -49,13 +49,13 @@ class Controller {
     }
 
     /**
-     * 判断是否需要显示form
+     * 判断是否需要显示form,默认只有第一页和最后一页首次加载
      * @param action
      * @param index
      * @returns {boolean}
      */
     showForm(action: IActionModel, index: number) {
-        return index === 0 || this.$forms.hasOwnProperty(action.key) || index == this.selectedIndex;// || index == this.selectedIndex + 1;
+        return index === 0 || this.$forms.hasOwnProperty(action.key) || index == this.selectedIndex || index == this.actionModel.wizard.actions.length - 1;
     }
 
     /**
