@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
     return sequelize.define('schema', {
         key: {
             type: DataTypes.STRING(50),
-            primaryKey: true,
             unique: true
         },
         type: {

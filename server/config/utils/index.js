@@ -7,7 +7,8 @@ module.exports = (app, log)=> {
             module: "module",
             crawler_setting: "crawler_setting",
             schedule: "schedule",
-            backup: 'backup'
+            backup: 'backup',
+            schema: 'schema'
         },
         findModel: (modelName)=> {
             let {models, sequelize, Sequelize} = app.config.db.index;

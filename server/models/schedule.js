@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
     return sequelize.define('schedule', {
         key: {
             type: DataTypes.STRING(50),
-            primaryKey: true,
             unique: true
         },
         title: {type: DataTypes.STRING(20), allowNull: false, unique: true},

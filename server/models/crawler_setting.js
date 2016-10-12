@@ -15,17 +15,13 @@ module.exports = (sequelize, DataTypes) => {
             unique: true
         },
         host: {type: DataTypes.STRING(30), allowNull: false},
-        domainWhiteList: JsonField(sequelize, 'crawlerSetting', 'domainWhiteList'),// {type: DataTypes.TEXT, allowNull: false},
-        whitePathList: JsonField(sequelize, 'crawlerSetting', 'whitePathList'),//{type: DataTypes.TEXT, allowNull: false},
+        domainWhiteList: JsonField(sequelize, 'crawlerSetting', 'domainWhiteList'),
+        whitePathList: JsonField(sequelize, 'crawlerSetting', 'whitePathList'),
         interval: {type: DataTypes.INTEGER},
         downloader: {type: DataTypes.STRING(10)},
         initDomain: {type: DataTypes.STRING(30)},
-        proxySettings: JsonField(sequelize, 'crawlerSetting', 'proxySettings'),//{type: DataTypes.TEXT},
-        pages: JsonField(sequelize, 'crawlerSetting', 'pages'),//{type: DataTypes.TEXT},
+        proxySettings: JsonField(sequelize, 'crawlerSetting', 'proxySettings'),
+        pages: JsonField(sequelize, 'crawlerSetting', 'pages'),
         description: {type: DataTypes.TEXT, allowNull: true},
-    }, {
-        hooks: {
-    // /srv/blessing/server/config/db/sqls/blessing-2016-09-22-1.sql
-        }
     });
 };

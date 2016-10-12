@@ -1,36 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a852fbb4-3296-487b-829b-49d811ca8dcc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/src/directives/action/schemas/backup.value.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/controllers/backup/getItem.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/controllers/backup/updateItem.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/models/schema.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/config/db/sqls/blessing-2016-09-22-1.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/config/db/sqls/blessing-2016-09-22.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/config/db/sqls/blessing-2016-09-23.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/config/db/sqls/blessing_module.sql" afterPath="" />
+    <list default="true" id="a852fbb4-3296-487b-829b-49d811ca8dcc" name="Default" comment="爬虫 设置项">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/controllers/schema/createItem.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/controllers/schema/getItem.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/controllers/schema/list.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/controllers/schema/removeItem.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/controllers/schema/updateItem.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/routes/schema/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/routes/upload/index.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server/views/index.handlebars" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server/views/login.handlebars" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/dashboard.css" afterPath="$PROJECT_DIR$/public/built/dashboard.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/index.bundle.js" afterPath="$PROJECT_DIR$/public/built/page/index.bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/index.bundle.js.map" afterPath="$PROJECT_DIR$/public/built/page/index.bundle.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/style.bundle.js" afterPath="$PROJECT_DIR$/public/built/page/style.bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/style.bundle.js.map" afterPath="$PROJECT_DIR$/public/built/page/style.bundle.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/vendors.bundle.js" afterPath="$PROJECT_DIR$/public/built/vendors.bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/vendors.bundle.js.map" afterPath="$PROJECT_DIR$/public/built/vendors.bundle.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/index.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/index.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/models/action.model.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/models/action.model.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/schemas/crawler.value.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/schemas/crawler.value.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/schemas/modules.value.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/schemas/modules.value.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/services/autocomplete.provider.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/services/autocomplete.provider.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/tpls/list.jade" afterPath="$PROJECT_DIR$/public/src/directives/action/tpls/list.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/schemas/backup.value.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/schemas/backup.value.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/db/index.js" afterPath="$PROJECT_DIR$/server/config/db/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controllers/backup/createItem.js" afterPath="$PROJECT_DIR$/server/controllers/backup/createItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controllers/module/getItem.js" afterPath="$PROJECT_DIR$/server/controllers/module/getItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controllers/module/removeItem.js" afterPath="$PROJECT_DIR$/server/controllers/module/removeItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controllers/module/updateItem.js" afterPath="$PROJECT_DIR$/server/controllers/module/updateItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/backup/index.js" afterPath="$PROJECT_DIR$/server/routes/backup/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/utils/index.js" afterPath="$PROJECT_DIR$/server/config/utils/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/crawler_setting.js" afterPath="$PROJECT_DIR$/server/models/crawler_setting.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/schedule.js" afterPath="$PROJECT_DIR$/server/models/schedule.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/schema.js" afterPath="$PROJECT_DIR$/server/models/schema.js" />
     </list>
     <list id="d25aa4e0-581f-48fc-9f85-47f56767a442" name="New changelist" comment="" />
     <ignored path="blessing.iws" />
@@ -54,108 +47,101 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="action.provider.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts">
+      <file leaf-file-name="schedule.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/models/schedule.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="208" column="137" selection-start-line="208" selection-start-column="137" selection-end-line="208" selection-end-column="137" />
+            <state relative-caret-position="345">
+              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rest.service.d.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/src/services/rest.service.d.ts">
+      <file leaf-file-name="crawler_setting.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/models/crawler_setting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+            <state relative-caret-position="315">
+              <caret line="26" column="2" selection-start-line="26" selection-start-column="2" selection-end-line="26" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="getItem.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/controllers/backup/getItem.js">
+      <file leaf-file-name="schema.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/models/schema.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+            <state relative-caret-position="240">
+              <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="backup.value.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/src/directives/action/schemas/backup.value.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="146" column="0" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-              <folding>
-                <element signature="n#List#0" expanded="false" />
-                <element signature="n#Delete#0" expanded="false" />
-                <element signature="n#Dump#0" expanded="false" />
-                <marker date="1476181278000" expanded="false" signature="1641:2346" ph="{...}" />
-              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/routes/backup/index.js">
+        <entry file="file://$PROJECT_DIR$/server/routes/schema/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/config/db/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="updateItem.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/controllers/backup/updateItem.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="removeItem.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/controllers/backup/removeItem.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="14" column="9" selection-start-line="8" selection-start-column="7" selection-end-line="14" selection-end-column="9" />
+            <state relative-caret-position="165">
+              <caret line="13" column="72" selection-start-line="12" selection-start-column="4" selection-end-line="16" selection-end-column="81" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="createItem.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/controllers/backup/createItem.js">
+        <entry file="file://$PROJECT_DIR$/server/controllers/schema/createItem.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="60">
+              <caret line="4" column="55" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="55" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="autocomplete.provider.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/src/directives/action/services/autocomplete.provider.ts">
+      <file leaf-file-name="getItem.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/controllers/schema/getItem.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+            <state relative-caret-position="225">
+              <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/controllers/schema/list.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="55" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="removeItem.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/controllers/schema/removeItem.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="updateItem.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/controllers/schema/updateItem.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/routes/module/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="18" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -180,21 +166,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/src/directives/action/services/jsoneditor.provider.ts" />
-        <option value="$PROJECT_DIR$/public/src/directives/action/services/utils.service.ts" />
-        <option value="$PROJECT_DIR$/public/src/directives/action/services/validator.custom.value.ts" />
-        <option value="$PROJECT_DIR$/public/src/pages/tty/index.ts" />
-        <option value="$PROJECT_DIR$/public/src/pages/tty/tpls/index.template.jade" />
-        <option value="$PROJECT_DIR$/public/src/directives/sidemenu/mdcolor.directive.ts" />
-        <option value="$PROJECT_DIR$/public/src/directives/sidemenu/status.factory.ts" />
-        <option value="$PROJECT_DIR$/public/src/pages/tty/router.ts" />
         <option value="$PROJECT_DIR$/public/src/pages/home/tpls/sidenavl.template.jade" />
         <option value="$PROJECT_DIR$/public/src/directives/sidemenu/index.ts" />
         <option value="$PROJECT_DIR$/public/src/pages/home/ctls/sidenavl.controller.ts" />
         <option value="$PROJECT_DIR$/public/src/pages/home/index.ts" />
         <option value="$PROJECT_DIR$/public/src/pages/page/router.ts" />
         <option value="$PROJECT_DIR$/community_layouts.txt" />
-        <option value="$PROJECT_DIR$/server/models/schedule.js" />
         <option value="$PROJECT_DIR$/public/src/pages/salt/index.ts" />
         <option value="$PROJECT_DIR$/public/src/pages/salt/router.ts" />
         <option value="$PROJECT_DIR$/public/src/pages/index/index.ts" />
@@ -210,7 +187,6 @@
         <option value="$PROJECT_DIR$/server/controllers/mysql_tools/removeItem.js" />
         <option value="$PROJECT_DIR$/server/controllers/mysql_tools/list.js" />
         <option value="$PROJECT_DIR$/server/routes/mysql_tools/index.js" />
-        <option value="$PROJECT_DIR$/server/config/utils/index.js" />
         <option value="$PROJECT_DIR$/server/controllers/backup/list.js" />
         <option value="$PROJECT_DIR$/public/src/pages/tty/ctls/index.controller.ts" />
         <option value="$PROJECT_DIR$/public/src/directives/action/index.ts" />
@@ -218,7 +194,6 @@
         <option value="$PROJECT_DIR$/server/controllers/module/removeItem.js" />
         <option value="$PROJECT_DIR$/server/controllers/module/updateItem.js" />
         <option value="$PROJECT_DIR$/server/controllers/module/getItem.js" />
-        <option value="$PROJECT_DIR$/server/models/schema.js" />
         <option value="$PROJECT_DIR$/public/src/directives/action/tpls/list.jade" />
         <option value="$PROJECT_DIR$/public/src/directives/action/models/action.model.ts" />
         <option value="$PROJECT_DIR$/public/src/directives/action/schemas/crawler.value.ts" />
@@ -228,9 +203,20 @@
         <option value="$PROJECT_DIR$/public/src/directives/action/services/autocomplete.provider.ts" />
         <option value="$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts" />
         <option value="$PROJECT_DIR$/server/controllers/backup/getItem.js" />
-        <option value="$PROJECT_DIR$/public/src/directives/action/schemas/backup.value.ts" />
         <option value="$PROJECT_DIR$/server/routes/backup/index.js" />
+        <option value="$PROJECT_DIR$/server/routes/upload/index.js" />
+        <option value="$PROJECT_DIR$/public/src/directives/action/schemas/backup.value.ts" />
         <option value="$PROJECT_DIR$/server/config/db/index.js" />
+        <option value="$PROJECT_DIR$/server/models/schema.js" />
+        <option value="$PROJECT_DIR$/server/models/schedule.js" />
+        <option value="$PROJECT_DIR$/server/models/crawler_setting.js" />
+        <option value="$PROJECT_DIR$/server/config/utils/index.js" />
+        <option value="$PROJECT_DIR$/server/routes/schema/index.js" />
+        <option value="$PROJECT_DIR$/server/controllers/schema/createItem.js" />
+        <option value="$PROJECT_DIR$/server/controllers/schema/getItem.js" />
+        <option value="$PROJECT_DIR$/server/controllers/schema/list.js" />
+        <option value="$PROJECT_DIR$/server/controllers/schema/removeItem.js" />
+        <option value="$PROJECT_DIR$/server/controllers/schema/updateItem.js" />
       </list>
     </option>
   </component>
@@ -316,7 +302,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -330,33 +320,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
+              <option name="myItemId" value="server" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blessing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blessing" />
+              <option name="myItemId" value="routes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="directives" />
+              <option name="myItemId" value="schema" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -370,19 +342,95 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
+              <option name="myItemId" value="server" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="routes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="directives" />
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blessing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blessing" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blessing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blessing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="schema" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blessing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blessing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blessing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blessing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="crawler_setting" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -418,11 +466,11 @@
       <recent name="$PROJECT_DIR$/public/src/directives/action" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/server/controllers/schema" />
       <recent name="$PROJECT_DIR$/server/controllers/backup" />
       <recent name="$PROJECT_DIR$/server/models" />
       <recent name="$PROJECT_DIR$/public/src/directives/action/schemas" />
       <recent name="$PROJECT_DIR$/server/routes/mysql_tools" />
-      <recent name="$PROJECT_DIR$/server/controllers/mysql_tools" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.server">
@@ -533,14 +581,7 @@
       <workItem from="1474855834887" duration="4572000" />
       <workItem from="1474959667291" duration="3619000" />
       <workItem from="1475915391050" duration="8643000" />
-      <workItem from="1475978524095" duration="23146000" />
-    </task>
-    <task id="LOCAL-00026" summary="action指令修改">
-      <created>1472915950345</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1472915950345</updated>
+      <workItem from="1475978524095" duration="26126000" />
     </task>
     <task id="LOCAL-00027" summary="action指令修改">
       <created>1472966539527</created>
@@ -878,23 +919,30 @@
       <option name="project" value="LOCAL" />
       <updated>1476173873570</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="爬虫 设置项">
+      <created>1476181346899</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1476181346899</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="579713000" />
+    <option name="totallyTimeSpent" value="582693000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2192216" sideWeight="0.4918033" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2192216" sideWeight="0.4918033" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21566264" sideWeight="0.50880903" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3849315" sideWeight="0.49119097" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19726028" sideWeight="0.49119097" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24861" sideWeight="0.5081967" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3479452" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -940,112 +988,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/node_modules/sequelize-paper-trail/lib/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="25" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/models/schedule.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="29" selection-start-line="8" selection-start-column="8" selection-end-line="22" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/uploads/backup/1476085360635">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/uploads/backup/1476085386997">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/controllers/module/createItem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="15" column="16" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/typings/bluebird/bluebird.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="680" column="18" selection-start-line="680" selection-start-column="18" selection-end-line="680" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/uploads/backup/1476088851777">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/uploads/backup/1476088884297.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/controllers/crawler_setting/createItem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/controllers/crawler_setting/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/routes/home/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/controllers/backup/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="2" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/pages/tty/tpls/index.template.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/src/directives/toolbar/toolbar.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-886">
@@ -1132,40 +1074,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/models/module.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/models/crawler_setting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="22" column="104" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="104" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/models/schema.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="53" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/config/utils/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="12" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -1265,14 +1173,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/routes/module/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/src/directives/action/models/interface.model.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="35">
@@ -1357,19 +1257,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/directives/action/schemas/backup.value.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="146" column="0" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-          <folding>
-            <element signature="n#List#0" expanded="false" />
-            <element signature="n#Delete#0" expanded="false" />
-            <element signature="n#Dump#0" expanded="false" />
-            <marker date="1476181278000" expanded="false" signature="1641:2346" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/routes/backup/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -1378,10 +1265,178 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/views/login.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/views/index.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/routes/passport/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="39" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="2" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/routes/upload/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/src/directives/action/schemas/backup.value.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
+          <folding>
+            <element signature="n#List#0" expanded="false" />
+            <element signature="n#Delete#0" expanded="false" />
+            <element signature="n#Dump#0" expanded="false" />
+            <element signature="n#Download#0" expanded="false" />
+            <marker date="1476252266000" expanded="false" signature="1620:2325" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/routes/home/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/src/pages/index/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="40" column="30" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/models/module.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/config/db/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="195">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+          <folding>
+            <element signature="e#39#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/models/crawler_setting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="26" column="2" selection-start-line="26" selection-start-column="2" selection-end-line="26" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/models/schedule.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/models/schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/routes/module/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="18" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/config/utils/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/routes/schema/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="13" column="72" selection-start-line="12" selection-start-column="4" selection-end-line="16" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controllers/schema/createItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="55" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controllers/schema/getItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controllers/schema/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="55" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controllers/schema/removeItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controllers/schema/updateItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
           <folding />
         </state>
       </provider>

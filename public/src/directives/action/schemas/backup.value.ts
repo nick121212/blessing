@@ -24,7 +24,7 @@ class List {
                 toolbars: [],
                 itemToolbars: []
             },
-            itemActions: [{key: Delete.key}, {key: Dump.key}, {key: Download.key}],
+            itemActions: [{key: Delete.key}, {key: Dump.key}],
             actions: [Backup.key],
             interfaces: [{
                 key: "backupList",
