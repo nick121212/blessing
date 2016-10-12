@@ -14,9 +14,13 @@ module.exports = (sequelize, DataTypes) => {
             unique: true
         },
         type: {
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING(10)
+        },
+        group: {
+            type: DataTypes.STRING(10)
         },
         text: JsonField(sequelize, 'schema', 'text'),
+        textForm: JsonField(sequelize, 'schema', 'textForm'),
         description: {type: DataTypes.TEXT},
     });
 };

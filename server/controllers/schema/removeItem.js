@@ -22,7 +22,7 @@ exports = module.exports = (app, logger) => {
 
         ctx.body = await Model.destroy({
             where: {
-                key: key
+                id: key
             }
         });
     };

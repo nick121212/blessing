@@ -19,19 +19,8 @@ class Result {
             title: "结果反馈",
             icon: "view-module",
             form: {
-                dataSchema: {
-                    type: "object",
-                    properties: {
-                        data: {
-                            type: "object",
-                            title: "返回结果"
-                        }
-                    }
-                },
-                formSchema: [{
-                    key: "data",
-                    type: "jeditor"
-                }]
+                dataSchema: "resultActionData",
+                formSchema: "resultActionForm"
             }
         };
 

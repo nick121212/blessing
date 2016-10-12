@@ -55,7 +55,7 @@ class Controller {
      * @returns {boolean}
      */
     showForm(action: IActionModel, index: number) {
-        return index === 0 || this.$forms.hasOwnProperty(action.key) || index == this.selectedIndex || index == this.selectedIndex + 1;
+        return index === 0 || this.$forms.hasOwnProperty(action.key) || index == this.selectedIndex;// || index == this.selectedIndex + 1;
     }
 
     /**
@@ -162,9 +162,9 @@ class Controller {
                 }
                 // 如果是form/wizard的话，判断dataSchema是否存在，不存在则使用wizard的defaultSchema
                 if (action && (action.type === ActionType.form || action.type === ActionType.wizard)) {
-                    if (!action.form.dataSchema && action.type === ActionType.form) {
-                        action.form.dataSchema = actionModel.wizard.defaultSchema.dataSchema;
-                    }
+                    // if (!action.form.dataSchema && action.type === ActionType.form) {
+                    //     action.form.dataSchema = actionModel.wizard.defaultSchema.dataSchema;
+                    // }
                     actions.push(action);
                 }
             });

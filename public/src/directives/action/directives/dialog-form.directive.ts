@@ -21,8 +21,8 @@ class Controller {
     doSubmit($form) {
         let promise = this.fxAction.doAction(this.key, this.formData, $form);
 
-        this.isBusy = true;
         if (promise) {
+            this.isBusy = true;
             promise.then((result)=> {
                 this.actionModel.closeDialog === true && this.$mdDialog.hide(result);
 

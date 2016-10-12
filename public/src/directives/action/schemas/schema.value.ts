@@ -1,26 +1,23 @@
 import {IActionModel, ActionType} from '../models/action.model';
 import {MethodType} from '../models/interface.model';
 
-/**
- * 模块查询
- */
 class List {
     static $inject = ["toolbarUtils", "actionUtils"];
-    static key: string = "module";
+    static key: string = "schemaListAction";
 
     constructor(toolbarUtils, actionUtils) {
         let actionModel: IActionModel = {
             key: List.key,
             type: ActionType.list,
-            title: "模块管理",
+            title: "SCHEMA管理",
             icon: "view-module",
             list: {
                 columns: [
+                    actionUtils.columnBuilder("<span>{{::item.id}}</span>", "ID", "id").toValue(),
                     actionUtils.columnBuilder("<span>{{::item.key}}</span>", "KEY").toValue(),
-                    actionUtils.columnBuilder("<span>{{ ::item.title }}</span>", "模块名称").toValue(),
-                    actionUtils.columnBuilder(`<ng-md-icon icon="{{ ::item.icon }}"></ng-md-icon>`, "图标").toValue(),
-                    actionUtils.columnBuilder(`<span>{{ ::item.lft }}</span>`, "lft", "lft").toValue(),
-                    actionUtils.columnBuilder(`<span>{{ ::item.rgt }}</span>`, "rgt", "rgt").toValue()
+                    actionUtils.columnBuilder("<span>{{::item.group}}</span>", "分组名称", "group").toValue(),
+                    actionUtils.columnBuilder("<span>{{ ::item.type }}</span>", "模块类型").toValue(),
+                    actionUtils.columnBuilder(`<span>{{ ::item.description }}</span>`, "描述").toValue(),
                 ],
                 showPagination: true,
                 searchActionKey: Search.key,
@@ -30,14 +27,14 @@ class List {
                 toolbars: [],
                 itemToolbars: []
             },
-            itemActions: [{key: Edit.key}, {key: Delete.key}],
+            itemActions: [{key: Edit.key}, {key: Delete.key}, {key: Copy.key}],
             actions: [Add.key],
             interfaces: [{
                 key: "modulesList",
                 method: MethodType.GET,
                 address: "",
                 port: null,
-                path: "modules",
+                path: "schemas",
                 jpp: {
                     set: {
                         "/total": "/count",
@@ -51,57 +48,28 @@ class List {
         return actionModel;
     }
 }
-/**
- * 模块侧边栏
- */
-class Menus {
-    static $inject = ["toolbarUtils", "actionUtils"];
-    static key: string = "moduleMenuAction";
 
-    constructor(toolbarUtils, actionUtils) {
-        let actionModel: IActionModel = {
-            key: Menus.key,
-            type: ActionType.list,
-            title: "模块管理",
-            icon: "view-module",
-            interfaces: [{
-                key: "moduleMenu",
-                method: MethodType.GET,
-                address: "",
-                port: null,
-                path: "/modules/menu",
-                isRestful: false
-            }]
-        };
-
-        return actionModel;
-    }
-}
-/**
- * 模块增加
- */
 class Add {
-    static $inject = ["toolbarUtils", "actionUtils"];
-    static key: string = "modulesAddAction";
+    static key: string = "schemaAddAction";
 
-    constructor(toolbarUtils, actionUtils) {
+    constructor() {
         let actionModel: IActionModel = {
             key: Add.key,
             type: ActionType.form,
-            title: "新建模块",
+            title: "新建SCHEMA",
             icon: "add",
             refreshList: true,
             form: {
-                dataSchema: "moduleActionData",
-                formSchema: "moduleAddActionForm"
+                dataSchema: "schemaActionData",
+                formSchema: "schemaAddActionData"
             },
             closeDialog: true,
             interfaces: [{
-                key: "modulesAdd",
+                key: "schemaAdd",
                 method: MethodType.POST,
                 address: "",
                 port: null,
-                path: "modules",
+                path: "schemas",
                 isRestful: true
             }]
         };
@@ -109,32 +77,29 @@ class Add {
         return actionModel;
     }
 }
-/**
- * 模块修改
- */
-class Edit {
-    static $inject = ["toolbarUtils", "actionUtils"];
-    static key: string = "modulesEditAction";
 
-    constructor(toolbarUtils, actionUtils) {
+class Edit {
+    static key: string = "schemaEditAction";
+
+    constructor() {
         let actionModel: IActionModel = {
             key: Edit.key,
             type: ActionType.form,
-            title: "修改模块",
+            title: "修改SCHEMA",
             icon: "edit",
             refreshList: true,
             form: {
-                dataSchema: "moduleActionData",
-                formSchema: "moduleEditActionForm"
+                dataSchema: "schemaActionData",
+                formSchema: "schemaAddActionData"
             },
             closeDialog: true,
             interfaces: [{
-                key: "modulesEdit",
+                key: "schemaEdit",
                 method: MethodType.PUT,
                 idFieldPath: "/id",
                 address: "",
                 port: null,
-                path: "modules",
+                path: "schemas",
                 isRestful: true
             }]
         };
@@ -142,30 +107,60 @@ class Edit {
         return actionModel;
     }
 }
-/**
- * 模块删除
- */
+
+class Copy {
+    static key: string = "schemaCopyAction";
+
+    constructor() {
+        let actionModel: IActionModel = {
+            key: Copy.key,
+            type: ActionType.form,
+            title: "复制SCHEMA",
+            icon: "content_copy",
+            refreshList: true,
+            form: {
+                dataSchema: "schemaActionData",
+                formSchema: "schemaAddActionData"
+            },
+            closeDialog: true,
+            interfaces: [{
+                key: "schemaAdd",
+                method: MethodType.POST,
+                address: "",
+                port: null,
+                path: "schemas",
+                jpp: {
+                    del: ["/id"]
+                },
+                isRestful: true
+            }]
+        };
+
+        return actionModel;
+    }
+}
+
 class Delete {
-    static key: string = "modulesDeleteAction";
+    static key: string = "schemaDeleteAction";
 
     constructor() {
         let actionModel: IActionModel = {
             key: Delete.key,
             type: ActionType.confirm,
-            title: "删除模块",
+            title: "删除SCHEMA",
             icon: "delete",
             refreshList: true,
             confirm: {
                 confirmTitle: "",
-                confirmContent: "确定要删除模块吗!"
+                confirmContent: "确定要删除SCHEMA吗!"
             },
             interfaces: [{
-                key: "modulesDelete",
+                key: "schemaDelete",
                 method: MethodType.DELETE,
                 idFieldPath: "/id",
                 address: "",
                 port: null,
-                path: "modules",
+                path: "schemas",
                 isRestful: true
             }]
         };
@@ -173,22 +168,19 @@ class Delete {
         return actionModel;
     }
 }
-/**
- * 模块搜索
- */
+
 class Search {
-    static $inject = ["toolbarUtils", "actionUtils"];
-    static key: string = "modulesSearchAction";
+    static key: string = "schemaSearchAction";
 
     constructor() {
         let actionModel: IActionModel = {
             key: Search.key,
-            icon: "search",
             type: ActionType.form,
-            title: "模块搜索表单",
+            title: "搜索SCHEMA",
+            icon: "search",
             form: {
-                dataSchema: "moduleActionData",
-                formSchema: "moduleSearchActionForm"
+                dataSchema: "schemaActionData",
+                formSchema: "schemaSearchActionData"
             }
         };
 
@@ -197,7 +189,7 @@ class Search {
 }
 
 export default (module: ng.IModule) => {
-    const services: Array<any> = [Delete, Menus, List, Search, Add, Edit];
+    const services: Array<any> = [List, Add, Edit, Delete, Copy, Search];
 
     _.each(services, (ser)=> {
         module.service(ser.key, ser);

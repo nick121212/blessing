@@ -7,7 +7,7 @@ class DialogController {
     static $inject = ["$scope", "item", "key", "submit"];
 
     constructor(private $scope, private item, private key, private submit) {
-        console.log(arguments);
+        // console.log(arguments);
     }
 }
 
@@ -17,7 +17,6 @@ class Provider {
     static _name: string = 'fxAction';
 
     constructor(private $rootScope: ng.IRootScopeService, private $injector: ng.auto.IInjectorService, private restUtils: fx.utils.restStatic, private mdUtils: fx.utils.materialStatic, private $q: ng.IQService, private $mdDialog: ng.material.IDialogService) {
-        //return new Provider($rootScope, $injector, restUtils, mdUtils, $q, $mdDialog);
         return this;
     }
 
@@ -38,13 +37,58 @@ class Provider {
         if (!key) {
             defer.reject();
         } else {
-
             if (this.$injector.has(key)) {
                 defer.resolve(_.cloneDeepWith(this.$injector.get(key)));
             } else {
                 this.mdUtils.showErrMsg(`没有找到key[${key}]!`);
                 defer.reject(key);
             }
+        }
+
+        return defer.promise;
+    }
+
+    /**
+     * 查找操作模型中的formSchema
+     * @param actionModel
+     * @returns {IPromise<T>}
+     */
+    getSchema(actionModel: IActionModel) {
+        let keys = [], defer = this.$q.defer(), schemaActionModel;
+
+        if (actionModel.type === ActionType.form) {
+            _.isString(actionModel.form.dataSchema) && keys.push(actionModel.form.dataSchema);
+            _.isString(actionModel.form.formSchema) && keys.push(actionModel.form.formSchema);
+        }
+
+        if (keys.length) {
+            this.getModel("schemaListAction").then((model: IActionModel)=> {
+                schemaActionModel = model;
+                return this.doAction(model.key, {
+                    limit: keys.length,
+                    where: {
+                        "key": {
+                            "$in": keys
+                        }
+                    }
+                });
+            }).then((results)=> {
+                const data = this.doDealResult(schemaActionModel, results, {});
+                const schemas = _.keyBy(data.rows, "key");
+
+                if (actionModel.type === ActionType.form) {
+                    if (_.isString(actionModel.form.dataSchema) && schemas[actionModel.form.dataSchema.toString()]) {
+                        actionModel.form.dataSchema = schemas[actionModel.form.dataSchema.toString()]["text"];
+                    }
+                    if (_.isString(actionModel.form.formSchema) && schemas[actionModel.form.formSchema.toString()]) {
+                        actionModel.form.formSchema = schemas[actionModel.form.formSchema.toString()]["textForm"];
+                    }
+                }
+            }).finally(()=> {
+                defer.resolve(actionModel);
+            });
+        } else {
+            defer.resolve(actionModel);
         }
 
         return defer.promise;
@@ -169,8 +213,8 @@ class Provider {
                     pointer.set(clientData, key, pointer.get(result, val));
                 });
                 // 本地数据的删除
-                _.forEach(iInterface.jpp.del, (val, key)=> {
-                    pointer.remove(clientData, key);
+                _.each(iInterface.jpp.del, (val)=> {
+                    pointer.remove(clientData, val);
                 });
             }
         });
@@ -186,6 +230,8 @@ class Provider {
      * @returns {IPromise<TResult>}
      */
     doAction(key: string, queryData: Object|restangular.IElement, $form?: ng.IFormController) {
+        let queryDataCline;
+
         if (!this.doFormCheck($form)) {
             return;
         }
@@ -200,19 +246,29 @@ class Provider {
                     restAngular = interfaceModel.isRestful
                         ? this.restUtils.getCustomRestful(interfaceModel.address, interfaceModel.port, interfaceModel.path)
                         : this.restUtils.getCustom(interfaceModel.address, interfaceModel.port, interfaceModel.path);
+
+                queryDataCline = _.cloneDeep(queryData);
+
+                if(interfaceModel.jpp){
+                    // 数据的删除
+                    _.each(interfaceModel.jpp.del, (val)=> {
+                        pointer.remove(queryDataCline, val);
+                    });
+                }
+
                 // 判断接口请求类型,做提交操作
                 switch (interfaceModel.method) {
                     case MethodType.POST:
-                        promise = restAngular.post(queryData, null);
+                        promise = restAngular.post(queryDataCline, null);
                         break;
                     case MethodType.GET:
-                        promise = restAngular.customGET(interfaceModel.params ? pointer.get(queryData, interfaceModel.idFieldPath) : null, queryData, null);
+                        promise = restAngular.customGET(interfaceModel.params ? pointer.get(queryDataCline, interfaceModel.idFieldPath) : null, queryDataCline, null);
                         break;
                     case MethodType.PUT:
-                        promise = restAngular.customPUT(_.isObject(queryData) ? queryData : null, pointer.get(queryData, interfaceModel.idFieldPath));
+                        promise = restAngular.customPUT(_.isObject(queryDataCline) ? queryDataCline : null, pointer.get(queryDataCline, interfaceModel.idFieldPath));
                         break;
                     case MethodType.DELETE:
-                        promise = restAngular.customDELETE(pointer.get(queryData, interfaceModel.idFieldPath), null)
+                        promise = restAngular.customDELETE(pointer.get(queryDataCline, interfaceModel.idFieldPath), null)
                 }
                 interfacesRest[interfaceModel.key] = promise;
             });

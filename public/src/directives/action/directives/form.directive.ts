@@ -1,4 +1,4 @@
-import {IActionModel} from '../models/action.model';
+import {IActionModel, ActionType} from '../models/action.model';
 
 interface IDirectiveScope extends ng.IScope {
 
@@ -14,14 +14,20 @@ class Controller {
     actionModel: IActionModel;
     key: string;
     formData: Object;
+    isBusy: boolean;
 
     constructor(private $scope, private fxAction) {
         this.formData = this.formData || {};
     }
 
     getActionModel() {
-        this.fxAction.getModel(this.key).then((model)=> {
+        this.isBusy = true;
+        this.fxAction.getModel(this.key).then((model: IActionModel)=> {
+            return this.fxAction.getSchema(model);
+        }).then((model)=> {
             this.actionModel = model;
+        }).finally(()=> {
+            this.isBusy = false;
         });
     }
 }
@@ -40,6 +46,7 @@ function Directive(): ng.IDirective {
         bindToController: {
             formData: "=ngModel",
             actionModel: "=?",
+            isBusy: "=?ngDisabled",
             key: "@?"
         },
         controller: Controller,

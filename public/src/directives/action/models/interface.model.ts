@@ -16,7 +16,7 @@ export interface IJpp {
     set?: {[id: string]: string},
     copy?: {[id: string]: string},
     move?: {[id: string]: string},
-    del?: {[id: string]: string}
+    del?: Array<string>
 }
 
 /**
