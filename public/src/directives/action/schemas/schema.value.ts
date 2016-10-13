@@ -19,6 +19,7 @@ class List {
                     actionUtils.columnBuilder("<span>{{ ::item.type }}</span>", "模块类型").toValue(),
                     actionUtils.columnBuilder(`<span>{{ ::item.description }}</span>`, "描述").toValue(),
                 ],
+                queryData: {limit: 50},
                 showPagination: true,
                 searchActionKey: Search.key,
                 showRefreshBtn: true,
