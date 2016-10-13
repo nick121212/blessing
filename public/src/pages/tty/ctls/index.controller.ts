@@ -1,5 +1,7 @@
 import * as io from 'socket.io-client';
 
+const ip = "http://106.75.78.203:3000/crawler";
+
 export class TtyController {
     static $inject = ["$scope", "$stateParams", "toolbarUtils", "materialUtils", "fxAction"];
 
@@ -62,7 +64,7 @@ export class TtyController {
     }
 
     init() {
-        this.socket = io('http://114.55.146.215:3000/crawler');
+        this.socket = io(ip);
         // this.socket = io('http://localhost:3000/crawler');
         // 已经连接
         this.socket.on('connect', function () {
