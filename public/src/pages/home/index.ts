@@ -57,7 +57,7 @@ module.config([
                     mdi: svgUtils.loadSvgUrl(__dirname + 'svgs/mdi.svg'),
                     weibo: svgUtils.loadSvgUrl(__dirname + 'svgs/weibo.svg'),
                     config: fxAction.doAction("configAction", {}).then((result)=> {
-                        $rootScope.config = result.configAction;
+                        $rootScope["config"] = result.configAction;
 
                     })
                 }).then(handleResolve, handleResolve);
