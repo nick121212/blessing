@@ -3,9 +3,11 @@ import path from 'path';
 module.exports = (app)=> {
     "use strict";
 
+    const ip = process.env.NODE_IP;
+
     return {
         env: "production",
-        ip: "http://106.75.76.203:3000/crawler",
+        ip: `http://${ip || '106.75.76.203'}:3000/crawler`,
         db: {
             username: 'root',
             password: '',
