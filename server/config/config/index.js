@@ -1,9 +1,9 @@
-module.exports = (app)=> {
+module.exports = (app,logger)=> {
     let env = process.env.NODE_ENV;
 
     if (env === "production") {
-        return app.config.config.production;
+        return app.config.config.env.production;
     }
 
-    return app.config.config.development;
+    return app.config.config.env.development;
 };

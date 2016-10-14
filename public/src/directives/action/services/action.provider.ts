@@ -26,6 +26,13 @@ class Provider {
         return new Provider(service.$rootScope, service.$injector, service.restUtils, service.mdUtils, service.$q, service.$mdDialog);
     }];
 
+    getInjector(key: string) {
+        if (this.$injector.has(key)) {
+            return _.cloneDeepWith(this.$injector.get(key));
+        }
+        return null;
+    }
+
     /**
      * 查找操作模型,如果本地没有,则去服务器中查找
      * @param key  {String}  操作的KEY
@@ -249,7 +256,7 @@ class Provider {
 
                 queryDataCline = _.cloneDeep(queryData);
 
-                if(interfaceModel.jpp){
+                if (interfaceModel.jpp) {
                     // 数据的删除
                     _.each(interfaceModel.jpp.del, (val)=> {
                         pointer.remove(queryDataCline, val);

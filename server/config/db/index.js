@@ -13,6 +13,8 @@ module.exports = (app, logger)=> {
         exclude: ['index.js']
     });
 
+    logger.info(config);
+
     sequelize.sync({force: false}).then(()=> {
 
     }).catch((err)=> {

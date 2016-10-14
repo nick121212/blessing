@@ -5,8 +5,7 @@
 import Router from 'koa-router';
 
 module.exports = (app, logger)=> {
-    "use strict";
-
+    let config = app.config.config.index;
     let router = new Router({
         prefix: '/home'
     });
@@ -16,6 +15,12 @@ module.exports = (app, logger)=> {
             title: 'Hello World Koa!',
             body: 'I am Nick'
         });
+    });
+    router.get('/config', async(ctx)=> {
+        ctx.body = {
+            ret: 0,
+            ip: config.ip
+        };
     });
 
     app.use(router.routes()).use(router.allowedMethods());

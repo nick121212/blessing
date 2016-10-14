@@ -3,7 +3,7 @@ import * as io from 'socket.io-client';
 const ip = "http://106.75.78.203:3000/crawler";
 
 export class TtyController {
-    static $inject = ["$scope", "$stateParams", "toolbarUtils", "materialUtils", "fxAction"];
+    static $inject = ["$rootScope", "$scope", "$stateParams", "toolbarUtils", "materialUtils", "fxAction"];
 
     toolbar: Array<any>;
     toolbar_logs: Array<any>;
@@ -14,7 +14,7 @@ export class TtyController {
     showLogs: boolean = true;
     errorCount: number = 0;
 
-    constructor(private $scope: ng.IScope, private $stateParams: ng.ui.IStateParamsService, private toolbarUtils, private materialUtils: fx.utils.materialStatic, private fxAction) {
+    constructor(private $rootScope: ng.IRootScopeService, private $scope: ng.IScope, private $stateParams: ng.ui.IStateParamsService, private toolbarUtils, private materialUtils: fx.utils.materialStatic, private fxAction) {
         this.crawlers = {};
         this.logs = [];
         this.toolbar_logs = [
@@ -64,7 +64,13 @@ export class TtyController {
     }
 
     init() {
-        this.socket = io(ip);
+        const config = this.$rootScope["config"];
+
+        if (!config) {
+            return console.error("没有配置项！");
+        }
+        console.log(config);
+        this.socket = io(config.ip);
         // this.socket = io('http://localhost:3000/crawler');
         // 已经连接
         this.socket.on('connect', function () {

@@ -4,6 +4,7 @@ module.exports = (app)=> {
     "use strict";
 
     return {
+        ip: "http://localhost:3000/crawler",
         db: {
             username: 'root',
             password: '',

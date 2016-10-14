@@ -31,7 +31,7 @@ module.config([
         mdSideMenuSectionsProvider.initWithTheme($mdThemingProvider);
 
     }])
-    .run(["$rootScope", "$state", "$q", "svgUtils", "fxSideMenuFactory", ($rootScope: ng.IRootScopeService, $state, $q: ng.IQService, svgUtils: fx.utils.svgStatic)=> {
+    .run(["$rootScope", "$state", "$q", "svgUtils", "fxAction", "fxSideMenuFactory", ($rootScope: ng.IRootScopeService, $state, $q: ng.IQService, svgUtils: fx.utils.svgStatic, fxAction)=> {
         let state: {$$isFinish?: boolean,toState?: ng.ui.IState,toParams?: Object,options?: Object} = {};
         // 处理路回调
         let handleResolve = ()=> {
@@ -55,7 +55,11 @@ module.config([
                 event.preventDefault();
                 $q.all({
                     mdi: svgUtils.loadSvgUrl(__dirname + 'svgs/mdi.svg'),
-                    weibo: svgUtils.loadSvgUrl(__dirname + 'svgs/weibo.svg')
+                    weibo: svgUtils.loadSvgUrl(__dirname + 'svgs/weibo.svg'),
+                    config: fxAction.doAction("configAction", {}).then((result)=> {
+                        $rootScope.config = result.configAction;
+
+                    })
                 }).then(handleResolve, handleResolve);
             }
         });

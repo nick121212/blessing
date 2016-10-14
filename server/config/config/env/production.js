@@ -4,6 +4,8 @@ module.exports = (app)=> {
     "use strict";
 
     return {
+        env: "production",
+        ip: "http://106.75.76.203:3000/crawler",
         db: {
             username: 'root',
             password: '',

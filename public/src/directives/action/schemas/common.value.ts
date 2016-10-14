@@ -8,6 +8,31 @@ import {MethodType} from '../models/interface.model';
 /**
  * 模块查询
  */
+class Config {
+    static $inject = ["toolbarUtils", "actionUtils"];
+    static key: string = "configAction";
+
+    constructor(toolbarUtils, actionUtils) {
+        let actionModel: IActionModel = {
+            key: Config.key,
+            type: ActionType.none,
+            interfaces: [{
+                key: "configAction",
+                method: MethodType.GET,
+                address: "",
+                port: null,
+                path: "/home/config",
+                isRestful: false
+            }]
+        };
+
+        return actionModel;
+    }
+}
+
+/**
+ * 模块查询
+ */
 class Result {
     static $inject = ["toolbarUtils", "actionUtils"];
     static key: string = "resultAction";
@@ -29,7 +54,7 @@ class Result {
 }
 
 export default (module: ng.IModule) => {
-    const services: Array<any> = [Result];
+    const services: Array<any> = [Result, Config];
 
     _.each(services, (ser)=> {
         module.service(ser.key, ser);
