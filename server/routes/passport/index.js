@@ -14,6 +14,7 @@ module.exports = (app, logger)=> {
     });
 
     router.get('/login', async(ctx, next)=> {
+        ctx.logout();
         throw boom.unauthorized("用户未登陆或没有权限!");
     });
 
