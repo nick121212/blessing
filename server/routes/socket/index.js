@@ -29,7 +29,8 @@ module.exports = (app, logger, crawlerSocket)=> {
                 let id = ctx.socket.id;
 
                 crawlerSocket.broadcast('crawler:chip', {
-                    socketId: id
+                    socketId: id,
+                    ipInfo: data.ipInfo
                 });
             });
 
