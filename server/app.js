@@ -21,6 +21,7 @@ consign({
     .then('middlewares')
     .then('controllers')
     .then('routes/passport')
+    .then('routes/home')
     .then('auth')
     .then('routes')
     .then('controllers')
