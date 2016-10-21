@@ -131,7 +131,7 @@ class Controller {
                         this.actionModel.closeDialog === true && this.$mdDialog.hide(result);
 
                         if (_.isFunction(this.submitCallBack)) {
-                            this.submitCallBack();
+                            this.submitCallBack(result);
                         }
                         // this.materialUtils.showMsg(this.actionModel.successMsg || "操作成功！");
                         // this.reset();

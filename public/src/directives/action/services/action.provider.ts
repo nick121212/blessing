@@ -178,7 +178,9 @@ class Provider {
                     .cancel(actionModel.confirm.confirmCancel || "取消");
 
                 return this.$mdDialog.show(confirm).then(()=> {
-                    return this.doAction(actionModel.key, item);
+                    return this.doAction(actionModel.key, item).then((results)=> {
+                        _.isFunction(callback) && callback(results);
+                    });
                 });
         }
 
@@ -208,19 +210,21 @@ class Provider {
      * @param actionModel
      * @param results
      * @param clientData
+     * @param key
      * @return {IClientData}
      */
-    doDealResult(actionModel: IActionModel, results: Object, clientData: IClientData) {
+    doDealResult(actionModel: IActionModel, results: Object, clientData: IClientData, key: string = 'jpp') {
         _.forEach(actionModel.interfaces, (iInterface)=> {
             let result = results[iInterface.key];
+            let jpp = iInterface[key];
 
-            if (result) {
+            if (result && jpp) {
                 // 接口数据拷贝到本地
-                _.forEach(iInterface.jpp.set, (val, key)=> {
+                _.forEach(jpp.set, (val, key)=> {
                     pointer.set(clientData, key, pointer.get(result, val));
                 });
                 // 本地数据的删除
-                _.each(iInterface.jpp.del, (val)=> {
+                _.isArray(jpp.del) && _.each(jpp.del, (val)=> {
                     pointer.remove(clientData, val);
                 });
             }
@@ -237,15 +241,18 @@ class Provider {
      * @returns {IPromise<TResult>}
      */
     doAction(key: string, queryData: Object|restangular.IElement, $form?: ng.IFormController) {
-        let queryDataCline;
+        let queryDataCline, actionModel;
 
         if (!this.doFormCheck($form)) {
             return;
         }
 
-        return this.getModel(key).then((actionModel: IActionModel)=> {
+        return this.getModel(key).then((aModel: IActionModel)=> {
             let interfacesRest: { [id: string]: ng.IPromise<any>; } = {};
+            let headers = this.restUtils.headers;
+            let params = this.restUtils.params;
 
+            actionModel = aModel;
             // 获取接口列表,使用restangular处理接口地址,最后调用接口,返回promise
             _.each(actionModel.interfaces, (interfaceModel: IInterfaceModel)=> {
                 // 获取接口的地址
@@ -256,6 +263,7 @@ class Provider {
 
                 queryDataCline = _.cloneDeep(queryData);
 
+                // 处理数据
                 if (interfaceModel.jpp) {
                     // 数据的删除
                     _.each(interfaceModel.jpp.del, (val)=> {
@@ -263,19 +271,22 @@ class Provider {
                     });
                 }
 
+                // 请求加上额外的参数
+                interfaceModel.config && restAngular.withHttpConfig(interfaceModel.config);
+
                 // 判断接口请求类型,做提交操作
                 switch (interfaceModel.method) {
                     case MethodType.POST:
-                        promise = restAngular.post(queryDataCline, null);
+                        promise = restAngular.post(queryDataCline, null, headers);
                         break;
                     case MethodType.GET:
-                        promise = restAngular.customGET(interfaceModel.params ? pointer.get(queryDataCline, interfaceModel.idFieldPath) : null, queryDataCline, null);
+                        promise = restAngular.customGET(interfaceModel.params ? pointer.get(queryDataCline, interfaceModel.idFieldPath) : null, queryDataCline, headers);
                         break;
                     case MethodType.PUT:
-                        promise = restAngular.customPUT(_.isObject(queryDataCline) ? queryDataCline : null, pointer.get(queryDataCline, interfaceModel.idFieldPath));
+                        promise = restAngular.customPUT(_.isObject(queryDataCline) ? queryDataCline : null, pointer.get(queryDataCline, interfaceModel.idFieldPath), headers);
                         break;
                     case MethodType.DELETE:
-                        promise = restAngular.customDELETE(pointer.get(queryDataCline, interfaceModel.idFieldPath), null)
+                        promise = restAngular.customDELETE(pointer.get(queryDataCline, interfaceModel.idFieldPath), headers)
                 }
                 interfacesRest[interfaceModel.key] = promise;
             });
@@ -284,6 +295,10 @@ class Provider {
         }).then((interfacesRest)=> {
             // 返回promise
             return this.$q.all(interfacesRest);
+        }).then((results)=> {
+            this.doDealResult(actionModel, results, this.restUtils.headers, 'header');
+
+            return results;
         });
     }
 }

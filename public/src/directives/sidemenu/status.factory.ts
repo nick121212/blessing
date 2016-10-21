@@ -1,9 +1,13 @@
+import * as _ from 'lodash';
+
 function Factory($rootScope, mdSideMenuSections): any {
     let onStateChangeStart = function (event, toState, toParams) {
         let options = mdSideMenuSections.options;
 
         function digest(sections, currentSection) {
-            !mdSideMenuSections.selectedNode && sections.forEach(function (section) {
+            !mdSideMenuSections.selectedNode && sections &&
+
+            _.forEach(sections, (section)=> {
                 if (section[mdSideMenuSections.options.children] && section[mdSideMenuSections.options.children].length) {
                     return digest(section[mdSideMenuSections.options.children], section);
                 }
