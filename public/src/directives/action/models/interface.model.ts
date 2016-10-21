@@ -41,6 +41,10 @@ export interface IInterfaceModel {
     isRestful: boolean;
     // 数据拷贝等
     jpp?: IJpp;
+    // 复制header数据
+    header?: IJpp;
     // put和delete请求时候带参数
     idFieldPath?: string;
+    // 请求带上的配置
+    config?: Object;
 }

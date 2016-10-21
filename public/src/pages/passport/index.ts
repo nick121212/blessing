@@ -25,8 +25,7 @@ module.config([
         // 添加全局错误拦截器
         restUtils.setConfig((restAngularConfigure: restangular.IProvider)=> {
             restAngularConfigure.setErrorInterceptor((response: restangular.IResponse)=> {
-                if (response.status == 401) {
-                    console.error("login",response.data);
+                if (response.status !== 401 && !response.config["salt"]) {
                     !$state.is("passport.login") && $state.go("passport.login");
                     return false;
                 }

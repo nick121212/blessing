@@ -69,7 +69,6 @@ export class TtyController {
         if (!config) {
             return console.error("没有配置项！");
         }
-        console.log(config);
         this.socket = io(config.ip);
         // this.socket = io('http://localhost:3000/crawler');
         // 已经连接

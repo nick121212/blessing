@@ -15,7 +15,7 @@ import moduleSchFunc from './schemas/modules.value';
 import crawlerSchFunc from './schemas/crawler.value';
 import commonSchFunc from './schemas/common.value';
 import backupFunc from './schemas/backup.value';
-import saltFunc from './schemas/salt.api.value';
+// import saltFunc from './schemas/salt.api.value';
 import schemaFunc from './schemas/schema.value';
 import formActionFunc from './directives/form.directive';
 import listActionFunc from './directives/list.directive';
@@ -50,7 +50,7 @@ crawlerSchFunc(module);
 commonSchFunc(module);
 autoCompleteFunc(module);
 jsonEditorFunc(module);
-saltFunc(module);
+// saltFunc(module);
 backupFunc(module);
 schemaFunc(module);
 

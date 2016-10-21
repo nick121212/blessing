@@ -1,0 +1,51 @@
+{
+  "template": "cmdb.logs*",
+  "settings": {
+    "index.number_of_shards": 5,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "_default_": {
+      "_source": {
+        "enabled": true
+      },
+      "properties": {
+        "type": {
+          "type": "integer"
+        },
+        "createdAt": {
+          "format": "strict_date_optional_time||epoch_millis",
+          "type": "date"
+        }
+      }
+    },
+    "device_created": {
+      "properties": {
+        "deviceSn": {
+          "type": "string"
+        }
+      }
+    },
+    "device_updated": {
+      "properties": {
+        "deviceSn": {
+          "type": "string"
+        },
+        "data": {
+          "type": "nested",
+          "properties": {
+            "from": {
+              "type": "string"
+            },
+            "to": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

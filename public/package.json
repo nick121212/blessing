@@ -55,6 +55,7 @@
     "angular-schema-form": "^0.8.13",
     "angular-ui-router": "^0.3.1",
     "d3": "^4.2.2",
+    "event-source-polyfill": "0.0.7",
     "jsoneditor": "^5.5.7",
     "lodash": "^4.0.0",
     "md-data-table": "github:iamisti/mdDataTable",

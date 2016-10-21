@@ -8,18 +8,28 @@ import 'restangular';
 class Service {
     public static _name: string = "restUtils";
 
-    public static provider: Array<string | Function> = ["Restangular", (restangular: restangular.IService) => {
+    public static provider: Array<string | Function> = ["$rootScope", "Restangular", ($rootScope, restangular: restangular.IService) => {
         class Service {
 
             private rest;
-            private restAngularConfig;
+            private restAngularConfig: restangular.IProvider;
+
+            public params: Object;
+            public headers: Object;
 
             constructor(baseUrl: string = "") {
-                // this.rest = restangular;
+                this.params = {};
+                this.headers = {};
+
                 restangular.setBaseUrl(baseUrl);
-                this.rest = restangular.withConfig((restAngularConfig)=> {
+                this.rest = restangular.withConfig((restAngularConfig: restangular.IProvider)=> {
                     this.restAngularConfig = restAngularConfig;
-                    // restAngularConfig.setFullResponse(true);
+                    // // this.restAngularConfig.setFullResponse(true);
+                    // this.restAngularConfig.addResponseInterceptor((data: any, operation: string, what: string, url: string, response: restangular.IResponse, deferred: angular.IDeferred<any>)=> {
+                    //     console.log(arguments);
+                    //
+                    //     return data;
+                    // });
                 });
             }
 
@@ -48,7 +58,7 @@ class Service {
                 }
 
                 if (baseUrl) {
-                    restangu = restangular.oneUrl("custom", baseUrl);
+                    restangu = this.rest.oneUrl("custom", baseUrl);
                 } else {
                     restangu = this.rest;
                 }

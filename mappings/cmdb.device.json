@@ -1,0 +1,101 @@
+{
+  "template": "cmdb.device*",
+  "settings": {
+    "index.number_of_shards": 5,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "_default_": {
+      "_source": {
+        "enabled": true
+      },
+      "properties": {
+        "deviceSn": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "nested",
+          "properties": {
+            "idc": {
+              "type": "string",
+              "index": "analyzed"
+            },
+            "cabinet": {
+              "type": "string",
+              "index": "analyzed"
+            },
+            "position": {
+              "type": "integer",
+              "index": "analyzed"
+            },
+            "unit": {
+              "type": "integer",
+              "index": "analyzed"
+            }
+          }
+        },
+        "project": {
+          "type": "string"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "mac": {
+          "type": "string"
+        },
+        "systemVersion": {
+          "type": "string"
+        },
+        "disk": {
+          "type": "string"
+        },
+        "os": {
+          "type": "nested",
+          "properties": {
+            "deviceSn": {
+              "type": "string"
+            },
+            "memorySlotsNumber": {
+              "type": "integer"
+            },
+            "memorySlotsUsed": {
+              "type": "integer"
+            },
+            "physicalMemory": {
+              "type": "double"
+            },
+            "physicalCpuNumber": {
+              "type": "integer"
+            },
+            "physicalCpuCores": {
+              "type": "integer"
+            },
+            "logicalCpuCores": {
+              "type": "string"
+            },
+            "physicalCpuMhz": {
+              "type": "string"
+            },
+            "hardDisk": {
+              "type": "string"
+            },
+            "ethernetInterfaceNumber": {
+              "type": "integer"
+            }
+          }
+        },
+        "createdAt": {
+          "format": "strict_date_optional_time||epoch_millis",
+          "type": "date"
+        },
+        "updatedAt": {
+          "format": "strict_date_optional_time||epoch_millis",
+          "type": "date"
+        }
+      }
+    }
+  }
+}
