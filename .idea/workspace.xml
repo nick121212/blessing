@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a852fbb4-3296-487b-829b-49d811ca8dcc" name="Default" comment="cmdb" />
-    <list id="d25aa4e0-581f-48fc-9f85-47f56767a442" name="New changelist" comment="">
+    <list default="true" id="a852fbb4-3296-487b-829b-49d811ca8dcc" name="Default" comment="cmdb">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/dashboard.css" afterPath="$PROJECT_DIR$/public/built/dashboard.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/index.bundle.js" afterPath="$PROJECT_DIR$/public/built/page/index.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/index.bundle.js.map" afterPath="$PROJECT_DIR$/public/built/page/index.bundle.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/style.bundle.js" afterPath="$PROJECT_DIR$/public/built/page/style.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/style.bundle.js.map" afterPath="$PROJECT_DIR$/public/built/page/style.bundle.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/vendors.bundle.js" afterPath="$PROJECT_DIR$/public/built/vendors.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/vendors.bundle.js.map" afterPath="$PROJECT_DIR$/public/built/vendors.bundle.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/directives/dialog-form.directive.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/directives/dialog-form.directive.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/directives/wizard.directive.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/directives/wizard.directive.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/sidemenu/status.factory.ts" afterPath="$PROJECT_DIR$/public/src/directives/sidemenu/status.factory.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/pages/salt/ctls/index.controller.ts" afterPath="$PROJECT_DIR$/public/src/pages/salt/ctls/index.controller.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/pages/salt/index.ts" afterPath="$PROJECT_DIR$/public/src/pages/salt/index.ts" />
     </list>
     <ignored path="blessing.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,10 +10,6 @@
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <file path="$PROJECT_DIR$/public/src/pages/salt/ctls/index.controller.ts" ignored="false" />
-    <file path="$PROJECT_DIR$/public/src/pages/salt/index.ts" ignored="false" />
-    <file path="$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts" ignored="false" />
-    <file path="$PROJECT_DIR$/public/built/page/index.bundle.js" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +77,7 @@
             <state relative-caret-position="283">
               <caret line="39" column="19" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
               <folding>
+                <marker date="1477030922000" expanded="true" signature="38:90" ph="..." />
                 <marker date="1477030922000" expanded="true" signature="92:111" ph="/** 数据拷贝移动操作 ...*/" />
                 <marker date="1477030922000" expanded="true" signature="134:265" ph="..." />
                 <marker date="1477030922000" expanded="true" signature="267:283" ph="/** 操作的模型 ...*/" />
@@ -117,8 +100,8 @@
       <file leaf-file-name="index.controller.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/src/pages/salt/ctls/index.controller.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-256">
-              <caret line="10" column="232" selection-start-line="10" selection-start-column="232" selection-end-line="10" selection-end-column="232" />
+            <state relative-caret-position="236">
+              <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
                 <marker date="1477030260000" expanded="true" signature="1047:1734" ph="..." />
@@ -551,7 +534,7 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="a852fbb4-3296-487b-829b-49d811ca8dcc" name="Default" comment="" />
-      <changelist id="d25aa4e0-581f-48fc-9f85-47f56767a442" name="New changelist" comment="" />
+      <changelist id="" name="New changelist" comment="" />
       <created>1470363790559</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -587,14 +570,7 @@
       <workItem from="1475915391050" duration="8643000" />
       <workItem from="1475978524095" duration="52759000" />
       <workItem from="1476698111573" duration="5754000" />
-      <workItem from="1476932131988" duration="22482000" />
-    </task>
-    <task id="LOCAL-00046" summary="爬虫 设置项">
-      <created>1474543292288</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1474543292288</updated>
+      <workItem from="1476932131988" duration="22563000" />
     </task>
     <task id="LOCAL-00047" summary="爬虫 设置项">
       <created>1474543819080</created>
@@ -932,11 +908,18 @@
       <option name="project" value="LOCAL" />
       <updated>1477030730270</updated>
     </task>
-    <option name="localTasksCounter" value="95" />
+    <task id="LOCAL-00095" summary="New changelist">
+      <created>1477030966978</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1477030966978</updated>
+    </task>
+    <option name="localTasksCounter" value="96" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="637562000" />
+    <option name="totallyTimeSpent" value="637643000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1008,7 +991,8 @@
     <MESSAGE value="备份的数据库" />
     <MESSAGE value="home routes 权限管理" />
     <MESSAGE value="cmdb" />
-    <option name="LAST_COMMIT_MESSAGE" value="cmdb" />
+    <MESSAGE value="New changelist" />
+    <option name="LAST_COMMIT_MESSAGE" value="New changelist" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1127,6 +1111,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2010">
           <caret line="136" column="40" selection-start-line="136" selection-start-column="40" selection-end-line="136" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1322,6 +1307,7 @@
         <state relative-caret-position="283">
           <caret line="39" column="19" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
           <folding>
+            <marker date="1477030922000" expanded="true" signature="38:90" ph="..." />
             <marker date="1477030922000" expanded="true" signature="92:111" ph="/** 数据拷贝移动操作 ...*/" />
             <marker date="1477030922000" expanded="true" signature="134:265" ph="..." />
             <marker date="1477030922000" expanded="true" signature="267:283" ph="/** 操作的模型 ...*/" />
@@ -1433,8 +1419,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/src/pages/salt/ctls/index.controller.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-256">
-          <caret line="10" column="232" selection-start-line="10" selection-start-column="232" selection-end-line="10" selection-end-column="232" />
+        <state relative-caret-position="236">
+          <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <marker date="1477030260000" expanded="true" signature="1047:1734" ph="..." />
