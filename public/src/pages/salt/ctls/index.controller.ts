@@ -41,9 +41,11 @@ export class SaltController {
         this.socket = io("http://172.16.140.164:8888/ws/" + data.return[0].token, {
             extraHeaders: _.extend({}, this.restUtils.headers, {
                 "Accept": "application/json, text/plain, */*",
-                "Accept-Encoding": "gzip, deflate, br",
+                "Accept-Encoding": "gzip, deflate, br"
             })
         });
+
+        console.log(1);
 
         this.socket.on("connect", ()=> {
             console.log("ws connected!");
