@@ -226,8 +226,196 @@ class Events {
     }
 }
 
+class Stats {
+    static key: string = "saltApiStats";
+
+    constructor() {
+        let actionModel: IActionModel = {
+            key: Stats.key,
+            type: ActionType.confirm,
+            title: "所有Stats",
+            icon: "client",
+            refreshList: true,
+            confirm: {
+                confirmTitle: "",
+                confirmContent: "获取Stats!"
+            },
+            interfaces: [{
+                key: "saltApiStats",
+                method: MethodType.GET,
+                address: ip,
+                port: port,
+                path: "stats",
+                jpp: {
+                    set: {
+                        "/data": "/return"
+                    }
+                },
+                config: {
+                    salt: true
+                },
+                isRestful: false
+            }]
+        };
+
+        return actionModel;
+    }
+}
+
+class Run {
+    static key: string = "saltApiRun";
+
+    constructor() {
+        let actionModel: IActionModel = {
+            key: Run.key,
+            type: ActionType.form,
+            title: "执行命令",
+            icon: "run",
+            form: {
+                dataSchema: {
+                    type: "object",
+                    required: ["client"],
+                    properties: {
+                        username: {
+                            type: "string",
+                            title: "用户名",
+                            default: "saltapi"
+                        },
+                        eauth: {
+                            type: "string",
+                            default: "pam"
+                        },
+                        password: {
+                            type: "string",
+                            title: "密码",
+                            default: "saltapi",
+                            minLength: 4,
+                            maxLength: 20
+                        },
+                        client: {
+                            type: "string",
+                            default: "local"
+                        },
+                        tgt: {
+                            type: "string",
+                            default: "*"
+                        },
+                        fun: {
+                            type: "string",
+                            default: "test.ping"
+                        }
+                    }
+                },
+                formSchema: [{
+                    key: "client",
+                    type: "text"
+                }, {
+                    key: "tgt",
+                    type: "text"
+                }, {
+                    key: "fun",
+                    type: "text"
+                }]
+            },
+            refreshList: true,
+            closeDialog: true,
+            interfaces: [{
+                key: "saltApiRun",
+                method: MethodType.POST,
+                address: ip,
+                port: port,
+                path: "run",
+                jpp: {
+                    set: {
+                        "/data": "/return"
+                    }
+                },
+                config: {
+                    salt: true
+                },
+                isRestful: false
+            }]
+        };
+
+        return actionModel;
+    }
+}
+
+class Run1 {
+    static key: string = "saltApiRun1";
+
+    constructor() {
+        let actionModel: IActionModel = {
+            key: Run1.key,
+            type: ActionType.form,
+            title: "执行命令-1",
+            icon: "run",
+            form: {
+                dataSchema: {
+                    type: "object",
+                    required: ["client"],
+                    properties: {
+                        mode: {
+                            type: "string",
+                            default: "async"
+                        },
+                        tgt: {
+                            type: "string",
+                            default: "*"
+                        },
+                        fun: {
+                            type: "string",
+                            default: "test.ping"
+                        },
+                        arg: {
+                            "type": "array",
+                            "title": "参数",
+                            "default": [],
+                            "items": {
+                                "type": "string",
+                                "title": "参数"
+                            }
+                        }
+                    }
+                },
+                formSchema: [{
+                    key: "tgt",
+                    type: "text"
+                }, {
+                    key: "fun",
+                    type: "text"
+                }, {
+                    key: "arg",
+                    startEmpty: false,
+                    type: "chips"
+                }]
+            },
+            refreshList: true,
+            closeDialog: true,
+            interfaces: [{
+                key: "saltApiRun",
+                method: MethodType.POST,
+                address: ip,
+                port: port,
+                path: "minions",
+                jpp: {
+                    set: {
+                        "/data": "/return"
+                    }
+                },
+                config: {
+                    salt: true
+                },
+                isRestful: false
+            }]
+        };
+
+        return actionModel;
+    }
+}
+
 export default (module: ng.IModule)=> {
-    const services = [Login, Logout, Minions, Jobs, Events];
+    const services = [Login, Logout, Minions, Jobs, Events, Stats, Run, Run1];
 
     _.each(services, (model)=> {
         module.service(model.key, model);

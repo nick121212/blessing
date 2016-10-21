@@ -60,6 +60,7 @@
     "sequelize-import": "^1.2.1",
     "sequelize-json": "^2.1.2",
     "sequelize-paper-trail": "^1.2.3",
+    "socket.io-client": "^1.5.0",
     "tty.js": "^0.2.15"
   },
   "devDependencies": {

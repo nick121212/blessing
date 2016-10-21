@@ -29,10 +29,10 @@ class Controller {
     constructor(private $scope, private $q, private $timeout, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic) {
         fxAction.getModel(this.key).then((model) => {
             this.actionModel = _.cloneDeep(model);
+            this.queryData = _.extend({offset: 0, limit: 10, page: 1}, this.actionModel.list.queryData || {});
             this.initToolbar();
             this.initItemToolbar();
             this.doSearch();
-            this.queryData = _.extend({offset: 0, limit: 10, page: 1}, model.list.queryData || {});
         });
         this.onOrderChange = this.orderChange.bind(this);
         this.onPageChange = this.pageChange.bind(this);

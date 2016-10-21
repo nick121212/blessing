@@ -14,7 +14,7 @@ export class SaltController {
             this.toolbarUtils.labelBuilder('SALT-API').attrBuilder({flex: ""}).toValue()
         ];
 
-        this.fxAction.getModels(["saltApiLogin", "saltApiLogout", "saltApiMinions", "saltApiJobs"]).then((actionModels)=> {
+        this.fxAction.getModels(["saltApiRun", "saltApiRun1", "saltApiStats", "saltApiLogin", "saltApiLogout", "saltApiMinions", "saltApiJobs"]).then((actionModels)=> {
             this.toolbarTest = [];
             _.forEach(actionModels, (actionModel)=> {
                 this.toolbarTest.push(
@@ -37,18 +37,16 @@ export class SaltController {
     }
 
     initEvents(data) {
-        console.log(data);
-        this.socket = io("http://172.16.140.164:8888/ws/" + data.return[0].token, {
-            extraHeaders: _.extend({}, this.restUtils.headers, {
-                "Accept": "application/json, text/plain, */*",
-                "Accept-Encoding": "gzip, deflate, br"
-            })
-        });
+        var source = new window["EventSource"]('https://172.16.140.164:8888/events/' + data.return[0].token);
 
-        console.log(1);
-
-        this.socket.on("connect", ()=> {
-            console.log("ws connected!");
-        });
+        source.onopen = function () {
+            console.debug('opening')
+        };
+        source.onerror = function (e) {
+            console.debug('error!', e)
+        };
+        source.onmessage = function (e) {
+            console.debug(e.data)
+        };
     }
 }

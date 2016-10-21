@@ -11,12 +11,11 @@ import loadingDir from '../../directives/loading';
 import pageModule from '../page';
 import homeModule from '../home';
 import passportModule from '../passport';
-import ttyModule from '../tty';
 import saltModule from '../salt';
 
 import './index.scss';
 
-const module = angular.module("indexApp", [ngAnimate, "angular-loading-bar", passportModule, homeModule, pageModule, loadingDir, ttyModule, saltModule]);
+const module = angular.module("indexApp", [ngAnimate, "angular-loading-bar", passportModule, homeModule, pageModule, loadingDir, saltModule]);
 
 module.config(["cfpLoadingBarProvider", "$mdThemingProvider", "$mdAriaProvider", (cfpLoadingBarProvider, $mdThemingProvider, $mdAriaProvider)=> {
     // ng-loading-bar设置

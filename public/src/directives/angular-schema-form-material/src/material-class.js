@@ -14,6 +14,10 @@ angular.module('schemaForm').directive('sfMaterialClass', ["$compile", "$timeout
                     modelValue = scope.form.key.slice(scope.form.key.length - 1).reduce(reduceHelper, scope.item || scope.model);
                 } else {
                     modelValue = scope.form.key.reduce(reduceHelper, scope.model);
+
+                    if (!modelValue) {
+                        modelValue = scope.form.schema.default;
+                    }
                 }
             } catch (e) {
                 modelValue = undefined;

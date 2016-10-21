@@ -221,11 +221,11 @@ class Provider {
             if (result && jpp) {
                 // 接口数据拷贝到本地
                 _.forEach(jpp.set, (val, key)=> {
-                    pointer.set(clientData, key, pointer.get(result, val));
+                    pointer.has(result, val) && pointer.set(clientData, key, pointer.get(result, val));
                 });
                 // 本地数据的删除
                 _.isArray(jpp.del) && _.each(jpp.del, (val)=> {
-                    pointer.remove(clientData, val);
+                    pointer.has(clientData, val) && pointer.remove(clientData, val);
                 });
             }
         });
@@ -267,7 +267,7 @@ class Provider {
                 if (interfaceModel.jpp) {
                     // 数据的删除
                     _.each(interfaceModel.jpp.del, (val)=> {
-                        pointer.remove(queryDataCline, val);
+                        pointer.has(queryDataCline, val) && pointer.remove(queryDataCline, val);
                     });
                 }
 
@@ -280,12 +280,20 @@ class Provider {
                         promise = restAngular.post(queryDataCline, null, headers);
                         break;
                     case MethodType.GET:
-                        promise = restAngular.customGET(interfaceModel.params ? pointer.get(queryDataCline, interfaceModel.idFieldPath) : null, queryDataCline, headers);
+                        promise = restAngular.customGET(
+                            (interfaceModel.params && pointer.has(queryDataCline, interfaceModel.idFieldPath)) ? pointer.get(queryDataCline, interfaceModel.idFieldPath) : null,
+                            queryDataCline, headers);
                         break;
                     case MethodType.PUT:
+                        if (!pointer.has(queryDataCline, interfaceModel.idFieldPath)) {
+                            return console.error(`没有找到${interfaceModel.idFieldPath}`);
+                        }
                         promise = restAngular.customPUT(_.isObject(queryDataCline) ? queryDataCline : null, pointer.get(queryDataCline, interfaceModel.idFieldPath), headers);
                         break;
                     case MethodType.DELETE:
+                        if (!pointer.has(queryDataCline, interfaceModel.idFieldPath)) {
+                            return console.error(`没有找到${interfaceModel.idFieldPath}`);
+                        }
                         promise = restAngular.customDELETE(pointer.get(queryDataCline, interfaceModel.idFieldPath), headers)
                 }
                 interfacesRest[interfaceModel.key] = promise;

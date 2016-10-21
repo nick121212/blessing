@@ -34,16 +34,20 @@ module.config([
         // 添加全局拦截器拦截器
         restUtils.setConfig((restAngularConfigure: restangular.IProvider)=> {
             restAngularConfigure.addResponseInterceptor((data, operation, what, url, response: restangular.IResponse, deferred)=> {
-                // 未登录错误
-                if (response.status === 401 && response.config["salt"]) {
-                    materialUtils.showErrMsg("SALT未登录");
-                }
                 // 如果是登陆，则监听ws
                 if (response.status === 200 && response.config["salt"] && what === "login") {
                     $rootScope.$emit("saltLoginEvent", data);
                 }
 
                 return data;
+            });
+            restAngularConfigure.setErrorInterceptor((response: restangular.IResponse)=> {
+                if (response.status === 401 && response.config["salt"]) {
+                    materialUtils.showErrMsg("SALT未登录");
+
+                    return false;
+                }
+                return true;
             });
         });
     }]);
