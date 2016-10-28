@@ -1,16 +1,18 @@
-div(class="schema-form-autocomplete {{form.htmlClass}}",sf-layout)
+md-input-container(class="schema-form-autocomplete {{form.htmlClass}}",sf-field,md-is-error="ngModel.$error && ngModel.$invalid && ngModel.$dirty")
     md-autocomplete(
-    style="height:48px;",
+    class="no-errors",
     ng-disabled="form.readonly",
-    ng-model="$$value$$",
-    sf-field-model="replaceAll",
-    ng-init="form.boost.init($$value$$,model)",
     md-no-cache="form.acOptions.noCache",
     md-autoselect="true",
-    md-selected-item="form.boost.selected",
-    md-search-text="form.boost.searchText",
-    md-selected-item-change="form.boost.onChange(item)",
-    md-items="item in form.boost.query()",
+    md-delay="form.delay",
+    ng-model="$$value$$",
+    sf-field-model,
+    sf-changed="form",
+    schema-validate="form",
+    md-selected-item="boost.selected",
+    md-search-text="boost.searchText",
+    md-selected-item-change="boost.onChange(item)",
+    md-items="item in boost.query()",
     md-item-text="item[form.acOptions.textField]",
     md-floating-label="{{ form.title }}",
     placeholder="{{ form.placeholder }}",
@@ -18,12 +20,10 @@ div(class="schema-form-autocomplete {{form.htmlClass}}",sf-layout)
     )
         md-item-template
             div
-                span(ng-if="!form.muti",md-highlight-text="searchText") {{ item[form.acOptions.textField] }}
-                span(ng-if="form.muti",md-highlight-text="searchText",ng-repeat="key in form.muti") {{ !$first ? (form.acOptions.prefix || '-'):'' }} {{ item[form.acOptions.textField] }}
+                span(ng-if="!form.muti",md-highlight-text="boost.searchText") {{ item[form.acOptions.textField] }}
+                span(ng-if="form.muti",md-highlight-text="boost.searchText",ng-repeat="key in form.muti") {{ !$first ? (form.acOptions.prefix || '-'):'' }} {{item[form.acOptions.textField] }}
         md-not-found 没有记录
-
-    md-input-container(style="margin-top:0;",md-is-error="ngModel.$error && ngModel.$invalid")
-        input.ng-hide(name="{{::form.key|sfCamelKey}}",ng-model="form.boost.selected[form.acOptions.textField]",schema-validate="form")
-        div(ng-messages="ngModel.$error",aria-live="assertive")
-            div(sf-message,ng-message)
-        div.hint.md-char-counter(ng-if="form.showHints",ng-bind="form.description")
+    
+    div(ng-messages="ngModel.$error",aria-live="assertive",fx-autocomplete-boost)
+        div(sf-message,ng-message,ng-class="{'fx-invalid':ngModel.$invalid && $dirty}")
+    div.hint.md-char-counter(ng-if="form.showHints",ng-bind="form.description")

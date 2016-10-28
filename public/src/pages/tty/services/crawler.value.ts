@@ -1,5 +1,5 @@
-import {IActionModel, ActionType} from '../models/action.model';
-import {MethodType} from '../models/interface.model';
+import {IActionModel, ActionType} from '../../../directives/action/models/action.model';
+import {MethodType} from '../../../directives/action/models/interface.model';
 
 /**
  * 模块查询

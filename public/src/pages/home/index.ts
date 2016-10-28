@@ -90,4 +90,4 @@ module.value("iconInfoDetailForm", {
     }
 });
 
-export default module.name;
+export default `${module.name}`;

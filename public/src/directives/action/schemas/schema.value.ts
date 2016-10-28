@@ -1,5 +1,6 @@
-import {IActionModel, ActionType} from '../models/action.model';
-import {MethodType} from '../models/interface.model';
+import { module } from '../module';
+import { IActionModel, ActionType } from '../models/action.model';
+import { MethodType } from '../models/interface.model';
 
 class List {
     static $inject = ["toolbarUtils", "actionUtils"];
@@ -19,7 +20,7 @@ class List {
                     actionUtils.columnBuilder("<span>{{ ::item.type }}</span>", "模块类型").toValue(),
                     actionUtils.columnBuilder(`<span>{{ ::item.description }}</span>`, "描述").toValue(),
                 ],
-                queryData: {limit: 50},
+                queryData: { limit: 50 },
                 showPagination: true,
                 searchActionKey: Search.key,
                 showRefreshBtn: true,
@@ -28,7 +29,7 @@ class List {
                 toolbars: [],
                 itemToolbars: []
             },
-            itemActions: [{key: Edit.key}, {key: Delete.key}, {key: Copy.key}],
+            itemActions: [{ key: Edit.key }, { key: Delete.key }, { key: Copy.key }],
             actions: [Add.key],
             interfaces: [{
                 key: "modulesList",
@@ -189,10 +190,9 @@ class Search {
     }
 }
 
-export default (module: ng.IModule) => {
-    const services: Array<any> = [List, Add, Edit, Delete, Copy, Search];
+const services: Array<any> = [List, Add, Edit, Delete, Copy, Search];
 
-    _.each(services, (ser)=> {
-        module.service(ser.key, ser);
-    });
-}
+_.each(services, (ser) => {
+    module.service(ser.key, ser);
+});
+

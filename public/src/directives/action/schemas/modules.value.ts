@@ -1,5 +1,6 @@
-import {IActionModel, ActionType} from '../models/action.model';
-import {MethodType} from '../models/interface.model';
+import { module } from '../module';
+import { IActionModel, ActionType } from '../models/action.model';
+import { MethodType } from '../models/interface.model';
 
 /**
  * 模块查询
@@ -22,7 +23,8 @@ class List {
                     actionUtils.columnBuilder(`<span>{{ ::item.lft }}</span>`, "lft", "lft").toValue(),
                     actionUtils.columnBuilder(`<span>{{ ::item.rgt }}</span>`, "rgt", "rgt").toValue()
                 ],
-                queryData: {limit: 50},
+                // 每页显示数量
+                queryData: { limit: 50 },
                 showPagination: true,
                 searchActionKey: Search.key,
                 showRefreshBtn: true,
@@ -31,7 +33,7 @@ class List {
                 toolbars: [],
                 itemToolbars: []
             },
-            itemActions: [{key: Edit.key}, {key: Delete.key}],
+            itemActions: [{ key: Edit.key }, { key: Delete.key }],
             actions: [Add.key],
             interfaces: [{
                 key: "modulesList",
@@ -197,10 +199,9 @@ class Search {
     }
 }
 
-export default (module: ng.IModule) => {
-    const services: Array<any> = [Delete, Menus, List, Search, Add, Edit];
+const services: Array<any> = [Delete, Menus, List, Search, Add, Edit];
 
-    _.each(services, (ser)=> {
-        module.service(ser.key, ser);
-    });
-}
+_.each(services, (ser) => {
+    module.service(ser.key, ser);
+});
+

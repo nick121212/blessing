@@ -5,7 +5,7 @@
 import Sequelize from 'sequelize';
 import sequelizeImport from 'sequelize-import';
 
-module.exports = (app, logger)=> {
+module.exports = (app, logger) => {
     "use strict";
     let config = app.config.config.index;
     let sequelize = new Sequelize(config.db.database, config.db.username, config.db.password, config.db.options);
@@ -13,11 +13,9 @@ module.exports = (app, logger)=> {
         exclude: ['index.js']
     });
 
-    logger.info(config);
+    sequelize.sync({ force: false }).then(() => {
 
-    sequelize.sync({force: false}).then(()=> {
-
-    }).catch((err)=> {
+    }).catch((err) => {
         logger.error(err);
     });
 

@@ -1,3 +1,5 @@
+import {module} from './module';
+
 function Directive(): ng.IDirective {
     return {
         restrict: 'EA',
@@ -10,6 +12,4 @@ function Directive(): ng.IDirective {
     };
 }
 
-export default (module: ng.IModule)=> {
-    module.directive('fxSideMenuChild', Directive);
-};
+module.directive('fxSideMenuChild', Directive);

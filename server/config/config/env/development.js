@@ -10,7 +10,7 @@ module.exports = (app)=> {
             username: 'root',
             password: '',
             database: 'blessing',
-            backup: path.resolve(__dirname, '../../uploads/backup'),
+            backup: path.resolve(__dirname, '../../../uploads/backup'),
             force: true,
             options: {
                 dialect: 'mysql',

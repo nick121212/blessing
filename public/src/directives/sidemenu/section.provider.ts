@@ -1,6 +1,4 @@
-/**
- * Created by NICK on 16/8/16.
- */
+import { module } from './module';
 
 function Provider() {
     var _sections = [],
@@ -30,6 +28,6 @@ function Provider() {
     }];
 }
 
-export default (module: ng.IModule)=> {
-    module.provider('mdSideMenuSections', [Provider]);
-};
+// export default (module: ng.IModule)=> {
+module.provider('mdSideMenuSections', [Provider]);
+// };

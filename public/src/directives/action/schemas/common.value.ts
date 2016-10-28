@@ -1,9 +1,6 @@
-/**
- * Created by NICK on 16/8/23.
- */
-
-import {IActionModel, ActionType} from '../models/action.model';
-import {MethodType} from '../models/interface.model';
+import { module } from '../module';
+import { IActionModel, ActionType } from '../models/action.model';
+import { MethodType } from '../models/interface.model';
 
 /**
  * 模块查询
@@ -53,10 +50,9 @@ class Result {
     }
 }
 
-export default (module: ng.IModule) => {
-    const services: Array<any> = [Result, Config];
+const services: Array<any> = [Result, Config];
 
-    _.each(services, (ser)=> {
-        module.service(ser.key, ser);
-    });
-}
+_.each(services, (ser) => {
+    module.service(ser.key, ser);
+});
+

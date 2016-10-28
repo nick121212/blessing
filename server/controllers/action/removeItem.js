@@ -2,7 +2,7 @@ const boom = require("boom");
 
 exports = module.exports = (app, logger) => {
     let utils = app.config.utils.index;
-    let Model = utils.findModel(utils.modelNames.schema);
+    let Model = utils.findModel(utils.modelNames.action);
     let {models, sequelize, Sequelize} = app.config.db.index;
 
     return async(ctx, next) => {

@@ -1,6 +1,4 @@
-/**
- * Created by NICK on 16/8/9.
- */
+import { module } from './module';
 
 const _name = "mdStyleColor";
 
@@ -10,9 +8,9 @@ function Directive(mdSideMenuSections): ng.IDirective {
         scope: {
             mdStyleColor: '='
         },
-        link: ($scope, $element, $attrs)=> {
+        link: ($scope, $element, $attrs) => {
             let themeColors, split, hueR, colorR, colorA, hueA, colorValue,
-                _apply_color = ()=> {
+                _apply_color = () => {
                     for (let p in $scope[_name]) {
                         if ($scope[_name].hasOwnProperty(p)) {
                             themeColors = mdSideMenuSections.theme.colors,
@@ -53,6 +51,4 @@ function Directive(mdSideMenuSections): ng.IDirective {
     }
 }
 
-export default (module: ng.IModule)=> {
-    module.directive(_name, ["mdSideMenuSections", Directive]);
-};
+module.directive(_name, ["mdSideMenuSections", Directive]);

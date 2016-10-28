@@ -10,10 +10,10 @@ class CompileDirective {
     /**
      * 定义指令
      */
-    public static directive: Array<string | Function> = [
+    public static directive: ng.Injectable<ng.IDirectiveFactory> = [
         "$compile",
         ($compile) => {
-            let directive: angular.IDirective = {
+            let directive: ng.IDirective = {
                 replace: false,
                 restrict: "A",
                 scope: {
@@ -58,4 +58,4 @@ const moduleName = "dyCompile";
 
 const module = angular.module(moduleName, []).directive(CompileDirective._name, CompileDirective.directive);
 
-export default moduleName;
+export default `${module.name}`;

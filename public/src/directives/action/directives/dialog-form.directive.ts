@@ -1,4 +1,5 @@
-import {IActionModel} from '../models/action.model';
+import { module } from '../module';
+import { IActionModel } from '../models/action.model';
 import * as _ from 'lodash';
 
 const _dirName = 'fxDialogFormAction';
@@ -23,13 +24,13 @@ class Controller {
 
         if (promise) {
             this.isBusy = true;
-            promise.then((result)=> {
+            promise.then((result) => {
                 this.actionModel.closeDialog === true && this.$mdDialog.hide(result);
 
                 if (_.isFunction(this.submitCallBack)) {
                     this.submitCallBack(result);
                 }
-            }).finally(()=> {
+            }).finally(() => {
                 this.isBusy = false;
             });
         }
@@ -38,12 +39,12 @@ class Controller {
     }
 
     getActionModel() {
-        this.fxAction.getModel(this.key).then((model)=> {
+        this.fxAction.getModel(this.key).then((model) => {
             this.actionModel = model;
             this.toolbars = [
                 this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon).toValue(),
-                this.toolbarUtils.labelBuilder(this.actionModel.title).attrBuilder({flex: ""}).toValue(),
-                this.toolbarUtils.btnBuilder("关闭", "md-icon-button", false).iconBuilder("close").btnClick(($event)=> {
+                this.toolbarUtils.labelBuilder(this.actionModel.title).attrBuilder({ flex: "" }).toValue(),
+                this.toolbarUtils.btnBuilder("关闭", "md-icon-button", false).iconBuilder("close").btnClick(($event) => {
                     this.$mdDialog.cancel();
                 }).toValue()
             ];
@@ -70,12 +71,12 @@ function Directive(): ng.IDirective {
         controller: Controller,
         controllerAs: 'dialogFormCtl',
         replace: false,
-        compile: ($ele)=> {
+        compile: ($ele) => {
             $ele.replaceWith(angular.element($ele.html()));
             return ($scope, $ele: ng.IAugmentedJQuery, $attrs, $ctl: Controller) => {
-                $scope.$watch(()=> {
+                $scope.$watch(() => {
                     return $ctl.key;
-                }, ()=> {
+                }, () => {
                     $ctl.getActionModel();
                 });
             };
@@ -83,6 +84,5 @@ function Directive(): ng.IDirective {
     };
 }
 
-export default (module: ng.IModule)=> {
-    module.directive(_dirName, Directive);
-}
+module.directive(_dirName, Directive);
+

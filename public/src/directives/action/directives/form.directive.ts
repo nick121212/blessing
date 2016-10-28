@@ -1,4 +1,5 @@
-import {IActionModel, ActionType} from '../models/action.model';
+import { module } from '../module';
+import { IActionModel, ActionType } from '../models/action.model';
 
 interface IDirectiveScope extends ng.IScope {
 
@@ -22,11 +23,11 @@ class Controller {
 
     getActionModel() {
         this.isBusy = true;
-        this.fxAction.getModel(this.key).then((model: IActionModel)=> {
+        this.fxAction.getModel(this.key).then((model: IActionModel) => {
             return this.fxAction.getSchema(model);
-        }).then((model)=> {
+        }).then((model) => {
             this.actionModel = model;
-        }).finally(()=> {
+        }).finally(() => {
             this.isBusy = false;
         });
     }
@@ -54,15 +55,13 @@ function Directive(): ng.IDirective {
         replace: true,
         transclude: true,
         link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attrs: IDirectiveAttr, $ctl: Controller) => {
-            $scope.$watch(()=> {
+            $scope.$watch(() => {
                 return $ctl.key;
-            }, ()=> {
+            }, () => {
                 $ctl.getActionModel();
             });
         }
     };
 }
 
-export default (module: ng.IModule)=> {
-    module.directive("fxFormAction", Directive);
-}
+module.directive("fxFormAction", Directive);

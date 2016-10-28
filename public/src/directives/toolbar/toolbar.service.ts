@@ -1,7 +1,4 @@
-/**
- * Created by NICK on 16/8/12.
- */
-
+import { module } from './module';
 import * as _ from "lodash";
 import 'restangular';
 
@@ -44,7 +41,7 @@ class Service {
                 return this;
             }
 
-            iconBuilder(icon: string, style?: [{(id: string): any}], ricon?: string, options?: [{(id: string): any}]) {
+            iconBuilder(icon: string, style?: [{ (id: string): any }], ricon?: string, options?: [{ (id: string): any }]) {
                 this.data = _.extend({}, this.data, {
                     icon: {
                         icon: icon,
@@ -56,7 +53,7 @@ class Service {
                 return this;
             }
 
-            attrBuilder(attributes: [{(id: string): any}]) {
+            attrBuilder(attributes: [{ (id: string): any }]) {
                 this.data = _.extend({}, this.data, {
                     attributes: attributes
                 });
@@ -169,6 +166,4 @@ class Service {
     }];
 }
 
-export default (module: ng.IModule)=> {
-    module.service(Service._name, Service.provider);
-};
+module.service(Service._name, Service.provider);

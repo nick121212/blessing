@@ -1,4 +1,5 @@
-import {IActionModel, ActionType} from '../models/action.model';
+import { module } from '../module';
+import { IActionModel, ActionType } from '../models/action.model';
 import * as _ from 'lodash';
 import * as pointer from 'json-pointer';
 
@@ -31,7 +32,7 @@ class Controller {
      * 删除搜索字段
      */
     clearFilterData() {
-        _.forEach(this.formData, (val, key)=> {
+        _.forEach(this.formData, (val, key) => {
             delete this.formData[key];
         });
     }
@@ -41,11 +42,11 @@ class Controller {
      */
     initSearchToolbar() {
         this.toolbars = [
-            this.toolbarUtils.labelBuilder('{{searchCtl.title}}搜索').attrBuilder({flex: ""}).toValue(),
-            this.toolbarUtils.btnBuilder("清空搜索条件", "md-icon-button", false).iconBuilder("clear_all").btnClick(($event)=> {
+            this.toolbarUtils.labelBuilder('{{searchCtl.title}}搜索').attrBuilder({ flex: "" }).toValue(),
+            this.toolbarUtils.btnBuilder("清空搜索条件", "md-icon-button", false).iconBuilder("clear_all").btnClick(($event) => {
                 this.clearFilterData();
             }).toValue(),
-            this.toolbarUtils.btnBuilder("关闭搜索栏", "md-icon-button", false).iconBuilder("{{searchCtl.isShow?'window-open':'window-closed'}}").btnClick(($event)=> {
+            this.toolbarUtils.btnBuilder("关闭搜索栏", "md-icon-button", false).iconBuilder("{{searchCtl.isShow?'window-open':'window-closed'}}").btnClick(($event) => {
                 this.isShow = !this.isShow;
             }).toValue()
         ];
@@ -59,7 +60,7 @@ class Controller {
         const searchData = {};
 
         if (this.fxAction.doFormCheck($form) && _.isFunction(this.doSearch)) {
-            _.forEach(this.formData, (data, key: string)=> {
+            _.forEach(this.formData, (data, key: string) => {
                 if (key.substr(0, 1) === "/") {
                     pointer.set(searchData, key, data);
                 }
@@ -95,6 +96,4 @@ function Directive(): ng.IDirective {
 
 }
 
-export default (module: ng.IModule)=> {
-    module.directive(_name, Directive);
-}
+module.directive(_name, Directive);

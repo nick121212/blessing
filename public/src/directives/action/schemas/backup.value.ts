@@ -1,5 +1,6 @@
-import {IActionModel, ActionType} from '../models/action.model';
-import {MethodType} from '../models/interface.model';
+import { module } from '../module';
+import { IActionModel, ActionType } from '../models/action.model';
+import { MethodType } from '../models/interface.model';
 
 class List {
     static $inject = ["toolbarUtils", "actionUtils"];
@@ -24,7 +25,7 @@ class List {
                 toolbars: [],
                 itemToolbars: []
             },
-            itemActions: [{key: Delete.key}, {key: Dump.key}],
+            itemActions: [{ key: Delete.key }, { key: Dump.key }],
             actions: [Backup.key],
             interfaces: [{
                 key: "backupList",
@@ -33,7 +34,7 @@ class List {
                 port: null,
                 path: "backups",
                 jpp: {
-                    set: {"/rows": ""}
+                    set: { "/rows": "" }
                 },
                 isRestful: true
             }]
@@ -158,10 +159,9 @@ class Download {
     }
 }
 
-export default (module: ng.IModule)=> {
-    const services = [List, Dump, Delete, Backup, Download];
+const services = [List, Dump, Delete, Backup, Download];
 
-    _.each(services, (model)=> {
-        module.service(model.key, model);
-    });
-}
+_.each(services, (model) => {
+    module.service(model.key, model);
+});
+

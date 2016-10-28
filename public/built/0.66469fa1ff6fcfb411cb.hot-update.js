@@ -1,0 +1,99 @@
+webpackHotUpdate(0,{
+
+/***/ 167:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var module_1 = __webpack_require__(211);
+	__webpack_require__(171);
+	__webpack_require__(172);
+	__webpack_require__(173);
+	__webpack_require__(174);
+	__webpack_require__(175);
+	__webpack_require__(177);
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = module_1.default;
+
+
+/***/ },
+
+/***/ 174:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var module_1 = __webpack_require__(211);
+	var _name = "mdStyleColor";
+	function Directive(mdSideMenuSections) {
+	    return {
+	        restrict: 'A',
+	        scope: {
+	            mdStyleColor: '='
+	        },
+	        link: function ($scope, $element, $attrs) {
+	            var themeColors, split, hueR, colorR, colorA, hueA, colorValue, _apply_color = function () {
+	                for (var p in $scope[_name]) {
+	                    if ($scope[_name].hasOwnProperty(p)) {
+	                        themeColors = mdSideMenuSections.theme.colors,
+	                            split = ($scope[_name][p] || '').split('.');
+	                        if (split.length < 2) {
+	                            split.unshift('primary');
+	                        }
+	                        hueR = split[1] || 'hue-1';
+	                        colorR = split[0] || 'primary';
+	                        colorA = themeColors[colorR] ? themeColors[colorR].name : colorR;
+	                        hueA = themeColors[colorR] ? (themeColors[colorR].hues[hueR] || hueR) : hueR;
+	                        colorValue = mdSideMenuSections.palettes[colorA][hueA] ? mdSideMenuSections.palettes[colorA][hueA].value : mdSideMenuSections.palettes[colorA]['500'].value;
+	                        if (hueA !== '0') {
+	                            $element.css(p, 'rgb(' + colorValue.join(',') + ')');
+	                        }
+	                        else {
+	                            $element.css(p, 'transparent');
+	                        }
+	                    }
+	                }
+	            };
+	            if (!mdSideMenuSections.theme || !mdSideMenuSections.palettes) {
+	                return console.warn('you probably want to ssSideNavSectionsProvider.initWithTheme($mdThemingProvider)');
+	            }
+	            $scope.$watch(_name, function (oldVal, newVal) {
+	                if ((oldVal && newVal) && oldVal !== newVal) {
+	                    _apply_color();
+	                }
+	            }, true);
+	        }
+	    };
+	}
+	module_1.module.directive(_name, ["mdSideMenuSections", Directive]);
+
+
+/***/ },
+
+/***/ 175:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var module_1 = __webpack_require__(211);
+	function Directive(mdSideMenuSections, $timeout) {
+	    return {
+	        restrict: 'EA',
+	        template: __webpack_require__(176),
+	        controllerAs: "searchCtl",
+	        link: function ($scope) {
+	            $scope.searchText = "";
+	            $scope.title = "搜索菜单";
+	            $scope.$watch("searchText", function (newVal, oldVal) {
+	                $timeout.cancel($scope.timeID);
+	                $scope.timeID = $timeout(function () {
+	                    mdSideMenuSections.options.filterExpression = newVal;
+	                }, 1000);
+	            });
+	        }
+	    };
+	}
+	module_1.module.directive('fxSideMenuSearch', ["mdSideMenuSections", "$timeout", Directive]);
+
+
+/***/ }
+
+})
+//# sourceMappingURL=0.66469fa1ff6fcfb411cb.hot-update.js.map

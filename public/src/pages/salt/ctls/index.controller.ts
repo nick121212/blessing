@@ -8,7 +8,7 @@ export class SaltController {
     toolbarTest: Array<Object>;
     socket: SocketIOClient.Socket;
 
-    constructor(private $rootScope, private $scope: ng.IScope, private $stateParams: ng.ui.IStateParamsService, private toolbarUtils, private materialUtils: fx.utils.materialStatic, private fxAction, private restUtils: fx.utils.restStatic) {
+    constructor(private $rootScope:ng.IRootScopeService, private $scope: ng.IScope, private $stateParams: ng.ui.IStateParamsService, private toolbarUtils, private materialUtils: fx.utils.materialStatic, private fxAction, private restUtils: fx.utils.restStatic) {
         this.toolbar = [
             this.toolbarUtils.noneBuilder("icon").iconBuilder('power-socket', {fill: "black"}).toValue(),
             this.toolbarUtils.labelBuilder('SALT-API').attrBuilder({flex: ""}).toValue()

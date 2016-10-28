@@ -56,4 +56,4 @@ const module = angular.module("mdSvgModule", [ngMaterialIcons, ngMaterial]);
 
 module.service(Service._name, Service.provider);
 
-export default module.name;
+export default `${module.name}`;

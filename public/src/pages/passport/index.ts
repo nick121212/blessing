@@ -10,6 +10,8 @@ import materialServiceMod from '../../services/material.service';
 import restRegMod from '../../services/rest.service';
 import actionDir from '../../directives/action';
 
+import loginValFunc from './services/login.value';
+
 import "restangular";
 
 const module = angular.module("loginModule", [ngMaterial as string, 'ui.router', materialServiceMod, restRegMod, actionDir, 'restangular']);
@@ -25,7 +27,7 @@ module.config([
         // 添加全局错误拦截器
         restUtils.setConfig((restAngularConfigure: restangular.IProvider)=> {
             restAngularConfigure.setErrorInterceptor((response: restangular.IResponse)=> {
-                if (response.status !== 401 && !response.config["salt"]) {
+                if (response.status === 401 && !response.config["salt"]) {
                     !$state.is("passport.login") && $state.go("passport.login");
                     return false;
                 }
@@ -34,4 +36,6 @@ module.config([
         });
     }]);
 
-export default module.name;
+loginValFunc(module);
+
+export default `${module.name}`;

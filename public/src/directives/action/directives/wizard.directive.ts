@@ -1,8 +1,5 @@
-/**
- * Created by NICK on 16/8/9.
- */
-
-import {IActionModel, ISchemaForm, ActionType} from '../models/action.model';
+import { module } from '../module';
+import { IActionModel, ISchemaForm, ActionType } from '../models/action.model';
 
 interface IDirectiveScope extends ng.IScope {
 
@@ -21,14 +18,14 @@ class Controller {
     formData: Object;
     selectedIndex: number = 0;
     toolbars: Array<any>;
-    $forms: {[id: string]: ng.IFormController};
+    $forms: { [id: string]: ng.IFormController };
     isBusy: boolean;
     submitCallBack: Function;
 
     constructor(private $scope, private $timeout, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic, private $mdDialog) {
         this.initToolbar();
 
-        this.$scope.$on("$destroy", ()=> {
+        this.$scope.$on("$destroy", () => {
             this.formData = null;
             this.$forms = null;
             this.toolbars = null;
@@ -84,7 +81,7 @@ class Controller {
     doCheckForms() {
         let res = true;
 
-        _.each(this.actionModel.wizard.actions, (action, index)=> {
+        _.each(this.actionModel.wizard.actions, (action, index) => {
             res = this.doCheckCurrentForm(index);
 
             if (!res) {
@@ -104,7 +101,7 @@ class Controller {
         this.$forms = {};
         this.selectedIndex = 0;
         this.isShow = false;
-        this.$timeout(()=> {
+        this.$timeout(() => {
             this.isShow = true;
         }, 0);
     }
@@ -116,18 +113,18 @@ class Controller {
      */
     initToolbar() {
         this.toolbars = [
-            this.toolbarUtils.btnBuilder("上一步", null, true, "top").iconBuilder("navigate_before").conditionBuilder("wizardCtl.selectedIndex>0", false).btnClick(($event)=> {
+            this.toolbarUtils.btnBuilder("上一步", null, true, "top").iconBuilder("navigate_before").conditionBuilder("wizardCtl.selectedIndex>0", false).btnClick(($event) => {
                 this.selectedIndex && this.selectedIndex--;
             }).toValue(),
-            this.toolbarUtils.btnBuilder("下一步", null, true, "top").iconBuilder(null, null, "navigate_next").conditionBuilder("wizardCtl.selectedIndex < wizardCtl.actionModel.wizard.actions.length-1", false).btnClick(($event)=> {
+            this.toolbarUtils.btnBuilder("下一步", null, true, "top").iconBuilder(null, null, "navigate_next").conditionBuilder("wizardCtl.selectedIndex < wizardCtl.actionModel.wizard.actions.length-1", false).btnClick(($event) => {
                 if (this.doCheckCurrentForm() && _.isArray(this.actionModel.wizard.actions) && this.actionModel.wizard.actions.length > this.selectedIndex) {
                     this.selectedIndex++;
                 }
             }).toValue(),
-            this.toolbarUtils.btnBuilder("完成", "md-primary", true, "top").iconBuilder("done_all").conditionBuilder("!wizardCtl.isBusy && wizardCtl.selectedIndex===wizardCtl.actionModel.wizard.actions.length-1", false).btnClick(($event)=> {
+            this.toolbarUtils.btnBuilder("完成", "md-primary", true, "top").iconBuilder("done_all").conditionBuilder("!wizardCtl.isBusy && wizardCtl.selectedIndex===wizardCtl.actionModel.wizard.actions.length-1", false).btnClick(($event) => {
                 if (this.doCheckForms()) {
                     this.isBusy = true;
-                    this.fxAction.doAction(this.actionModel.key, this.formData).then((result)=> {
+                    this.fxAction.doAction(this.actionModel.key, this.formData).then((result) => {
                         this.actionModel.closeDialog === true && this.$mdDialog.hide(result);
 
                         if (_.isFunction(this.submitCallBack)) {
@@ -135,7 +132,7 @@ class Controller {
                         }
                         // this.materialUtils.showMsg(this.actionModel.successMsg || "操作成功！");
                         // this.reset();
-                    }).finally(()=> {
+                    }).finally(() => {
                         this.isBusy = false;
                     });
                 }
@@ -149,14 +146,14 @@ class Controller {
     getActionModel() {
         let actionModel;
 
-        this.fxAction.getModel(this.key).then((model: IActionModel)=> {
+        this.fxAction.getModel(this.key).then((model: IActionModel) => {
             actionModel = _.cloneDeep(model);
 
             return this.fxAction.getModels(model.wizard.actions);
-        }).then((actionModels: Array<IActionModel>)=> {
+        }).then((actionModels: Array<IActionModel>) => {
             let actions = [];
 
-            _.each(actionModel.wizard.actions, (action)=> {
+            _.each(actionModel.wizard.actions, (action) => {
                 if (_.isString(action)) {
                     action = actionModels[action];
                 }
@@ -195,15 +192,12 @@ function Directive(): ng.IDirective {
         replace: true,
         transclude: true,
         link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attr: IDirectiveAttr, $ctl: Controller) => {
-            $scope.$watch(()=> {
+            $scope.$watch(() => {
                 return $ctl.key;
-            }, ()=> {
+            }, () => {
                 $ctl.getActionModel();
             });
         }
     };
 }
-
-export default (module: ng.IModule)=> {
-    module.directive("fxWizardAction", Directive);
-}
+module.directive("fxWizardAction", Directive);

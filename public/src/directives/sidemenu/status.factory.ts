@@ -1,3 +1,4 @@
+import { module } from './module';
 import * as _ from 'lodash';
 
 function Factory($rootScope, mdSideMenuSections): any {
@@ -7,15 +8,15 @@ function Factory($rootScope, mdSideMenuSections): any {
         function digest(sections, currentSection) {
             !mdSideMenuSections.selectedNode && sections &&
 
-            _.forEach(sections, (section)=> {
-                if (section[mdSideMenuSections.options.children] && section[mdSideMenuSections.options.children].length) {
-                    return digest(section[mdSideMenuSections.options.children], section);
-                }
-                if (section.showed && toState.name == section.link && toParams.key == section.key) {
-                    mdSideMenuSections.selectedNode = section;
-                    return false;
-                }
-            });
+                _.forEach(sections, (section) => {
+                    if (section[mdSideMenuSections.options.children] && section[mdSideMenuSections.options.children].length) {
+                        return digest(section[mdSideMenuSections.options.children], section);
+                    }
+                    if (section.showed && toState.name == section.link && toParams.key == section.key) {
+                        mdSideMenuSections.selectedNode = section;
+                        return false;
+                    }
+                });
 
             return false;
         }
@@ -32,6 +33,4 @@ function Factory($rootScope, mdSideMenuSections): any {
     };
 }
 
-export default (module: ng.IModule)=> {
-    module.factory('fxSideMenuFactory', ["$rootScope", "mdSideMenuSections", Factory]);
-};
+module.factory('fxSideMenuFactory', ["$rootScope", "mdSideMenuSections", Factory]);

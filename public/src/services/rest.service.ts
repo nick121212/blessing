@@ -42,7 +42,7 @@ class Service {
              */
             getCustom(address: string, port: number = 0, path: string) {
                 let baseUrl = "";
-                let restangu: restangular.IElement;
+                let restangu: restangular.ICollection;
 
                 if (address) {
                     baseUrl = `${address}`;
@@ -50,13 +50,11 @@ class Service {
                 if (address && port) {
                     baseUrl += `:${port}`;
                 }
-
                 if (!path) {
                     console.error(`path不能为空!`);
 
                     return null;
                 }
-
                 if (baseUrl) {
                     restangu = this.rest.oneUrl("custom", baseUrl);
                 } else {
@@ -122,4 +120,4 @@ const module = angular.module("fxRestModule", ["restangular"]);
 
 module.service(Service._name, Service.provider);
 
-export default module.name;
+export default `${module.name}`;

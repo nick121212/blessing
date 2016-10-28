@@ -1,7 +1,8 @@
-import * as _ from 'lodash';
-import {IActionModel, ActionType, IClientData} from "../models/action.model";
-import {IInterfaceModel, MethodType} from "../models/interface.model";
+import { module } from '../module';
+import { IActionModel, ActionType, IClientData } from "../models/action.model";
+import { IInterfaceModel, MethodType } from "../models/interface.model";
 import * as pointer from 'json-pointer';
+import * as _ from 'lodash';
 
 class DialogController {
     static $inject = ["$scope", "item", "key", "submit"];
@@ -20,7 +21,7 @@ class Provider {
         return this;
     }
 
-    $get: Array<string|Function> = ["$injector", ($injector)=> {
+    $get: Array<string | Function> = ["$injector", ($injector) => {
         const service = $injector.invoke(Provider, this, null);
 
         return new Provider(service.$rootScope, service.$injector, service.restUtils, service.mdUtils, service.$q, service.$mdDialog);
@@ -69,7 +70,7 @@ class Provider {
         }
 
         if (keys.length) {
-            this.getModel("schemaListAction").then((model: IActionModel)=> {
+            this.getModel("schemaListAction").then((model: IActionModel) => {
                 schemaActionModel = model;
                 return this.doAction(model.key, {
                     limit: keys.length,
@@ -79,7 +80,7 @@ class Provider {
                         }
                     }
                 });
-            }).then((results)=> {
+            }).then((results) => {
                 const data = this.doDealResult(schemaActionModel, results, {});
                 const schemas = _.keyBy(data.rows, "key");
 
@@ -91,7 +92,7 @@ class Provider {
                         actionModel.form.formSchema = schemas[actionModel.form.formSchema.toString()]["textForm"];
                     }
                 }
-            }).finally(()=> {
+            }).finally(() => {
                 defer.resolve(actionModel);
             });
         } else {
@@ -106,28 +107,28 @@ class Provider {
      * @param keys
      * @returns {IPromise<T>}
      */
-    getModels(keys: Array<string|IActionModel>) {
+    getModels(keys: Array<string | IActionModel>) {
         const defer = this.$q.defer();
         const actionModels = {};
         const notFoundsKeys = [];
-        const promises: {[id: string]: ng.IPromise<any>} = {};
+        const promises: { [id: string]: ng.IPromise<any> } = {};
 
-        _.each(keys, (key)=> {
+        _.each(keys, (key) => {
             if (_.isObject(key)) {
                 actionModels[(key as IActionModel).key] = key;
             }
             else {
-                promises[key as string] = this.getModel(key as string).then((actionModel)=> {
+                promises[key as string] = this.getModel(key as string).then((actionModel) => {
                     actionModels[key as string] = actionModel;
-                }).catch((key)=> {
+                }).catch((key) => {
                     notFoundsKeys.push(key);
                 });
             }
         });
 
-        this.$q.all(promises).then(()=> {
+        this.$q.all(promises).then(() => {
             defer.resolve(actionModels);
-        }).catch(()=> {
+        }).catch(() => {
             defer.resolve(actionModels);
         });
 
@@ -165,7 +166,7 @@ class Provider {
                     controller: DialogController,
                     controllerAs: "dialogCtl",
                     template: templates[actionModel.type]
-                }).then(()=> {
+                }).then(() => {
                     item = null;
                 });
             case ActionType.confirm:
@@ -177,8 +178,8 @@ class Provider {
                     .ok(actionModel.confirm.confirmOk || "确定")
                     .cancel(actionModel.confirm.confirmCancel || "取消");
 
-                return this.$mdDialog.show(confirm).then(()=> {
-                    return this.doAction(actionModel.key, item).then((results)=> {
+                return this.$mdDialog.show(confirm).then(() => {
+                    return this.doAction(actionModel.key, item).then((results) => {
                         _.isFunction(callback) && callback(results);
                     });
                 });
@@ -214,17 +215,17 @@ class Provider {
      * @return {IClientData}
      */
     doDealResult(actionModel: IActionModel, results: Object, clientData: IClientData, key: string = 'jpp') {
-        _.forEach(actionModel.interfaces, (iInterface)=> {
+        _.forEach(actionModel.interfaces, (iInterface) => {
             let result = results[iInterface.key];
             let jpp = iInterface[key];
 
             if (result && jpp) {
                 // 接口数据拷贝到本地
-                _.forEach(jpp.set, (val, key)=> {
+                _.forEach(jpp.set, (val, key) => {
                     pointer.has(result, val) && pointer.set(clientData, key, pointer.get(result, val));
                 });
                 // 本地数据的删除
-                _.isArray(jpp.del) && _.each(jpp.del, (val)=> {
+                _.isArray(jpp.del) && _.each(jpp.del, (val) => {
                     pointer.has(clientData, val) && pointer.remove(clientData, val);
                 });
             }
@@ -240,21 +241,21 @@ class Provider {
      * @param $form
      * @returns {IPromise<TResult>}
      */
-    doAction(key: string, queryData: Object|restangular.IElement, $form?: ng.IFormController) {
+    doAction(key: string, queryData: Object | restangular.IElement, $form?: ng.IFormController) {
         let queryDataCline, actionModel;
 
         if (!this.doFormCheck($form)) {
             return;
         }
 
-        return this.getModel(key).then((aModel: IActionModel)=> {
+        return this.getModel(key).then((aModel: IActionModel) => {
             let interfacesRest: { [id: string]: ng.IPromise<any>; } = {};
             let headers = this.restUtils.headers;
             let params = this.restUtils.params;
 
             actionModel = aModel;
             // 获取接口列表,使用restangular处理接口地址,最后调用接口,返回promise
-            _.each(actionModel.interfaces, (interfaceModel: IInterfaceModel)=> {
+            _.each(actionModel.interfaces, (interfaceModel: IInterfaceModel) => {
                 // 获取接口的地址
                 let promise: ng.IPromise<any>,
                     restAngular = interfaceModel.isRestful
@@ -266,7 +267,7 @@ class Provider {
                 // 处理数据
                 if (interfaceModel.jpp) {
                     // 数据的删除
-                    _.each(interfaceModel.jpp.del, (val)=> {
+                    _.each(interfaceModel.jpp.del, (val) => {
                         pointer.has(queryDataCline, val) && pointer.remove(queryDataCline, val);
                     });
                 }
@@ -300,10 +301,10 @@ class Provider {
             });
 
             return interfacesRest;
-        }).then((interfacesRest)=> {
+        }).then((interfacesRest) => {
             // 返回promise
             return this.$q.all(interfacesRest);
-        }).then((results)=> {
+        }).then((results) => {
             this.doDealResult(actionModel, results, this.restUtils.headers, 'header');
 
             return results;
@@ -311,6 +312,4 @@ class Provider {
     }
 }
 
-export default (module: ng.IModule)=> {
-    module.provider(Provider._name, [Provider]);
-};
+module.provider(Provider._name, [Provider]);

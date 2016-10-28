@@ -26,7 +26,7 @@ export interface ISchemaForm {
     formSchema?: string | Array<Object>;
     // form操作的时候字段schema
     dataSchema?: string | Object;
-    // form标题
+    // 表单标题
     title?: string;
     // 状态
     status?: number;
@@ -41,10 +41,15 @@ export interface IWizard {
 }
 
 export interface IColumn {
+    // 显示内容
     content: string;
+    // 表头
     title: string;
+    // 名字
     name?: string;
+    // 排序项
     sort?: string;
+    // 单位
     unit?: string;
 }
 
@@ -63,14 +68,21 @@ export interface IQueryData {
 }
 
 export interface IList {
+    // 列表的头
     columns: Array<IColumn>;
+    // 数据项操作列表
     itemToolbars?: Array<Object>;
+    // 是否显示分页
     showPagination: boolean;
     toolbars?: Array<Object>;
     searchToolbars?: Array<Object>;
+    // 搜索操作KEY
     searchActionKey?: String;
+    // 是否显示搜索按钮
     showSearchBtn?: boolean;
+    // 是否显示刷新按钮
     showRefreshBtn?: boolean;
+    // 默认显示搜索表单
     showSearchPanel?: boolean;
     queryData?: IQueryData;
 }

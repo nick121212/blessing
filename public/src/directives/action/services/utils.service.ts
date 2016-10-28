@@ -1,10 +1,9 @@
+import { module } from '../module';
 import * as _ from "lodash";
-import {IActionModel, IColumn} from "../models/action.model";
-
+import { IActionModel, IColumn } from "../models/action.model";
 
 class Service {
     public static _builderName: string = "actionUtils";
-    public static _toolbarName: string = "toolbarActionUtils";
 
     /**
      * 构建服务
@@ -17,7 +16,7 @@ class Service {
 
             }
 
-            columnUnitBuilder(unit: string, numeric: boolean|string = false) {
+            columnUnitBuilder(unit: string, numeric: boolean | string = false) {
                 this.data = _.extend({}, this.data, {
                     unit: unit,
                     numeric: numeric
@@ -56,26 +55,6 @@ class Service {
 
         return new Service();
     }];
-
-    /**
-     * 工具栏服务
-     * @type {()=>Service[]}
-     */
-    public static toolbar: Array<string|Function> = ['fxAction', 'toolbarUtils', (fxAction, toolbarUtils)=> {
-        class Service {
-            constructor() {
-            }
-
-            initToolbar(key: string) {
-
-            }
-        }
-
-        return new Service();
-    }];
 }
 
-export default (module: ng.IModule)=> {
-    module.service(Service._builderName, Service.builder);
-    module.service(Service._toolbarName, Service.toolbar);
-};
+module.service(Service._builderName, Service.builder);

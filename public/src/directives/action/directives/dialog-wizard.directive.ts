@@ -1,4 +1,5 @@
-import {IActionModel} from '../models/action.model';
+import { module } from '../module';
+import { IActionModel } from '../models/action.model';
 
 const _dirName = 'fxDialogWizardAction';
 
@@ -16,12 +17,12 @@ class Controller {
     }
 
     getActionModel() {
-        this.fxAction.getModel(this.key).then((model)=> {
+        this.fxAction.getModel(this.key).then((model) => {
             this.actionModel = model;
             this.toolbars = [
                 this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon).toValue(),
-                this.toolbarUtils.labelBuilder(this.actionModel.title).attrBuilder({flex: ""}).toValue(),
-                this.toolbarUtils.btnBuilder("关闭", "md-icon-button", false).iconBuilder("close").btnClick(($event)=> {
+                this.toolbarUtils.labelBuilder(this.actionModel.title).attrBuilder({ flex: "" }).toValue(),
+                this.toolbarUtils.btnBuilder("关闭", "md-icon-button", false).iconBuilder("close").btnClick(($event) => {
                     this.$mdDialog.cancel("用户关闭");
                 }).toValue()
             ];
@@ -48,19 +49,17 @@ function Directive(): ng.IDirective {
         controller: Controller,
         controllerAs: 'dialogWizardCtl',
         replace: false,
-        compile: ($ele)=> {
+        compile: ($ele) => {
             $ele.replaceWith(angular.element($ele.html()));
             return ($scope, $ele: ng.IAugmentedJQuery, $attr, $ctl: Controller) => {
-                $scope.$watch(()=> {
+                $scope.$watch(() => {
                     return $ctl.key;
-                }, ()=> {
+                }, () => {
                     $ctl.getActionModel();
                 });
             };
         }
     };
 }
+module.directive(_dirName, Directive);
 
-export default (module: ng.IModule)=> {
-    module.directive(_dirName, Directive);
-}

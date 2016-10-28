@@ -13,7 +13,9 @@ class Service {
              * 阻止默认事件
              * */
             preventDefault($event: MouseEvent) {
-                $event && ($event.defaultPrevented = true) && $event.preventDefault();
+                if ($event) {
+                    $event.preventDefault();
+                }
             }
 
             /**
@@ -114,8 +116,8 @@ class Service {
     }];
 }
 
-const module = angular.module("fxMaterialModule",[]);
+const module = angular.module("fxMaterialModule", []);
 
 module.service(Service._name, Service.provider);
 
-export default module.name;
+export default `${module.name}`;

@@ -1,3 +1,5 @@
+import { module } from './module';
+
 function Directive(): ng.IDirective {
     return {
         link: ($scope, $element, $attrs, $ctrl) => {
@@ -9,6 +11,6 @@ function Directive(): ng.IDirective {
     };
 }
 
-export default (module: ng.IModule)=> {
-    module.directive('fxSideMenuContentTransclude', Directive);
-};
+// export default (module: ng.IModule)=> {
+module.directive('fxSideMenuContentTransclude', Directive);
+// };

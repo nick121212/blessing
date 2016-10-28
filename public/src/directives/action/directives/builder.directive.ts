@@ -1,4 +1,5 @@
-import {IActionModel, ActionType} from '../models/action.model';
+import { module } from '../module';
+import { IActionModel, ActionType } from '../models/action.model';
 import * as _ from 'lodash';
 
 const _name = "fxBuilderAction";
@@ -38,6 +39,5 @@ function Directive(): ng.IDirective {
 
 Directive.$inject = [];
 
-export default (module: ng.IModule)=> {
-    module.directive(_name, Directive);
-}
+module.directive(_name, Directive);
+

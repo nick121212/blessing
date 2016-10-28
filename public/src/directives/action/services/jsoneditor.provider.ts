@@ -1,3 +1,4 @@
+import { module } from '../module';
 
 function Provider() {
     function Builder(args) {
@@ -17,6 +18,4 @@ function Provider() {
     }];
 }
 
-export default (module: ng.IModule)=> {
-    module.provider('jsonEditorBuilder', [Provider]);
-};
+module.provider('jsonEditorBuilder', [Provider]);

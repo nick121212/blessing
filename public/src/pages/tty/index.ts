@@ -10,6 +10,7 @@ import * as ngMaterialIcons from 'angular-material-icons';
 import {initRouter} from './router';
 import materialServiceMod from '../../services/material.service';
 import restRegMod from '../../services/rest.service';
+import actionFunc from './services/crawler.value';
 
 const module = angular.module("ttyModule", [ngMaterialIcons, ngMaterial as string, 'ui.router', materialServiceMod, restRegMod]);
 
@@ -21,4 +22,6 @@ module.config([
         initRouter($urlRouterProvider, $stateProvider);
     }]);
 
-export default module.name;
+actionFunc(module);
+
+export default `${module.name}`;

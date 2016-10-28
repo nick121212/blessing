@@ -1,3 +1,5 @@
+import { module } from './module';
+
 interface IDirectiveScope extends ng.IScope {
     searchText: string;
     title: string;
@@ -13,9 +15,9 @@ function Directive(mdSideMenuSections, $timeout): ng.IDirective {
             $scope.searchText = "";
             $scope.title = "搜索菜单";
 
-            $scope.$watch("searchText", (newVal, oldVal)=> {
+            $scope.$watch("searchText", (newVal, oldVal) => {
                 $timeout.cancel($scope.timeID);
-                $scope.timeID = $timeout(()=> {
+                $scope.timeID = $timeout(() => {
                     mdSideMenuSections.options.filterExpression = newVal;
                 }, 1000);
             });
@@ -23,6 +25,6 @@ function Directive(mdSideMenuSections, $timeout): ng.IDirective {
     };
 }
 
-export default (module: ng.IModule)=> {
-    module.directive('fxSideMenuSearch', ["mdSideMenuSections", "$timeout", Directive]);
-};
+// export default (module: ng.IModule)=> {
+module.directive('fxSideMenuSearch', ["mdSideMenuSections", "$timeout", Directive]);
+// };

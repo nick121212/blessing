@@ -1,5 +1,5 @@
 <md-input-container class="schema-form-{{::form.type}} {{::form.htmlClass}}"
-                    md-is-error="hasError()"
+                    md-is-error="ngModel.$error && ngModel.$invalid && ngModel.$dirty"
                     sf-layout
                     sf-material-class="md-input-has-value">
     <label ng-show="showTitle()" for="{{::form.key|sfCamelKey}}">{{::form.title}}</label>
