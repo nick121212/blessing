@@ -386,7 +386,7 @@ class Run1 {
                     type: "text"
                 }, {
                     key: "arg",
-                    startEmpty: false,
+                    startEmpty: true,
                     type: "chips"
                 }]
             },
