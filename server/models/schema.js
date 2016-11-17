@@ -17,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(10)
         },
         group: {
-            type: DataTypes.STRING(10)
+            type: DataTypes.STRING(20)
         },
         text: JsonField(sequelize, 'schema', 'text'),
         textForm: JsonField(sequelize, 'schema', 'textForm'),
-        description: {type: DataTypes.TEXT},
+        description: { type: DataTypes.TEXT },
     });
 };

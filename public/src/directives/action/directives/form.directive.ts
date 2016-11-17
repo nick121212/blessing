@@ -1,5 +1,6 @@
 import { module } from '../module';
 import { IActionModel, ActionType } from '../models/action.model';
+import * as pointer from 'json-pointer';
 
 interface IDirectiveScope extends ng.IScope {
 
@@ -15,16 +16,25 @@ class Controller {
     actionModel: IActionModel;
     key: string;
     formData: Object;
+    ngModel: Object;
     isBusy: boolean;
 
     constructor(private $scope, private fxAction) {
-        this.formData = this.formData || {};
+        this.ngModel = this.ngModel || {};
     }
 
     getActionModel() {
         this.isBusy = true;
-        this.fxAction.getModel(this.key).then((model: IActionModel) => {
-            return this.fxAction.getSchema(model);
+        this.fxAction.getModel(this.key).then((actionModel: IActionModel) => {
+            // 取得数据中的特定部分
+            if (actionModel.type === ActionType.form && actionModel.form) {
+                this.formData = {};
+                if (pointer.has(this.ngModel, actionModel.form.path || "")) {
+                    this.formData = pointer.get(this.ngModel, actionModel.form.path || "");
+                }
+            }
+
+            return this.fxAction.getSchema(actionModel);
         }).then((model) => {
             this.actionModel = model;
         }).finally(() => {
@@ -45,7 +55,7 @@ function Directive(): ng.IDirective {
         scope: true,
         require: "^fxFormAction",
         bindToController: {
-            formData: "=ngModel",
+            ngModel: "=ngModel",
             actionModel: "=?",
             isBusy: "=?ngDisabled",
             key: "@?"

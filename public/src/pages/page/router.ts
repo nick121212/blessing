@@ -3,8 +3,8 @@
  */
 
 import {PageController} from './ctls/page.controller';
-import {WizardController} from './ctls/page.wizard.controller';
 import {D3Controller} from './ctls/page.d3.controller';
+import {AllInController} from './ctls/page.allin.controller';
 
 export const initRouter = ($urlRouterProvider, $stateProvider) => {
     // 路由规则
@@ -24,12 +24,21 @@ export const initRouter = ($urlRouterProvider, $stateProvider) => {
             }
         }
     }).state('home.d3', {
-        url: "d3",
+        url: "d3/:key",
         views: {
             "content": {
                 controller: D3Controller,
                 controllerAs: "pageCtl",
-                template: "<svg flex id='homed3'></svg>"
+                template: require("./tpls/page.d3.template.jade")()
+            }
+        }
+    }).state('home.allin', {
+        url: "allin/:key",
+        views: {
+            "content": {
+                controller: AllInController,
+                controllerAs: "pageCtl",
+                template: require("./tpls/page.allin.template.jade")()
             }
         }
     });

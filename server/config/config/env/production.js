@@ -1,6 +1,6 @@
 import path from 'path';
 
-module.exports = (app)=> {
+module.exports = (app) => {
     "use strict";
 
     const ip = process.env.NODE_IP;
@@ -8,6 +8,11 @@ module.exports = (app)=> {
     return {
         env: "production",
         ip: `http://${ip || '106.75.76.203'}:3000/crawler`,
+        es: {
+            host: '172.16.140.164',
+            port: '9200',
+            log: 'trace'
+        },
         db: {
             username: 'root',
             password: '',

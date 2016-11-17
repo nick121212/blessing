@@ -46,7 +46,7 @@ function Directive(mdSideMenuSections): ng.IDirective {
                     _apply_color();
                 }
             }, true);
-            // _apply_color();
+            _apply_color();
         }
     }
 }

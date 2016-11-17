@@ -6,14 +6,14 @@ import * as _ from 'lodash';
 import Dictionary = _.Dictionary;
 
 export class SidenavLeftController {
-    static $inject = ["mdSideMenuSections", "toolbarUtils", "fxAction", "$state", "$stateParams"];
+    static $inject = ["$rootScope", "mdSideMenuSections", "toolbarUtils", "fxAction", "$state", "$stateParams", "$timeout", "fxSideMenuFactory"];
 
     toolbarBottom: Object;
     selectedNodes = {};
     modules: Array<any>;
     doLinkBind: Function;
 
-    constructor(private mdSideMenuSections, private toolbarUtils, private fxAction, private $state: angular.ui.IStateService, private $stateParams: ng.ui.IStateParamsService, private fxSideMenuFactory) {
+    constructor(private $rootScope, private mdSideMenuSections, private toolbarUtils, private fxAction, private $state: angular.ui.IStateService, private $stateParams: ng.ui.IStateParamsService, private $timeout: ng.ITimeoutService, private fxSideMenuFactory) {
         this.initModules().initToolbar();
         this.doLinkBind = this.doLink.bind(this);
     }
@@ -24,10 +24,10 @@ export class SidenavLeftController {
     getModules() {
         let promise = this.fxAction.doAction('moduleMenuAction', null);
 
-        promise && promise.then((results)=> {
+        promise && promise.then((results) => {
             let nodes: Array<any> = [];
 
-            _.forEach(results, (result)=> {
+            _.forEach(results, (result) => {
                 if (_.isArray(result)) {
                     nodes = nodes.concat(result);
                 }
@@ -49,8 +49,8 @@ export class SidenavLeftController {
                             root['nodes'] = nodesIsDepth;
                             break;
                         default:
-                            _.forEach(parentIsDepth, (parentNode)=> {
-                                parentNode["nodes"] = _.filter(nodesIsDepth, (node)=> {
+                            _.forEach(parentIsDepth, (parentNode) => {
+                                parentNode["nodes"] = _.filter(nodesIsDepth, (node) => {
                                     return node.lft > parentNode.lft && parentNode.rgt > node.rgt;
                                 });
                             });
@@ -65,8 +65,7 @@ export class SidenavLeftController {
             this.mdSideMenuSections.sections = root["nodes"];
             this.modules = this.mdSideMenuSections.sections;
             this.selectedNodes = _.keyBy(nodesGroupByDepth[1], "key") || {};
-
-            // this.fxSideMenuFactory.onStateChangeStart(null, this.$state.current, this.$stateParams);
+            this.fxSideMenuFactory.onStateChangeStart(null, this.$state.current, this.$state.params);
         });
     }
 
@@ -95,11 +94,11 @@ export class SidenavLeftController {
     initToolbar() {
         this.toolbarBottom = [
             this.toolbarUtils.layoutBuilder("", "row", "space-around center").toolsBuilder([
-                this.toolbarUtils.btnBuilder("刷新", "md-icon-button", false, "top").iconBuilder("refresh").btnClick(($event)=> {
+                this.toolbarUtils.btnBuilder("刷新", "md-icon-button", false, "top").iconBuilder("refresh").btnClick(($event) => {
                     this.getModules();
                 }).toValue(),
-                this.toolbarUtils.btnBuilder("全部折叠", "md-icon-button", false, "top").iconBuilder("dehaze").btnClick(($event)=> {
-                    _.forEach(this.selectedNodes, (val, key)=> {
+                this.toolbarUtils.btnBuilder("全部折叠", "md-icon-button", false, "top").iconBuilder("dehaze").btnClick(($event) => {
+                    _.forEach(this.selectedNodes, (val, key) => {
                         delete this.selectedNodes[key];
                     })
                 }).toValue()
@@ -116,7 +115,9 @@ export class SidenavLeftController {
      */
     doLink($event, node) {
         if (node && node.link && node.key) {
-            this.$state.go(node.link, node);
+            this.$timeout(() => {
+                this.$state.go(node.link, node);
+            }, 200);
         }
     }
 }

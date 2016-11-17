@@ -22,7 +22,7 @@ class Service {
                 this.headers = {};
 
                 restangular.setBaseUrl(baseUrl);
-                this.rest = restangular.withConfig((restAngularConfig: restangular.IProvider)=> {
+                this.rest = restangular.withConfig((restAngularConfig: restangular.IProvider) => {
                     this.restAngularConfig = restAngularConfig;
                     // // this.restAngularConfig.setFullResponse(true);
                     // this.restAngularConfig.addResponseInterceptor((data: any, operation: string, what: string, url: string, response: restangular.IResponse, deferred: angular.IDeferred<any>)=> {
@@ -40,7 +40,7 @@ class Service {
              * @param path
              * @param params
              */
-            getCustom(address: string, port: number = 0, path: string) {
+            getCustom(address: string, port: number = 0, path: string): restangular.ICollection {
                 let baseUrl = "";
                 let restangu: restangular.ICollection;
 
@@ -61,14 +61,14 @@ class Service {
                     restangu = this.rest;
                 }
 
-                _.each(path.split("/"), (p)=> {
+                _.each(path.split("/"), (p) => {
                     restangu = restangu.all(p);
                 });
 
                 return restangu;
             }
 
-            getCustomRestful(address: string, port: number = 0, path: string) {
+            getCustomRestful(address: string, port: number = 0, path: string): restangular.ICollection {
                 let baseUrl = "";
 
                 if (address) {
@@ -99,7 +99,7 @@ class Service {
              * @param baseUrl
              * @returns {any}
              */
-            getRestAngular(router: string, unique: boolean = true, baseUrl: string = ""): restangular.IElement {
+            getRestAngular(router: string, unique: boolean = true, baseUrl: string = ""): restangular.ICollection {
                 let restAngular;
                 let restAngularP = unique ? this.rest : restangular;
 

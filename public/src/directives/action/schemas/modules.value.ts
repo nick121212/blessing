@@ -42,10 +42,7 @@ class List {
                 port: null,
                 path: "modules",
                 jpp: {
-                    set: {
-                        "/total": "/count",
-                        "/rows": "/rows"
-                    }
+                    set: [{ "from": "/total", "to": "/count" }, { "from": "/rows", "to": "/rows" }]
                 },
                 isRestful: true
             }]

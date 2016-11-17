@@ -1,16 +1,9 @@
 import { module } from '../module';
-import { IActionModel, ActionType } from '../models/action.model';
+import { IActionModel } from '../models/action.model';
 import * as _ from 'lodash';
 import * as pointer from 'json-pointer';
 
 const _name = "fxSearchAction";
-
-interface IDirectiveScope extends ng.IScope {
-    ngModel: any;
-    fxAction: string;
-    actionModel: IActionModel;
-    key: string;
-}
 
 class Controller {
     static $inject = ["fxAction", "toolbarUtils"];
@@ -54,6 +47,7 @@ class Controller {
 
     /**
      * 搜索数据
+     * @param $event
      * @param $form
      */
     doPreSearch($event, $form: ng.IFormController) {
@@ -62,7 +56,11 @@ class Controller {
         if (this.fxAction.doFormCheck($form) && _.isFunction(this.doSearch)) {
             _.forEach(this.formData, (data, key: string) => {
                 if (key.substr(0, 1) === "/") {
-                    pointer.set(searchData, key, data);
+                    if (!_.isNull(data) && !_.isUndefined(data)) {
+                        pointer.set(searchData, key, data);
+                    } else {
+                        pointer.has(searchData, key) && pointer.remove(searchData, key);
+                    }
                 }
             });
 
@@ -93,7 +91,6 @@ function Directive(): ng.IDirective {
         controllerAs: 'searchCtl',
         replace: true
     };
-
 }
 
 module.directive(_name, Directive);

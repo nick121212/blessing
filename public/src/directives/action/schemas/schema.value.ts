@@ -38,10 +38,7 @@ class List {
                 port: null,
                 path: "schemas",
                 jpp: {
-                    set: {
-                        "/total": "/count",
-                        "/rows": "/rows"
-                    }
+                    set: [{ "from": "/total", "to": "/count" }, { "from": "/rows", "to": "/rows" }]
                 },
                 isRestful: true
             }]
@@ -63,7 +60,7 @@ class Add {
             refreshList: true,
             form: {
                 dataSchema: "schemaActionData",
-                formSchema: "schemaAddActionData"
+                formSchema: "schemaAddActionForm"
             },
             closeDialog: true,
             interfaces: [{
@@ -92,7 +89,7 @@ class Edit {
             refreshList: true,
             form: {
                 dataSchema: "schemaActionData",
-                formSchema: "schemaAddActionData"
+                formSchema: "schemaAddActionForm"
             },
             closeDialog: true,
             interfaces: [{
@@ -122,7 +119,7 @@ class Copy {
             refreshList: true,
             form: {
                 dataSchema: "schemaActionData",
-                formSchema: "schemaAddActionData"
+                formSchema: "schemaAddActionForm"
             },
             closeDialog: true,
             interfaces: [{
@@ -182,7 +179,7 @@ class Search {
             icon: "search",
             form: {
                 dataSchema: "schemaActionData",
-                formSchema: "schemaSearchActionData"
+                formSchema: "schemaSearchActionForm"
             }
         };
 

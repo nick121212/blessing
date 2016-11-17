@@ -19,6 +19,7 @@ export const module = angular.module(`${_name}Module`, [ngMaterial, restSvrMod, 
         sfErrorMessageProvider.setDefaultMessage("201", "[{{title}}]字符长度大于最大值({{schema.maxLength}})");
         sfErrorMessageProvider.setDefaultMessage("400", "数组长度不正确，{{schema.minItems||0}}-{{schema.maxItems||'∞'}}");
         sfErrorMessageProvider.setDefaultMessage("500", "格式不正确");
+        sfErrorMessageProvider.setDefaultMessage("compareTo", "{{title}}和{{form.compare.to}}不一致");
     }])
     .config(["sfBuilderProvider", "schemaFormDecoratorsProvider", "jsonEditorBuilderProvider", "autoCompleteBuilderProvider", "layoutBuilderProvider", (sfBuilderProvider, schemaFormDecoratorsProvider, jsonEditorBuilder, autoCompleteBuilder, layoutBuilder) => {
         // 添加自定义的表单组件

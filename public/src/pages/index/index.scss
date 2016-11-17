@@ -1,70 +1,77 @@
 .over-hidden {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .no-tb-margin {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 .no-borders {
-  .md-input {
-    border: none !important;
-  }
+    .md-input {
+        border: none !important;
+    }
+}
+
+.fx-autocomplete {
+    margin-top: -20px;
+    .md-input-container {
+        margin-bottom: 0;
+    }
 }
 
 .no-errors {
-  .md-errors-spacer {
-    display: none !important;
-  }
+    .md-errors-spacer {
+        display: none !important;
+    }
 }
 
 md-tabs.scroll.md-dynamic-height md-tabs-content-wrapper {
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
 }
 
 body {
-  @extend .over-hidden;
+    @extend .over-hidden;
 }
 
 .fx-invalid {
-  opacity: 1 !important;
-  margin-top: 0 !important;
+    opacity: 1 !important;
+    margin-top: 0 !important;
 }
 
 .schema-form-autocomplete input {
-  color: black !important;
+    color: black !important;
 }
 
 .gridListdemoBasicUsage md-grid-list {
-  margin: 8px;
+    margin: 8px;
 }
 
 .gridListdemoBasicUsage .gray {
-  background: #f5f5f5;
+    background: #f5f5f5;
 }
 
 .gridListdemoBasicUsage .green {
-  background: #b9f6ca;
+    background: #b9f6ca;
 }
 
 .gridListdemoBasicUsage .yellow {
-  background: #ffff8d;
+    background: #ffff8d;
 }
 
 .gridListdemoBasicUsage .blue {
-  background: #84ffff;
+    background: #84ffff;
 }
 
 .gridListdemoBasicUsage .purple {
-  background: #b388ff;
+    background: #b388ff;
 }
 
 .gridListdemoBasicUsage .red {
-  background: #ff8a80;
+    background: #ff8a80;
 }
 
 .gridListdemoBasicUsage md-grid-tile {
-  transition: all 400ms ease-out 50ms;
+    transition: all 400ms ease-out 50ms;
 }

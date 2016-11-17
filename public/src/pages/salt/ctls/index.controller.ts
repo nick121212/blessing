@@ -8,20 +8,20 @@ export class SaltController {
     toolbarTest: Array<Object>;
     socket: SocketIOClient.Socket;
 
-    constructor(private $rootScope:ng.IRootScopeService, private $scope: ng.IScope, private $stateParams: ng.ui.IStateParamsService, private toolbarUtils, private materialUtils: fx.utils.materialStatic, private fxAction, private restUtils: fx.utils.restStatic) {
+    constructor(private $rootScope: ng.IRootScopeService, private $scope: ng.IScope, private $stateParams: ng.ui.IStateParamsService, private toolbarUtils, private materialUtils: fx.utils.materialStatic, private fxAction, private restUtils: fx.utils.restStatic) {
         this.toolbar = [
-            this.toolbarUtils.noneBuilder("icon").iconBuilder('power-socket', {fill: "black"}).toValue(),
-            this.toolbarUtils.labelBuilder('SALT-API').attrBuilder({flex: ""}).toValue()
+            this.toolbarUtils.noneBuilder("icon").iconBuilder('power-socket', {}).toValue(),
+            this.toolbarUtils.labelBuilder('SALT-API').attrBuilder({ flex: "" }).toValue()
         ];
 
-        this.fxAction.getModels(["saltApiRun", "saltApiRun1", "saltApiStats", "saltApiLogin", "saltApiLogout", "saltApiMinions", "saltApiJobs"]).then((actionModels)=> {
+        this.fxAction.getModels(["saltApiRun", "saltApiRun1", "saltApiStats", "saltApiLogin", "saltApiLogout", "saltApiMinions", "saltApiJobs"]).then((actionModels) => {
             this.toolbarTest = [];
-            _.forEach(actionModels, (actionModel)=> {
+            _.forEach(actionModels, (actionModel) => {
                 this.toolbarTest.push(
-                    this.toolbarUtils.btnBuilder(actionModel.title, "md-button", true).iconBuilder(actionModel.icon, {fill: "black"}).btnClick(($event)=> {
-                        this.fxAction.doActionModel($event, actionModel, null, (result)=> {
-                            return this.fxAction.getModel("resultAction").then((actionModelResult)=> {
-                                this.fxAction.doActionModel($event, actionModelResult, this.fxAction.doDealResult(actionModel, result, {}), ()=> {
+                    this.toolbarUtils.btnBuilder(actionModel.title, "md-button", true).iconBuilder(actionModel.icon, {}).btnClick(($event) => {
+                        this.fxAction.doActionModel($event, actionModel, null, (result) => {
+                            return this.fxAction.getModel("resultAction").then((actionModelResult) => {
+                                this.fxAction.doActionModel($event, actionModelResult, this.fxAction.doDealResult(actionModel, result, {}), () => {
                                     this.materialUtils.close();
                                 });
                             });
@@ -31,7 +31,7 @@ export class SaltController {
             });
         });
 
-        this.$rootScope.$on("saltLoginEvent", (event, data)=> {
+        this.$rootScope.$on("saltLoginEvent", (event, data) => {
             this.initEvents(data);
         });
     }

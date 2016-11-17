@@ -1,7 +1,7 @@
 /**
  * 操作类型
  */
-export enum MethodType{
+export enum MethodType {
     GET,
     POST,
     DELETE,
@@ -9,13 +9,18 @@ export enum MethodType{
     HEAD
 }
 
+export interface IPointer {
+    from: string;
+    to: string;
+}
+
 /**
  * 数据拷贝移动操作
  */
 export interface IJpp {
-    set?: {[id: string]: string},
-    copy?: {[id: string]: string},
-    move?: {[id: string]: string},
+    set?: Array<IPointer>,
+    copy?: Array<IPointer>,
+    move?: Array<IPointer>,
     del?: Array<string>
 }
 
@@ -36,7 +41,7 @@ export interface IInterfaceModel {
     // 接口所对应的服务器key
     serverKey?: string;
     // 接口所需参数,false 为不需要参数
-    params?: boolean|Object;
+    params?: boolean | Object;
     // 是否是restful接口
     isRestful: boolean;
     // 数据拷贝等

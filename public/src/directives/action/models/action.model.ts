@@ -115,6 +115,8 @@ export interface IActionModel {
     list?: IList;
     // 开启条件
     condition?: string;
+    // 数据路径
+    path?: string;
     // 子操作
     itemActions?: Array<IItemActionSet>;
     // 子操作

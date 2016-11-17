@@ -20,6 +20,9 @@ class Builder {
     init() {
         let viewModel = null;
 
+        if (!_.isArray(this.form.key)) {
+            return;
+        }
         if (pointer.has(this.formData, `/${this.form.key.join('/')}`)) {
             viewModel = pointer.get(this.formData, `/${this.form.key.join('/')}`);
         }
@@ -40,20 +43,38 @@ class Builder {
      * @param item 更改后的item
      */
     onChange(item) {
+        let curValue;
         this.selected = item;
 
         if (_.isEmpty(item) || !this.searchText) {
             this.selected = null;
-            return pointer.remove(this.formData, `/${this.form.key.join('/')}`);
+            pointer.remove(this.formData, `/${this.form.key.join('/')}`);
+            return undefined;
         }
         if (this.form.acOptions.keyField) {
             if (pointer.has(item, `/${this.form.acOptions.keyField}`)) {
-                return pointer.set(this.formData, `/${this.form.key.join('/')}`, pointer.get(item, `/${this.form.acOptions.keyField}`));
+                curValue = pointer.get(item, `/${this.form.acOptions.keyField}`);
+                pointer.set(this.formData, `/${this.form.key.join('/')}`, curValue);
+                return curValue;
             } else {
-                return console.error(`autocomplete-1-没有在item中找到${this.form.acOptions.keyField}`);
+                console.error(`autocomplete-1-没有在item中找到${this.form.acOptions.keyField}`);
+                return undefined;
             }
         }
-        pointer.set(this.formData, `/${this.form.key.join('/')}`, item);
+
+        curValue = {};
+        _.each(this.form.items.concat(this.form.acOptions.fields || []), (childItem) => {
+            let keys = [].concat(childItem.key);
+            let childKey = keys.pop();
+
+            if (childKey && pointer.has(item, `/${childKey}`)) {
+                pointer.set(curValue, `/${childKey}`, pointer.get(item, `/${childKey}`));
+            }
+        });
+
+        pointer.set(this.formData, `/${this.form.key.join('/')}`, curValue);
+
+        return curValue;
     }
 
     /**
@@ -91,16 +112,29 @@ class Controller {
 
     constructor(private $scope, private fxAction) {
         let formWithIndex = $scope.copyWithIndex ? $scope.copyWithIndex($scope.$index) : null;
-
-        // 获取copy，填充数组索引
-        formWithIndex && (formWithIndex = _.first(_.filter(formWithIndex.items, (item) => {
+        let form;
+        const compare = (item) => {
+            if (!_.isArray(item['key'])) {
+                return false;
+            }
             return item['key'].join('') === $scope.form["key"].join('') ||
                 _.filter(item['key'], (key) => {
                     return key && !_.isNumber(key);
                 }).join('') === $scope.form["key"].join('');
-        })));
+        };
+        formWithIndex && (form = _.first(_.filter([formWithIndex], compare)));
+        // 获取copy，填充数组索引
+        !form && formWithIndex && (form = _.first(_.filter(formWithIndex.items, compare)));
+        $scope.boost = new Builder(form ? form : $scope.form, fxAction, $scope.model);
 
-        $scope.boost = new Builder(formWithIndex ? formWithIndex : $scope.form, fxAction, $scope.model);
+        let onChange = $scope.boost.onChange.bind($scope.boost);
+
+        $scope.boost.onChange = (item) => {
+            $scope.ngModel.$setViewValue(onChange(item));
+            $scope.ngModel.$commitViewValue();
+        }
+
+        $scope.options = $scope.form.ngModelOptions;
     }
 }
 
@@ -113,8 +147,7 @@ function Directive(): ng.IDirective {
     return {
         restrict: 'A',
         scope: false,
-        controller: Controller,
-        replace: false
+        controller: Controller
     };
 
 }

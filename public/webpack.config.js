@@ -11,7 +11,7 @@ module.exports = {
     cache: true,
     debug: true,
     entry: {
-        "vendors": ['jquery', 'lodash'],
+        'vendors': ['jquery', 'lodash'],
         'page/index': './src/pages/index/index.ts',
         'page/style': './src/pages/style/index.ts'
     },
@@ -39,22 +39,24 @@ module.exports = {
             'angular.ui.tree.css': __dirname + '/node_modules/angular-ui-tree/dist/angular-ui-tree.css',
             'angular-material-data-table.css': __dirname + '/node_modules/angular-material-data-table/dist/md-data-table.css',
             'angular-motion.css': __dirname + '/node_modules/nganimationcss/build/nga.all.css',
-            'angular-loading-bar.css': __dirname + '/node_modules/angular-loading-bar/build/loading-bar.css'
+            'angular-loading-bar.css': __dirname + '/node_modules/angular-loading-bar/build/loading-bar.css',
+            'angular-gridster': __dirname + '/node_modules/angular-gridster/dist/angular-gridster.min',
+            'angular-gridster.css': __dirname + '/node_modules/angular-gridster/dist/angular-gridster.min.css',
         }
     },
     module: {
         loaders: [
-            {test: /\.ts$/, loader: 'ts-loader?module=commonjs&warnImplicitAny'},
-            {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
-            {test: /\.scss$/, loaders: ['style', 'css', 'autoprefixer', 'sass']},
-            {test: /\.html$/, loader: 'raw'},
-            {test: /\.(png|jpg|ttf)$/, loader: 'url?limit=8192'},
-            {test: /\.jade$/, loader: 'jade-loader'},
+            { test: /\.ts$/, loader: 'ts-loader?module=commonjs&warnImplicitAny' },
+            { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader") },
+            { test: /\.scss$/, loaders: ['style', 'css', 'autoprefixer', 'sass'] },
+            { test: /\.html$/, loader: 'raw' },
+            { test: /\.(png|jpg|ttf)$/, loader: 'url?limit=8192' },
+            { test: /\.jade$/, loader: 'jade-loader' },
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: "url-loader?limit=10000&minetype=application/font-woff"
             },
-            {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"}
+            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
         ]
     },
     plugins: [
@@ -67,11 +69,6 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': 'development'
         }),
-        new ExtractTextPlugin("dashboard.css"),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false
-        //     }
-        // })
+        new ExtractTextPlugin("dashboard.css")
     ]
 };

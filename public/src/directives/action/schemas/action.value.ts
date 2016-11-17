@@ -10,7 +10,7 @@ class List {
         let actionModel: IActionModel = {
             key: List.key,
             type: ActionType.list,
-            title: "SCHEMA管理",
+            title: "操作管理",
             icon: "view-module",
             list: {
                 columns: [
@@ -37,10 +37,7 @@ class List {
                 port: null,
                 path: "actions",
                 jpp: {
-                    set: {
-                        "/total": "/count",
-                        "/rows": "/rows"
-                    }
+                    set: [{ "from": "/count", "to": "/total" }, { "from": "/rows", "to": "/rows" }]
                 },
                 isRestful: true
             }]
@@ -50,14 +47,14 @@ class List {
     }
 }
 
-class Add {
-    static key: string = "actionAddAction";
+class AddBase {
+    static key: string = "actionAddBaseAction";
 
     constructor() {
         let actionModel: IActionModel = {
-            key: Add.key,
+            key: AddBase.key,
             type: ActionType.form,
-            title: "新建SCHEMA",
+            title: "新建SCHEMA-基础配置",
             icon: "add",
             refreshList: true,
             form: {
@@ -164,13 +161,48 @@ class Add {
                                 "type": "autocomplete-1",
                                 "htmlClass": "md-block flex",
                                 "acOptions": {
-                                    "textField": "description",
+                                    "textField": "title",
                                     "keyField": "key",
                                     "dataField": "rows",
                                     "noCache": false,
                                     "search": "/where/key/$like",
-                                    "actionKey": "schemaListAction"
+                                    "actionKey": "action"
                                 }
+                            }, {
+                                "key": "actions",
+                                "type": "array",
+                                "items": [{
+                                    "key": "actions[]",
+                                    "type": "autocomplete-1",
+                                    "htmlClass": "md-block flex",
+                                    "acOptions": {
+                                        "textField": "title",
+                                        "keyField": "key",
+                                        "dataField": "rows",
+                                        "noCache": false,
+                                        "search": "/where/key/$like",
+                                        "actionKey": "action"
+                                    }
+                                }]
+                            }, {
+                                "key": "itemActions",
+                                "type": "array",
+                                "items": [{
+                                    "key": "itemActions[].key",
+                                    "type": "autocomplete-1",
+                                    "htmlClass": "md-block flex",
+                                    "acOptions": {
+                                        "textField": "title",
+                                        "keyField": "key",
+                                        "dataField": "rows",
+                                        "noCache": false,
+                                        "search": "/where/key/$like",
+                                        "actionKey": "action"
+                                    }
+                                }, {
+                                    "key": "itemActions[].condition",
+                                    "type": "text"
+                                }]
                             }, {
                                 "key": "list.showPagination",
                                 "type": "checkbox"
@@ -295,30 +327,142 @@ class Add {
                                 "htmlClass": "md-block flex"
                             }
                         ]
-                    },
-                    {
-                        "key": "interfaces",
-                        "type": "array",
-                        "items": [
-                            {
-                                "key": "interfaces[].key",
-                                "type": "text"
-                            },
-                            {
-                                "key": "interfaces[]",
-                                "type": "autocomplete-1",
-                                "acOptions": {
-                                    "textField": "description",
-                                    "dataField": "rows",
-                                    "noCache": true,
-                                    "search": "/where/key/$like",
-                                    "actionKey": "schemaListAction"
-                                },
-                                "htmlClass": "md-block flex"
-                            }
-                        ]
                     }
                 ]
+            },
+            closeDialog: true,
+            interfaces: [{
+                key: "actionAdd",
+                method: MethodType.POST,
+                address: "",
+                port: null,
+                path: "actions",
+                isRestful: true
+            }]
+        };
+
+        return actionModel;
+    }
+}
+
+class AddInterface {
+    static key: string = "actionAddInterfaceAction";
+
+    constructor() {
+        let actionModel: IActionModel = {
+            key: AddInterface.key,
+            type: ActionType.form,
+            title: "新建SCHEMA-接口配置",
+            icon: "add",
+            refreshList: true,
+            form: {
+                dataSchema: "actionActionData",
+                formSchema: [{
+                    "key": "interfaces",
+                    "type": "tabarray",
+                    "title": "接口配置",
+                    "titleField": "description",
+                    "fieldClass": "flex layout-column",
+                    "items": [
+                        {
+                            "type": "section",
+                            "htmlClass": "layout-column flex",
+                            "items": [
+                                {
+                                    "key": "interfaces[]",
+                                    "type": "autocomplete-1",
+                                    "title": "搜索接口",
+                                    "ngModelOptions": {
+                                        "tv4Validation": false
+                                    },
+                                    "acOptions": {
+                                        "textField": "description",
+                                        "dataField": "rows",
+                                        "noCache": true,
+                                        "fields": [{ "key": ["jpp"] }],
+                                        "search": "/where/key/$like",
+                                        "actionKey": "interface"
+                                    },
+                                    "htmlClass": "md-block flex"
+                                },
+                                {
+                                    "type": "section",
+                                    "htmlClass": "flex layout-gt-md-row layout-column",
+                                    "items": [{
+                                        "key": "interfaces[].key",
+                                        "readonly": true,
+                                        "htmlClass": "flex",
+                                        "type": "text"
+                                    }, {
+                                        "key": "interfaces[].path",
+                                        "htmlClass": "flex",
+                                        "type": "text"
+                                    }, {
+                                        "key": "interfaces[].method",
+                                        "type": "select",
+                                        "htmlClass": "flex",
+                                        "titleMap": [
+                                            { "name": "GET", "value": 0 },
+                                            { "name": "POST", "value": 1 },
+                                            { "name": "PUT", "value": 3 },
+                                            { "name": "DELETE", "value": 2 }
+                                        ]
+                                    }]
+                                }, {
+                                    "key": "interfaces[].jpp",
+                                    "type": "card",
+                                    "htmlClass": "flex layout-column",
+                                    "items": [{
+                                        "key": "interfaces[].jpp.set",
+                                        "htmlClass": "flex",
+                                        "type": "array",
+                                        "startEmpty": true,
+                                        "items": [{
+                                            "key": "interfaces[].jpp.set[].from",
+                                            "type": "text"
+                                        }, {
+                                            "key": "interfaces[].jpp.set[].to",
+                                            "type": "text"
+                                        }]
+                                    }, {
+                                        "key": "interfaces[].jpp.del",
+                                        "startEmpty": true,
+                                        "htmlClass": "flex",
+                                        "type": "chips"
+                                    }]
+                                }
+                            ]
+                        }
+                    ]
+                }]
+            },
+            closeDialog: true,
+            interfaces: [{
+                key: "actionAdd",
+                method: MethodType.POST,
+                address: "",
+                port: null,
+                path: "actions",
+                isRestful: true
+            }]
+        };
+
+        return actionModel;
+    }
+}
+
+class Add {
+    static key: string = "actionAddAction";
+
+    constructor() {
+        let actionModel: IActionModel = {
+            key: Add.key,
+            type: ActionType.wizard,
+            title: "新建SCHEMA",
+            icon: "add",
+            refreshList: true,
+            wizard: {
+                actions: [AddBase.key, AddInterface.key]
             },
             closeDialog: true,
             interfaces: [{
@@ -341,13 +485,12 @@ class Edit {
     constructor() {
         let actionModel: IActionModel = {
             key: Edit.key,
-            type: ActionType.form,
+            type: ActionType.wizard,
             title: "修改SCHEMA",
             icon: "edit",
             refreshList: true,
-            form: {
-                dataSchema: "actionActionData",
-                formSchema: "actionEditActionForm"
+            wizard: {
+                actions: [AddBase.key, AddInterface.key]
             },
             closeDialog: true,
             interfaces: [{
@@ -371,13 +514,12 @@ class Copy {
     constructor() {
         let actionModel: IActionModel = {
             key: Copy.key,
-            type: ActionType.form,
+            type: ActionType.wizard,
             title: "复制SCHEMA",
             icon: "content_copy",
             refreshList: true,
-            form: {
-                dataSchema: "actionActionData",
-                formSchema: "actionAddActionForm"
+            wizard: {
+                actions: [AddBase.key, AddInterface.key]
             },
             closeDialog: true,
             interfaces: [{
@@ -385,10 +527,8 @@ class Copy {
                 method: MethodType.POST,
                 address: "",
                 port: null,
+                jpp: { del: ["/id"] },
                 path: "actions",
-                jpp: {
-                    del: ["/id"]
-                },
                 isRestful: true
             }]
         };
@@ -445,7 +585,7 @@ class Search {
     }
 }
 
-const services: Array<any> = [List, Add, Edit, Delete, Copy, Search];
+const services: Array<any> = [List, Add, Edit, Delete, Copy, Search, AddBase, AddInterface];
 
 _.each(services, (ser) => {
     module.service(ser.key, ser);

@@ -1,4 +1,4 @@
-import { module } from '../module';
+import * as mdl from '../module';
 import { IActionModel, ActionType, IClientData } from "../models/action.model";
 import { IInterfaceModel, MethodType } from "../models/interface.model";
 import * as pointer from 'json-pointer';
@@ -27,11 +27,42 @@ class Provider {
         return new Provider(service.$rootScope, service.$injector, service.restUtils, service.mdUtils, service.$q, service.$mdDialog);
     }];
 
+
     getInjector(key: string) {
         if (this.$injector.has(key)) {
             return _.cloneDeepWith(this.$injector.get(key));
         }
         return null;
+    }
+
+    /**
+     * 从数据库中获取model
+     */
+    getModelFromServer(key: string) {
+        const defer = this.$q.defer();
+
+        this.getModel("actionCommonfx-1").then((actionModel: IActionModel) => {
+            this.doAction(actionModel.key, {
+                where: {
+                    key: {
+                        "$eq": key
+                    }
+                }
+            }).then((results: any) => {
+                let resource = { rows: [] };
+
+                this.doDealResult(actionModel, results, resource);
+                if (resource.rows && resource.rows.length) {
+                    mdl.module.value(key, resource.rows[0]);
+                    return defer.resolve(resource.rows[0]);
+                }
+
+                this.mdUtils.showErrMsg(`没有找到key[${key}]!`);
+                defer.reject(key);
+            });
+        }).catch(defer.reject);
+
+        return defer.promise;
     }
 
     /**
@@ -45,11 +76,18 @@ class Provider {
         if (!key) {
             defer.reject();
         } else {
+            // 先从注入器中查找
             if (this.$injector.has(key)) {
                 defer.resolve(_.cloneDeepWith(this.$injector.get(key)));
             } else {
-                this.mdUtils.showErrMsg(`没有找到key[${key}]!`);
-                defer.reject(key);
+                // 从当前module的注入器中查找
+                if (angular.injector([mdl.module.name]).has(key)) {
+                    defer.resolve(angular.injector([mdl.module.name]).get(key));
+                }
+                else {
+                    // 从接口中查找
+                    return this.getModelFromServer(key);
+                }
             }
         }
 
@@ -70,7 +108,7 @@ class Provider {
         }
 
         if (keys.length) {
-            this.getModel("schemaListAction").then((model: IActionModel) => {
+            this.getModel("schemaCommonfx-1").then((model: IActionModel) => {
                 schemaActionModel = model;
                 return this.doAction(model.key, {
                     limit: keys.length,
@@ -221,8 +259,8 @@ class Provider {
 
             if (result && jpp) {
                 // 接口数据拷贝到本地
-                _.forEach(jpp.set, (val, key) => {
-                    pointer.has(result, val) && pointer.set(clientData, key, pointer.get(result, val));
+                _.each(jpp.set, (val) => {
+                    pointer.has(result, val.from) && pointer.set(clientData, val.to, pointer.get(result, val.from));
                 });
                 // 本地数据的删除
                 _.isArray(jpp.del) && _.each(jpp.del, (val) => {
@@ -232,6 +270,26 @@ class Provider {
         });
 
         return clientData;
+    }
+
+    /**
+     * 设置请求的参数路劲
+     */
+    private doGetField(restAngular: restangular.ICollection, queryDataCline: any, interfaceModel: IInterfaceModel, defaults: Array<string> = []) {
+        let idFieldPaths = (!_.isArray(interfaceModel.idFieldPath) || !interfaceModel.idFieldPath.length) ? defaults : interfaceModel.idFieldPath;
+
+        _.each(idFieldPaths, (field: string) => {
+            if (!pointer.has(queryDataCline, field)) {
+                let err = new Error(`没有找到路径${field}`);
+                console.error(err);
+                throw err;
+            }
+            restAngular = restAngular.all(pointer.get(queryDataCline, field));
+        });
+
+        console.log(restAngular.getRestangularUrl());
+
+        return restAngular;
     }
 
     /**
@@ -281,21 +339,28 @@ class Provider {
                         promise = restAngular.post(queryDataCline, null, headers);
                         break;
                     case MethodType.GET:
-                        promise = restAngular.customGET(
-                            (interfaceModel.params && pointer.has(queryDataCline, interfaceModel.idFieldPath)) ? pointer.get(queryDataCline, interfaceModel.idFieldPath) : null,
-                            queryDataCline, headers);
+                        // promise = restAngular.customGET(
+                        //     (interfaceModel.params && pointer.has(queryDataCline, idFieldPath)) ? pointer.get(queryDataCline, idFieldPath) : null,
+                        //     queryDataCline, headers);
+                        restAngular = this.doGetField(restAngular, queryDataCline, interfaceModel);
+                        promise = restAngular.customGET(null, queryDataCline, headers);
                         break;
                     case MethodType.PUT:
-                        if (!pointer.has(queryDataCline, interfaceModel.idFieldPath)) {
-                            return console.error(`没有找到${interfaceModel.idFieldPath}`);
-                        }
-                        promise = restAngular.customPUT(_.isObject(queryDataCline) ? queryDataCline : null, pointer.get(queryDataCline, interfaceModel.idFieldPath), headers);
+                        // if (!pointer.has(queryDataCline, idFieldPath)) {
+                        //     return console.error(`没有找到${idFieldPath}`);
+                        // }
+                        // promise = restAngular.customPUT(_.isObject(queryDataCline) ? queryDataCline : null, pointer.get(queryDataCline, idFieldPath), headers);
+                        restAngular = this.doGetField(restAngular, queryDataCline, interfaceModel, ["/id"]);
+                        promise = restAngular.customPUT(_.isObject(queryDataCline) ? queryDataCline : null, null, headers);
                         break;
                     case MethodType.DELETE:
-                        if (!pointer.has(queryDataCline, interfaceModel.idFieldPath)) {
-                            return console.error(`没有找到${interfaceModel.idFieldPath}`);
-                        }
-                        promise = restAngular.customDELETE(pointer.get(queryDataCline, interfaceModel.idFieldPath), headers)
+                        // if (!pointer.has(queryDataCline, idFieldPath)) {
+                        //     return console.error(`没有找到${idFieldPath}`);
+                        // }
+                        // promise = restAngular.customDELETE(pointer.get(queryDataCline, idFieldPath), headers);
+                        restAngular = this.doGetField(restAngular, queryDataCline, interfaceModel, ["/id"]);
+                        promise = restAngular.customDELETE(null, headers);
+                        break;
                 }
                 interfacesRest[interfaceModel.key] = promise;
             });
@@ -304,7 +369,8 @@ class Provider {
         }).then((interfacesRest) => {
             // 返回promise
             return this.$q.all(interfacesRest);
-        }).then((results) => {
+        }).then((results: any) => {
+            // 设置全局header的值
             this.doDealResult(actionModel, results, this.restUtils.headers, 'header');
 
             return results;
@@ -312,4 +378,4 @@ class Provider {
     }
 }
 
-module.provider(Provider._name, [Provider]);
+mdl.module.provider(Provider._name, [Provider]);

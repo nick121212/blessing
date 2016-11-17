@@ -1,5 +1,5 @@
-import {IActionModel, ActionType} from '../../../directives/action/models/action.model';
-import {MethodType} from '../../../directives/action/models/interface.model';
+import { IActionModel, ActionType } from '../../../directives/action/models/action.model';
+import { MethodType } from '../../../directives/action/models/interface.model';
 
 const ip = "https://172.16.140.164";
 const port = 8888;
@@ -62,14 +62,12 @@ class Login {
                 port: port,
                 path: "login",
                 jpp: {
-                    set: {
-                        "/data": "/return"
-                    }
+                    set: [{ "from": "/return", "to": "/data" }]
                 },
                 header: {
-                    set: {
-                        "/X-Auth-Token": "/return/0/token"
-                    }
+                    set: [{
+                        "from": "/return/0/token", "to": "/X-Auth-Token"
+                    }]
                 },
                 config: {
                     salt: true
@@ -103,9 +101,7 @@ class Logout {
                 port: port,
                 path: "logout",
                 jpp: {
-                    set: {
-                        "/data": "/return"
-                    }
+                    set: [{ "from": "/return", "to": "/data" }]
                 },
                 config: {
                     salt: true
@@ -139,9 +135,7 @@ class Minions {
                 port: port,
                 path: "minions",
                 jpp: {
-                    set: {
-                        "/data": "/return"
-                    }
+                    set: [{ "from": "/return", "to": "/data" }]
                 },
                 config: {
                     salt: true
@@ -175,9 +169,7 @@ class Jobs {
                 port: port,
                 path: "jobs",
                 jpp: {
-                    set: {
-                        "/data": "/return"
-                    }
+                    set: [{ "from": "/return", "to": "/data" }]
                 },
                 config: {
                     salt: true
@@ -211,9 +203,7 @@ class Events {
                 port: port,
                 path: "events",
                 jpp: {
-                    set: {
-                        "/data": "/return"
-                    }
+                    set: [{ "from": "/return", "to": "/data" }]
                 },
                 config: {
                     salt: true
@@ -247,9 +237,7 @@ class Stats {
                 port: port,
                 path: "stats",
                 jpp: {
-                    set: {
-                        "/data": "/return"
-                    }
+                    set: [{ "from": "/return", "to": "/data" }]
                 },
                 config: {
                     salt: true
@@ -326,9 +314,7 @@ class Run {
                 port: port,
                 path: "run",
                 jpp: {
-                    set: {
-                        "/data": "/return"
-                    }
+                    set: [{ "from": "/return", "to": "/data" }]
                 },
                 config: {
                     salt: true
@@ -399,9 +385,7 @@ class Run1 {
                 port: port,
                 path: "minions",
                 jpp: {
-                    set: {
-                        "/data": "/return"
-                    }
+                    set: [{ "from": "/return", "to": "/data" }]
                 },
                 config: {
                     salt: true
@@ -414,10 +398,10 @@ class Run1 {
     }
 }
 
-export default (module: ng.IModule)=> {
+export default (module: ng.IModule) => {
     const services = [Login, Logout, Minions, Jobs, Events, Stats, Run, Run1];
 
-    _.each(services, (model)=> {
+    _.each(services, (model) => {
         module.service(model.key, model);
     });
 }

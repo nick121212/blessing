@@ -14,15 +14,15 @@ class List {
             icon: "view-module",
             list: {
                 columns: [
-                    actionUtils.columnBuilder("<span>{{::item.id}}</span>", "ID", "id").toValue(),
-                    actionUtils.columnBuilder("<span>{{::item.key}}</span>", "KEY").toValue(),
-                    actionUtils.columnBuilder("<span>{{::item.group}}</span>", "分组名称", "group").toValue(),
+                    actionUtils.columnBuilder("<span>{{ ::item.id}}</span>", "ID", "id").toValue(),
+                    actionUtils.columnBuilder("<span>{{ ::item.key}}</span>", "KEY").toValue(),
+                    actionUtils.columnBuilder("<span>{{ ::item.group}}</span>", "分组名称", "group").toValue(),
                     actionUtils.columnBuilder("<span>{{ ::item.method }}</span>", "请求类型").toValue(),
-                    actionUtils.columnBuilder("<span>{{ ::item.address }}</span>", "接口地址").toValue(),
+                    actionUtils.columnBuilder("<span>{{ ::item.host }}</span>", "接口地址").toValue(),
                     actionUtils.columnBuilder("<span>{{ ::item.port }}</span>", "接口端口").toValue(),
                     actionUtils.columnBuilder("<span>{{ ::item.path }}</span>", "接口路径").toValue(),
-                    actionUtils.columnBuilder("<span>{{ ::item.isRestful }}</span>", "是否是REST").toValue(),
-                    actionUtils.columnBuilder(`<span>{{ ::item.description }}</span>`, "描述").toValue(),
+                    actionUtils.columnBuilder(`<ng-md-icon icon="{{item.isRestful?'done':'close'}}"></ng-md-icon>`, "是否是REST").toValue(),
+                    actionUtils.columnBuilder(`<span>{{ ::item.description }}</span>`, "描述").toValue()
                 ],
                 queryData: { limit: 50 },
                 showPagination: true,
@@ -42,10 +42,7 @@ class List {
                 port: null,
                 path: "interfaces",
                 jpp: {
-                    set: {
-                        "/total": "/count",
-                        "/rows": "/rows"
-                    }
+                    set: [{ "from": "/total", "to": "/count" }, { "from": "/rows", "to": "/rows" }]
                 },
                 isRestful: true
             }]
@@ -67,7 +64,7 @@ class Add {
             refreshList: true,
             form: {
                 dataSchema: "interfaceActionData",
-                formSchema: "interfaceAddActionData"
+                formSchema: "interfaceAddActionForm"
             },
             closeDialog: true,
             interfaces: [{
@@ -96,7 +93,7 @@ class Edit {
             refreshList: true,
             form: {
                 dataSchema: "interfaceActionData",
-                formSchema: "interfaceAddActionData"
+                formSchema: "interfaceAddActionForm"
             },
             closeDialog: true,
             interfaces: [{
@@ -126,7 +123,7 @@ class Copy {
             refreshList: true,
             form: {
                 dataSchema: "interfaceActionData",
-                formSchema: "interfaceAddActionData"
+                formSchema: "interfaceAddActionForm"
             },
             closeDialog: true,
             interfaces: [{
@@ -186,7 +183,7 @@ class Search {
             icon: "search",
             form: {
                 dataSchema: "interfaceActionData",
-                formSchema: "interfaceSearchActionData"
+                formSchema: "interfaceSearchActionForm"
             }
         };
 

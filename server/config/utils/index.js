@@ -1,19 +1,25 @@
 import _ from 'lodash';
 
-module.exports = (app, log)=> {
+module.exports = (app, log) => {
     return {
         modelNames: {
             passport: "passport",
             module: "module",
-            crawler_setting: "crawler_setting",
+            crawlerSetting: "crawler_setting",
             schedule: "schedule",
             backup: 'backup',
             schema: 'schema',
-            action: 'action'
+            action: 'action',
+            interface: 'interface',
+            environment: 'environment',
+            device: 'device',
+            member: 'member'
         },
-        findModel: (modelName)=> {
-            let {models, sequelize, Sequelize} = app.config.db.index;
-            let model = models[modelName];
+        findModel: (modelName) => {
+            let { models, sequelize, Sequelize } = app.config.db.index;
+            let model = _.first(_.filter(models, (model) => {
+                return _.camelCase(model.name) == _.camelCase(modelName);
+            }));
 
             if (!model) {
                 throw new Error(`没有找到模型${modelName}!!!`);

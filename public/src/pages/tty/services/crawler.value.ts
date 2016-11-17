@@ -1,5 +1,5 @@
-import {IActionModel, ActionType} from '../../../directives/action/models/action.model';
-import {MethodType} from '../../../directives/action/models/interface.model';
+import { IActionModel, ActionType } from '../../../directives/action/models/action.model';
+import { MethodType } from '../../../directives/action/models/interface.model';
 
 /**
  * 模块查询
@@ -28,7 +28,7 @@ class List {
                 showSearchBtn: true,
                 showSearchPanel: false
             },
-            itemActions: [{key: Edit.key}, {key: Delete.key}, {key: Copy.key}],
+            itemActions: [{ key: Edit.key }, { key: Delete.key }, { key: Copy.key }],
             actions: [Add.key],
             interfaces: [{
                 key: "crawlerSettingList",
@@ -37,10 +37,7 @@ class List {
                 port: null,
                 path: "crawler_settings",
                 jpp: {
-                    set: {
-                        "/total": "/count",
-                        "/rows": "/rows"
-                    }
+                    set: [{ "from": "/total", "to": "/count" }, { "from": "/rows", "to": "/rows" }]
                 },
                 isRestful: true
             }]
@@ -318,7 +315,7 @@ class Ack {
 export default (module: ng.IModule) => {
     const services: Array<any> = [List, Search, Add, Edit, Delete, Copy, Ack, AddFirst, AddSecond, AddThird, AddForth, AddFifth];
 
-    _.each(services, (ser)=> {
+    _.each(services, (ser) => {
         module.service(ser.key, ser);
     });
 }

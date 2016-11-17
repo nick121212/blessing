@@ -34,7 +34,7 @@ class List {
                 port: null,
                 path: "backups",
                 jpp: {
-                    set: { "/rows": "" }
+                    set: [{ "from": "", "to": "/rows" }]
                 },
                 isRestful: true
             }]

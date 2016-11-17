@@ -29,6 +29,7 @@
     "boom": "^3.2.2",
     "common-errors": "^1.0.0",
     "consign": "^0.1.2",
+    "elasticsearch": "^12.0.1",
     "handlebars": "^4.0.5",
     "ioredis": "^2.2.0",
     "koa": "^2.0.0",

@@ -1,26 +1,30 @@
 const boom = require("boom");
 
 exports = module.exports = (app, logger) => {
-    let utils = app.config.utils.index;
-    let Model = utils.findModel(utils.modelNames.schema);
 
-    return async(ctx, next) => {
-        let key = ctx.params["key"];
+    return (modelName, idField = "id") => {
+        "use strict";
+        let utils = app.config.utils.index;
+        let Model = utils.findModel(modelName);
 
-        if (!key) {
-            throw boom.badData(`key不能为空`);
-        }
+        return async(ctx, next) => {
+            let key = ctx.params["key"];
 
-        let model = await Model.findOne({
-            where: {
-                id: key
+            if (!key) {
+                throw boom.badData(`key不能为空`);
             }
-        });
 
-        if (!model) {
-            throw boom.badData(`找不到key:${key}的数据或者已删除!`);
-        }
+            let model = await Model.findOne({
+                where: {
+                    [idField]: key
+                }
+            });
 
-        ctx.body = model;
+            if (!model) {
+                throw boom.badData(`找不到key:${key}的数据或者已删除!`);
+            }
+
+            ctx.body = model;
+        };
     };
 };

@@ -1,11 +1,16 @@
 import path from 'path';
 
-module.exports = (app)=> {
+module.exports = (app) => {
     "use strict";
 
     return {
         env: "development",
         ip: "http://localhost:3000/crawler",
+        es: {
+            host: '172.16.140.164',
+            port: '9200',
+            log: 'trace'
+        },
         db: {
             username: 'root',
             password: '',

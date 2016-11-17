@@ -1,5 +1,6 @@
 import { module } from '../module';
 import { IActionModel, IClientData, IQueryData, ActionType } from '../models/action.model';
+import * as pointer from 'json-pointer';
 
 class Controller {
     static $inject = ["$scope", "$q", "$timeout", "fxAction", "toolbarUtils", "materialUtils"];
@@ -13,6 +14,8 @@ class Controller {
     showPage: boolean = false;
     selected: Array<Object> = [];
     promise: ng.IPromise<any>;
+
+    tools = [];
 
     onOrderChange: Function;
     onPageChange: Function;
@@ -46,8 +49,18 @@ class Controller {
      * @param actionModel
      * @param item
      */
-    doClickActionMenu($event, actionModel, item) {
-        this.fxAction.doActionModel($event, actionModel, item).then((result) => {
+    doClickActionMenu($event, actionModel: IActionModel, item) {
+        let itemSource = _.clone(item);
+
+        // 取得数据中的特定部分
+        if (actionModel.type === ActionType.form || actionModel.type === ActionType.wizard) {
+            itemSource = {};
+            if (pointer.has(item, actionModel.path || "")) {
+                itemSource = pointer.get(item, actionModel.path || "");
+            }
+        }
+        // 执行相应的操作
+        this.fxAction.doActionModel($event, actionModel, itemSource).then((result) => {
             this.materialUtils.showMsg(`${actionModel.successMsg || "操作成功!"}`);
             this.$timeout(() => {
                 if (actionModel.refreshList) {
@@ -62,11 +75,11 @@ class Controller {
      */
     initToolbar() {
         this.actionModel.list.toolbars = [];
-        // 添加标题label和icon
-        this.actionModel.list.toolbars.push(this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon, { fill: "black" }).toValue());
-        this.actionModel.list.toolbars.push(this.toolbarUtils.labelBuilder(`${this.actionModel.title}`).attrBuilder({ flex: "" }).toValue());
         // 获取操作按钮
         this.fxAction.getModels(this.actionModel.actions).then((actionModels) => {
+            // 添加标题label和icon
+            this.actionModel.list.toolbars.push(this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon, { fill: "black" }).toValue());
+            this.actionModel.list.toolbars.push(this.toolbarUtils.labelBuilder(`${this.actionModel.title}`).attrBuilder({ flex: "" }).toValue());
             // 添加顶部按钮
             _.forEach(actionModels, (actionModel: IActionModel) => {
                 if (actionModel.type !== ActionType.list) {
@@ -120,6 +133,9 @@ class Controller {
                             menu.conditionBuilder(condition);
                         }
                         // 添加到操作
+                        this.tools.push(this.toolbarUtils.btnBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any) => {
+                            this.doClickActionMenu($event, actionModel, item);
+                        }));
                         menuTool.items.push(menu.toValue());
                         break;
                 }
