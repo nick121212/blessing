@@ -13,7 +13,7 @@ class Controller {
     submitCallBack: Function;
 
     constructor(private $scope, private fxAction, private materialUtils: fx.utils.materialStatic, private toolbarUtils, private $mdDialog: ng.material.IDialogService) {
-        this.formData = this.formData || {};
+        //this.formData = this.formData ;
     }
 
     getActionModel() {

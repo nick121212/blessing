@@ -26,32 +26,33 @@ module.config([
     "mdSideMenuSectionsProvider",
     ($stateProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider, $locationProvider, mdSideMenuSectionsProvider, cfpLoadingBarProvider: angular.loadingBar.ILoadingBarProvider) => {
         // 定义默认样式
-        $mdThemingProvider.definePalette('amazingPaletteName', {
-            '50': 'E8EAF6',
-            '100': 'C5CAE9',
-            '200': 'B39DDB',
-            '300': 'B39DDB',
-            '400': 'BDBDBD',
-            '500': '9B26AF',
-            '600': '757575',
-            '700': '7A1EA1',
-            '800': '691A99',
-            '900': '263238',
-            'A100': 'FFE57F',
-            'A200': '68EFAD',
-            'A400': 'FF3D00',
-            'A700': 'DD2C00',
-            'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
-            // on this palette should be dark or light
-            'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
-                '200', '300', '400', 'A100'],
-            'contrastLightColors': ['50', '100', //hues which contrast should be 'dark' by default
-                '200', '300', '400', 'A100']    // could also specify this if default was 'dark'
-        });
+        // $mdThemingProvider.definePalette('amazingPaletteName', {
+        //     '50': 'E8EAF6',
+        //     '100': 'C5CAE9',
+        //     '200': 'B39DDB',
+        //     '300': 'B39DDB',
+        //     '400': 'BDBDBD',
+        //     '500': '9B26AF',
+        //     '600': '757575',
+        //     '700': '7A1EA1',
+        //     '800': '691A99',
+        //     '900': '263238',
+        //     'A100': 'FFE57F',
+        //     'A200': '68EFAD',
+        //     'A400': 'FF3D00',
+        //     'A700': 'DD2C00',
+        //     'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
+        //     // on this palette should be dark or light
+        //     'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+        //         '200', '300', '400', 'A100'],
+        //     'contrastLightColors': ['50', '100', //hues which contrast should be 'dark' by default
+        //         '200', '300', '400', 'A100']    // could also specify this if default was 'dark'
+        // });
         $mdThemingProvider.theme('default')
-            .primaryPalette('purple')
-            .accentPalette('red')
-            .warnPalette('grey');
+            .dark()
+            .primaryPalette('grey')
+            .accentPalette('blue')
+            .warnPalette('red');
         // 初始化路由
         initRouter($urlRouterProvider, $stateProvider);
         // sideMenu初始化
@@ -60,7 +61,7 @@ module.config([
     .run(["$rootScope", "$state", "$q", "svgUtils", "fxAction", "fxSideMenuFactory", ($rootScope: ng.IRootScopeService, $state, $q: ng.IQService, svgUtils: fx.utils.svgStatic, fxAction) => {
         let state: { $$isFinish?: boolean, toState?: ng.ui.IState, toParams?: Object, options?: Object } = {};
         // 处理路回调
-        let handleResolve = () => {
+        let handleResolve = (isComplete) => {
             state.$$isFinish = true;
             $state.go(state.toState.name, state.toParams, state.options);
         };
@@ -81,13 +82,13 @@ module.config([
                 event.preventDefault();
                 $q.all({
                     mdi: svgUtils.loadSvgUrl(__dirname + 'svgs/mdi.svg'),
-                    weibo: svgUtils.loadSvgUrl(__dirname + 'svgs/weibo.svg'),
-                    config: fxAction.doAction("configAction", {}).then((result) => {
-                        $rootScope["config"] = result.configAction;
-
-                    })
-                }).then(handleResolve, handleResolve);
+                    weibo: svgUtils.loadSvgUrl(__dirname + 'svgs/weibo.svg')
+                }).then(() => { handleResolve(true) }, () => { handleResolve(false) });
             }
+        });
+        // 获取服务器一些配置信息
+        fxAction.doAction("configAction", {}).then((result) => {
+            $rootScope["config"] = result.configAction;
         });
     }]);
 

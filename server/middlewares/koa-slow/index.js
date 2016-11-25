@@ -4,7 +4,7 @@
 
 import koaSlow from 'koa-slow';
 
-module.exports = (app)=> {
+export default (app) => {
     "use strict";
 
     app.use(koaSlow({

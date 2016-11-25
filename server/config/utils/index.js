@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-module.exports = (app, log) => {
+export default (app, log) => {
     return {
         modelNames: {
             passport: "passport",
@@ -64,8 +64,6 @@ module.exports = (app, log) => {
                     filter.order = [orders];
                 }
             }
-
-            log.info(filter);
 
             return filter;
         }

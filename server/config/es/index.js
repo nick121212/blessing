@@ -4,7 +4,7 @@
 
 import elasticsearch from 'elasticsearch';
 
-module.exports = (app, logger) => {
+export default (app, logger) => {
     let config = app.config.config.index;
     const client = new elasticsearch.Client({
         host: `${config.es.host}:${config.es.port}`,

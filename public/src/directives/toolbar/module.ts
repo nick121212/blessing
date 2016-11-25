@@ -35,6 +35,7 @@ class Controller {
     items: Object;
     ngModel: Object;
     ngDisabled: Object;
+    index: number;
 
     constructor(private $scope: ng.IScope, private $rootScope: ng.IRootScopeService, private $compile: ng.ICompileService, private $interpolate: ng.IInterpolateService, private materialUtils: fx.utils.materialStatic) {
 
@@ -62,6 +63,7 @@ class Controller {
             model.disabled = `${this.ngDisabled}`;
             model.materialUtils = this.materialUtils;
             model.ngModel = this.ngModel;
+            model.index = this.index;
             if (model.conditionInfo && model.conditionInfo.condition) {
                 if (model.conditionInfo.prefix) {
                     model.condition = `${model['type']}Ctl.${model.conditionInfo.condition}`;
@@ -76,6 +78,15 @@ class Controller {
             if (this.ctls) {
                 $newScope[this.ctls] = $scope.$parent[this.ctls] || {};
             }
+
+            this.$scope.$watch(() => {
+                return this.index;
+            }, (newValue, oldValue) => {
+                if (newValue != oldValue) {
+                    $newScope[`${model['type']}Ctl`]["index"] = newValue;
+                }
+            });
+
             // 编译一次模板
             tmp = this.$interpolate(template)($newScope);
             $newEle = angular.element(tmp);
@@ -103,7 +114,8 @@ function Directive(): ng.IDirective {
             ctls: '@',
             ngDisabled: '@',
             items: "=",
-            ngModel: '='
+            ngModel: '=',
+            index: '=?'
         },
         controllerAs: 'toolbarCtl',
         controller: Controller,

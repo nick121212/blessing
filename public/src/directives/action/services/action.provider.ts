@@ -40,6 +40,7 @@ class Provider {
      */
     getModelFromServer(key: string) {
         const defer = this.$q.defer();
+        const config = this.$rootScope["config"] || {};
 
         this.getModel("actionCommonfx-1").then((actionModel: IActionModel) => {
             this.doAction(actionModel.key, {
@@ -53,7 +54,7 @@ class Provider {
 
                 this.doDealResult(actionModel, results, resource);
                 if (resource.rows && resource.rows.length) {
-                    mdl.module.value(key, resource.rows[0]);
+                    config.env === "production" && mdl.module.value(key, resource.rows[0]);
                     return defer.resolve(resource.rows[0]);
                 }
 
@@ -196,8 +197,10 @@ class Provider {
                     clickOutsideToClose: false,
                     escapeToClose: false,
                     fullscreen: true,
+                    preserveScope: false,
+                    autoWrap: false,
                     locals: {
-                        'item': item || {},
+                        'item': _.cloneDeep(item || {}),
                         'key': actionModel.key,
                         'submit': callback
                     },
@@ -206,6 +209,7 @@ class Provider {
                     template: templates[actionModel.type]
                 }).then(() => {
                     item = null;
+                    console.log("关闭");
                 });
             case ActionType.confirm:
                 const confirm = this.$mdDialog.confirm()

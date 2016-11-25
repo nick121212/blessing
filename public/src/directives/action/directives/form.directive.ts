@@ -1,6 +1,7 @@
 import { module } from '../module';
 import { IActionModel, ActionType } from '../models/action.model';
 import * as pointer from 'json-pointer';
+import * as _ from 'lodash';
 
 interface IDirectiveScope extends ng.IScope {
 
@@ -15,25 +16,35 @@ class Controller {
 
     actionModel: IActionModel;
     key: string;
-    formData: Object;
     ngModel: Object;
+    formData: Object;
     isBusy: boolean;
 
     constructor(private $scope, private fxAction) {
-        this.ngModel = this.ngModel || {};
+        this.$scope.$on("$destroy", () => {
+            this.formData = null;
+            this.actionModel = null;
+            this.ngModel = null;
+        });
+        if (this.actionModel) {
+            this.getModelData(this.actionModel);
+        }
+    }
+
+    getModelData(actionModel: IActionModel) {
+        // 取得数据中的特定部分
+        if (actionModel.type === ActionType.form && actionModel.form) {
+            if (pointer.has(this.ngModel, actionModel.form.path || "")) {
+                this.formData = pointer.get(this.ngModel, actionModel.form.path || "");
+            }
+        }
+        !this.formData && (this.formData = {});
     }
 
     getActionModel() {
         this.isBusy = true;
         this.fxAction.getModel(this.key).then((actionModel: IActionModel) => {
-            // 取得数据中的特定部分
-            if (actionModel.type === ActionType.form && actionModel.form) {
-                this.formData = {};
-                if (pointer.has(this.ngModel, actionModel.form.path || "")) {
-                    this.formData = pointer.get(this.ngModel, actionModel.form.path || "");
-                }
-            }
-
+            this.getModelData(actionModel);
             return this.fxAction.getSchema(actionModel);
         }).then((model) => {
             this.actionModel = model;
@@ -67,8 +78,8 @@ function Directive(): ng.IDirective {
         link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attrs: IDirectiveAttr, $ctl: Controller) => {
             $scope.$watch(() => {
                 return $ctl.key;
-            }, () => {
-                $ctl.getActionModel();
+            }, (newValue) => {
+                newValue && $ctl.getActionModel();
             });
         }
     };

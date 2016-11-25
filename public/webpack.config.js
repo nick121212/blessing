@@ -69,6 +69,11 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': 'development'
         }),
-        new ExtractTextPlugin("dashboard.css")
+        new ExtractTextPlugin("dashboard.css"),
+        // new webpack.DllPlugin({
+        //     path: 'manifest.json',
+        //     name: '[name]',
+        //     context: __dirname,
+        // })
     ]
 };

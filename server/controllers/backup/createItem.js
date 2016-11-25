@@ -2,11 +2,11 @@ import mysqlTools from 'mysql-tools';
 import path from 'path';
 import Promise from 'bluebird';
 
-exports = module.exports = (app, logger) => {
+export default (app, logger) => {
     let config = app.config.config.index;
 
     return async(ctx, next) => {
-        await new Promise(function (resolve, reject) {
+        await new Promise(function(resolve, reject) {
             let tool = new mysqlTools();
 
             tool.dumpDatabase({
@@ -15,7 +15,7 @@ exports = module.exports = (app, logger) => {
                 password: config.db.password,
                 database: config.db.database,
                 dumpPath: path.join(config.db.backup, Date.now().toString() + ".sql")
-            }, function (error, output, message, dumpFileName) {
+            }, function(error, output, message, dumpFileName) {
                 if (error instanceof Error) {
                     reject(error);
                 } else {
@@ -24,6 +24,6 @@ exports = module.exports = (app, logger) => {
             });
         });
 
-        ctx.body = {ret: 0};
+        ctx.body = { ret: 0 };
     };
 };

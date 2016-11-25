@@ -1,8 +1,8 @@
 const boom = require("boom");
 
-exports = module.exports = (app, logger) => {
+export default (app, logger) => {
 
-    return (modelName, idField = "id")=> {
+    return (modelName, idField = "id") => {
         "use strict";
 
         let utils = app.config.utils.index;

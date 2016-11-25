@@ -4,11 +4,11 @@
 
 import bodyParser from 'koa-bodyparser';
 
-module.exports = (app, log)=> {
+export default (app, log) => {
     "use strict";
 
     app.use(bodyParser({
-        onerror: function (err, ctx) {
+        onerror: function(err, ctx) {
             log.error("bodyparser", err);
             ctx.throw('body parse error', 422);
         }

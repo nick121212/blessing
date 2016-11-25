@@ -2,7 +2,7 @@ import fs from 'fs';
 import _ from 'lodash';
 import boom from 'boom';
 
-exports = module.exports = (app, logger) => {
+export default (app, logger) => {
     let utils = app.config.utils.index;
     let { client } = app.config.es.index;
 

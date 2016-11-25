@@ -2,7 +2,7 @@ md-content(flex="100",layout="column",ng-cloak)
     fx-side-menu-search
     md-content(flex="100")
         fx-side-menu.side-menu(selected-nodes="sideLeftCtl.selectedNodes",modules="sideLeftCtl.modules",ng-click="sideLeftCtl.doLinkBind")
-            md-button.layout-fill(ng-click="sideCtl.doLinkPre($event,node)",md-style-color="{'background-color': sideCtl.isSelected(node) ? 'primary.100': 'primary.0'}")
+            md-button.layout-fill(ng-click="sideCtl.doLinkPre($event,node)",md-style-color="{'background-color': sideCtl.isSelected(node) ? 'primary.900': 'primary.0'}")
                 div(flex="100",layout="row")
                     md-icon
                         ng-md-icon(icon="{{ node.icon||'apps'}}")

@@ -1,12 +1,7 @@
-/**
- * Created by NICK on 16/8/5.
- */
-
-
 import passport from 'koa-passport';
 import { Strategy } from 'passport-local';
 
-module.exports = (app, log) => {
+export default (app, log) => {
     "use strict";
 
     const user = { id: 1, username: 'nick' };

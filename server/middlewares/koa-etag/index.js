@@ -5,7 +5,7 @@
 import etag from 'koa-etag';
 import conditionalGet from 'koa-conditional-get';
 
-module.exports = (app)=> {
+export default (app) => {
     "use strict";
 
     app.use(conditionalGet());

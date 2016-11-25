@@ -1,21 +1,27 @@
 import { module } from '../module';
 import { IActionModel, IClientData, IQueryData, ActionType } from '../models/action.model';
 import * as pointer from 'json-pointer';
+import * as _ from 'lodash';
 
 class Controller {
     static $inject = ["$scope", "$q", "$timeout", "fxAction", "toolbarUtils", "materialUtils"];
 
     key: string;
-    mdLimitOptions: Array<number> = [10, 30, 50, 100, 300];
+    mdLimitOptions: Array<number> = [1, 10, 30, 50, 100, 300];
     actionModel: IActionModel;
-    clientData: IClientData = {};
-    queryData: IQueryData = { offset: 0, limit: 10, page: 1 };
+    clientData: IClientData;
+    queryData: IQueryData;
     isBusy: boolean = false;
-    showPage: boolean = false;
-    selected: Array<Object> = [];
+    showPage: boolean = true;
+    selected: Array<Object>;
     promise: ng.IPromise<any>;
-
-    tools = [];
+    showToolbar: boolean;
+    _filter: any;
+    multiple: boolean;
+    local: boolean;
+    autoSelect: boolean;
+    itemToolbars: Array<any>;
+    topToolbars: Array<any>;
 
     onOrderChange: Function;
     onPageChange: Function;
@@ -31,16 +37,32 @@ class Controller {
      * @param materialUtils
      */
     constructor(private $scope, private $q, private $timeout, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic) {
+        !this.clientData && (this.clientData = {});
+        !this.selected && (this.selected = []);
+
         fxAction.getModel(this.key).then((model) => {
             this.actionModel = _.cloneDeep(model);
-            this.queryData = _.extend({ offset: 0, limit: 10, page: 1 }, this.actionModel.list.queryData || {});
-            this.initToolbar();
-            this.initItemToolbar();
-            this.doSearch();
+            this.queryData = _.extend({ offset: 0, limit: 10, page: 1 }, this.actionModel.list.queryData || {}, this.queryData || {});
+            if (!this.local) {
+                this.initToolbar();
+                this.initItemToolbar();
+                this.doSearch();
+            } else {
+                this.actionModel.list.itemToolbars = this.itemToolbars || [];
+                this.actionModel.list.toolbars = this.topToolbars || [];
+            }
         });
         this.onOrderChange = this.orderChange.bind(this);
         this.onPageChange = this.pageChange.bind(this);
         this.doSearchBind = this.doSearch.bind(this);
+    }
+
+    orderFunc(): string | Array<string> {
+        if (this.queryData && this.queryData.order) {
+            return this.queryData.order.replace(/\-/ig, '');
+        }
+
+        return [];
     }
 
     /**
@@ -78,25 +100,25 @@ class Controller {
         // 获取操作按钮
         this.fxAction.getModels(this.actionModel.actions).then((actionModels) => {
             // 添加标题label和icon
-            this.actionModel.list.toolbars.push(this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon, { fill: "black" }).toValue());
+            this.actionModel.list.toolbars.push(this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon, {}).toValue());
             this.actionModel.list.toolbars.push(this.toolbarUtils.labelBuilder(`${this.actionModel.title}`).attrBuilder({ flex: "" }).toValue());
             // 添加顶部按钮
             _.forEach(actionModels, (actionModel: IActionModel) => {
                 if (actionModel.type !== ActionType.list) {
-                    this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder(actionModel.title, "md-icon-button", false).tooltipBuilder("").iconBuilder(actionModel.icon, { fill: "black" }).btnClick(($event, item: any) => {
+                    this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder(actionModel.title, "md-icon-button", false).tooltipBuilder("").iconBuilder(actionModel.icon, {}).btnClick(($event, item: any) => {
                         this.doClickActionMenu($event, actionModel, item || {});
                     }).toValue());
                 }
             });
             // 添加刷新按钮
             if (this.actionModel.list.showRefreshBtn) {
-                this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("刷新", "md-icon-button", false).iconBuilder("refresh", { fill: "black" }).btnClick(($event) => {
+                this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("刷新", "md-icon-button", false).iconBuilder("refresh", {}).btnClick(($event) => {
                     this.doSearch(this.queryData.where || {});
                 }).toValue());
             }
             // 添加显示/隐藏搜索按钮
             if (this.actionModel.list.showSearchBtn) {
-                this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("{{listCtl.actionModel.list.showSearchPanel?'关闭搜索栏':'打开搜索栏'}}", "md-icon-button", false).iconBuilder("{{listCtl.actionModel.list.showSearchPanel?'window-open':'window-closed'}}", { fill: "black" }).btnClick(($event) => {
+                this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("{{listCtl.actionModel.list.showSearchPanel?'关闭搜索栏':'打开搜索栏'}}", "md-icon-button", false).iconBuilder("{{listCtl.actionModel.list.showSearchPanel?'window-open':'window-closed'}}", {}).btnClick(($event) => {
                     this.actionModel.list.showSearchPanel = !this.actionModel.list.showSearchPanel;
                 }).toValue());
             }
@@ -133,9 +155,9 @@ class Controller {
                             menu.conditionBuilder(condition);
                         }
                         // 添加到操作
-                        this.tools.push(this.toolbarUtils.btnBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any) => {
-                            this.doClickActionMenu($event, actionModel, item);
-                        }));
+                        // this.tools.push(this.toolbarUtils.btnBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any) => {
+                        //     this.doClickActionMenu($event, actionModel, item);
+                        // }).toValue());
                         menuTool.items.push(menu.toValue());
                         break;
                 }
@@ -152,6 +174,7 @@ class Controller {
     orderChange(order: string) {
         this.queryData.order = order;
         this.doSearch(this.queryData.where || {});
+        this.orderFunc();
     }
 
     /**
@@ -175,8 +198,12 @@ class Controller {
      * @param filterData {Object} 搜索数据
      */
     doSearch(filterData?: any) {
-        this.isBusy = true;
+        // 如果是本地模式，则不调用网络请求
+        if (this.local) {
+            return;
+        }
 
+        this.isBusy = true;
         this.queryData.where = filterData || {};
         this.promise = this.fxAction.doAction(this.key, this.queryData);
 
@@ -203,7 +230,16 @@ function Directive(): ng.IDirective {
         scope: true,
         bindToController: {
             key: "@",
-            selected: '=?'
+            selected: '=?',
+            _filter: '=?filter',
+            clientData: '=?',
+            showToolbar: '=?',
+            multiple: '=?',
+            autoSelect: '=?',
+            local: '=?',
+            itemToolbars: '=?',
+            topToolbars: '=?',
+            qtCtl: '=?'
         },
         controller: Controller,
         controllerAs: 'listCtl',
@@ -211,5 +247,17 @@ function Directive(): ng.IDirective {
         transclude: true
     };
 }
+
+module.filter('skip', function () {
+    return (inputArray, skip) => {
+        if (!inputArray) return [];
+
+        if (skip) {
+            return _.drop(inputArray.concat([]), skip);
+        }
+
+        return inputArray;
+    }
+});
 
 module.directive("fxListAction", Directive);

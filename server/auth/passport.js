@@ -2,10 +2,8 @@
  * Created by NICK on 16/8/5.
  */
 
-module.exports = (app, logger)=> {
-    "use strict";
-
-    app.use((ctx, next)=> {
+export default (app, logger) => {
+    app.use((ctx, next) => {
         if (ctx.isAuthenticated()) {
             return next();
         } else {

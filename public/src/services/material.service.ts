@@ -106,7 +106,7 @@ class Service {
                 return () => {
                     $mdSidenav(navId).toggle()
                         .then(() => {
-
+                            console.log(navId);
                         });
                 };
             }

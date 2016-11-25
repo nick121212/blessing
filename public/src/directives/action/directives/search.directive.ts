@@ -15,6 +15,7 @@ class Controller {
     toolbars: Array<any>;
     isShow: boolean;
     doSearch: Function;
+    filter: any;
 
     constructor(private fxAction, private toolbarUtils) {
         this.initSearchToolbar();
@@ -56,13 +57,17 @@ class Controller {
         if (this.fxAction.doFormCheck($form) && _.isFunction(this.doSearch)) {
             _.forEach(this.formData, (data, key: string) => {
                 if (key.substr(0, 1) === "/") {
-                    if (!_.isNull(data) && !_.isUndefined(data)) {
+                    if (!_.isNull(data) && !_.isUndefined(data) && data != "") {
                         pointer.set(searchData, key, data);
                     } else {
                         pointer.has(searchData, key) && pointer.remove(searchData, key);
                     }
                 }
             });
+
+            if (_.isObject(this.filter) && _.isObject(searchData["where"])) {
+                _.extend(searchData["where"], this.filter);
+            }
 
             this.doSearch(searchData);
         }
@@ -84,6 +89,7 @@ function Directive(): ng.IDirective {
             disabled: '=',
             isShow: '=',
             doSearch: '=?',
+            filter: '=?',
             title: '=?'
         },
         require: `^${_name}`,

@@ -1,5 +1,5 @@
-exports = module.exports = (app, logger) => {
-    return (modelName)=> {
+export default (app, logger) => {
+    return (modelName) => {
         "use strict";
         let utils = app.config.utils.index;
         let Model = utils.findModel(modelName);

@@ -32,7 +32,8 @@ class Builder {
         }
 
         if (this.form.acOptions.keyField) {
-            return this.searchText = viewModel;
+            this.searchText = viewModel;
+            return this.query(true);
         }
         this.searchText = viewModel[this.form.acOptions.textField];
         this.onChange(viewModel);
@@ -82,7 +83,7 @@ class Builder {
      * 查询接口，返回数据
      * @returns {any}
      */
-    query() {
+    query(setValueIfOnlyOne) {
         let actionModel, clientData = {};
         let filter = {};
 
@@ -100,6 +101,11 @@ class Builder {
                 return this.fxAction.doDealResult(actionModel, results, clientData);
             }).then((results) => {
                 return results[this.form.acOptions.dataField];
+            }).then((results) => {
+                if (results.length === 1 && setValueIfOnlyOne) {
+                    this.onChange(results[0]);
+                }
+                return results;
             });
         }
 
@@ -125,16 +131,19 @@ class Controller {
         formWithIndex && (form = _.first(_.filter([formWithIndex], compare)));
         // 获取copy，填充数组索引
         !form && formWithIndex && (form = _.first(_.filter(formWithIndex.items, compare)));
+
         $scope.boost = new Builder(form ? form : $scope.form, fxAction, $scope.model);
-
         let onChange = $scope.boost.onChange.bind($scope.boost);
-
         $scope.boost.onChange = (item) => {
             $scope.ngModel.$setViewValue(onChange(item));
             $scope.ngModel.$commitViewValue();
         }
-
         $scope.options = $scope.form.ngModelOptions;
+
+        $scope.$on("$destroy", () => {
+            $scope.boost = null;
+            $scope.options = null;
+        });
     }
 }
 
@@ -147,6 +156,8 @@ function Directive(): ng.IDirective {
     return {
         restrict: 'A',
         scope: false,
+        priority: 9,
+        require: "ngModel",
         controller: Controller
     };
 

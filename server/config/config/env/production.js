@@ -1,6 +1,6 @@
 import path from 'path';
 
-module.exports = (app) => {
+export default (app) => {
     "use strict";
 
     const ip = process.env.NODE_IP;

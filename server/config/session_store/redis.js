@@ -3,9 +3,9 @@
  */
 
 import Redis from "ioredis";
-import {Store} from "koa-session2";
+import { Store } from "koa-session2";
 
-module.exports = (app) => {
+export default (app) => {
     "use strict";
     class RedisStore extends Store {
         constructor() {

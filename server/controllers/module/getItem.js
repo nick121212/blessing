@@ -1,6 +1,6 @@
 const boom = require("boom");
 
-exports = module.exports = (app, logger) => {
+export default (app, logger) => {
     let utils = app.config.utils.index;
     let Model = utils.findModel(utils.modelNames.module);
 

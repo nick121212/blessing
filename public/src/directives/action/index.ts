@@ -24,4 +24,6 @@ import './directives/builder.directive';
 
 import mdl from './module';
 
+import './index.scss';
+
 export default mdl;

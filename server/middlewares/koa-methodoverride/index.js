@@ -4,7 +4,7 @@
 
 import methodOverride from 'koa-methodoverride';
 
-module.exports = (app, log)=> {
+export default (app, log) => {
     "use strict";
 
     app.use(methodOverride());

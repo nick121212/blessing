@@ -4,10 +4,10 @@
         "name": "启动",
         "type": "node",
         "request": "launch",
-        "program": "${workspaceRoot}/server/index.js",
+        "program": "${workspaceRoot}/servers/index.js",
         "stopOnEntry": false,
         "args": [],
-        "cwd": "${workspaceRoot}/server",
+        "cwd": "${workspaceRoot}/servers",
         "preLaunchTask": null,
         "runtimeExecutable": null,
         "runtimeArgs": [

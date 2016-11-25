@@ -2,9 +2,8 @@
  * Created by NICK on 16/8/5.
  */
 
-
-module.exports = (app, logger)=> {
-    "use strict";
+/** jslint es6 */
+export default (app, logger) => {
     app.use(async(ctx, next) => {
         try {
             await next();

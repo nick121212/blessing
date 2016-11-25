@@ -44,6 +44,13 @@ export const module = angular.module(`${_name}Module`, [ngMaterial, restSvrMod, 
             "./decorators/autocomplete-1.jade",
             [sfBuilderProvider.builders.sfField, sfBuilderProvider.builders.ngModel, layoutBuilder.builder, sfBuilderProvider.builders.condition, sfBuilderProvider.builders.transclusion, autoCompleteBuilder.builder]
         );
+        // querytable--schema-form组件化
+        schemaFormDecoratorsProvider.defineAddOn(
+            'materialDecorator',
+            'querytable',
+            "./decorators/querytable.jade",
+            [sfBuilderProvider.builders.sfField, sfBuilderProvider.builders.ngModel, layoutBuilder.builder, sfBuilderProvider.builders.condition, sfBuilderProvider.builders.transclusion]
+        );
     }])
     .run(["$templateCache", "autoCompleteBuilder", ($templateCache: ng.ITemplateCacheService) => {
         // 打包工具的原因,只能把模板字符串写入cache中
@@ -51,6 +58,7 @@ export const module = angular.module(`${_name}Module`, [ngMaterial, restSvrMod, 
         $templateCache.put('./decorators/card.jade', require("./decorators/card.jade")());
         $templateCache.put('./decorators/autocomplete-1.jade', require("./decorators/autocomplete-1.jade")());
         $templateCache.put('./decorators/section-1.jade', require("./decorators/section-1.jade")());
+        $templateCache.put('./decorators/querytable.jade', require("./decorators/querytable.jade")());
     }]);
 
 export default `${module.name}`;

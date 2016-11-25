@@ -1,9 +1,9 @@
 const boom = require("boom");
 
-exports = module.exports = (app, logger) => {
+export default (app, logger) => {
     let utils = app.config.utils.index;
     let Model = utils.findModel(utils.modelNames.module);
-    let {models, sequelize, Sequelize} = app.config.db.index;
+    let { models, sequelize, Sequelize } = app.config.db.index;
 
     /**
      * 创建模块数据
@@ -32,14 +32,15 @@ exports = module.exports = (app, logger) => {
         }
 
         let parentModel = await Model.findOne({
-            where: {
-                key: model.parentKey || ""
-            }
-        }), parentCount = await Model.count({
-            where: {
-                lft: 1
-            }
-        });
+                where: {
+                    key: model.parentKey || ""
+                }
+            }),
+            parentCount = await Model.count({
+                where: {
+                    lft: 1
+                }
+            });
 
         if (parentCount && !parentModel) {
             throw boom.badData('没有指定父节点!');
@@ -63,13 +64,12 @@ exports = module.exports = (app, logger) => {
                 model.rgt = 2;
             }
 
-            let newModel = await Model.create(model, {transaction: trans});
+            let newModel = await Model.create(model, { transaction: trans });
 
             await trans.commit();
 
             ctx.body = newModel;
-        }
-        catch (e) {
+        } catch (e) {
             await trans.rollback();
 
             throw e;

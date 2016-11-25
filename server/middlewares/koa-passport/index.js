@@ -5,11 +5,11 @@
 import passport from 'koa-passport';
 import session from "koa-session2";
 
-module.exports = (app)=> {
+export default (app) => {
     "use strict";
 
     app.use(session({
-        key: "nicktyui",   //default "koa:sess"
+        key: "nicktyui", //default "koa:sess"
         store: new app.config.session_store.redis()
     }));
     app.use(passport.initialize());

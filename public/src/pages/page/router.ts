@@ -5,6 +5,7 @@
 import {PageController} from './ctls/page.controller';
 import {D3Controller} from './ctls/page.d3.controller';
 import {AllInController} from './ctls/page.allin.controller';
+import {PageExecuteCmdController} from './ctls/page.execute.cmd';
 
 export const initRouter = ($urlRouterProvider, $stateProvider) => {
     // 路由规则
@@ -39,6 +40,26 @@ export const initRouter = ($urlRouterProvider, $stateProvider) => {
                 controller: AllInController,
                 controllerAs: "pageCtl",
                 template: require("./tpls/page.allin.template.jade")()
+            }
+        }
+    }).state('home.executeCmd',{
+        url: "executeCmd/:key",
+        views: {
+            "content": {
+                controller: PageExecuteCmdController,
+                controllerAs: "pageCtl",
+                template: require("./tpls/page.execute.cmd.jade")()
+            }
+        }
+    }).state('home.qt',{
+        url: "qt",
+        views: {
+            "content": {
+                controller: function(){
+
+                },
+                controllerAs: "pageCtl",
+                template: require("./tpls/page.qt.template.jade")()
             }
         }
     });

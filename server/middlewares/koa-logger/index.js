@@ -4,7 +4,7 @@
 
 import logger from 'koa-logger';
 
-module.exports = (app, log)=> {
+export default (app, log) => {
     "use strict";
 
     app.use(logger());

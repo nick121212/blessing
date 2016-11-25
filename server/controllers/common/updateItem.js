@@ -1,7 +1,7 @@
 const boom = require("boom");
 const _ = require('lodash');
 
-exports = module.exports = (app, logger) => {
+export default (app, logger) => {
 
     return (modelName, uniqueFields, idField = "id") => {
         "use strict";

@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import Promise from 'bluebird';
 
-exports = module.exports = (app, logger) => {
+export default (app, logger) => {
     let config = app.config.config.index;
 
     return async(ctx, next) => {

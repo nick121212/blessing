@@ -4,7 +4,7 @@
 
 import Router from 'koa-router';
 
-module.exports = (app) => {
+export default (app) => {
     let utils = app.config.utils.index;
     let router = new Router({
         prefix: `/${utils.modelNames.backup}s`

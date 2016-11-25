@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import boom from "boom";
 
-exports = module.exports = (app, logger, error) => {
+export default (app, logger, error) => {
     let config = app.config.config.index;
 
     return async(ctx, next) => {
@@ -14,6 +14,6 @@ exports = module.exports = (app, logger, error) => {
             throw boom.badData(`没有找到文件！`);
         }
 
-        ctx.body = {ret: 0};
+        ctx.body = { ret: 0 };
     };
 };

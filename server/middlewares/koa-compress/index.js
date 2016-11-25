@@ -4,7 +4,7 @@
 
 import compress from 'koa-compress';
 
-module.exports =(app)=> {
+export default (app) => {
     "use strict";
 
     app.use(compress({

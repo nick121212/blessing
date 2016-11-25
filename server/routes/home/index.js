@@ -4,7 +4,7 @@
 
 import Router from 'koa-router';
 
-module.exports = (app, logger) => {
+export default (app, logger) => {
     let config = app.config.config.index;
     let router = new Router({
         prefix: '/home'

@@ -1,10 +1,10 @@
-exports = module.exports = (app, logger) => {
+export default (app, logger) => {
     // let utils = app.config.utils.index;
     // let Model = utils.findModel(utils.modelNames.module);
-    let {models, sequelize, Sequelize} = app.config.db.index;
+    let { models, sequelize, Sequelize } = app.config.db.index;
 
     return async(ctx, next) => {
-        let sql = [];
+        // let sql = [];
 
         // sql.push(' SELECT node.*,(count(parent.id)-1) as depth');
         // sql.push(' FROM menu as node, menu as parent');

@@ -29,7 +29,7 @@ module.config([
             restAngularConfigure.setErrorInterceptor((response: restangular.IResponse)=> {
                 if (response.status === 401 && !response.config["salt"]) {
                     !$state.is("passport.login") && $state.go("passport.login");
-                    return false;
+                    // return false;
                 }
                 return true;
             });

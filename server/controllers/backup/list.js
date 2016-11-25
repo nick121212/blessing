@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-exports = module.exports = (app, logger) => {
+export default (app, logger) => {
     let config = app.config.config.index;
 
     return async(ctx, next) => {

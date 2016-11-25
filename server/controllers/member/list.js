@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-exports = module.exports = (app, logger) => {
+export default (app, logger) => {
     return (modelName) => {
         let utils = app.config.utils.index;
         let Model = utils.findModel(modelName);

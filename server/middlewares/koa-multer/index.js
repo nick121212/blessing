@@ -4,9 +4,9 @@
 
 import multer from 'koa-multer';
 
-module.exports = (app)=> {
+export default (app) => {
     "use strict";
-    const upload = multer({dest: './uploads/'});
+    const upload = multer({ dest: './uploads/' });
 
     return upload;
 }

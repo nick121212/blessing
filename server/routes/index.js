@@ -5,7 +5,7 @@
 import Router from 'koa-router';
 import * as _ from 'lodash';
 
-module.exports = (app) => {
+export default (app) => {
     let routers = {};
     let { models } = app.config.db.index;
 
