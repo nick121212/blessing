@@ -79,6 +79,7 @@ export default {
         }
     },
     order: [
+        'koa-handle-error',
         'koa-methodoverride',
         'koa-compress',
         'koa-conditional-get',
@@ -87,7 +88,6 @@ export default {
         'koa-better-body',
         "koa-session2",
         'koa-passport',
-        'koa-handle-error',
         'error'
     ]
 }

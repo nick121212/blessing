@@ -12,20 +12,15 @@
     "include": [
         "./typings/index.d.ts",
         "./public/typings/**/*",
-        // "./public/typings/rest.service.d.ts",
-        // "./public/typings/svg.service.d.ts",
-        // "./public/typings/angular-material-data-table.d.ts",
-        // "./public/typings/angular-material-icons.d.ts",
-        // "./public/typings/d3.v4.d.ts",
         "./public/src/**/*"
     ],
     "exclude": [
-        "./.idea",
-        "./.vscode",
-        "./mappings",
-        "./server",
-        "./public/node_modules",
-        "./public/built",
-        "./public/svgs"
+        "./.idea/**/*",
+        "./.vscode/**/*",
+        "./mappings/**/*",
+        "./server/**/*",
+        "./public/node_modules/**/*",
+        "./public/built/**/*",
+        "./public/svgs/**/*"
     ]
 }

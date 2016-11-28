@@ -8,6 +8,7 @@ import uiRouter from 'angular-ui-router';
 import * as ngMaterialIcons from 'angular-material-icons';
 import * as mdDataTable from 'angular-material-data-table';
 import * as Pointer from 'json-pointer';
+import * as io from 'socket.io-client';
 
 import { initRouter } from './router';
 import materialServiceMod from '../../services/material.service';
@@ -15,17 +16,15 @@ import restRegMod from '../../services/rest.service';
 import actionDir from '../../directives/action';
 import dyCompileMod from '../../directives/dycompile';
 import queryTable from '../../directives/query.table';
-
 import compareDir from '../../directives/compare';
-
 import executeCmdFunc from './services/execute.cmd';
 
+import 'angular-socket-io';
 import 'angular-gridster';
-
 import 'angular-gridster.css';
 import './index.scss';
 
-const module = angular.module("pageModule", [compareDir, ngMaterialIcons, dyCompileMod, actionDir, mdDataTable, ngMaterial as string, 'ui.router', 'gridster', materialServiceMod, restRegMod, queryTable]);
+export const module = angular.module("pageModule", [compareDir, ngMaterialIcons, dyCompileMod, actionDir, mdDataTable, ngMaterial as string, 'ui.router', 'gridster', 'btford.socket-io', materialServiceMod, restRegMod, queryTable]);
 
 executeCmdFunc(module);
 
@@ -47,5 +46,19 @@ module.config([
         });
     }]);
 
+module.factory("sockets", ["socketFactory", (socketFactory) => {
+    const events = socketFactory({
+        ioSocket: io("http://localhost:3000/events"),
+    });
+
+    events.forward("error");
+    events.forward("events");
+    events.forward("connect");
+    events.forward("disconnect");
+
+    return {
+        events: events
+    };
+}]);
 
 export default `${module.name}`;

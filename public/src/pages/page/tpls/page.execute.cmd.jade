@@ -8,7 +8,7 @@ md-content(flex,layout="column")
                         md-icon
                             ng-md-icon(icon="arrow_forward")
             md-divider
-            div(fx-form-action,flex,key="resultAction",ng-model="pageCtl.executeResult")
+            div(ui-view="result")
     md-toolbar.md-table-toolbar.md-hue-2(md-style-color1="{'color': 'primary.A100'}")
         div.md-toolbar-tools(fx-toolbar,layout="row",items="pageCtl.toolbars",ctls="pageCtl")
     md-divider

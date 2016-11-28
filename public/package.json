@@ -85,7 +85,9 @@
     "angular-material-icons": "^0.7.1",
     "angular-motion": "^0.4.4",
     "angular-schema-form": "^0.8.13",
+    "angular-socket-io": "^0.7.0",
     "angular-ui-router": "^0.3.1",
+    "angular-websocket": "^2.0.1",
     "d3": "^4.3.0",
     "event-source-polyfill": "0.0.7",
     "jsoneditor": "^5.5.7",
@@ -103,6 +105,7 @@
     "tv4": "^1.2.7",
     "tv4-formats": "^2.2.0",
     "validator": "git+https://github.com/chriso/validator.js.git",
-    "validator-js": "^0.2.1"
+    "validator-js": "^0.2.1",
+    "ws": "^1.1.1"
   }
 }

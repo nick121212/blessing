@@ -12,7 +12,7 @@ export const routers = {
 }
 
 export const init = (router, sequelizeModel) => {
-    console.log(router.getRoutes("/"));
+
 }
 
 export const config = {

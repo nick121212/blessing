@@ -52,11 +52,6 @@ export class BRouter {
 
             this.doInitRouter(model.name, router, model);
             this.doInitRouter('common', router, model);
-
-            if (model.name === "module") {
-                console.log(router);
-            }
-
             this.routers[model.name] = router;
 
             app.use(router.middleware());
