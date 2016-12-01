@@ -8,7 +8,6 @@ import uiRouter from 'angular-ui-router';
 import * as ngMaterialIcons from 'angular-material-icons';
 import * as mdDataTable from 'angular-material-data-table';
 import * as Pointer from 'json-pointer';
-import * as io from 'socket.io-client';
 
 import { initRouter } from './router';
 import materialServiceMod from '../../services/material.service';
@@ -18,13 +17,13 @@ import dyCompileMod from '../../directives/dycompile';
 import queryTable from '../../directives/query.table';
 import compareDir from '../../directives/compare';
 import executeCmdFunc from './services/execute.cmd';
+import executeMdlName from '../../directives/execute';
 
 import 'angular-socket-io';
 import 'angular-gridster';
-import 'angular-gridster.css';
 import './index.scss';
 
-export const module = angular.module("pageModule", [compareDir, ngMaterialIcons, dyCompileMod, actionDir, mdDataTable, ngMaterial as string, 'ui.router', 'gridster', 'btford.socket-io', materialServiceMod, restRegMod, queryTable]);
+export const module = angular.module("pageModule", [executeMdlName, compareDir, ngMaterialIcons, dyCompileMod, actionDir, mdDataTable, ngMaterial as string, 'ui.router', 'gridster', 'btford.socket-io', materialServiceMod, restRegMod, queryTable]);
 
 executeCmdFunc(module);
 
@@ -44,21 +43,14 @@ module.config([
                 }
             });
         });
+
+        $rootScope.$on("executeCmdList:clickItem", (event, actionModel, item) => {
+            if (actionModel.key === "executeCmdResList-detail") {
+                $rootScope.$broadcast("showExecuteCmdResult", item._id);
+                actionModel.cancel = true;
+            }
+            // alert(1);
+        });
     }]);
-
-module.factory("sockets", ["socketFactory", (socketFactory) => {
-    const events = socketFactory({
-        ioSocket: io("http://localhost:3000/events"),
-    });
-
-    events.forward("error");
-    events.forward("events");
-    events.forward("connect");
-    events.forward("disconnect");
-
-    return {
-        events: events
-    };
-}]);
 
 export default `${module.name}`;

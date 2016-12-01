@@ -1,9 +1,4 @@
-/**
- * Created by NICK on 16/8/9.
- */
-
 import './styles/loading.scss';
-import * as angular from 'angular';
 
 const _name = "fxLoading";
 

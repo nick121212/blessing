@@ -5,7 +5,7 @@ import rabbit from './rabbitmq';
 export class CmdbEvents {
     constructor(socket) {
         this.socket = socket;
-        this.getEvents();
+        // this.getEvents();
     }
 
     async getEvents() {
@@ -17,10 +17,15 @@ export class CmdbEvents {
         await result.ch.consume(result.q.queue, (msg) => {
             let commandResult = JSON.parse(msg.content.toString());
 
-            this.socket.eventsIo.broadcast("events", commandResult);
+            // 
+            console.log("socket", `${commandResult.jid}#${commandResult.deviceSn}`);
+            this.socket.eventsIo.broadcast("events", {
+                _id: `${commandResult.jid}#${commandResult.deviceSn}`,
+                _source: commandResult
+            });
 
             setTimeout(function() {
-                result.ch.reject(msg);
+                result.ch.ack(msg);
             }, 10);
         });
 

@@ -129,4 +129,6 @@ export interface IActionModel {
     refreshList?: boolean ;
     // 执行成功后是否需要关闭dialog
     closeDialog?: boolean;
+    // 回调是否取消事件
+    cancel?:boolean;
 }

@@ -4,7 +4,7 @@ import * as pointer from 'json-pointer';
 import * as _ from 'lodash';
 
 class Controller {
-    static $inject = ["$scope", "$q", "$timeout", "fxAction", "toolbarUtils", "materialUtils"];
+    static $inject = ["$rootScope", "$scope", "$q", "$timeout", "fxAction", "toolbarUtils", "materialUtils"];
 
     key: string;
     mdLimitOptions: Array<number> = [1, 10, 30, 50, 100, 300];
@@ -36,7 +36,7 @@ class Controller {
      * @param toolbarUtils
      * @param materialUtils
      */
-    constructor(private $scope, private $q, private $timeout, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic) {
+    constructor(private $rootScope: angular.IRootScopeService, private $scope: angular.IScope, private $q, private $timeout, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic) {
         !this.clientData && (this.clientData = {});
         !this.selected && (this.selected = []);
 
@@ -55,6 +55,25 @@ class Controller {
         this.onOrderChange = this.orderChange.bind(this);
         this.onPageChange = this.pageChange.bind(this);
         this.doSearchBind = this.doSearch.bind(this);
+        // 销毁事件
+        this.$scope.$on("$destroy", () => {
+            this.actionModel = null;
+            this.queryData = null;
+            this.onOrderChange = null;
+            this.onPageChange = null;
+            this.doSearchBind = null;
+            this.selected = null;
+            this.itemToolbars = null;
+            this.topToolbars = null;
+        });
+
+        this.$scope.$watch(() => {
+            return this._filter;
+        }, (newValue, oldValue) => {
+            if (newValue && newValue != oldValue) {
+                this.doSearch();
+            }
+        });
     }
 
     orderFunc(): string | Array<string> {
@@ -74,6 +93,11 @@ class Controller {
     doClickActionMenu($event, actionModel: IActionModel, item) {
         let itemSource = _.clone(item);
 
+        actionModel.cancel = false;
+        this.$rootScope.$broadcast(`${this.key}:clickItem`, actionModel, item);
+        if (actionModel.cancel) {
+            return;
+        }
         // 取得数据中的特定部分
         if (actionModel.type === ActionType.form || actionModel.type === ActionType.wizard) {
             itemSource = {};
@@ -82,7 +106,9 @@ class Controller {
             }
         }
         // 执行相应的操作
-        this.fxAction.doActionModel($event, actionModel, itemSource).then((result) => {
+        let promise = this.fxAction.doActionModel($event, actionModel, itemSource);
+
+        promise && promise.then((result) => {
             this.materialUtils.showMsg(`${actionModel.successMsg || "操作成功!"}`);
             this.$timeout(() => {
                 if (actionModel.refreshList) {
@@ -122,6 +148,7 @@ class Controller {
                     this.actionModel.list.showSearchPanel = !this.actionModel.list.showSearchPanel;
                 }).toValue());
             }
+            this.$rootScope.$broadcast(`${this.key}:toolbarComplete`, this.actionModel.list.toolbars);
         });
     }
 
@@ -144,6 +171,7 @@ class Controller {
 
                 // 添加操作按钮
                 switch (actionModel.type) {
+                    case ActionType.none:
                     case ActionType.form:
                     case ActionType.wizard:
                     case ActionType.confirm:
@@ -164,6 +192,7 @@ class Controller {
             });
             // 单挑数据的操作按钮数据
             this.actionModel.list.itemToolbars = [menuTool];
+            this.$rootScope.$broadcast(`${this.key}:itemToolbarComplete`, menuTool.items);
         });
     }
 
@@ -205,6 +234,11 @@ class Controller {
 
         this.isBusy = true;
         this.queryData.where = filterData || {};
+
+        if (_.isObject(this._filter) && _.isObject(this.queryData["where"])) {
+            _.extend(this.queryData["where"], this._filter);
+        }
+
         this.promise = this.fxAction.doAction(this.key, this.queryData);
 
         if (!this.promise) {
@@ -212,6 +246,7 @@ class Controller {
         }
         this.promise.then((result) => {
             this.fxAction.doDealResult(this.actionModel, result, this.clientData);
+            this.$rootScope.$broadcast(`${this.key}:searchComplete`, this.clientData);
         }).finally(() => {
             this.isBusy = false;
         });
@@ -249,10 +284,10 @@ function Directive(): ng.IDirective {
 }
 
 module.filter('skip', function () {
-    return (inputArray, skip) => {
+    return (inputArray, skip, isLocal) => {
         if (!inputArray) return [];
 
-        if (skip) {
+        if (skip && isLocal) {
             return _.drop(inputArray.concat([]), skip);
         }
 

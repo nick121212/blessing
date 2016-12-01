@@ -33,25 +33,50 @@ export default (sequelizeModel) => {
             listip: _.map(modelIntance.listIps, (service) => {
                 return {
                     deviceSn: service._source.deviceSn,
-                    ip: service._source.ip[0]
+                    ip: service._source.minionid
                 }
             }),
             args: command.args.split(',') || [], // modelIntance.args ? modelIntance.args.split(',') : [],
             cmdKey: command.key
         };
 
-        let esRes = await client.create({
-            index: "cmdb.execute.cmd",
-            type: "salt",
-            id: queueItem.cmdid,
-            body: {
-                command: command,
-                cmdKey: command.key,
-                listip: modelIntance.listIps,
-                createdAt: Date.now()
+        let bodies = [];
+
+        bodies.push({
+            index: {
+                _index: "cmdb.execute.cmd",
+                _type: "salt",
+                _id: queueItem.cmdid,
             }
         });
+        bodies.push({
+            command: command,
+            cmdKey: command.key,
+            devLen: modelIntance.listIps.length,
+            createdAt: Date.now()
+        });
 
+        _.each(modelIntance.listIps, (device) => {
+            bodies.push({
+                index: {
+                    _index: "commdone.logs",
+                    _type: "cmd",
+                    _id: queueItem.cmdid + "#" + device._source.deviceSn
+                }
+            });
+            bodies.push(_.extend({
+                return: "",
+                jid: queueItem.cmdid,
+                success: null,
+                deviceSn: device._source.deviceSn,
+                minionid: device._source.minionid,
+                hostname: device._source.hostname
+            }, {}));
+        });
+
+        let esRes = await client.bulk({
+            body: bodies
+        });
         let result = await rabbitmq.getQueue("cmdb.command", {});
         let res = await result.ch.publish("amq.topic", `salt.commands`, new Buffer(JSON.stringify(queueItem)), {
             persistent: true

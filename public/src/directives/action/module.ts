@@ -1,9 +1,8 @@
 
-import * as angular from 'angular';
 import * as ngMaterial from 'angular-material';
 import restSvrMod from '../../services/rest.service';
 
-import 'expose?JSONEditor!jsoneditor';
+import 'expose?JSONEditor!jsoneditor.js';
 import 'ng-jsoneditor';
 import 'angular-schema-form';
 import 'angular-schema-form-ng-material';

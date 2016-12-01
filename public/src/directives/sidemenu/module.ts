@@ -3,7 +3,6 @@
  */
 
 import * as _ from 'lodash';
-
 import "./styles/sidemenu.scss";
 
 const _name = "fxSideMenu", _module = `${_name}Module`;

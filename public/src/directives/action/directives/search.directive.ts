@@ -15,7 +15,6 @@ class Controller {
     toolbars: Array<any>;
     isShow: boolean;
     doSearch: Function;
-    filter: any;
 
     constructor(private fxAction, private toolbarUtils) {
         this.initSearchToolbar();
@@ -65,9 +64,9 @@ class Controller {
                 }
             });
 
-            if (_.isObject(this.filter) && _.isObject(searchData["where"])) {
-                _.extend(searchData["where"], this.filter);
-            }
+            // if (_.isObject(this.filter) && _.isObject(searchData["where"])) {
+            //     _.extend(searchData["where"], this.filter);
+            // }
 
             this.doSearch(searchData);
         }
@@ -89,7 +88,6 @@ function Directive(): ng.IDirective {
             disabled: '=',
             isShow: '=',
             doSearch: '=?',
-            filter: '=?',
             title: '=?'
         },
         require: `^${_name}`,

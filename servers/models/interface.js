@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         group: { type: DataTypes.STRING(10), allowNull: false },
         protocol: { type: DataTypes.STRING(10), allowNull: true },
         method: { type: DataTypes.INTEGER, allowNull: true },
-        path: { type: DataTypes.STRING(20), allowNull: true },
+        path: { type: DataTypes.STRING(50), allowNull: true },
         host: { type: DataTypes.STRING(20), allowNull: true },
         port: { type: DataTypes.INTEGER, allowNull: true },
         server: { type: DataTypes.STRING(10), allowNull: true },

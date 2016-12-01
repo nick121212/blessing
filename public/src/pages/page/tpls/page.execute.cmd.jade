@@ -1,14 +1,4 @@
 md-content(flex,layout="column")
-    md-sidenav.sidenav-80.md-sidenav-right(md-component-id="executeCmdRight",layout="column",md-disable-backdrop,md-whiteframe="4",md-is-open="pageCtl.isOpen")
-        md-content(flex,layout="column")
-            md-toolbar.md-table-toolbar.md-hue-2(layout="row")
-                div.md-toolbar-tools
-                    span(flex) 结果
-                    md-button.md-icon-button(ng-click="pageCtl.showSivenav()")
-                        md-icon
-                            ng-md-icon(icon="arrow_forward")
-            md-divider
-            div(ui-view="result")
     md-toolbar.md-table-toolbar.md-hue-2(md-style-color1="{'color': 'primary.A100'}")
         div.md-toolbar-tools(fx-toolbar,layout="row",items="pageCtl.toolbars",ctls="pageCtl")
     md-divider

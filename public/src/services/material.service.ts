@@ -2,8 +2,6 @@
  * Created by NICK on 16/8/12.
  */
 
-import * as angular from 'angular';
-
 class Service {
     public static _name: string = "materialUtils";
 

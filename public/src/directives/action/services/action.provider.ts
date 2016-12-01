@@ -377,6 +377,8 @@ class Provider {
             // 设置全局header的值
             this.doDealResult(actionModel, results, this.restUtils.headers, 'header');
 
+            results.actionModel = actionModel;
+
             return results;
         });
     }

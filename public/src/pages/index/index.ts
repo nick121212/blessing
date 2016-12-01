@@ -3,21 +3,21 @@
  * 链接所有的页面
  */
 
-import * as angular from 'angular';
-import 'angular-loading-bar';
+import 'angular';
 import * as ngAnimate from 'angular-animate';
 import loadingDir from '../../directives/loading';
 
 import pageModule from '../page';
 import homeModule from '../home';
 import passportModule from '../passport';
-import saltModule from '../salt';
+// import saltModule from '../salt';
 
 import './index.scss';
+import 'angular-loading-bar';
 
-const module = angular.module("indexApp", [ngAnimate, "angular-loading-bar", passportModule, homeModule, pageModule, loadingDir, saltModule]);
+const module = angular.module("indexApp", [ngAnimate, "angular-loading-bar", passportModule, homeModule, pageModule, loadingDir]);
 
-module.config(["cfpLoadingBarProvider", "$mdThemingProvider", "$mdAriaProvider", (cfpLoadingBarProvider, $mdThemingProvider, $mdAriaProvider)=> {
+module.config(["cfpLoadingBarProvider", "$mdThemingProvider", "$mdAriaProvider", (cfpLoadingBarProvider, $mdThemingProvider, $mdAriaProvider) => {
     // ng-loading-bar设置
     cfpLoadingBarProvider.includeSpinner = true;
     cfpLoadingBarProvider.latencyThreshold = 1000;
@@ -32,9 +32,10 @@ module.config(["cfpLoadingBarProvider", "$mdThemingProvider", "$mdAriaProvider",
     $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
 }]);
 
-angular.element(document).ready(() => {
+window.onload = () => {
+    console.log("bootstrap");
     angular.bootstrap(document, [module.name]);
-});
+};
 
 // +(function () {
 //     var _log = console.log;

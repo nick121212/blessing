@@ -5,7 +5,7 @@
 import { PageController } from './ctls/page.controller';
 import { D3Controller } from './ctls/page.d3.controller';
 import { AllInController } from './ctls/page.allin.controller';
-import { PageExecuteCmdController, PageExecuteCmdResultController } from './ctls/page.execute.cmd';
+import { PageExecuteCmdController } from './ctls/page.execute.cmd';
 
 export const initRouter = ($urlRouterProvider, $stateProvider) => {
     // 路由规则
@@ -49,11 +49,6 @@ export const initRouter = ($urlRouterProvider, $stateProvider) => {
                 controller: PageExecuteCmdController,
                 controllerAs: "pageCtl",
                 template: require("./tpls/page.execute.cmd.jade")()
-            },
-            "result@home.executeCmd": {
-                controller: PageExecuteCmdResultController,
-                controllerAs: "pageCtl",
-                template: require("./tpls/page.execute.cmd.result.jade")()
             }
         }
     });

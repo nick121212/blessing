@@ -1,5 +1,4 @@
 import * as _ from 'lodash';
-import * as angular from 'angular';
 
 const _name = "fxToolbar";
 

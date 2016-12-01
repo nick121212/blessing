@@ -1,0 +1,34 @@
+md-sidenav.sidenav-80.md-sidenav-right(md-component-id="executeCmdRight",layout="column",md-whiteframe="4",md-is-open="executeCmdCtl.isOpen")
+    md-content(flex,layout="column")
+        md-toolbar.md-table-toolbar.md-hue-2(layout="row")
+            div.md-toolbar-tools
+                span(flex) 执行结果
+                md-button.md-icon-button(ng-click="executeCmdCtl.isOpen=false;")
+                    md-icon
+                        ng-md-icon(icon="arrow_forward")
+        md-divider
+        md-content(flex,layout="column")
+            div(layout="row",style="max-height:400px;")
+                md-card
+                    md-card-title(flex="none")
+                        md-card-title-text
+                            span.md-headline 命令详情({{executeCmdCtl.command.key}})
+                        md-card-title-media
+                    md-card-content(layout="column",flex)
+                        h3 命令说明：{{ executeCmdCtl.command.title }}
+                        h4 命令：{{ executeCmdCtl.command.cmd }}
+                        p 参数：{{ executeCmdCtl.command.args }}
+                md-card(flex)
+                    md-card-content(layout="row")
+                        div(ng-if="executeCmdCtl.jid",fx-list-action,key="{{executeCmdCtl.listKey}}",selected="executeCmdCtl.deviceSelected",flex,multiple="true",auto-select="true",filter="executeCmdCtl.resFilter",client-data="executeCmdCtl.cmdResClientData")
+            md-content(flex)
+                md-card(flex)
+                    md-card-title(flex="none")
+                        md-card-title-text
+                            span.md-headline 结果反馈
+                    md-card-content(layout="column",flex)
+                        md-list()
+                            md-list-item.md-3-line(ng-repeat="item in executeCmdCtl.deviceSelected")
+                                div.md-list-item-text(layout="column")
+                                    h2 {{item._source.id}} -- {{item._source.deviceSn}}
+                                    div(angular-terminal="item._source.deviceSn",greetings="{{item._source.return||'no info'}}")
