@@ -5,10 +5,10 @@ import removeItem from './removeItem';
 import auth from '../../auth';
 
 export const routers = {
-    'POST /': [auth.passport, createItem],
-    'DELETE /:key': [auth.passport, removeItem],
-    'GET /all/menu': [auth.passport, menu],
-    'POST /manual/crud': [auth.passport, crud]
+    'POST /': [auth.passport,auth.permission, createItem],
+    'DELETE /:key': [auth.passport,auth.permission, removeItem],
+    'GET /all/menu': [auth.passport,auth.permission, menu],
+    'POST /manual/crud': [auth.passport,auth.permission, crud]
 }
 
 export const init = (router, sequelizeModel) => {

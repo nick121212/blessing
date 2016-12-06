@@ -40,11 +40,11 @@ class ListAction {
                 method: MethodType.GET,
                 address: "",
                 port: null,
-                path: "actions",
+                path: "/actions/manual/opera",
                 jpp: {
                     set: [{ "from": "/count", "to": "/total" }, { "from": "/rows", "to": "/rows" }]
                 },
-                isRestful: true
+                isRestful: false
             }]
         };
 

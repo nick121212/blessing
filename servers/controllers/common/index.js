@@ -6,11 +6,11 @@ import list from './list';
 import auth from '../../auth';
 
 export const routers = {
-    'GET /': [auth.passport, list],
-    'GET /:key': [auth.passport, getItem],
-    'POST /': [auth.passport, createItem],
-    'DELETE /:key': [auth.passport, removeItem],
-    'PUT /:key': [auth.passport, updateItem]
+    'GET /': [auth.passport, auth.permission, list],
+    'GET /:key': [auth.passport, auth.permission, getItem],
+    'POST /': [auth.passport, auth.permission, createItem],
+    'DELETE /:key': [auth.passport, auth.permission, removeItem],
+    'PUT /:key': [auth.passport, auth.permission, updateItem]
 }
 
 export const init = (router, sequelizeModel) => {

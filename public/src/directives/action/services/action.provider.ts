@@ -44,11 +44,12 @@ class Provider {
 
         this.getModel("actionCommonfx-1").then((actionModel: IActionModel) => {
             this.doAction(actionModel.key, {
-                where: {
-                    key: {
-                        "$eq": key
-                    }
-                }
+                // where: {
+                //     key: {
+                //         "$eq": key
+                //     }
+                // }
+                key: key
             }).then((results: any) => {
                 let resource = { rows: [] };
 
@@ -57,8 +58,7 @@ class Provider {
                     config.env === "production" && mdl.module.value(key, resource.rows[0]);
                     return defer.resolve(resource.rows[0]);
                 }
-
-                this.mdUtils.showErrMsg(`没有找到key[${key}]!`);
+                // this.mdUtils.showErrMsg(`没有找到key[${key}]!`);
                 defer.reject(key);
             });
         }).catch(defer.reject);
@@ -264,7 +264,7 @@ class Provider {
             if (result && jpp) {
                 // 接口数据拷贝到本地
                 _.each(jpp.set, (val) => {
-                    pointer.has(result, val.from) && pointer.set(clientData, val.to, pointer.get(result, val.from));
+                    pointer.has(result, val.from || "") && pointer.set(clientData, val.to || "", pointer.get(result, val.from || ""));
                 });
                 // 本地数据的删除
                 _.isArray(jpp.del) && _.each(jpp.del, (val) => {
@@ -303,7 +303,7 @@ class Provider {
      * @param $form
      * @returns {IPromise<TResult>}
      */
-    doAction(key: string, queryData: Object | restangular.IElement, $form?: ng.IFormController) {
+    doAction(key: string, queryData: Object | restangular.IElement, $form?: ng.IFormController, useType?: string) {
         let queryDataCline, actionModel;
 
         if (!this.doFormCheck($form)) {
@@ -317,7 +317,12 @@ class Provider {
 
             actionModel = aModel;
             // 获取接口列表,使用restangular处理接口地址,最后调用接口,返回promise
-            _.each(actionModel.interfaces, (interfaceModel: IInterfaceModel) => {
+            _.each(_.filter(actionModel.interfaces, (inte: IInterfaceModel) => {
+                if (useType) {
+                    return inte.useType == useType;
+                }
+                return !inte.useType;
+            }), (interfaceModel: IInterfaceModel) => {
                 // 获取接口的地址
                 let promise: ng.IPromise<any>,
                     restAngular = interfaceModel.isRestful
@@ -337,33 +342,23 @@ class Provider {
                 // 请求加上额外的参数
                 interfaceModel.config && restAngular.withHttpConfig(interfaceModel.config);
 
+                headers = _.extend({ 'Action-Key': actionModel.key }, headers);
                 // 判断接口请求类型,做提交操作
                 switch (interfaceModel.method) {
                     case MethodType.POST:
                         promise = restAngular.post(queryDataCline, null, headers);
                         break;
                     case MethodType.GET:
-                        // promise = restAngular.customGET(
-                        //     (interfaceModel.params && pointer.has(queryDataCline, idFieldPath)) ? pointer.get(queryDataCline, idFieldPath) : null,
-                        //     queryDataCline, headers);
                         restAngular = this.doGetField(restAngular, queryDataCline, interfaceModel);
                         promise = restAngular.customGET(null, queryDataCline, headers);
                         break;
                     case MethodType.PUT:
-                        // if (!pointer.has(queryDataCline, idFieldPath)) {
-                        //     return console.error(`没有找到${idFieldPath}`);
-                        // }
-                        // promise = restAngular.customPUT(_.isObject(queryDataCline) ? queryDataCline : null, pointer.get(queryDataCline, idFieldPath), headers);
                         restAngular = this.doGetField(restAngular, queryDataCline, interfaceModel, ["/id"]);
-                        promise = restAngular.customPUT(_.isObject(queryDataCline) ? queryDataCline : null, null, headers);
+                        promise = restAngular.customPUT(_.isObject(queryDataCline) ? queryDataCline : null, null, null, headers);
                         break;
                     case MethodType.DELETE:
-                        // if (!pointer.has(queryDataCline, idFieldPath)) {
-                        //     return console.error(`没有找到${idFieldPath}`);
-                        // }
-                        // promise = restAngular.customDELETE(pointer.get(queryDataCline, idFieldPath), headers);
                         restAngular = this.doGetField(restAngular, queryDataCline, interfaceModel, ["/id"]);
-                        promise = restAngular.customDELETE(null, headers);
+                        promise = restAngular.customDELETE(null, null, headers);
                         break;
                 }
                 interfacesRest[interfaceModel.key] = promise;

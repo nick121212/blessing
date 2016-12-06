@@ -9,7 +9,7 @@ const connPromise = amqplib.connect(connectionStr);
 let channel = null;
 let connection = null;
 
-function getQueue(qName, qSetting) {
+let getQueue = (qName, qSetting) => {
     let ch = null;
 
     return connPromise.then(conn => {
@@ -30,15 +30,8 @@ function getQueue(qName, qSetting) {
     });
 }
 
-function closeChannel() {
-    if (connection) {
-        return connection.close();
-    }
-}
-
 export default {
     getQueue: getQueue,
-    close: closeChannel,
     cancel: (tag) => {
         return channel.cancel(tag);
     }

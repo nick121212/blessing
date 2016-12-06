@@ -11,7 +11,7 @@ export default (sequelizeModel) => {
         let trans = await db.sequelize.transaction();
         let modelIntance = await sequelizeModel.findOne({
             where: {
-                id: key
+                key: key
             }
         });
         if (!modelIntance) {

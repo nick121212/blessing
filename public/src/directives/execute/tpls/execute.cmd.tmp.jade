@@ -8,6 +8,8 @@ md-sidenav.sidenav-80.md-sidenav-right(md-component-id="executeCmdRight",layout=
                         ng-md-icon(icon="arrow_forward")
         md-divider
         md-content(flex,layout="column")
+            md-progress-linear.md-accent(ng-if="!executeCmdCtl.process.fail",md-mode="buffer",value="{{executeCmdCtl.process.complete}}",md-buffer-value="{{executeCmdCtl.process.buffer}}")
+            md-progress-linear.md-warn(ng-if="executeCmdCtl.process.fail",md-mode="buffer",value="{{executeCmdCtl.process.complete}}",md-buffer-value="{{executeCmdCtl.process.buffer}}")
             div(layout="row",style="max-height:400px;")
                 md-card
                     md-card-title(flex="none")
@@ -18,6 +20,7 @@ md-sidenav.sidenav-80.md-sidenav-right(md-component-id="executeCmdRight",layout=
                         h3 命令说明：{{ executeCmdCtl.command.title }}
                         h4 命令：{{ executeCmdCtl.command.cmd }}
                         p 参数：{{ executeCmdCtl.command.args }}
+                        //- span {{executeCmdCtl.process | json}}
                 md-card(flex)
                     md-card-content(layout="row")
                         div(ng-if="executeCmdCtl.jid",fx-list-action,key="{{executeCmdCtl.listKey}}",selected="executeCmdCtl.deviceSelected",flex,multiple="true",auto-select="true",filter="executeCmdCtl.resFilter",client-data="executeCmdCtl.cmdResClientData")

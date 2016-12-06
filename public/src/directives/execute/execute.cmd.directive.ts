@@ -6,6 +6,14 @@ interface ICmdClientData extends IClientData {
     cmdResMap?: any;
 }
 
+interface IExecuteProcess {
+    total: number;
+    success: number;
+    fail: number;
+    buffer?: number;
+    complete?: number;
+}
+
 export class PageExecuteCmdResultController {
     static $inject = ["$scope", "fxAction", "sockets", "$q", "$timeout", "toolbarUtils", "materialUtils"];
 
@@ -21,6 +29,7 @@ export class PageExecuteCmdResultController {
     realTime: boolean;
     resFilter: any;
     listKey: string = 'executeCmdResList';
+    process: IExecuteProcess = { fail: 0, success: 0, total: 0 };
 
     constructor(private $scope, private fxAction, private sockets, private $q: angular.IQService, private $timeout, private toolbarUtils, private materialUtils: fx.utils.materialStatic) {
         if (this.realTime) {
@@ -44,6 +53,7 @@ export class PageExecuteCmdResultController {
                             _.extend(devices[key], msg);
                         });
                     }
+                    this.setProcess(msg._source.success);
                 }
             });
         }
@@ -57,10 +67,12 @@ export class PageExecuteCmdResultController {
         });
 
         this.$scope.$on(`${this.listKey}:searchComplete`, (event, data) => {
+            this.resetProcess();
             _.each(data.rows, (item, key) => {
                 if (this.cmdResMap.hasOwnProperty(item._id)) {
                     _.extend(data.rows[key], this.cmdResMap[item._id]);
                 }
+                this.setProcess(data.rows[key]._source.success);
             });
             console.log("searchComplete", data.rows);
             // data.rows.length && (this.deviceSelected = [].concat(data.rows));
@@ -71,6 +83,25 @@ export class PageExecuteCmdResultController {
             this.toolbarUtils.noneBuilder("icon").iconBuilder('apple-keyboard-command', {}).toValue(),
             this.toolbarUtils.labelBuilder('执行命令').attrBuilder({ flex: "" }).toValue()
         ];
+    }
+
+    resetProcess() {
+        this.process.fail = 0;
+        this.process.success = 0;
+        // this.process.total = 0;
+        this.process.complete = 0;
+        this.process.buffer = 0;
+    }
+
+    setProcess(success) {
+        if (success === true) {
+            this.process.success++;
+        } else if (success === false) {
+            this.process.fail++;
+        }
+
+        this.process.complete = (this.process.success + this.process.fail) / this.process.total * 100;
+        this.process.buffer = 100;
     }
 
     getCommandResult(cmdId: string) {
@@ -91,6 +122,7 @@ export class PageExecuteCmdResultController {
         }).then(() => {
             if (this.cmdClientData.rows.length) {
                 this.command = this.cmdClientData.rows[0]._source.command;
+                this.process.total = this.cmdClientData.rows[0]._source.devLen;
                 // this.deviceClientData.rows = this.cmdClientData.rows[0]._source.listip;
                 // this.deviceClientData.rows.length && (this.deviceSelected = [].concat(this.deviceClientData.rows));
             } else {

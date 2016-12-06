@@ -11,7 +11,6 @@ export default (sequelize, DataTypes) => {
     return sequelize.define('action', {
         key: {
             type: DataTypes.STRING(50),
-            // primaryKey: true,
             unique: true
         },
         type: { type: DataTypes.INTEGER, allowNull: false },
@@ -30,5 +29,15 @@ export default (sequelize, DataTypes) => {
         list: JsonField(sequelize, 'action', 'list'),
         interfaces: JsonField(sequelize, 'action', 'interfaces'),
         group: { type: DataTypes.STRING, allowNull: true }
+    }, {
+        relations: [{
+            type: 'hasMany',
+            target: 'perGroupAction',
+            as: 'pgActions',
+            options: {
+                foreignKey: 'actionId',
+                constraints: false
+            }
+        }]
     });
 };

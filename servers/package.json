@@ -53,6 +53,7 @@
     "sequelize-import": "^1.2.1",
     "sequelize-json": "^2.1.2",
     "sequelize-paper-trail": "^1.2.3",
+    "sequelize-relations-helper": "^1.0.0",
     "socket.io": "^1.7.1",
     "socket.io-client": "^1.5.0"
   },

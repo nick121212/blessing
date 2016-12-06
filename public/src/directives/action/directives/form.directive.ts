@@ -47,7 +47,12 @@ class Controller {
             this.getModelData(actionModel);
             return this.fxAction.getSchema(actionModel);
         }).then((model) => {
-            this.actionModel = model;
+             this.actionModel = model;
+        }).then(()=>{
+            return this.fxAction.doAction(this.key,this.formData,null,"open");
+        }).then((results)=>{
+           this.formData =  this.fxAction.doDealResult(this.actionModel,results,this.formData);
+           console.log(this.formData);
         }).finally(() => {
             this.isBusy = false;
         });

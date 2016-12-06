@@ -166,32 +166,30 @@ class Controller {
         });
         // 处理所有提取的keys
         keys.length && this.fxAction.getModels(keys).then((actionModels) => {
-            _.forEach(actionModels, (actionModel: IActionModel, key) => {
-                let condition = itemActionsObj[key].condition;
-
-                // 添加操作按钮
-                switch (actionModel.type) {
-                    case ActionType.none:
-                    case ActionType.form:
-                    case ActionType.wizard:
-                    case ActionType.confirm:
-                        let menu = this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any) => {
-                            this.doClickActionMenu($event, actionModel, item);
-                        });
-                        // 处理显示/隐藏逻辑
-                        if (condition) {
-                            menu.conditionBuilder(condition);
-                        }
-                        // 添加到操作
-                        // this.tools.push(this.toolbarUtils.btnBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any) => {
-                        //     this.doClickActionMenu($event, actionModel, item);
-                        // }).toValue());
-                        menuTool.items.push(menu.toValue());
-                        break;
+            _.each(keys, (key) => {
+                let actionModel: IActionModel = actionModels[key];
+                if (actionModel) {
+                    let condition = itemActionsObj[key].condition;
+                    // 添加操作按钮
+                    switch (actionModel.type) {
+                        case ActionType.none:
+                        case ActionType.form:
+                        case ActionType.wizard:
+                        case ActionType.confirm:
+                            let menu = this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").noOptions(true, false).iconBuilder(actionModel.icon).btnClick(($event, item: any) => {
+                                this.doClickActionMenu($event, actionModel, item);
+                            });
+                            // 处理显示/隐藏逻辑
+                            if (condition) {
+                                menu.conditionBuilder(condition);
+                            }
+                            menuTool.items.push(menu.toValue());
+                            break;
+                    }
                 }
             });
             // 单挑数据的操作按钮数据
-            this.actionModel.list.itemToolbars = [menuTool];
+            menuTool.items.length && (this.actionModel.list.itemToolbars = [menuTool]);
             this.$rootScope.$broadcast(`${this.key}:itemToolbarComplete`, menuTool.items);
         });
     }

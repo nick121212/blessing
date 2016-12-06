@@ -52,4 +52,6 @@ export interface IInterfaceModel {
     idFieldPath?: string;
     // 请求带上的配置
     config?: Object;
+    // open ：表单打开时候调用接口
+    useType?:string;
 }

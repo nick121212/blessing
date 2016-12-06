@@ -26,6 +26,7 @@ export class Middleware {
                     url: ctx.url,
                     stack: err.stack + "\n"
                 };
+                console.log(err);
             }
         };
     }

@@ -1,5 +1,7 @@
 import Sequelize from 'sequelize';
 import sequelizeImport from 'sequelize-import';
+import modelRelation from '../models';
+import sequelizeRelationsHelper from 'sequelize-relations-helper';
 
 /**
  * sequelize 操作数据库类
@@ -14,13 +16,15 @@ export class DB {
     async execute(config, app) {
         this.Sequelize = Sequelize;
         this.sequelize = new Sequelize(config.database, config.username, config.password, config.options);
-        this.models = sequelizeImport(__dirname + '/../models', this.sequelize, {
+        sequelizeRelationsHelper(this.sequelize, { debug: false });
+        this.models = await sequelizeImport(__dirname + '/../models', this.sequelize, {
             exclude: ['index.js']
         });
 
         return this.sequelize.sync({ force: false }).then(() => {
             console.log("db ok!");
         }).catch((err) => {
+            console.log(err);
             throw err;
         });
     }

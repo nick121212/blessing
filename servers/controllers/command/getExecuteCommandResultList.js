@@ -11,7 +11,7 @@ export default (sequelizeModel) => {
      * 创建模块数据
      */
     return async(ctx, next) => {
-        let results = await utils.getEsList(ctx, "commdone.logs");
+        let results = await utils.getEsList(ctx.query, "commdone.logs");
 
         ctx.body = results.hits;
     };

@@ -36,7 +36,7 @@ export default (sequelizeModel) => {
                     ip: service._source.minionid
                 }
             }),
-            args: command.args.split(',') || [], // modelIntance.args ? modelIntance.args.split(',') : [],
+            args: command.args ? command.args.split(',') : [], // modelIntance.args ? modelIntance.args.split(',') : [],
             cmdKey: command.key
         };
 
@@ -53,6 +53,7 @@ export default (sequelizeModel) => {
             command: command,
             cmdKey: command.key,
             devLen: modelIntance.listIps.length,
+            complete: false,
             createdAt: Date.now()
         });
 
@@ -82,6 +83,12 @@ export default (sequelizeModel) => {
             persistent: true
         });
         await result.ch.close();
+
+        let resultTimeout = await rabbitmq.getQueue("cmdb.execute.timeout", {});
+        let resTimeout = await resultTimeout.ch.publish("amq.topic", `cmdb.execute.timeout`, new Buffer(JSON.stringify(queueItem)), {
+            persistent: true
+        });
+        await resultTimeout.ch.close();
 
         ctx.body = {
             result: res,

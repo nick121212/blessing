@@ -21,9 +21,9 @@ async function init() {
     await db.execute(config.db, app);
     // 加载中间件
     app.use(async(ctx, next) => {
-        console.log("1", ctx.request.body) // if buffer or text
-        console.log("2", ctx.request.files) // if multipart or urlencoded
-        console.log("3", ctx.request.fields) // if json
+        // console.log("1", ctx.request.body) // if buffer or text
+        // console.log("2", ctx.request.files) // if multipart or urlencoded
+        // console.log("3", ctx.request.fields) // if json
         await next();
     });
     // 初始化路由

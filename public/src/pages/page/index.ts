@@ -18,12 +18,13 @@ import queryTable from '../../directives/query.table';
 import compareDir from '../../directives/compare';
 import executeCmdFunc from './services/execute.cmd';
 import executeMdlName from '../../directives/execute';
+import pageMdlName from '../../directives/pages';
 
 import 'angular-socket-io';
 import 'angular-gridster';
 import './index.scss';
 
-export const module = angular.module("pageModule", [executeMdlName, compareDir, ngMaterialIcons, dyCompileMod, actionDir, mdDataTable, ngMaterial as string, 'ui.router', 'gridster', 'btford.socket-io', materialServiceMod, restRegMod, queryTable]);
+export const module = angular.module("pageModule", [pageMdlName,executeMdlName, compareDir, ngMaterialIcons, dyCompileMod, actionDir, mdDataTable, ngMaterial as string, 'ui.router', 'gridster', 'btford.socket-io', materialServiceMod, restRegMod, queryTable]);
 
 executeCmdFunc(module);
 

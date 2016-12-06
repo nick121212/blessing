@@ -17,7 +17,7 @@ export default {
 
         filter.limit = ~~filter.limit;
         filter.offset = ~~filter.offset;
-        filter.where && (filter.where = JSON.parse(filter.where));
+        filter.where && typeof filter.where === "string" && (filter.where = JSON.parse(filter.where));
         if (_.isEmpty(filter.where)) {
             delete filter.where;
         }

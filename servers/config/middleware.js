@@ -1,7 +1,7 @@
 import { RedisStore } from './store';
 import { Strategy } from 'passport-local';
-
-const user = { id: 1, username: 'nick' };
+import db from '../utils/db';
+import crypto from "crypto-browserify";
 
 export default {
     middlewares: {
@@ -28,19 +28,30 @@ export default {
             passport.serializeUser(function(u, done) {
                 done(null, u.id);
             });
-            passport.deserializeUser(function(id, done) {
-                done(null, user);
+            passport.deserializeUser(async function(id, done) {
+                let member = await db.models["member"].findById(id);
+                delete member.password;
+
+                done(null, member);
             });
             passport.use(new Strategy({
-                // usernameField: 'nickname',
-                // passwordField: 'passport',
                 passReqToCallback: false,
                 session: true
-            }, function(username, password, done) {
-                console.log(username, password);
+            }, async function(username, password, done) {
+                let member = await db.models["member"].findOne({
+                    where: {
+                        username: username
+                    }
+                });
 
-                if (username === 'nick' && password === 'nick') {
-                    return done(null, user);
+                if (member) {
+                    let sha1 = crypto.createHash("sha1");
+                    sha1.update(password);
+                    password = sha1.digest("hex");
+                    if (member.password === password) {
+                        delete member.password;
+                        return done(null, member);
+                    }
                 }
 
                 return done(null, false, new Error("账号或者密码错误!"));
@@ -62,6 +73,7 @@ export default {
                     await next();
                     if (ctx.status === 404) ctx.throw(404);
                 } catch (err) {
+                    console.log(err);
                     if (err.isBoom) {
                         ctx.status = err.output.statusCode;
                     } else {

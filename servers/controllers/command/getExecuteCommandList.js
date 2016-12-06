@@ -7,7 +7,7 @@ export default (sequelizeModel) => {
      * 创建模块数据
      */
     return async(ctx, next) => {
-        let results = await utils.getEsList(ctx, "cmdb.execute.cmd");
+        let results = await utils.getEsList(ctx.query, "cmdb.execute.cmd");
 
         ctx.body = results.hits;
     };

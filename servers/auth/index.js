@@ -1,3 +1,7 @@
+import passport from './passport';
+import permission from './permission';
+
 export default {
-    passport: require('./passport').default
+    passport: passport,
+    permission: permission
 }

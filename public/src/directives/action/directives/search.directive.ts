@@ -56,7 +56,7 @@ class Controller {
         if (this.fxAction.doFormCheck($form) && _.isFunction(this.doSearch)) {
             _.forEach(this.formData, (data, key: string) => {
                 if (key.substr(0, 1) === "/") {
-                    if (!_.isNull(data) && !_.isUndefined(data) && data != "") {
+                    if (!_.isNull(data) && !_.isUndefined(data) && data !== "") {
                         pointer.set(searchData, key, data);
                     } else {
                         pointer.has(searchData, key) && pointer.remove(searchData, key);

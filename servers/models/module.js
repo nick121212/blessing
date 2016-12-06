@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     return sequelize.define('module', {
         key: {
             type: DataTypes.STRING(50),
-            // primaryKey: true,
+            primaryKey: true,
             unique: true
         },
         title: { type: DataTypes.STRING(20), allowNull: false, unique: true },
@@ -22,5 +22,15 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         }
+    }, {
+        relations: [{
+            type: 'hasMany',
+            target: 'action',
+            as: 'actions',
+            options: {
+                foreignKey: 'group',
+                constraints: false
+            }
+        }]
     });
 };
