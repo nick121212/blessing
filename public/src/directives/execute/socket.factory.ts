@@ -1,9 +1,9 @@
 import { module } from './module';
 import * as io from 'socket.io-client';
 
-module.factory("sockets", ["socketFactory", (socketFactory) => {
+module.factory("sockets", ["socketFactory", "$rootScope", (socketFactory, $rootScope) => {
     const events = socketFactory({
-        ioSocket: io("http://localhost:3000/events")
+        ioSocket: io($rootScope.config.events)
     });
 
     events.forward("error");

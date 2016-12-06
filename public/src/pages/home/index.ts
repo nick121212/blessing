@@ -65,7 +65,7 @@ module.config([
         });
         // 获取服务器一些配置信息
         fxAction.doAction("configAction", {}).then((result) => {
-            $rootScope["config"] = result.configAction;
+            $rootScope["config"] = result.configAction.config;
         });
         fxAction.doAction("userinfoAction", {}).then((result) => {
             result.userinfo && ($rootScope["user"] = result.userinfo.username);
