@@ -20,7 +20,7 @@ md-sidenav.sidenav-100.md-sidenav-right(md-component-id="executeCmdRight",layout
                         h3 命令说明：{{ executeCmdCtl.command.title }}
                         h4 命令：{{ executeCmdCtl.command.cmd }}
                         p 参数：{{ executeCmdCtl.command.args }}
-                        p 主机数量：{{ executeCmdCtl.command.devLen }}
+                        p 主机数量：{{ executeCmdCtl.process.total }}
                         //- span {{executeCmdCtl.process | json}}
                 md-card(flex)
                     md-card-content(layout="row")

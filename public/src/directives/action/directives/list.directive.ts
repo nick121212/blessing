@@ -79,12 +79,11 @@ class Controller {
 
     initEvents() {
         let timeId;
-
         this.$rootScope.$on(`${this.key}:refresh`, () => {
             if(timeId) this.$timeout.cancel(timeId);
             timeId = this.$timeout(() => {
                 this.doSearch(this.queryData.where || {});
-            }, 200);
+            }, 500);
         });
     }
 
