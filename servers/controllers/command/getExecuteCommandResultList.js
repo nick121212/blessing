@@ -13,10 +13,7 @@ export default (sequelizeModel) => {
     return async(ctx, next) => {
         let filter = utils.getEsQuery(ctx.query);
 
-        console.log(filter);
-
-        !filter.where && (filter.where = {});
-        filter.where.aggs = {
+        filter.esQuery.aggs = {
             "count_success": {
                 "terms": {
                     "field": "success"
@@ -24,13 +21,11 @@ export default (sequelizeModel) => {
             }
         };
 
-        console.log("filter", filter);
-
         let results = await client.search({
             index: "commdone.logs",
             from: filter.offset,
             size: filter.limit,
-            body: filter.where,
+            body: filter.esQuery,
             sort: filter.sort,
             timeout: '10s'
         });

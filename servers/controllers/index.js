@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import utils from '../utils';
 import { client } from '../utils/es';
+import * as jsonPointer from 'json-pointer';
 
 export default {
     getUniqueFields: (Model) => {
@@ -62,10 +63,17 @@ export default {
     getEsQuery(query) {
         let filter = utils.query(query);
         let sort = [];
+        let esQuery = {};
 
-        filter.where && filter.where.and && (filter.where.query.and = _.filter(filter.where.query.and, (item) => {
-            return item;
-        }));
+        // filter.where && filter.where.and && (filter.where.query.and = _.filter(filter.where.query.and, (item) => {
+        //     return item;
+        // }));
+
+        !filter.where && (filter.where = {});
+        _.each(jsonPointer.dict(filter.where), (d, key) => {
+            let path = jsonPointer.parse(key.replace(/\d/i, '-'));
+            jsonPointer.set(esQuery, jsonPointer.compile(_.reverse(path)), d);
+        });
 
         filter.order && _.each(filter.order, (order) => {
             if (_.isArray(order) && order.length == 2) {
@@ -74,6 +82,8 @@ export default {
         });
 
         filter.sort = sort;
+        filter.esQuery = {};
+        !_.isEmpty(esQuery) && (filter.esQuery = { query: esQuery });
 
         return filter;
     },
@@ -85,7 +95,7 @@ export default {
             index: index,
             from: filter.offset,
             size: filter.limit,
-            body: filter.where,
+            body: filter.esQuery,
             sort: filter.sort,
             searchType: 'dfs_query_then_fetch',
             timeout: '10s'

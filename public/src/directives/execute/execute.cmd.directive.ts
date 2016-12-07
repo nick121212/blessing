@@ -1,6 +1,7 @@
 import { IActionModel, ActionType, IClientData } from '../../directives/action/models/action.model';
 import * as _ from 'lodash';
 import { module } from './module';
+import * as pointer from 'json-pointer';
 
 interface ICmdClientData extends IClientData {
     cmdResMap?: any;
@@ -40,8 +41,6 @@ export class PageExecuteCmdResultController {
                     return;
                 }
                 this.cmdResMap[msg._id] = msg;
-
-                // this.setProcess(msg['aggregations']);
                 if (_.isArray(this.cmdResClientData.rows)) {
                     let devices = _.filter(this.cmdResClientData.rows, (item: any) => {
                         return item._id == msg._id;
@@ -54,15 +53,13 @@ export class PageExecuteCmdResultController {
                         });
                     }
                 }
-
-                if (msg._source.success) {
-                    this.process.success++;
-                } else {
-                    this.process.fail++;
-                }
-                this.process.complete = (this.process.success + this.process.fail) / this.process.total * 100;
-
-                // this.$scope.$emit(`${this.listKey}:refresh`);
+                // if (msg._source.success) {
+                //     this.process.success++;
+                // } else {
+                //     this.process.fail++;
+                // }
+                // this.process.complete = (this.process.success + this.process.fail) / this.process.total * 100;
+                this.$scope.$emit(`${this.listKey}:refresh`);
             });
         }
         this.$scope.$on("showExecuteCmdResult", (event, cmdId: string) => {
@@ -75,12 +72,12 @@ export class PageExecuteCmdResultController {
         });
 
         this.$scope.$on(`${this.listKey}:searchComplete`, (event, data) => {
-            this.resetProcess();
             _.each(data.rows, (item, key) => {
                 if (this.cmdResMap.hasOwnProperty(item._id)) {
                     _.extend(data.rows[key], this.cmdResMap[item._id]);
                 }
             });
+            this.process.total = data.total;
             this.setProcess(data['aggregations']);
         });
 
@@ -94,7 +91,7 @@ export class PageExecuteCmdResultController {
     resetProcess() {
         this.process.fail = 0;
         this.process.success = 0;
-        // this.process.total = 0;
+        this.process.total = 0;
         this.process.complete = 0;
         this.process.buffer = 0;
     }
@@ -117,20 +114,24 @@ export class PageExecuteCmdResultController {
     }
 
     getCommandResult(cmdId: string) {
-        this.resFilter = { "query": { "and": [{ "match": { "jid": cmdId } }] } };
+        let filter = {};
+
+        this.resetProcess();
+        this.resFilter = {};
         this.cmdResMap = {};
         this.jid = cmdId;
         this.realTime = true;
         this.isBusy = true;
         this.isOpen = true;
+        pointer.set(filter, "/_id/match/-/and", cmdId)
+        pointer.set(this.resFilter, "/jid/match/-/and", cmdId);
         this.$q.all([
-            this.fxAction.doAction("executeCmdList", { where: { "query": { "and": [{ "match": { "_id": cmdId } }] } } })
+            this.fxAction.doAction("executeCmdList", filter)
         ]).then((results: any) => {
             this.fxAction.doDealResult(results[0].actionModel, results[0], this.cmdClientData);
         }).then(() => {
             if (this.cmdClientData.rows.length) {
                 this.command = this.cmdClientData.rows[0]._source.command;
-                this.process.total = this.cmdClientData.rows[0]._source.devLen;
             } else {
                 return this.getCommandResult(cmdId);
             }

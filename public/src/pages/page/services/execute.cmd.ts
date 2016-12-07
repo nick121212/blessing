@@ -47,7 +47,8 @@ export class ExecuteCmdForm {
                     key: "listIps",
                     type: "querytable",
                     qtOptions: {
-                        key: "devices"
+                        key: "devices",
+                        resFilter: { "query": { "and": [{ "term": { "online": 1 } }] } }
                     },
                     startEmpty: true,
                     htmlClass: "md-block"

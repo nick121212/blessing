@@ -5,9 +5,9 @@ import crypto from "crypto-browserify";
 
 export default {
     middlewares: {
-        'koa-handle-error': [(err) => {
-            console.log("----", err);
-        }],
+        'koa-better-error-handler': (app, errorHandler) => {
+            app.context.onerror = errorHandler;
+        },
         'koa-better-body': [{
             fields: "body",
             files: true,
@@ -91,7 +91,7 @@ export default {
         }
     },
     order: [
-        'koa-handle-error',
+        'koa-better-error-handler',
         'koa-methodoverride',
         'koa-compress',
         'koa-conditional-get',

@@ -2,7 +2,7 @@ md-card(ng-disabled="form.readonly",class="schema-form-querytable {{form.htmlCla
     md-card-header
         md-card-header-text
             span.md-title {{::form.title}}
-    md-card-content(flex,layout="column",fx-query-table="{{form.qtOptions.key}}",ng-model="modelArray")
+    md-card-content(flex,layout="column",fx-query-table="{{form.qtOptions.key}}",ng-model="modelArray",_filter="form.qtOptions.resFilter")
     md-card-actions(layout="column",layout-align="start start")
         md-input-container(md-is-error="ngModel.$invalid && ngModel.$dirty",style="margin-top:0;margin-bottom:0;")
             div(ng-messages="ngModel.$error",class="no-errors",aria-live="assertive",style="margin-top:-45px;margin-bottom: 24px;")

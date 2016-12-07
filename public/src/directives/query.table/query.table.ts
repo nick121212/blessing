@@ -11,6 +11,7 @@ class Controller {
     closeFn: Function;
     showSearchTable: boolean = true;
     ngModel: Array<any>;
+    _filter: any;
 
     constructor(private $scope, private fxAction, private toolbarUtils, private $mdDialog: ng.material.IDialogService, private materialUtils: fx.utils.materialStatic) {
         if (!this.clientData) {
@@ -65,7 +66,8 @@ function Directive(): ng.IDirective {
         bindToController: {
             key: '@fxQueryTable',
             closeFn: '&?closeFn',
-            ngModel: '=?'
+            ngModel: '=?',
+            _filter: '=?'
         },
         template: require("./tpls/query.table.jade"),
         controller: Controller,

@@ -10,8 +10,7 @@ export default (sequelizeModel) => {
     return async(ctx, next) => {
         let filter = utils.getEsQuery(ctx.query);
 
-        filter.where = filter.where || {};
-        filter.where.aggs = {
+        filter.esQuery.aggs = {
             "count_success": {
                 "terms": {
                     "field": "success"
@@ -22,7 +21,7 @@ export default (sequelizeModel) => {
             index: "cmdb.execute.cmd",
             from: filter.offset,
             size: filter.limit,
-            body: filter.where,
+            body: filter.esQuery,
             sort: filter.sort,
             timeout: '10s'
         });

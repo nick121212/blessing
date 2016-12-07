@@ -4,6 +4,7 @@ import rabbitmq from './rabbitmq';
 import utils from '../controllers';
 import _ from 'lodash';
 import { client } from './es';
+import * as jsonPointer from 'json-pointer';
 
 export class CmdbEvents {
     constructor(socket) {
@@ -18,33 +19,18 @@ export class CmdbEvents {
         await result.ch.prefetch(1);
         await result.ch.consume(result.q.queue, async(msg) => {
             let commandResult = JSON.parse(msg.content.toString());
+            let where = {};
+
+            jsonPointer.set(where, "/field/missing/filter/constant_score/-/must/bool", "_stamp");
+            jsonPointer.set(where, "/jid/match/-/must/bool", commandResult.jobid);
 
             let commlogs = await utils.getEsList({
-                where: {
-                    query: {
-                        "bool": {
-                            "must": [{
-                                "constant_score": {
-                                    "filter": {
-                                        "missing": {
-                                            "field": "_stamp"
-                                        }
-                                    }
-                                }
-                            }, {
-                                "match": {
-                                    "jid": commandResult.jobid
-                                }
-                            }]
-                        }
-                    }
-                }
+                where: where
             }, "commdone.logs");
 
             if (commlogs.hits.total) {
                 let resultTimeout = await rabbitmq.getQueue("cmdb.events", {});
                 _.each(commlogs.hits.hits, async(item) => {
-                    console.log("-----item-----", item);
                     let queueItem = { "jid": commandResult.jobid, "retcode": 1, "return": "timeout", "success": false, "_stamp": new Date(), timeout: true, deviceSn: item._source.deviceSn }
                     let resTimeout = await resultTimeout.ch.publish("amq.topic", `salt.events`, new Buffer(JSON.stringify(queueItem)), {
                         persistent: true
