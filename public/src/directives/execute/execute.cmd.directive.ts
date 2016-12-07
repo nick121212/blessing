@@ -126,7 +126,7 @@ export class PageExecuteCmdResultController {
         pointer.set(filter, "/_id/match/-/and", cmdId)
         pointer.set(this.resFilter, "/jid/match/-/and", cmdId);
         this.$q.all([
-            this.fxAction.doAction("executeCmdList", filter)
+            this.fxAction.doAction("executeCmdList", { where: filter })
         ]).then((results: any) => {
             this.fxAction.doDealResult(results[0].actionModel, results[0], this.cmdClientData);
         }).then(() => {
