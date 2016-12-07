@@ -61,6 +61,14 @@ export class PageExecuteCmdResultController {
                 // this.process.complete = (this.process.success + this.process.fail) / this.process.total * 100;
                 this.$scope.$emit(`${this.listKey}:refresh`);
             });
+
+            this.$scope.$watch(() => {
+                return this.isOpen;
+            }, (newValue, oldValue) => {
+                if (this.isOpen === false) {
+                    this.jid = "";
+                }
+            })
         }
         this.$scope.$on("showExecuteCmdResult", (event, cmdId: string) => {
             this.cmdClientData = {};
@@ -116,6 +124,9 @@ export class PageExecuteCmdResultController {
     getCommandResult(cmdId: string) {
         let filter = {};
 
+        if (!cmdId) {
+            return;
+        }
         this.resetProcess();
         this.resFilter = {};
         this.cmdResMap = {};

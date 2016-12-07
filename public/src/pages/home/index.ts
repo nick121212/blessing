@@ -42,6 +42,12 @@ module.config([
             state.$$isFinish = true;
             $state.go(state.toState.name, state.toParams, state.options);
         };
+
+        $rootScope.$on("$stateRefresh", () => {
+            console.log("dfadfa");
+            state.$$isFinish = false;
+        });
+
         // 注册路由更改事件
         $rootScope.$on("$stateChangeStart", (evt, toState, toParams, fromState, fromParams) => {
             console.log("$stateChangeStart", evt, toState, toParams, fromState, fromParams);
@@ -59,17 +65,23 @@ module.config([
                 event.preventDefault();
                 $q.all({
                     mdi: svgUtils.loadSvgUrl(__dirname + 'svgs/mdi.svg'),
-                    weibo: svgUtils.loadSvgUrl(__dirname + 'svgs/weibo.svg')
+                    weibo: svgUtils.loadSvgUrl(__dirname + 'svgs/weibo.svg'),
+                    configConfig: fxAction.doAction("configAction", {}).then((result) => {
+                        $rootScope["config"] = result.configAction.config;
+                    }),
+                    userinfoAction: fxAction.doAction("userinfoAction", {}).then((result) => {
+                        result.userinfo && ($rootScope["user"] = result.userinfo.username);
+                    })
                 }).then(() => { handleResolve(true) }, () => { handleResolve(false) });
             }
         });
         // 获取服务器一些配置信息
-        fxAction.doAction("configAction", {}).then((result) => {
-            $rootScope["config"] = result.configAction.config;
-        });
-        fxAction.doAction("userinfoAction", {}).then((result) => {
-            result.userinfo && ($rootScope["user"] = result.userinfo.username);
-        });
+        // fxAction.doAction("configAction", {}).then((result) => {
+        //     $rootScope["config"] = result.configAction.config;
+        // });
+        // fxAction.doAction("userinfoAction", {}).then((result) => {
+        //     result.userinfo && ($rootScope["user"] = result.userinfo.username);
+        // });
     }]);
 
 // 添加一个操作,显示ICON的KEY值表单

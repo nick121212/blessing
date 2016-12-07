@@ -22,6 +22,7 @@ export class LoginController {
         let promise: ng.IPromise<any> = this.fxAction.doAction(this.key, this.formData, $form);
 
         promise && promise.then((user) => {
+            this.$rootScope.$emit('$stateRefresh');
             this.materialUtils.showMsg("登陆成功,正在跳转!");
             this.$state.go("home");
             this.$rootScope['user'] = user.loginAction.username;
