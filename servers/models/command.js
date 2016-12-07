@@ -15,9 +15,10 @@ export default (sequelize, DataTypes) => {
         },
         title: { type: DataTypes.STRING(50), allowNull: false },
         cmd: { type: DataTypes.STRING(50), allowNull: false },
-        args: { type: DataTypes.TEXT, allowNull: true },
+        args: JsonField(sequelize, 'command', 'args'),
         dataSchemaKey: { type: DataTypes.TEXT, allowNull: true },
         formSchemaKey: { type: DataTypes.TEXT, allowNull: true },
+        options: JsonField(sequelize, 'command', 'options'),
         description: { type: DataTypes.TEXT, allowNull: true }
     });
 };

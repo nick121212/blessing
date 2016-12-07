@@ -17,11 +17,13 @@ export default (sequelizeModel) => {
             throw boom.badData('数据没有填写完整!');
         }
 
-        let command = await db.models.command.findOne({
-            where: {
-                key: modelIntance.command
-            }
-        });
+        // let command = await db.models.command.findOne({
+        //     where: {
+        //         key: modelIntance.command
+        //     }
+        // });
+
+        let command = modelIntance.command;
 
         if (!command) {
             throw boom.badData("没有找到命令或已删除！");
@@ -36,7 +38,7 @@ export default (sequelizeModel) => {
                     ip: service._source.minionid
                 }
             }),
-            args: command.args ? command.args.split(',') : [], // modelIntance.args ? modelIntance.args.split(',') : [],
+            args: command.args || [],
             cmdKey: command.key
         };
 

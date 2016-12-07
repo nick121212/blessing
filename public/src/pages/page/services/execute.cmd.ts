@@ -16,7 +16,7 @@ export class ExecuteCmdForm {
                     required: ["command", "listIps"],
                     properties: {
                         command: {
-                            type: "string",
+                            type: "object",
                             title: "命令"
                         },
                         listIps: {
@@ -36,19 +36,25 @@ export class ExecuteCmdForm {
                     placeHolder: "请选择命令",
                     acOptions: {
                         textField: "title",
-                        keyField: "key",
+                        // keyField: "key",
                         dataField: "rows",
                         noCache: true,
+                        fields: [{ key: ["key"] }, { key: ["args"] }, { key: ["description"] }, { key: ["title"] }, { key: ["cmd"] }],
                         search: "/where/key/$like",
                         actionKey: "command"
                     },
                     htmlClass: "md-block"
                 }, {
+                    key: "command.args[0]",
+                    type: "text",
+                    required: true,
+                    title: "命令参数",
+                    htmlClass: "md-block"
+                }, {
                     key: "listIps",
                     type: "querytable",
                     qtOptions: {
-                        key: "devices",
-                        resFilter: { "query": { "and": [{ "term": { "online": 1 } }] } }
+                        key: "devices"
                     },
                     startEmpty: true,
                     htmlClass: "md-block"
