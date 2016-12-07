@@ -17,15 +17,6 @@ export class ContentController {
         _.each(svgUtils.getAllIcons(), (shape, key) => {
             this.icons.push(key);
         });
-
-        this.text = `
-        Filesystem    512-blocks      Used Available Capacity iused      ifree %iused  Mounted on
-        /dev/disk1     487882752 161082016 326288736    34% 2076675 4292890604    0%   /
-        devfs                363       363         0   100%     629          0  100%   /dev
-        map -hosts             0         0         0   100%       0          0  100%   /net
-        map auto_home          0         0         0   100%       0          0  100%   /home
-        `;
-
     }
 
     doOpenIconInfo($event, iconInfo: string) {

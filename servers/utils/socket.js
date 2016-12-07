@@ -73,16 +73,13 @@ export class CmdbEvents {
         let result = await rabbitmq.getQueue('job.res', {});
 
         await result.ch.prefetch(1);
-        await result.ch.consume(result.q.queue, (msg) => {
+        await result.ch.consume(result.q.queue, async(msg) => {
             let commandResult = JSON.parse(msg.content.toString());
             this.socket.eventsIo.broadcast("events", {
                 _id: `${commandResult.jid}#${commandResult.deviceSn}`,
                 _source: commandResult
             });
-
-            setTimeout(function() {
-                result.ch.ack(msg);
-            }, 10);
+            result.ch.ack(msg);
         });
 
         return result;

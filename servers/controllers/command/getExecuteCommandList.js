@@ -1,14 +1,32 @@
 import boom from 'boom';
 import utils from '../';
 import _ from 'lodash';
+import { client } from '../../utils/es';
 
 export default (sequelizeModel) => {
     /**
      * 创建模块数据
      */
     return async(ctx, next) => {
-        let results = await utils.getEsList(ctx.query, "cmdb.execute.cmd");
+        let filter = utils.getEsQuery(ctx.query);
 
-        ctx.body = results.hits;
+        filter.where = filter.where || {};
+        filter.where.aggs = {
+            "count_success": {
+                "terms": {
+                    "field": "success"
+                }
+            }
+        };
+        let results = await client.search({
+            index: "cmdb.execute.cmd",
+            from: filter.offset,
+            size: filter.limit,
+            body: filter.where,
+            sort: filter.sort,
+            timeout: '10s'
+        });
+
+        ctx.body = results;
     };
 };

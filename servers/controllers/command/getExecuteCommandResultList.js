@@ -11,8 +11,31 @@ export default (sequelizeModel) => {
      * 创建模块数据
      */
     return async(ctx, next) => {
-        let results = await utils.getEsList(ctx.query, "commdone.logs");
+        let filter = utils.getEsQuery(ctx.query);
 
-        ctx.body = results.hits;
+        console.log(filter);
+
+        !filter.where && (filter.where = {});
+        filter.where.aggs = {
+            "count_success": {
+                "terms": {
+                    "field": "success"
+                }
+            }
+        };
+
+        console.log("filter", filter);
+
+        let results = await client.search({
+            index: "commdone.logs",
+            from: filter.offset,
+            size: filter.limit,
+            body: filter.where,
+            sort: filter.sort,
+            timeout: '10s'
+        });
+        // let results = await utils.getEsList(ctx.query, "commdone.logs");
+
+        ctx.body = results;
     };
 };

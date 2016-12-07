@@ -35,13 +35,13 @@ export class PageExecuteCmdResultController {
         if (this.realTime) {
             this.$scope.$on("socket:connect", () => { });
             this.$scope.$on("socket:events", (event, msg) => {
-
                 console.log("socket", msg._source.jid, this.jid);
-
                 if (msg._source.jid !== this.jid) {
                     return;
                 }
                 this.cmdResMap[msg._id] = msg;
+
+                // this.setProcess(msg['aggregations']);
                 if (_.isArray(this.cmdResClientData.rows)) {
                     let devices = _.filter(this.cmdResClientData.rows, (item: any) => {
                         return item._id == msg._id;
@@ -53,8 +53,16 @@ export class PageExecuteCmdResultController {
                             _.extend(devices[key], msg);
                         });
                     }
-                    this.setProcess(msg._source.success);
                 }
+
+                if (msg._source.success) {
+                    this.process.success++;
+                } else {
+                    this.process.fail++;
+                }
+                this.process.complete = (this.process.success + this.process.fail) / this.process.total * 100;
+
+                // this.$scope.$emit(`${this.listKey}:refresh`);
             });
         }
         this.$scope.$on("showExecuteCmdResult", (event, cmdId: string) => {
@@ -72,10 +80,8 @@ export class PageExecuteCmdResultController {
                 if (this.cmdResMap.hasOwnProperty(item._id)) {
                     _.extend(data.rows[key], this.cmdResMap[item._id]);
                 }
-                this.setProcess(data.rows[key]._source.success);
             });
-            console.log("searchComplete", data.rows);
-            // data.rows.length && (this.deviceSelected = [].concat(data.rows));
+            this.setProcess(data['aggregations']);
         });
 
         this.cmdResClientData = {};
@@ -93,12 +99,18 @@ export class PageExecuteCmdResultController {
         this.process.buffer = 0;
     }
 
-    setProcess(success) {
-        if (success === true) {
-            this.process.success++;
-        } else if (success === false) {
-            this.process.fail++;
-        }
+    setProcess(aggregations) {
+        _.each(aggregations.count_success.buckets, (bucket) => {
+            switch (bucket.key_as_string) {
+                case "true":
+                    this.process.success = bucket.doc_count;
+                    break;
+                case "false":
+                    this.process.fail = bucket.doc_count;
+                    break;
+                default:
+            }
+        });
 
         this.process.complete = (this.process.success + this.process.fail) / this.process.total * 100;
         this.process.buffer = 100;
@@ -108,30 +120,23 @@ export class PageExecuteCmdResultController {
         this.resFilter = { "query": { "and": [{ "match": { "jid": cmdId } }] } };
         this.cmdResMap = {};
         this.jid = cmdId;
-        // this.cmdResClientData.rows = _.map(this.cmdResMap);
         this.realTime = true;
-        // this.$timeout(() => {
         this.isBusy = true;
         this.isOpen = true;
         this.$q.all([
             this.fxAction.doAction("executeCmdList", { where: { "query": { "and": [{ "match": { "_id": cmdId } }] } } })
-            // this.fxAction.doAction("executeCmdResList", { where: { "query": { "and": [{ "match": { "jid": cmdId } }] } } })
         ]).then((results: any) => {
             this.fxAction.doDealResult(results[0].actionModel, results[0], this.cmdClientData);
-            // this.fxAction.doDealResult(results[1].actionModel, results[1], this.cmdResClientData);
         }).then(() => {
             if (this.cmdClientData.rows.length) {
                 this.command = this.cmdClientData.rows[0]._source.command;
                 this.process.total = this.cmdClientData.rows[0]._source.devLen;
-                // this.deviceClientData.rows = this.cmdClientData.rows[0]._source.listip;
-                // this.deviceClientData.rows.length && (this.deviceSelected = [].concat(this.deviceClientData.rows));
             } else {
                 return this.getCommandResult(cmdId);
             }
         }).finally(() => {
             this.isBusy = false;
         });
-        // }, 200);
     }
 }
 

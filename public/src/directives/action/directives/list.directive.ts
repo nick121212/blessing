@@ -47,6 +47,7 @@ class Controller {
                 this.initToolbar();
                 this.initItemToolbar();
                 this.doSearch();
+                this.initEvents();
             } else {
                 this.actionModel.list.itemToolbars = this.itemToolbars || [];
                 this.actionModel.list.toolbars = this.topToolbars || [];
@@ -73,6 +74,17 @@ class Controller {
             if (newValue && newValue != oldValue) {
                 this.doSearch();
             }
+        });
+    }
+
+    initEvents() {
+        let timeId;
+
+        this.$rootScope.$on(`${this.key}:refresh`, () => {
+            if(timeId) this.$timeout.cancel(timeId);
+            timeId = this.$timeout(() => {
+                this.doSearch(this.queryData.where || {});
+            }, 200);
         });
     }
 

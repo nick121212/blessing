@@ -82,12 +82,13 @@ export default (sequelizeModel) => {
         let res = await result.ch.publish("amq.topic", `salt.commands`, new Buffer(JSON.stringify(queueItem)), {
             persistent: true
         });
-        await result.ch.close();
 
         let resultTimeout = await rabbitmq.getQueue("cmdb.execute.timeout", {});
         let resTimeout = await resultTimeout.ch.publish("amq.topic", `cmdb.execute.timeout`, new Buffer(JSON.stringify(queueItem)), {
             persistent: true
         });
+
+        await result.ch.close();
         await resultTimeout.ch.close();
 
         ctx.body = {

@@ -59,7 +59,7 @@ export default {
         });
     },
 
-    async getEsList(query, index) {
+    getEsQuery(query) {
         let filter = utils.query(query);
         let sort = [];
 
@@ -73,12 +73,21 @@ export default {
             }
         });
 
+        filter.sort = sort;
+
+        return filter;
+    },
+
+    async getEsList(query, index) {
+        let filter = this.getEsQuery(query);
+
         let results = await client.search({
             index: index,
             from: filter.offset,
             size: filter.limit,
             body: filter.where,
-            sort: sort,
+            sort: filter.sort,
+            searchType: 'dfs_query_then_fetch',
             timeout: '10s'
         });
 
