@@ -9,10 +9,7 @@ import db from './utils/db';
 import { router } from './routers';
 import docs from 'koa-docs';
 
-// import * as http from 'http';
-
 const app = new Koa();
-const logger = log4js.getLogger("index");
 
 async function init() {
     // 加载中间件
@@ -32,13 +29,8 @@ async function init() {
         console.log("Server listening on %s", app.server._connectionKey);
     });
 }
-try {
-    init();
-} catch (e) {
-    console.log(e);
-}
+init();
 
 export default {
-    app: app,
-    logger: logger
+    app: app
 }

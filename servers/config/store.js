@@ -1,15 +1,16 @@
 import Redis from "ioredis";
 import { Store } from "koa-session2";
+import redisConfig from './redis';
 
 export class RedisStore extends Store {
     constructor() {
         super();
         this.redis = new Redis({
-            port: 6379,
-            host: '127.0.0.1',
-            family: 4,
-            password: '',
-            db: 0
+            port: redisConfig.port,
+            host: redisConfig.host,
+            family: redisConfig.family,
+            password: redisConfig.password,
+            db: redisConfig.db
         });
     }
 
