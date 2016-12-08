@@ -6,7 +6,7 @@ md-sidenav.sidenav-100.md-sidenav-right(md-component-id="executeCmdRight",layout
                 md-button.md-icon-button(ng-click="executeCmdCtl.isOpen=false;")
                     md-icon
                         ng-md-icon(icon="arrow_forward")
-            md-divider
+        md-divider
         md-content(flex,layout="column")
             md-progress-linear.md-accent(ng-if="!executeCmdCtl.process.fail",md-mode="buffer",value="{{executeCmdCtl.process.complete}}",md-buffer-value="{{executeCmdCtl.process.buffer}}")
             md-progress-linear.md-warn(ng-if="executeCmdCtl.process.fail",md-mode="buffer",value="{{executeCmdCtl.process.complete}}",md-buffer-value="{{executeCmdCtl.process.buffer}}")
@@ -29,8 +29,8 @@ md-sidenav.sidenav-100.md-sidenav-right(md-component-id="executeCmdRight",layout
                     md-card-title(flex="none")
                         md-card-title-text
                             span.md-headline 结果反馈
-                    md-card-content(layout="column",flex,style="overflow:auto;")
                         md-divider
+                    md-card-content(layout="column",flex,style="overflow:auto;")
                         md-list(flex)
                             md-list-item.md-3-line(ng-repeat="item in executeCmdCtl.deviceSelected")
                                 div.md-list-item-text(layout="column")
