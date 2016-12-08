@@ -1,6 +1,6 @@
 md-sidenav.sidenav-100.md-sidenav-right(md-component-id="executeCmdRight",layout="column",md-whiteframe="4",md-is-open="executeCmdCtl.isOpen")
     md-content(flex,layout="column")
-        md-toolbar.md-table-toolbar.md-hue-2(layout="row")
+        md-toolbar.md-table-toolbar.md-hue-3(layout="row")
             div.md-toolbar-tools
                 span(flex) 执行结果
                 md-button.md-icon-button(ng-click="executeCmdCtl.isOpen=false;")
@@ -10,7 +10,7 @@ md-sidenav.sidenav-100.md-sidenav-right(md-component-id="executeCmdRight",layout
         md-content(flex,layout="column")
             md-progress-linear.md-accent(ng-if="!executeCmdCtl.process.fail",md-mode="buffer",value="{{executeCmdCtl.process.complete}}",md-buffer-value="{{executeCmdCtl.process.buffer}}")
             md-progress-linear.md-warn(ng-if="executeCmdCtl.process.fail",md-mode="buffer",value="{{executeCmdCtl.process.complete}}",md-buffer-value="{{executeCmdCtl.process.buffer}}")
-            div(layout="row",style="max-height:400px;")
+            div(layout="row",flex)
                 md-card
                     md-card-title(flex="none")
                         md-card-title-text
@@ -23,17 +23,28 @@ md-sidenav.sidenav-100.md-sidenav-right(md-component-id="executeCmdRight",layout
                         p 主机数量：{{ executeCmdCtl.process.total }}
                         //- span {{executeCmdCtl.process | json}}
                 md-card(flex)
-                    md-card-content(layout="row")
+                    md-card-content(layout="row",flex)
                         div(ng-if="executeCmdCtl.jid",fx-list-action,key="{{executeCmdCtl.listKey}}",selected="executeCmdCtl.deviceSelected",flex,multiple="true",auto-select="true",filter="executeCmdCtl.resFilter",client-data="executeCmdCtl.cmdResClientData")
-            md-content(flex)
                 md-card(flex)
                     md-card-title(flex="none")
                         md-card-title-text
                             span.md-headline 结果反馈
-                    md-card-content(layout="column",flex)
+                    md-card-content(layout="column",flex,style="overflow:auto;")
                         md-divider
-                        md-list()
+                        md-list(flex)
                             md-list-item.md-3-line(ng-repeat="item in executeCmdCtl.deviceSelected")
                                 div.md-list-item-text(layout="column")
                                     h2 {{item._source.id}} -- {{item._source.deviceSn}}
                                     div(angular-terminal="item._source.deviceSn",greetings="{{item._source.return||'no info'}}")
+            //- md-content(flex)
+                //- md-card(flex)
+                //-     md-card-title(flex="none")
+                //-         md-card-title-text
+                //-             span.md-headline 结果反馈
+                //-     md-card-content(layout="column",flex)
+                //-         md-divider
+                //-         md-list()
+                //-             md-list-item.md-3-line(ng-repeat="item in executeCmdCtl.deviceSelected")
+                //-                 div.md-list-item-text(layout="column")
+                //-                     h2 {{item._source.id}} -- {{item._source.deviceSn}}
+                //-                     div(angular-terminal="item._source.deviceSn",greetings="{{item._source.return||'no info'}}")

@@ -26,7 +26,7 @@ module.config([
     "mdSideMenuSectionsProvider",
     ($stateProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider, $locationProvider, mdSideMenuSectionsProvider, cfpLoadingBarProvider: angular.loadingBar.ILoadingBarProvider) => {
         $mdThemingProvider.theme('default')
-            .dark()
+            // .dark()
             .primaryPalette('grey')
             .accentPalette('purple')
             .warnPalette('red');
