@@ -1,2 +1,0 @@
-webpackHotUpdate(1,{20:function(d,i,t){i=d.exports=t(11)(),i.push([d.id,".sidenav-80{width:80%;max-width:80%}.sidenav-100{width:100%;max-width:100%}",""])}});
-//# sourceMappingURL=1.4060bf530041d7eb2e01.hot-update.js.map

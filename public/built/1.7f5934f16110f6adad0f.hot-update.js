@@ -1,2 +1,0 @@
-webpackHotUpdate(1,{187:function(e,t,o){"use strict";var r=o(31);o(186),o(188),o(161),Object.defineProperty(t,"__esModule",{value:!0}),t["default"]=r["default"]},188:function(e,t,o){"use strict";var r=o(31),c=o(157);r.module.factory("sockets",["socketFactory","$rootScope",function(e,t){var o=e({ioSocket:c(t.config.events)});return o.forward("error"),o.forward("events"),o.forward("connect"),o.forward("disconnect"),{events:o}}])}});
-//# sourceMappingURL=1.7f5934f16110f6adad0f.hot-update.js.map

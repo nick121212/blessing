@@ -44,11 +44,6 @@ class Provider {
 
         this.getModel("actionCommonfx-1").then((actionModel: IActionModel) => {
             this.doAction(actionModel.key, {
-                // where: {
-                //     key: {
-                //         "$eq": key
-                //     }
-                // }
                 key: key
             }).then((results: any) => {
                 let resource = { rows: [] };

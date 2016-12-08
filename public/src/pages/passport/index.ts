@@ -14,7 +14,7 @@ import loginValFunc from './services/login.value';
 
 import "restangular";
 
-const module = angular.module("loginModule", [ngMaterial as string, 'ui.router', materialServiceMod, restRegMod, actionDir, 'restangular']);
+const module = angular.module("passportModule", [ngMaterial as string, 'ui.router', materialServiceMod, restRegMod, actionDir, 'restangular']);
 
 module.config([
     "$stateProvider",

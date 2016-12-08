@@ -7,6 +7,7 @@ import * as ngMaterial from 'angular-material';
 import 'angular-ui-router';
 import * as ngMaterialIcons from 'angular-material-icons';
 import * as _ from 'lodash';
+import actionDir from '../../directives/action';
 import { initRouter } from './router';
 import materialService from '../../services/material.service';
 import svgUtilsMod from '../../services/svg.service';
@@ -15,16 +16,19 @@ import sidemenu from '../../directives/sidemenu';
 import 'expose?SVGMorpheus!exports?SVGMorpheus!svg-morpheus';
 import { ActionType } from '../../directives/action/models/action.model';
 
-const module = angular.module("homeModule", [toolbar, sidemenu, svgUtilsMod, materialService, ngMaterial, 'ui.router', ngMaterialIcons]);
+const module = angular.module("homeModule", [actionDir,toolbar, sidemenu, svgUtilsMod, materialService, ngMaterial, 'ui.router', ngMaterialIcons]);
 
 module.config([
     "$stateProvider",
     "$urlRouterProvider",
     "$httpProvider",
     "$mdThemingProvider",
+    "$mdAriaProvider",
     "$locationProvider",
     "mdSideMenuSectionsProvider",
-    ($stateProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider, $locationProvider, mdSideMenuSectionsProvider, cfpLoadingBarProvider: angular.loadingBar.ILoadingBarProvider) => {
+    ($stateProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider, $mdAriaProvider, $locationProvider, mdSideMenuSectionsProvider, cfpLoadingBarProvider: angular.loadingBar.ILoadingBarProvider) => {
+        $mdThemingProvider.alwaysWatchTheme(true);
+        $mdAriaProvider.disableWarnings();
         $mdThemingProvider.theme('default')
             // .dark()
             .primaryPalette('grey')

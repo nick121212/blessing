@@ -1,10 +1,11 @@
 /**
  * Created by NICK on 16/8/9.
  */
-
+var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ManifestRevisionPlugin = require('manifest-revision-webpack-plugin');
 
 module.exports = {
     context: __dirname + '/',
@@ -12,28 +13,24 @@ module.exports = {
     debug: true,
     entry: {
         'vendor': ['jquery', 'lodash', 'jquery-terminal', 'jquery-mousewheel'],
-        'page/index': __dirname + '/src/pages/index/index.ts',
-        'page/style': __dirname + '/src/pages/style/index.ts'
+        'page/passport': __dirname + '/src/pages/passport/index.ts',
+        'page/home': __dirname + '/src/pages/home/index.ts',
+        'page/style': __dirname + '/src/pages/style/index.ts',
+        'page/page': __dirname + '/src/pages/page/index.ts',
+        'page/index': __dirname + '/src/pages/index/index.ts'
     },
     devtool: "source-map",
     output: {
         path: __dirname + '/built',
-        filename: '[name].bundle.js'
+        filename: '[name].bundle.js',
+        hash: true
     },
-    // externals: {
-    //     $: 'jQuery.noConflict()',
-    //     jQuery: 'jQuery.noConflict()',
-    //     _: "lodash",
-    //     angular: "angular"
-    // },
     resolve: {
         extensions: ['', '.webpack.js', '.web.js', '.ts', '.js', '.jade', '.scss', '.css'],
         exclude: /node_modules/,
         root: __dirname + '/node_modules/',
         alias: {
             'tv4': 'tv4/tv4',
-            // 'tty.js': __dirname + '/node_modules/tty.js/static/tty',
-            // 'term.js': __dirname + '/node_modules/term.js/src/term',
             'restangular': 'restangular/dist/restangular',
             'jsoneditor.js': 'jsoneditor/dist/jsoneditor',
             'jsoneditor.css': 'jsoneditor/dist/jsoneditor.css',
@@ -56,7 +53,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: require.resolve('jquery'), loader: 'expose?$!expose?jQuery' },
+            // { test: require.resolve('jquery'), loader: 'expose?$!expose?jQuery' },
             { test: /\.ts$/, loader: 'ts?module=commonjs' },
             { test: /\.css$/, loader: ExtractTextPlugin.extract("style", "css") },
             { test: /\.scss$/, loaders: ['style', 'css', 'sass'] },
@@ -71,20 +68,36 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': 'development'
         }),
-        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
-        new ExtractTextPlugin("dashboard.css"),
         new webpack.ProvidePlugin({
-            // $: 'jquery',
-            // jQuery: 'jquery'
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
         }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'commons',
+            filename: '[name].bundle.js',
+            minChunks: 2
+        }),
+        new ExtractTextPlugin("dashboard.css"),
         new HtmlWebpackPlugin({
             title: 'My App',
             template: 'index.html',
-            inject: 'body'
+            inject: 'head',
+            hasg: 'true',
+            hash: true,
+            // cache: true,
+            checks: ['vendor', 'page/passport', 'page/home', 'page/style', 'page/page', 'page/index'],
+            minify: {
+                removeComments: true,
+                collapseWhitespace: false
+            }
+        }),
+        new ManifestRevisionPlugin(path.join('built', 'manifest.json'), {
+            rootAssetPath: '/built',
+            ignorePaths: ['/stylesheets', '/javascript']
         })
     ]
 };
