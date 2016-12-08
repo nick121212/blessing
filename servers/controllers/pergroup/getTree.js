@@ -4,15 +4,6 @@ import db from '../../utils/db';
 export default () => {
     return async(ctx, next) => {
         let id = ctx.query.id || 0;
-        // let sqls = [];
-
-        // sqls.push('select m.key,m.title,a.key,a.title from module as m');
-        // sqls.push(' inner join action as a on a.group = m.key');
-        // sqls.push(' order by m.id');
-
-        // let results = await db.sequelize.query(sqls.join(''), {
-        //     bind: []
-        // });
 
         let results = await db.models['module'].findAll({
             where: {

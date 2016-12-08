@@ -5,14 +5,14 @@ import updateItem from './updateItem';
 import removeItem from './removeItem';
 
 export const routers = {
-    'GET /manual/modAndAct': [auth.passport, auth.permission, getTree],
     'POST /': [auth.passport, auth.permission, createItem],
     'PUT /:key': [auth.passport, auth.permission, updateItem],
-    'DELETE /:key': [auth.passport, auth.permission, removeItem]
+    'DELETE /:key': [auth.passport, auth.permission, removeItem],
+    'GET /manual/modAndAct': [auth.passport, auth.permission, getTree]
 }
 
 export const init = (router, sequelizeModel) => {
-
+    console.log(router);
 }
 
 export const config = {
