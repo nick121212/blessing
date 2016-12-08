@@ -5,7 +5,7 @@ import updateItem from './updateItem';
 import removeItem from './removeItem';
 
 export const routers = {
-    'GET /modAndAct': [auth.passport, auth.permission, getTree],
+    'GET /manual/modAndAct': [auth.passport, auth.permission, getTree],
     'POST /': [auth.passport, auth.permission, createItem],
     'PUT /:key': [auth.passport, auth.permission, updateItem],
     'DELETE /:key': [auth.passport, auth.permission, removeItem]
