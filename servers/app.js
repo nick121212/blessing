@@ -11,6 +11,8 @@ import docs from 'koa-docs';
 
 const app = new Koa();
 
+console.log(config);
+
 async function init() {
     // 加载中间件
     middleware.execute(config.middleware, app);
