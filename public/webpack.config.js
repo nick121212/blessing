@@ -44,7 +44,7 @@ module.exports = {
             'angular-motion.css': 'nganimationcss/build/nga.all.css',
             'angular-loading-bar.css': 'angular-loading-bar/build/loading-bar.css',
             'angular-gridster': 'angular-gridster/dist/angular-gridster.min',
-            'angular-gridster.css': 'angular-gridster/dist/angular-gridster.min.css',
+            'angular-gridster.css': __dirname + '/node_modules/angular-gridster/dist/angular-gridster.min.css',
             'jquery': 'jquery/dist/jquery',
             'jquery-terminal': 'jquery.terminal/js/jquery.terminal.min',
             'jquery-mousewheel': 'jquery.mousewheel/jquery.mousewheel',

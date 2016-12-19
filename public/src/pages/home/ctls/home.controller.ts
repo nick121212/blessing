@@ -3,25 +3,37 @@
  */
 
 export class HomeController {
-    public static $inject = ["$rootScope", "materialUtils", "toolbarUtils"];
+    public static $inject = ["$rootScope", "materialUtils", "toolbarUtils", "fxAction"];
 
-    toolbar: Object | Array<Object>;
-    title: string = "Ἀσάνα";
+    toolbars: Object | Array<Object>;
 
-    constructor(private $rootScope: ng.IRootScopeService, private materialUtils: fx.utils.materialStatic, private toolbarUtils) {
-        this.toolbar = [
-            toolbarUtils.btnBuilder("logo", "md-icon-button", false).iconBuilder("blender", {}).btnClick(($event) => {
-                this.doOpenNav($event);
+    constructor(private $rootScope: ng.IRootScopeService, private materialUtils: fx.utils.materialStatic, private toolbarUtils, private fxAction) {
+        $rootScope["isOpenMenu"] = false;
+
+        this.toolbars = [
+            toolbarUtils.btnBuilder("打开菜单栏", "md-fab md-raised md-mini", false).iconBuilder("window-closed", {}).btnClick(($event) => {
+                $rootScope["isOpenMenu"] = true;
             }).toValue(),
-            toolbarUtils.labelBuilder(this.title).attrBuilder({ flex: "" }).toValue(),
-            toolbarUtils.btnBuilder("{{$root.user}}", null, true).iconBuilder("more_vert", {}).btnClick(($event) => {
-                this.doOpenNav($event, 'right');
+            toolbarUtils.btnBuilder("", "md-fab md-raised md-mini", false).tooltipBuilder("退出登录").iconBuilder("logout").btnClick(($event) => {
+                this.doExit($event)
             }).toValue(),
         ];
     }
 
-    doOpenNav($event: MouseEvent, directive: string = "left") {
-        this.materialUtils.buildToggle(directive).call(this, $event);
+    /**
+    * 退出登录
+    * @param $event
+    */
+    doExit($event: MouseEvent) {
+        this.fxAction.getModel('logout').then((model) => {
+            const promise = this.fxAction.doActionModel($event, model);
+
+            if (promise) {
+                promise.then(() => {
+                    console.log("logout");
+                });
+            }
+        });
     }
 }
 

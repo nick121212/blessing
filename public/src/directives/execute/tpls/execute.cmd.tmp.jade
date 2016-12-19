@@ -25,7 +25,7 @@ md-sidenav.sidenav-100.md-sidenav-right(md-component-id="executeCmdRight",layout
                 md-card(flex)
                     md-card-content(layout="row",flex)
                         div(ng-if="executeCmdCtl.jid",fx-list-action,key="{{executeCmdCtl.listKey}}",selected="executeCmdCtl.deviceSelected",flex,multiple="true",auto-select="true",filter="executeCmdCtl.resFilter",client-data="executeCmdCtl.cmdResClientData")
-                md-card(flex)
+                md-card(flex="50")
                     md-card-title(flex="none")
                         md-card-title-text
                             span.md-headline 结果反馈

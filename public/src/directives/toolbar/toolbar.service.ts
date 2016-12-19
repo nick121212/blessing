@@ -41,12 +41,13 @@ class Service {
                 return this;
             }
 
-            iconBuilder(icon: string, style?: [{ (id: string): any }], ricon?: string, options?: [{ (id: string): any }]) {
+            iconBuilder(icon: string, style?: [{ (id: string): any }], ricon?: string, options?: [{ (id: string): any }], size?: string) {
                 this.data = _.extend({}, this.data, {
                     icon: {
                         icon: icon,
                         ricon: ricon,
-                        style: style
+                        style: style,
+                        size: size || '24px'
                     }
                 });
 
@@ -139,10 +140,11 @@ class Service {
              * @param title
              * @returns {Service}
              */
-            labelBuilder(title: string): Service {
+            labelBuilder(title: string, cls?: string): Service {
                 return new Service({
                     type: "label",
-                    title: title
+                    title: title,
+                    cls: cls
                 });
             }
 

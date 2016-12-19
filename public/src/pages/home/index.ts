@@ -15,8 +15,11 @@ import toolbar from '../../directives/toolbar';
 import sidemenu from '../../directives/sidemenu';
 import 'expose?SVGMorpheus!exports?SVGMorpheus!svg-morpheus';
 import { ActionType } from '../../directives/action/models/action.model';
+import "./index.scss";
 
-const module = angular.module("homeModule", [actionDir,toolbar, sidemenu, svgUtilsMod, materialService, ngMaterial, 'ui.router', ngMaterialIcons]);
+import 'angular-gridster';
+
+const module = angular.module("homeModule", [actionDir, toolbar, sidemenu, svgUtilsMod, materialService, ngMaterial, 'ui.router', ngMaterialIcons, 'gridster']);
 
 module.config([
     "$stateProvider",
@@ -32,7 +35,7 @@ module.config([
         $mdThemingProvider.theme('default')
             // .dark()
             .primaryPalette('grey')
-            .accentPalette('purple')
+            .accentPalette('blue')
             .warnPalette('red');
         // 初始化路由
         initRouter($urlRouterProvider, $stateProvider);

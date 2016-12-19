@@ -1,7 +1,7 @@
 {
     "site": {
         "PORT": 3000,
-        "events": "http://localhost:3000/events"
+        "events": "http://127.0.0.1:3000/events"
     },
     "redis": {
         "port": 6379,
