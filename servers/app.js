@@ -8,10 +8,9 @@ import { socket } from './utils/socket';
 import db from './utils/db';
 import { router } from './routers';
 import docs from 'koa-docs';
+import spa from "./spa";
 
 const app = new Koa();
-
-console.log(config);
 
 async function init() {
     // 加载中间件
@@ -26,6 +25,8 @@ async function init() {
     router.execute(app);
     // 初始化socket
     let server = socket.eventsIo.attach(app);
+    // spa server 启动
+    await spa(config, app.server);
     // 监听端口
     app.listen(process.env.PORT || config.site.PORT || 3000, () => {
         console.log("Server listening on %s", app.server._connectionKey);

@@ -42,5 +42,10 @@
                 "idle": 10000
             }
         }
+    },
+    "saltServer": {
+        "prefix": "eureca.io",
+        "transport": "",
+        "allow": ["setStatus", "status"]
     }
 }

@@ -11,10 +11,6 @@ export const routers = {
     'GET /manual/modAndAct': [auth.passport, auth.permission, getTree]
 }
 
-export const init = (router, sequelizeModel) => {
-    console.log(router);
-}
+export const init = (router, sequelizeModel) => {}
 
-export const config = {
-
-}
+export const config = {}
