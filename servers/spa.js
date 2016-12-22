@@ -22,7 +22,7 @@ const initServer = async(spaServer, config) => {
 
 export default async(config, server) => {
     const app = new spa.Spa();
-    console.log(config);
+
     app.initServer(config.saltServer || {}, server);
 
     await initServer(app.spaServer);
