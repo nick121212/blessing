@@ -18,6 +18,7 @@ export default (config) => {
                 throw err;
             }
         }
+        let status = (!item || item._found) ? false : item._source.status;
         item = await client.index({
             index: 'cmdb.apply',
             type: 'est-agent',
@@ -26,9 +27,11 @@ export default (config) => {
                 id: ctx.params.doc.id,
                 ips: ctx.params.ips["IPv4"],
                 hostname: ctx.params.hostname,
-                status: (!item || item._found) ? false : item._source.status
+                status: status
             }
         });
+
+        ctx.body = status;
 
         await next();
     };
