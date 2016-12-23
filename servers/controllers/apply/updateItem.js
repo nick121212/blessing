@@ -3,6 +3,7 @@ import _ from 'lodash';
 import boom from 'boom';
 import { client } from '../../utils/es';
 import { app } from "../../spa";
+import Promise from "bluebird";
 
 export default () => {
 
