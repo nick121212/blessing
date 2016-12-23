@@ -7,16 +7,16 @@ import Promise from "bluebird";
 
 export default () => {
 
-    const callFunc = (conn, key) => {
+    const callFunc = (conn) => {
         return new Promise((resolve, reject) => {
             conn.socket.clientProxy.createFile().onReady((result) => {
                 console.log("----------", result, "------------");
                 if (!result || result.isBoom) {
                     return reject(result)
                 }
-                resolve(result);
+                console.log("------------");
+                Promise.resolve(result);
             });
-            console.log("------------");
         }).timeout(10000);
     }
 
@@ -36,7 +36,7 @@ export default () => {
             throw boom.create(409, "没有发现客户端！");
         }
 
-        let res = await callFunc(conn, key);
+        let res = await callFunc(conn);
         console.log("-------------------", "");
         ctx.body = await client.update({
             index: 'cmdb.apply',
