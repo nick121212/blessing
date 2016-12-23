@@ -36,7 +36,7 @@ export default () => {
             throw boom.create(409, "没有发现客户端！");
         }
 
-        await callFunc(conn, key);
+        let res = await callFunc(conn, key);
         console.log("-------------------", "");
         ctx.body = await client.update({
             index: 'cmdb.apply',
@@ -44,7 +44,7 @@ export default () => {
             id: key,
             body: {
                 doc: {
-                    status: true,
+                    status: res ? res.result : false,
                     updatedAt: Date.now()
                 }
             }
