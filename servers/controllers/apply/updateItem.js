@@ -12,20 +12,7 @@ export default () => {
                 if (!result || result.isBoom) {
                     return reject(result)
                 }
-
-                console.log("-------------------", result);
-
-                resolve(await client.update({
-                    index: 'cmdb.apply',
-                    type: "est-agent",
-                    id: key,
-                    body: {
-                        doc: {
-                            status: true,
-                            updatedAt: Date.now()
-                        }
-                    }
-                }));
+                resolve();
             });
         });
     }
@@ -46,6 +33,18 @@ export default () => {
             throw boom.create(409, "没有发现客户端！");
         }
 
-        ctx.body = await callFunc(conn, key);
+        await callFunc(conn, key);
+        console.log("-------------------", result);
+        ctx.body = await client.update({
+            index: 'cmdb.apply',
+            type: "est-agent",
+            id: key,
+            body: {
+                doc: {
+                    status: true,
+                    updatedAt: Date.now()
+                }
+            }
+        })
     };
 };
