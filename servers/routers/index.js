@@ -68,6 +68,9 @@ export class BRouter {
         app.use(this.doInitRouter("device", Router({
             prefix: `/devices`
         }), {}).middleware());
+        app.use(this.doInitRouter("apply", Router({
+            prefix: `/applies`
+        }), {}).middleware());
     }
 }
 

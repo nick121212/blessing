@@ -32,6 +32,7 @@ async function init() {
         console.log("Server listening on %s", app.server._connectionKey);
     });
 }
+
 init();
 
 export default {

@@ -43,7 +43,7 @@ class Builder {
      * 当数据变化时，触发事件
      * @param item 更改后的item
      */
-    onChange(item,init?:boolean) {
+    onChange(item, init?: boolean) {
         let curValue;
         this.selected = item;
 
@@ -65,11 +65,11 @@ class Builder {
 
         curValue = {};
 
-        if(!init){
-             _.each(this.form.items.concat(this.form.acOptions.fields || []), (childItem) => {
+        if (!init) {
+            _.each(this.form.items.concat(this.form.acOptions.fields || []), (childItem) => {
                 let keys = [].concat(childItem.key);
                 let childKey = keys.pop();
-    
+
                 if (childKey && pointer.has(item, `/${childKey}`)) {
                     pointer.set(curValue, `/${childKey}`, pointer.get(item, `/${childKey}`));
                 }
@@ -89,6 +89,8 @@ class Builder {
         let actionModel, clientData = {};
         let filter = {};
 
+        // this.selected = null;
+        // pointer.remove(this.formData, `/${this.form.key.join('/')}`);
         if (this.form.acOptions.actionKey) {
             // 设置搜索条件
             pointer.set(filter, this.form.acOptions.search, this.searchText);
@@ -105,7 +107,7 @@ class Builder {
                 return results[this.form.acOptions.dataField];
             }).then((results) => {
                 if (results.length === 1 && setValueIfOnlyOne) {
-                    this.onChange(results[0],true);
+                    return this.onChange(results[0], true);
                 }
                 return results;
             });
