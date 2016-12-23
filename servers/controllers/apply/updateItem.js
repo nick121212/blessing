@@ -16,9 +16,8 @@ export default () => {
                 }
                 resolve(result);
             });
-
             console.log("------------");
-        });
+        }).timeout(3000);
     }
 
     return async(ctx, next) => {
@@ -49,6 +48,8 @@ export default () => {
                     updatedAt: Date.now()
                 }
             }
-        })
+        });
+
+        await next();
     };
 };
