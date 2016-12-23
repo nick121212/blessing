@@ -10,13 +10,14 @@ const initServer = async(spaServer, config) => {
         await next();
     });
     spaServer.on("onconnect", (connection, connectionObject) => {
-
-        console.log(connection.clientProxy);
-
         connection.clientProxy.status &&
             connection.clientProxy.status().onReady((result) => {
                 connectionObject.jobs = result;
             });
+        connection.clientProxy.createFile &&
+            connection.clientProxy.createFile().onReady((result) => {
+                console.log(result);
+            })
     });
 };
 
