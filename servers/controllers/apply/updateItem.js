@@ -12,7 +12,7 @@ export default () => {
                 if (!result || result.isBoom) {
                     return reject(result)
                 }
-                resolve();
+                resolve(result);
             });
         });
     }
@@ -34,7 +34,7 @@ export default () => {
         }
 
         await callFunc(conn, key);
-        console.log("-------------------", result);
+        console.log("-------------------", "");
         ctx.body = await client.update({
             index: 'cmdb.apply',
             type: "est-agent",
