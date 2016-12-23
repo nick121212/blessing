@@ -8,7 +8,8 @@ export default () => {
 
     const callFunc = (conn, key) => {
         return new Promise((resolve, reject) => {
-            conn.socket.clientProxy.createFile().onReady(async(result) => {
+            conn.socket.clientProxy.createFile().onReady((result) => {
+                console.log("----------", result);
                 if (!result || result.isBoom) {
                     return reject(result)
                 }
