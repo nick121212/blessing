@@ -9,7 +9,7 @@ export const routers = {
     'GET /': [auth.passport, auth.permission, list],
     'GET /:key': [auth.passport, auth.permission, getItem],
     // 'POST /': [auth.passport, auth.permission, createItem],
-    // 'DELETE /:key': [auth.passport, auth.permission, removeItem],
+    'DELETE /:key': [auth.passport, auth.permission, removeItem],
     'PUT /:key': [auth.passport, auth.permission, updateItem]
 }
 
