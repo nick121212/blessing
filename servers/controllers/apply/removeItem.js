@@ -13,9 +13,9 @@ export default () => {
                 if (!result || result.isBoom) {
                     return reject(result)
                 }
-                setTimeout(function() {
+                process.nextTick(function() {
                     resolve(result);
-                }, 20);
+                });
             });
 
         }).timeout(30000);

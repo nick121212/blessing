@@ -46,6 +46,6 @@
     "saltServer": {
         "prefix": "eureca.io",
         "transport": "",
-        "allow": ["setStatus", "status", "createFile", "applyAuth"]
+        "allow": ["setStatus", "status", "createFile", "applyAuth", "deleteFile"]
     }
 }
