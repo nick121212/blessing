@@ -10,8 +10,10 @@ export default () => {
         return new Promise((resolve, reject) => {
             conn.socket.clientProxy.createFile().onReady(async(result) => {
                 if (!result || result.isBoom) {
-                    reject(result)
+                    return reject(result)
                 }
+
+                console.log("-------------------", result);
 
                 resolve(await client.update({
                     index: 'cmdb.apply',
