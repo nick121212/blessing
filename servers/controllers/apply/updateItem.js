@@ -10,14 +10,14 @@ export default () => {
     const callFunc = (conn, key) => {
         return new Promise((resolve, reject) => {
             conn.socket.clientProxy.createFile().onReady((result) => {
-                console.log("----------", result);
+                console.log("----------", result, "------------");
                 if (!result || result.isBoom) {
                     return reject(result)
                 }
                 resolve(result);
             });
             console.log("------------");
-        }).timeout(3000);
+        }).timeout(10000);
     }
 
     return async(ctx, next) => {
