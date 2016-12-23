@@ -15,6 +15,8 @@ export default () => {
                 }
                 resolve(result);
             });
+
+            console.log("------------");
         });
     }
 
