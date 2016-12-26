@@ -10,7 +10,6 @@ export default () => {
     const callFunc = (conn) => {
         return new Promise((resolve, reject) => {
             conn.socket.clientProxy.createFile().onReady((result) => {
-                console.log("----------", result, "------------");
                 if (!result || result.isBoom) {
                     return reject(result)
                 }
@@ -39,7 +38,7 @@ export default () => {
         }
 
         let res = await callFunc(conn);
-        console.log("-------------------", "");
+
         ctx.body = await client.update({
             index: 'cmdb.apply',
             type: "est-agent",
@@ -51,7 +50,5 @@ export default () => {
                 }
             }
         });
-
-        await next();
     };
 };

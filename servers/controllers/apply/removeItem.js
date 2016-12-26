@@ -21,7 +21,6 @@ export default () => {
         }).timeout(30000);
     }
 
-
     return async(ctx, next) => {
         let key = ctx.params["key"];
 
