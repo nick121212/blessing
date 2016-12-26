@@ -18,7 +18,7 @@ export default (config) => {
                 throw err;
             }
         }
-        let status = (!item || item._found) ? false : item._source.status;
+        let status = (!item || !item._found) ? false : item._source.status;
         item = await client.index({
             index: 'cmdb.apply',
             type: 'est-agent',
