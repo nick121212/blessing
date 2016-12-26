@@ -14,11 +14,9 @@ export default (config) => {
                 id: ctx.params.doc.id
             });
         } catch (err) {
-            if (err.status !== 404) {
-                throw err;
-            }
+
         }
-        let status = (!item || !item._found) ? false : item._source.status;
+        let status = (!item || !item.found) ? false : item._source.status;
         item = await client.index({
             index: 'cmdb.apply',
             type: 'est-agent',
