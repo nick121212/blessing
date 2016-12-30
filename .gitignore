@@ -1,4 +1,4 @@
-server/node_modules
+servers/node_modules
 public/node_modules
 !public/built
 public/typings
