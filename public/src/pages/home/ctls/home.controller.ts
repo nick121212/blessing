@@ -8,15 +8,25 @@ export class HomeController {
     toolbars: Object | Array<Object>;
 
     constructor(private $rootScope: ng.IRootScopeService, private materialUtils: fx.utils.materialStatic, private toolbarUtils, private fxAction) {
-        $rootScope["isOpenMenu"] = false;
+        $rootScope["isOpenMenu"] = true;
 
         this.toolbars = [
-            toolbarUtils.btnBuilder("打开菜单栏", "md-fab md-raised md-mini", false).iconBuilder("window-closed", {}).btnClick(($event) => {
-                $rootScope["isOpenMenu"] = true;
-            }).toValue(),
-            toolbarUtils.btnBuilder("", "md-fab md-raised md-mini", false).tooltipBuilder("退出登录").iconBuilder("logout").btnClick(($event) => {
-                this.doExit($event)
-            }).toValue(),
+            toolbarUtils.labelBuilder("").attrBuilder({ flex: "" }).toValue(),
+            toolbarUtils.noneBuilder("icon").className("md-margin").iconBuilder("people", {}, null, null, "24px").toValue(),
+            toolbarUtils.labelBuilder("{{$root.user.username}}", "md-subhead").attrBuilder({}).toValue(),
+            toolbarUtils.menuBarBuilder().className("md-no-padding").tooltipBuilder("").items([
+                toolbarUtils.menuBuilder("", "md-icon-button").attrBuilder({ "md-position-mode": "left bottom" }).iconBuilder("expand_more").menuOptionsBuilder().items([
+                    toolbarUtils.menuItemBuilder("系统设置", "", true).iconBuilder("settings").btnClick(($event) => {
+                    }).toValue(),
+                    toolbarUtils.noneBuilder("menuDivider").toValue(),
+                    // toolbarUtils.menuItemBuilder("修改密码", "", true).iconBuilder("key-change").btnClick(($event) => {
+                    //     this.doExit($event);
+                    // }).toValue(),
+                    toolbarUtils.menuItemBuilder("退出登录", "", true).iconBuilder("power-settings").btnClick(($event) => {
+                        this.doExit($event);
+                    }).toValue(),
+                ]).toValue()
+            ]).toValue()
         ];
     }
 

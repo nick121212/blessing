@@ -13,6 +13,8 @@ export default (sequelizeModel) => {
     return async(ctx, next) => {
         let filter = utils.getEsQuery(ctx.query);
 
+        console.log(ctx.query);
+
         filter.esQuery.aggs = {
             "count_success": {
                 "terms": {

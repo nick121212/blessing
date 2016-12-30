@@ -24,7 +24,7 @@ import 'angular-socket-io';
 import 'angular-gridster';
 import './index.scss';
 
-export const module = angular.module("pageModule", [pageMdlName,executeMdlName, compareDir, ngMaterialIcons, dyCompileMod, actionDir, mdDataTable, ngMaterial as string, 'ui.router', 'gridster', 'btford.socket-io', materialServiceMod, restRegMod, queryTable]);
+export const module = angular.module("pageModule", [pageMdlName, executeMdlName, compareDir, ngMaterialIcons, dyCompileMod, actionDir, mdDataTable, ngMaterial as string, 'ui.router', 'gridster', 'btford.socket-io', materialServiceMod, restRegMod, queryTable]);
 
 executeCmdFunc(module);
 
@@ -50,7 +50,6 @@ module.config([
                 $rootScope.$broadcast("showExecuteCmdResult", item._id);
                 actionModel.cancel = true;
             }
-            // alert(1);
         });
     }]);
 

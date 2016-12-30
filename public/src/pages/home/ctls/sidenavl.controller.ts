@@ -19,31 +19,8 @@ export class SidenavLeftController {
         this.doLinkBind = this.doLink.bind(this);
 
         this.toolbar = [
-            // toolbarUtils.btnBuilder("logo", "md-icon-button", false).iconBuilder("blender", {}).btnClick(($event) => {
-            //     // this.doOpenNav($event);
-            // }).toValue(),
-            toolbarUtils.labelBuilder("").attrBuilder({ flex: "" }).toValue(),
-            toolbarUtils.labelBuilder("{{$root.user}}", "md-subhead").attrBuilder({}).toValue(),
-            toolbarUtils.btnBuilder("", "md-icon-button", false).tooltipBuilder("退出登录").iconBuilder("logout", { minHeight: "12px", minWidth: "12px", height: "12px", width: "12px", }, null, null, "12px").btnClick(($event) => {
-                this.doExit($event);
-            }).toValue(),
+            toolbarUtils.labelBuilder("CMDB").attrBuilder({ flex: "" }).toValue()
         ];
-    }
-
-    /**
-     * 退出登录
-     * @param $event
-     */
-    doExit($event: MouseEvent) {
-        this.fxAction.getModel('logout').then((model) => {
-            const promise = this.fxAction.doActionModel($event, model);
-
-            if (promise) {
-                promise.then(() => {
-                    console.log("logout");
-                });
-            }
-        });
     }
 
     /**
@@ -130,9 +107,9 @@ export class SidenavLeftController {
                         delete this.selectedNodes[key];
                     })
                 }).toValue(),
-                this.toolbarUtils.btnBuilder("关掉菜单栏", "md-icon-button", false, "top").iconBuilder("close").btnClick(($event) => {
-                    this.$rootScope["isOpenMenu"] = false;
-                }).toValue()
+                // this.toolbarUtils.btnBuilder("关掉菜单栏", "md-icon-button", false, "top").iconBuilder("close").btnClick(($event) => {
+                //     this.$rootScope["isOpenMenu"] = false;
+                // }).toValue()
             ]).toValue()
         ];
 

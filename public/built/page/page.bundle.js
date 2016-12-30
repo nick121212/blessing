@@ -18766,7 +18766,10 @@ webpackJsonp([2],[
 	                        key: "listIps",
 	                        type: "querytable",
 	                        qtOptions: {
-	                            key: "devices"
+	                            key: "devices",
+	                            resFilter: {
+	                                "/online/match/-/and": 1
+	                            }
 	                        },
 	                        startEmpty: true,
 	                        htmlClass: "md-block"
@@ -19235,12 +19238,15 @@ webpackJsonp([2],[
 	            key: '@fxQueryTable',
 	            closeFn: '&?closeFn',
 	            ngModel: '=?',
-	            _filter: '=?'
+	            resFilter: '=?'
 	        },
 	        template: __webpack_require__(195),
 	        controller: Controller,
 	        controllerAs: 'qtCtl',
 	        link: function ($scope, $element, $attrs, $ctrl) {
+	            $scope.$watch($attrs["_filter"], function (n, o) {
+	                console.log(n, o);
+	            });
 	        }
 	    };
 	}
@@ -19293,7 +19299,7 @@ webpackJsonp([2],[
 	buf.push("</md-divider>");
 	jade_debug.shift();
 	jade_debug.unshift(new jade.DebugItem( 12, "/srv/blessing/public/src/directives/query.table/tpls/query.table.jade" ));
-	buf.push("<div ng-show=\"qtCtl.showSearchTable\" fx-list-action key=\"{{qtCtl.key}}\" flex multiple=\"true\" selected=\"qtCtl.ngModel\" class=\"nga-fast nga-stagger nga-fade\">");
+	buf.push("<div ng-show=\"qtCtl.showSearchTable\" fx-list-action key=\"{{qtCtl.key}}\" flex multiple=\"true\" selected=\"qtCtl.ngModel\" res_filter=\"qtCtl.resFilter\" class=\"nga-fast nga-stagger nga-fade\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
 	buf.push("</div>");
@@ -19303,7 +19309,7 @@ webpackJsonp([2],[
 	jade_debug.shift();
 	jade_debug.shift();;return buf.join("");
 	} catch (err) {
-	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "section(flex,layout=\"{{qtCtl.layout}}\")\n    //- div.lock-size\n    //- md-fab-speed-dial.md-scale.md-fab-bottom-left(md-direction=\"right\",md-open=\"qtCtl.isOpen\",ng-mouseenter=\"qtCtl.isOpen=true\" ng-mouseleave=\"qtCtl.isOpen=false\")\n    //-     md-fab-trigger\n    //-         md-button.md-fab.md-accent(aria-label=\"menu\")\n    //-             md-icon\n    //-                 ng-md-icon(icon=\"menu\")\n    //-     md-fab-actions\n    //-         div(fx-toolbar,layout=\"row\",items=\"qtCtl.toolbars\",ctls=\"qtCtl\")\n    div.nga-fast.nga-stagger.nga-fade(fx-list-action,key=\"{{qtCtl.key}}\",flex,multiple=\"false\",auto-select=\"true\",local=\"true\",client-data=\"qtCtl.clientData\",item-toolbars=\"qtCtl.itemToolbars\",top-toolbars=\"qtCtl.topToolbars\",qt-ctl=\"qtCtl\")\n    md-divider(ng-show=\"qtCtl.showSearchTable\")\n    div.nga-fast.nga-stagger.nga-fade(ng-show=\"qtCtl.showSearchTable\",fx-list-action,key=\"{{qtCtl.key}}\",flex,multiple=\"true\",selected=\"qtCtl.ngModel\")");
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "section(flex,layout=\"{{qtCtl.layout}}\")\n    //- div.lock-size\n    //- md-fab-speed-dial.md-scale.md-fab-bottom-left(md-direction=\"right\",md-open=\"qtCtl.isOpen\",ng-mouseenter=\"qtCtl.isOpen=true\" ng-mouseleave=\"qtCtl.isOpen=false\")\n    //-     md-fab-trigger\n    //-         md-button.md-fab.md-accent(aria-label=\"menu\")\n    //-             md-icon\n    //-                 ng-md-icon(icon=\"menu\")\n    //-     md-fab-actions\n    //-         div(fx-toolbar,layout=\"row\",items=\"qtCtl.toolbars\",ctls=\"qtCtl\")\n    div.nga-fast.nga-stagger.nga-fade(fx-list-action,key=\"{{qtCtl.key}}\",flex,multiple=\"false\",auto-select=\"true\",local=\"true\",client-data=\"qtCtl.clientData\",item-toolbars=\"qtCtl.itemToolbars\",top-toolbars=\"qtCtl.topToolbars\",qt-ctl=\"qtCtl\")\n    md-divider(ng-show=\"qtCtl.showSearchTable\")\n    div.nga-fast.nga-stagger.nga-fade(ng-show=\"qtCtl.showSearchTable\",fx-list-action,key=\"{{qtCtl.key}}\",flex,multiple=\"true\",selected=\"qtCtl.ngModel\",res_filter=\"qtCtl.resFilter\")");
 	}
 	}
 
@@ -19505,10 +19511,12 @@ webpackJsonp([2],[
 	            _this.getCommandResult(cmdId);
 	        });
 	        this.$scope.$on(this.listKey + ":searchComplete", function (event, data) {
+	            _this.deviceSelected = [];
 	            _.each(data.rows, function (item, key) {
 	                if (_this.cmdResMap.hasOwnProperty(item._id)) {
 	                    _.extend(data.rows[key], _this.cmdResMap[item._id]);
 	                }
+	                _this.deviceSelected.push(_.extend({}, item));
 	            });
 	            _this.process.total = data.total;
 	            _this.setProcess(data['aggregations']);
@@ -19556,7 +19564,7 @@ webpackJsonp([2],[
 	        this.isBusy = true;
 	        this.isOpen = true;
 	        pointer.set(filter, "/_id/match/-/and", cmdId);
-	        pointer.set(this.resFilter, "/jid/match/-/and", cmdId);
+	        this.resFilter = { "/jid/match/-/and": cmdId };
 	        this.$q.all([
 	            this.fxAction.doAction("executeCmdList", { where: filter })
 	        ]).then(function (results) {
@@ -19780,7 +19788,7 @@ webpackJsonp([2],[
 	buf.push("<md-card-content layout=\"row\" flex>");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.unshift(new jade.DebugItem( 27, "/srv/blessing/public/src/directives/execute/tpls/execute.cmd.tmp.jade" ));
-	buf.push("<div ng-if=\"executeCmdCtl.jid\" fx-list-action key=\"{{executeCmdCtl.listKey}}\" selected=\"executeCmdCtl.deviceSelected\" flex multiple=\"true\" auto-select=\"true\" filter=\"executeCmdCtl.resFilter\" client-data=\"executeCmdCtl.cmdResClientData\">");
+	buf.push("<div ng-if=\"executeCmdCtl.jid\" fx-list-action key=\"{{executeCmdCtl.listKey}}\" selected=\"executeCmdCtl.deviceSelected\" flex multiple=\"true\" auto-select=\"true\" res-filter=\"executeCmdCtl.resFilter\" client-data=\"executeCmdCtl.cmdResClientData\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
 	buf.push("</div>");
@@ -19879,7 +19887,7 @@ webpackJsonp([2],[
 	jade_debug.shift();
 	jade_debug.shift();;return buf.join("");
 	} catch (err) {
-	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-sidenav.sidenav-100.md-sidenav-right(md-component-id=\"executeCmdRight\",layout=\"column\",md-whiteframe=\"4\",md-is-open=\"executeCmdCtl.isOpen\")\n    md-content(flex,layout=\"column\")\n        md-toolbar.md-table-toolbar.md-hue-3(layout=\"row\")\n            div.md-toolbar-tools\n                span(flex) 执行结果\n                md-button.md-icon-button(ng-click=\"executeCmdCtl.isOpen=false;\")\n                    md-icon\n                        ng-md-icon(icon=\"arrow_forward\")\n        md-divider\n        md-content(flex,layout=\"column\")\n            md-progress-linear.md-accent(ng-if=\"!executeCmdCtl.process.fail\",md-mode=\"buffer\",value=\"{{executeCmdCtl.process.complete}}\",md-buffer-value=\"{{executeCmdCtl.process.buffer}}\")\n            md-progress-linear.md-warn(ng-if=\"executeCmdCtl.process.fail\",md-mode=\"buffer\",value=\"{{executeCmdCtl.process.complete}}\",md-buffer-value=\"{{executeCmdCtl.process.buffer}}\")\n            div(layout=\"row\",flex)\n                md-card\n                    md-card-title(flex=\"none\")\n                        md-card-title-text\n                            span.md-headline 命令详情({{executeCmdCtl.command.key}})\n                        md-card-title-media\n                    md-card-content(layout=\"column\",flex)\n                        h3 命令说明：{{ executeCmdCtl.command.title }}\n                        h4 命令：{{ executeCmdCtl.command.cmd }}\n                        p 参数：{{ executeCmdCtl.command.args }}\n                        p 主机数量：{{ executeCmdCtl.process.total }}\n                        //- span {{executeCmdCtl.process | json}}\n                md-card(flex)\n                    md-card-content(layout=\"row\",flex)\n                        div(ng-if=\"executeCmdCtl.jid\",fx-list-action,key=\"{{executeCmdCtl.listKey}}\",selected=\"executeCmdCtl.deviceSelected\",flex,multiple=\"true\",auto-select=\"true\",filter=\"executeCmdCtl.resFilter\",client-data=\"executeCmdCtl.cmdResClientData\")\n                md-card(flex=\"50\")\n                    md-card-title(flex=\"none\")\n                        md-card-title-text\n                            span.md-headline 结果反馈\n                        md-divider\n                    md-card-content(layout=\"column\",flex,style=\"overflow:auto;\")\n                        md-list(flex)\n                            md-list-item.md-3-line(ng-repeat=\"item in executeCmdCtl.deviceSelected\")\n                                div.md-list-item-text(layout=\"column\")\n                                    h2 {{item._source.id}} -- {{item._source.deviceSn}}\n                                    div(angular-terminal=\"item._source.deviceSn\",greetings=\"{{item._source.return||'no info'}}\")\n            //- md-content(flex)\n                //- md-card(flex)\n                //-     md-card-title(flex=\"none\")\n                //-         md-card-title-text\n                //-             span.md-headline 结果反馈\n                //-     md-card-content(layout=\"column\",flex)\n                //-         md-divider\n                //-         md-list()\n                //-             md-list-item.md-3-line(ng-repeat=\"item in executeCmdCtl.deviceSelected\")\n                //-                 div.md-list-item-text(layout=\"column\")\n                //-                     h2 {{item._source.id}} -- {{item._source.deviceSn}}\n                //-                     div(angular-terminal=\"item._source.deviceSn\",greetings=\"{{item._source.return||'no info'}}\")");
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-sidenav.sidenav-100.md-sidenav-right(md-component-id=\"executeCmdRight\",layout=\"column\",md-whiteframe=\"4\",md-is-open=\"executeCmdCtl.isOpen\")\n    md-content(flex,layout=\"column\")\n        md-toolbar.md-table-toolbar.md-hue-3(layout=\"row\")\n            div.md-toolbar-tools\n                span(flex) 执行结果\n                md-button.md-icon-button(ng-click=\"executeCmdCtl.isOpen=false;\")\n                    md-icon\n                        ng-md-icon(icon=\"arrow_forward\")\n        md-divider\n        md-content(flex,layout=\"column\")\n            md-progress-linear.md-accent(ng-if=\"!executeCmdCtl.process.fail\",md-mode=\"buffer\",value=\"{{executeCmdCtl.process.complete}}\",md-buffer-value=\"{{executeCmdCtl.process.buffer}}\")\n            md-progress-linear.md-warn(ng-if=\"executeCmdCtl.process.fail\",md-mode=\"buffer\",value=\"{{executeCmdCtl.process.complete}}\",md-buffer-value=\"{{executeCmdCtl.process.buffer}}\")\n            div(layout=\"row\",flex)\n                md-card\n                    md-card-title(flex=\"none\")\n                        md-card-title-text\n                            span.md-headline 命令详情({{executeCmdCtl.command.key}})\n                        md-card-title-media\n                    md-card-content(layout=\"column\",flex)\n                        h3 命令说明：{{ executeCmdCtl.command.title }}\n                        h4 命令：{{ executeCmdCtl.command.cmd }}\n                        p 参数：{{ executeCmdCtl.command.args }}\n                        p 主机数量：{{ executeCmdCtl.process.total }}\n                        //- span {{executeCmdCtl.process | json}}\n                md-card(flex)\n                    md-card-content(layout=\"row\",flex)\n                        div(ng-if=\"executeCmdCtl.jid\",fx-list-action,key=\"{{executeCmdCtl.listKey}}\",selected=\"executeCmdCtl.deviceSelected\",flex,multiple=\"true\",auto-select=\"true\",res-filter=\"executeCmdCtl.resFilter\",client-data=\"executeCmdCtl.cmdResClientData\")\n                md-card(flex=\"50\")\n                    md-card-title(flex=\"none\")\n                        md-card-title-text\n                            span.md-headline 结果反馈\n                        md-divider\n                    md-card-content(layout=\"column\",flex,style=\"overflow:auto;\")\n                        md-list(flex)\n                            md-list-item.md-3-line(ng-repeat=\"item in executeCmdCtl.deviceSelected\")\n                                div.md-list-item-text(layout=\"column\")\n                                    h2 {{item._source.id}} -- {{item._source.deviceSn}}\n                                    div(angular-terminal=\"item._source.deviceSn\",greetings=\"{{item._source.return||'no info'}}\")\n            //- md-content(flex)\n                //- md-card(flex)\n                //-     md-card-title(flex=\"none\")\n                //-         md-card-title-text\n                //-             span.md-headline 结果反馈\n                //-     md-card-content(layout=\"column\",flex)\n                //-         md-divider\n                //-         md-list()\n                //-             md-list-item.md-3-line(ng-repeat=\"item in executeCmdCtl.deviceSelected\")\n                //-                 div.md-list-item-text(layout=\"column\")\n                //-                     h2 {{item._source.id}} -- {{item._source.deviceSn}}\n                //-                     div(angular-terminal=\"item._source.deviceSn\",greetings=\"{{item._source.return||'no info'}}\")");
 	}
 	}
 

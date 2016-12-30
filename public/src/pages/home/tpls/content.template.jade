@@ -8,12 +8,12 @@ md-content(flex)
                         div.md-toolbar-tools
                             h2
                                 span {{$index}}
-                //- md-input-container.md-block.no-errors
-                //-     label 搜索图标
-                //-     input(ng-model="contentCtl.filter")
-                //- md-content(flex)
-                //-     md-button(ng-click="contentCtl.doOpenIconInfo($event,icon)",ng-repeat="icon in contentCtl.icons | filter:contentCtl.filter | orderBy | limitTo:50 ")
-                //-         div(layout="column")
-                //-             md-icon
-                //-                 ng-md-icon(icon="{{::icon}}")
-                //-             span {{::icon}}
+                    md-input-container.md-block.no-errors(ng-if="$index==0")
+                        label 搜索图标
+                        input(ng-model="contentCtl.filter")
+                    md-content(flex,ng-if="$index==0")
+                        md-button(ng-click="contentCtl.doOpenIconInfo($event,icon)",ng-repeat="icon in contentCtl.icons | filter:contentCtl.filter | orderBy | limitTo:50 ")
+                            div(layout="column")
+                                md-icon
+                                    ng-md-icon(icon="{{::icon}}")
+                                span {{::icon}}

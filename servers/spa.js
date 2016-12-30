@@ -3,6 +3,19 @@ import _ from "lodash";
 import setStatus from "./controllers/spa/setStatus";
 import applyAuth from "./controllers/spa/applyAuth";
 
+var gitlab = require('node-gitlab');
+
+var client = gitlab.create({
+    api: 'http://code.4nb.tech/api/v3',
+    privateToken: 'iEQ5A1269sJPz6LXsyUW'
+});
+
+console.log(client.repository.getTags);
+
+client.repository.getTags({ id: 15 }, function(err, milestones) {
+    console.log(err, milestones);
+});
+
 const initServer = async(spaServer, config) => {
     const serverCompose = new spa.Spa();
 
@@ -18,6 +31,9 @@ const initServer = async(spaServer, config) => {
             connection.clientProxy.status().onReady(async(result) => {
                 _.extend(connectionObject, result);
             });
+    });
+    spaServer.on("ondisconnect", (connection, connectionObject) => {
+
     });
 };
 

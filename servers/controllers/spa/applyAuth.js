@@ -3,9 +3,8 @@ import getItem from "../apply/getItem";
 import { client } from '../../utils/es';
 
 export default (config) => {
-
     return async(ctx, next) => {
-        let item;
+        let item, device;
 
         try {
             item = await client.get({
@@ -25,10 +24,10 @@ export default (config) => {
                 id: ctx.params.doc.id,
                 ips: ctx.params.ips["IPv4"],
                 hostname: ctx.params.hostname,
-                status: status
+                status: status,
+                lastCheck: Date.now()
             }
         });
-
         ctx.body = status;
 
         await next();

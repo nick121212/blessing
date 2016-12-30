@@ -51,7 +51,6 @@ module.config([
         };
 
         $rootScope.$on("$stateRefresh", () => {
-            console.log("dfadfa");
             state.$$isFinish = false;
         });
 
@@ -77,7 +76,7 @@ module.config([
                         $rootScope["config"] = result.configAction.config;
                     }),
                     userinfoAction: fxAction.doAction("userinfoAction", {}).then((result) => {
-                        result.userinfo && ($rootScope["user"] = result.userinfo.username);
+                        result.userinfo && ($rootScope["user"] = result.userinfo);
                     })
                 }).then(() => { handleResolve(true) }, () => { handleResolve(false) });
             }

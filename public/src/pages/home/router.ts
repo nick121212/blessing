@@ -33,11 +33,11 @@ export const initRouter = ($urlRouterProvider, $stateProvider) => {
                 controllerAs: "sideLeftCtl",
                 template: require("./tpls/sidenavl.template.jade")(),
             },
-            "sidenavRight@home": {
-                controller: SidenavRightController,
-                controllerAs: "sideRightCtl",
-                template: require("./tpls/sidenavr.template.jade")(),
-            },
+            // "sidenavRight@home": {
+            //     controller: SidenavRightController,
+            //     controllerAs: "sideRightCtl",
+            //     template: require("./tpls/sidenavr.template.jade")(),
+            // },
             "content@home": {
                 controller: ContentController,
                 controllerAs: "contentCtl",

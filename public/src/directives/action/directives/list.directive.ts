@@ -16,7 +16,7 @@ class Controller {
     selected: Array<Object>;
     promise: ng.IPromise<any>;
     showToolbar: boolean;
-    _filter: any;
+    resFilter: any;
     multiple: boolean;
     local: boolean;
     autoSelect: boolean;
@@ -69,7 +69,7 @@ class Controller {
         });
 
         this.$scope.$watch(() => {
-            return this._filter;
+            return this.resFilter;
         }, (newValue, oldValue) => {
             if (newValue && newValue != oldValue) {
                 this.doSearch();
@@ -80,7 +80,7 @@ class Controller {
     initEvents() {
         let timeId;
         this.$rootScope.$on(`${this.key}:refresh`, () => {
-            if(timeId) this.$timeout.cancel(timeId);
+            if (timeId) this.$timeout.cancel(timeId);
             timeId = this.$timeout(() => {
                 this.doSearch(this.queryData.where || {});
             }, 500);
@@ -137,7 +137,7 @@ class Controller {
         // 获取操作按钮
         this.fxAction.getModels(this.actionModel.actions).then((actionModels) => {
             // 添加标题label和icon
-            this.actionModel.list.toolbars.push(this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon, {}).toValue());
+            this.actionModel.list.toolbars.push(this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon).toValue());
             this.actionModel.list.toolbars.push(this.toolbarUtils.labelBuilder(`${this.actionModel.title}`).attrBuilder({ flex: "" }).toValue());
             // 添加顶部按钮
             _.forEach(actionModels, (actionModel: IActionModel) => {
@@ -244,8 +244,11 @@ class Controller {
         this.isBusy = true;
         this.queryData.where = filterData || {};
 
-        if (_.isObject(this._filter) && _.isObject(this.queryData["where"])) {
-            _.extend(this.queryData["where"], this._filter);
+        if (_.isObject(this.resFilter) && _.isObject(this.queryData["where"])) {
+            _.forEach(this.resFilter, (val, key) => {
+                pointer.set(this.queryData["where"], key, val);
+            });
+            // _.extend(this.queryData["where"], this.resFilter);
         }
 
         this.promise = this.fxAction.doAction(this.key, this.queryData);
@@ -275,7 +278,7 @@ function Directive(): ng.IDirective {
         bindToController: {
             key: "@",
             selected: '=?',
-            _filter: '=?filter',
+            resFilter: '=?',
             clientData: '=?',
             showToolbar: '=?',
             multiple: '=?',

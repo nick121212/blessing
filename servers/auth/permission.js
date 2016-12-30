@@ -7,9 +7,21 @@ export default (app) => {
         throw boom.badData("没有操作权限!");
     }
 
+    /**
+     * 查找用户
+     * 查找用户的角色
+     * 查找角色的权限组
+     * 查找权限组中的所有的操作
+     * 与当前操作最对比
+     */
     return async(ctx, next) => {
         let actionKey = ctx.req.headers['action-key'];
-        let member = ctx.req.user;
+        let member = await db.models.member.findById(ctx.state.user.id);
+
+        if (!member) {
+            return err();
+        }
+
         let action = await db.models.action.findOne({
             where: {
                 key: actionKey

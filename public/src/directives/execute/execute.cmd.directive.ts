@@ -80,10 +80,13 @@ export class PageExecuteCmdResultController {
         });
 
         this.$scope.$on(`${this.listKey}:searchComplete`, (event, data) => {
+            this.deviceSelected = [];
             _.each(data.rows, (item, key) => {
                 if (this.cmdResMap.hasOwnProperty(item._id)) {
                     _.extend(data.rows[key], this.cmdResMap[item._id]);
                 }
+
+                this.deviceSelected.push(_.extend({}, item));
             });
             this.process.total = data.total;
             this.setProcess(data['aggregations']);
@@ -134,8 +137,9 @@ export class PageExecuteCmdResultController {
         this.realTime = true;
         this.isBusy = true;
         this.isOpen = true;
-        pointer.set(filter, "/_id/match/-/and", cmdId)
-        pointer.set(this.resFilter, "/jid/match/-/and", cmdId);
+        pointer.set(filter, "/_id/match/-/and", cmdId);
+        this.resFilter = { "/jid/match/-/and": cmdId };
+        // pointer.set(this.resFilter, "/jid/match/-/and", cmdId);
         this.$q.all([
             this.fxAction.doAction("executeCmdList", { where: filter })
         ]).then((results: any) => {

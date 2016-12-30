@@ -3,22 +3,21 @@ md-content(layout="column",layout-padding)
     form(name="loginForm")
         div(fx-form-action,key="{{loginCtl.key}}",ng-model="loginCtl.formData",layout="column",ng-submit="loginCtl.doSubmit(loginForm)")
     div(layout="row",layout-align="space-around center")
-        md-button 联系管理员
         md-button(ng-click="loginCtl.doSubmit(loginForm)")
             md-icon
                 ng-md-icon(icon="login")
             span Login In
-    //- md-divider
-    //- div(layout="row",layout-align="space-around center")
-    //-     md-button.md-icon-button
-    //-         md-tooltip QQ
-    //-         md-icon
-    //-             ng-md-icon(icon="qqchat")
-    //-     md-button.md-icon-button
-    //-         md-tooltip 微博
-    //-         md-icon
-    //-             ng-md-icon(icon="weibo")
-    //-     md-button.md-icon-button
-    //-         md-tooltip 微信
-    //-         md-icon
-    //-             ng-md-icon(icon="wechat")
+    md-divider
+    div(layout="row",layout-align="space-around center")
+        md-button.md-icon-button(href="/passport/auth/gitlab")
+            md-tooltip GITLAB
+            md-icon
+                ng-md-icon(icon="github-circle")
+        //- md-button.md-icon-button
+        //-     md-tooltip 微博
+        //-     md-icon
+        //-         ng-md-icon(icon="weibo")
+        //- md-button.md-icon-button
+        //-     md-tooltip 微信
+        //-     md-icon
+        //-         ng-md-icon(icon="wechat")

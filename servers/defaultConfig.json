@@ -47,5 +47,20 @@
         "prefix": "eureca.io",
         "transport": "",
         "allow": ["setStatus", "status", "createFile", "applyAuth", "deleteFile"]
+    },
+
+    "auth": {
+        "gitlab": {
+            "clientID": "577923791882942bcff2835657727102fa9c8c8cec71b4b203e0529a7fa39ff7",
+            "clientSecret": "14122fb7064e98692317109253cf45efa5a1258aa0e185d75112cca4011cd95d",
+            "callbackURL": "http://localhost:8082/passport/auth/gitlab/callback",
+            "baseURL": "http://code.4nb.tech/"
+        },
+        "ldap": {
+            "url": "ldap://192.168.119.51:389",
+            "baseDN": "OU=demo,DC=jack,DC=com",
+            "username": "user1",
+            "password": "1qaz2wsx.."
+        }
     }
 }

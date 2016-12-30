@@ -54,7 +54,10 @@ export class ExecuteCmdForm {
                     key: "listIps",
                     type: "querytable",
                     qtOptions: {
-                        key: "devices"
+                        key: "devices",
+                        resFilter: {
+                            "/online/match/-/and": 1
+                        }
                     },
                     startEmpty: true,
                     htmlClass: "md-block"

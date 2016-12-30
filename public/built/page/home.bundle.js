@@ -1,5 +1,6 @@
-webpackJsonp([0],[
-/* 0 */
+webpackJsonp([0],{
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__dirname) {"use strict";
@@ -43,7 +44,6 @@ webpackJsonp([0],[
 	            $state.go(state.toState.name, state.toParams, state.options);
 	        };
 	        $rootScope.$on("$stateRefresh", function () {
-	            console.log("dfadfa");
 	            state.$$isFinish = false;
 	        });
 	        $rootScope.$on("$stateChangeStart", function (evt, toState, toParams, fromState, fromParams) {
@@ -66,7 +66,7 @@ webpackJsonp([0],[
 	                        $rootScope["config"] = result.configAction.config;
 	                    }),
 	                    userinfoAction: fxAction.doAction("userinfoAction", {}).then(function (result) {
-	                        result.userinfo && ($rootScope["user"] = result.userinfo.username);
+	                        result.userinfo && ($rootScope["user"] = result.userinfo);
 	                    })
 	                }).then(function () { handleResolve(true); }, function () { handleResolve(false); });
 	            }
@@ -101,16 +101,8 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */
+
+/***/ 10:
 /***/ function(module, exports) {
 
 	/**
@@ -123,133 +115,13 @@ webpackJsonp([0],[
 	  a.get("$state.runtime").autoinject&&a.get("$state")}]),w.$inject=[],b.module("ui.router.state").provider("$view",w),b.module("ui.router.state").provider("$uiViewScroll",x),y.$inject=["$state","$injector","$uiViewScroll","$interpolate","$q"],z.$inject=["$compile","$controller","$state","$interpolate"],b.module("ui.router.state").directive("uiView",y),b.module("ui.router.state").directive("uiView",z),G.$inject=["$state","$timeout"],H.$inject=["$state","$timeout"],I.$inject=["$state","$stateParams","$interpolate"],b.module("ui.router.state").directive("uiSref",G).directive("uiSrefActive",I).directive("uiSrefActiveEq",I).directive("uiState",H),J.$inject=["$state"],K.$inject=["$state"],b.module("ui.router.state").filter("isState",J).filter("includedByState",K)}(window,window.angular);
 
 /***/ },
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */,
-/* 130 */,
-/* 131 */
+
+/***/ 131:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var home_controller_1 = __webpack_require__(132);
 	var sidenavl_controller_1 = __webpack_require__(133);
-	var sidenavr_controller_1 = __webpack_require__(134);
 	var content_controller_1 = __webpack_require__(135);
 	exports.initRouter = function ($urlRouterProvider, $stateProvider) {
 	    $urlRouterProvider.otherwise(function ($injector) {
@@ -275,11 +147,6 @@ webpackJsonp([0],[
 	                controllerAs: "sideLeftCtl",
 	                template: __webpack_require__(137)(),
 	            },
-	            "sidenavRight@home": {
-	                controller: sidenavr_controller_1.SidenavRightController,
-	                controllerAs: "sideRightCtl",
-	                template: __webpack_require__(138)(),
-	            },
 	            "content@home": {
 	                controller: content_controller_1.ContentController,
 	                controllerAs: "contentCtl",
@@ -291,7 +158,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 132 */
+
+/***/ 132:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -302,14 +170,21 @@ webpackJsonp([0],[
 	        this.materialUtils = materialUtils;
 	        this.toolbarUtils = toolbarUtils;
 	        this.fxAction = fxAction;
-	        $rootScope["isOpenMenu"] = false;
+	        $rootScope["isOpenMenu"] = true;
 	        this.toolbars = [
-	            toolbarUtils.btnBuilder("打开菜单栏", "md-fab md-raised md-mini", false).iconBuilder("window-closed", {}).btnClick(function ($event) {
-	                $rootScope["isOpenMenu"] = true;
-	            }).toValue(),
-	            toolbarUtils.btnBuilder("", "md-fab md-raised md-mini", false).tooltipBuilder("退出登录").iconBuilder("logout").btnClick(function ($event) {
-	                _this.doExit($event);
-	            }).toValue(),
+	            toolbarUtils.labelBuilder("").attrBuilder({ flex: "" }).toValue(),
+	            toolbarUtils.noneBuilder("icon").className("md-margin").iconBuilder("people", {}, null, null, "24px").toValue(),
+	            toolbarUtils.labelBuilder("{{$root.user.username}}", "md-subhead").attrBuilder({}).toValue(),
+	            toolbarUtils.menuBarBuilder().className("md-no-padding").tooltipBuilder("").items([
+	                toolbarUtils.menuBuilder("", "md-icon-button").attrBuilder({ "md-position-mode": "left bottom" }).iconBuilder("expand_more").menuOptionsBuilder().items([
+	                    toolbarUtils.menuItemBuilder("系统设置", "", true).iconBuilder("settings").btnClick(function ($event) {
+	                    }).toValue(),
+	                    toolbarUtils.noneBuilder("menuDivider").toValue(),
+	                    toolbarUtils.menuItemBuilder("退出登录", "", true).iconBuilder("power-settings").btnClick(function ($event) {
+	                        _this.doExit($event);
+	                    }).toValue(),
+	                ]).toValue()
+	            ]).toValue()
 	        ];
 	    }
 	    HomeController.prototype.doExit = function ($event) {
@@ -330,14 +205,14 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 133 */
+
+/***/ 133:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var _ = __webpack_require__(13);
 	var SidenavLeftController = (function () {
 	    function SidenavLeftController($rootScope, mdSideMenuSections, toolbarUtils, fxAction, $state, $stateParams, $timeout, fxSideMenuFactory) {
-	        var _this = this;
 	        this.$rootScope = $rootScope;
 	        this.mdSideMenuSections = mdSideMenuSections;
 	        this.toolbarUtils = toolbarUtils;
@@ -350,24 +225,9 @@ webpackJsonp([0],[
 	        this.initModules().initToolbar();
 	        this.doLinkBind = this.doLink.bind(this);
 	        this.toolbar = [
-	            toolbarUtils.labelBuilder("").attrBuilder({ flex: "" }).toValue(),
-	            toolbarUtils.labelBuilder("{{$root.user}}", "md-subhead").attrBuilder({}).toValue(),
-	            toolbarUtils.btnBuilder("", "md-icon-button", false).tooltipBuilder("退出登录").iconBuilder("logout", { minHeight: "12px", minWidth: "12px", height: "12px", width: "12px", }, null, null, "12px").btnClick(function ($event) {
-	                _this.doExit($event);
-	            }).toValue(),
+	            toolbarUtils.labelBuilder("CMDB").attrBuilder({ flex: "" }).toValue()
 	        ];
 	    }
-	    SidenavLeftController.prototype.doExit = function ($event) {
-	        var _this = this;
-	        this.fxAction.getModel('logout').then(function (model) {
-	            var promise = _this.fxAction.doActionModel($event, model);
-	            if (promise) {
-	                promise.then(function () {
-	                    console.log("logout");
-	                });
-	            }
-	        });
-	    };
 	    SidenavLeftController.prototype.getModules = function () {
 	        var _this = this;
 	        var promise = this.fxAction.doAction('moduleMenuAction', null);
@@ -438,9 +298,6 @@ webpackJsonp([0],[
 	                        delete _this.selectedNodes[key];
 	                    });
 	                }).toValue(),
-	                this.toolbarUtils.btnBuilder("关掉菜单栏", "md-icon-button", false, "top").iconBuilder("close").btnClick(function ($event) {
-	                    _this.$rootScope["isOpenMenu"] = false;
-	                }).toValue()
 	            ]).toValue()
 	        ];
 	        return this;
@@ -460,41 +317,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 134 */
-/***/ function(module, exports) {
 
-	"use strict";
-	var SidenavRightController = (function () {
-	    function SidenavRightController($mdColorPalette, fxAction) {
-	        this.$mdColorPalette = $mdColorPalette;
-	        this.fxAction = fxAction;
-	        this.colors = Object.keys($mdColorPalette);
-	    }
-	    SidenavRightController.prototype.selectTheme = function (color) {
-	        console.log(color);
-	    };
-	    SidenavRightController.prototype.showTheme = function ($event) {
-	        console.log($event);
-	    };
-	    SidenavRightController.prototype.doExit = function ($event) {
-	        var _this = this;
-	        this.fxAction.getModel('logout').then(function (model) {
-	            var promise = _this.fxAction.doActionModel($event, model);
-	            if (promise) {
-	                promise.then(function () {
-	                    console.log("logout");
-	                });
-	            }
-	        });
-	    };
-	    SidenavRightController.$inject = ["$mdColorPalette", "fxAction"];
-	    return SidenavRightController;
-	}());
-	exports.SidenavRightController = SidenavRightController;
-
-
-/***/ },
-/* 135 */
+/***/ 135:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -547,7 +371,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 136 */
+
+/***/ 136:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(29);
@@ -562,8 +387,6 @@ webpackJsonp([0],[
 	jade_debug.unshift(new jade.DebugItem( 0, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
 	jade_debug.unshift(new jade.DebugItem( 1, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
 	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 2, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	jade_debug.shift();
 	jade_debug.unshift(new jade.DebugItem( 3, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
 	buf.push("<md-content flex=\"100\" layout=\"row\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
@@ -573,83 +396,72 @@ webpackJsonp([0],[
 	jade_debug.shift();
 	buf.push("</md-sidenav>");
 	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 5, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	buf.push("<md-sidenav md-component-id=\"right\" ui-view=\"sidenavRight\" layout=\"column\" md-whiteframe=\"4\" class=\"md-sidenav-right\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.shift();
-	buf.push("</md-sidenav>");
+	jade_debug.unshift(new jade.DebugItem( 6, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
 	jade_debug.shift();
 	jade_debug.unshift(new jade.DebugItem( 6, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	buf.push("<md-content ui-view=\"content\" flex=\"100\" layout=\"column\">");
+	buf.push("<md-content flex=\"100\" layout=\"column\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 7, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
+	buf.push("<md-toolbar class=\"md-hue-3\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 8, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
+	buf.push("<div fx-toolbar items=\"homeCtl.toolbars\" layout=\"row\" ctls=\"homeCtl\" class=\"md-toolbar-tools\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.shift();
+	buf.push("</div>");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</md-toolbar>");
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 9, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
+	buf.push("<md-divider>");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.shift();
+	buf.push("</md-divider>");
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 10, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
+	buf.push("<md-content flex ui-view=\"content\" layout=\"column\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
 	buf.push("</md-content>");
 	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 7, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
+	jade_debug.shift();
+	buf.push("</md-content>");
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 11, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
 	buf.push("<div execute-cmd real-time=\"true\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
 	buf.push("</div>");
 	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 8, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	buf.push("<div ng-if=\"!homeCtl.isOpenMenu\" class=\"lock-size\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 9, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	buf.push("<md-fab-speed-dial md-direction=\"right\" ng-mouseenter=\"$root.isOpenFab=true\" ng-mouseleave=\"$root.isOpenMFab=false\" md-open=\"$root.isOpenFab\" class=\"md-scale md-fab-bottom-left\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 10, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	buf.push("<md-fab-trigger>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 11, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	buf.push("<md-button aria-label=\"menu\" ng-click=\"$root.isOpenMenu=true;\" class=\"md-fab md-default\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 12, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	buf.push("<md-icon>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.unshift(new jade.DebugItem( 13, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	buf.push("<ng-md-icon icon=\"menu\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.shift();
-	buf.push("</ng-md-icon>");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-icon>");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-button>");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-fab-trigger>");
 	jade_debug.shift();
 	jade_debug.unshift(new jade.DebugItem( 14, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	buf.push("<md-fab-actions>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.shift();
 	jade_debug.unshift(new jade.DebugItem( 15, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	buf.push("<div fx-toolbar layout=\"row\" items=\"homeCtl.toolbars\" ctls=\"homeCtl\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
-	buf.push("</div>");
+	jade_debug.unshift(new jade.DebugItem( 16, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
 	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 17, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
 	jade_debug.shift();
-	buf.push("</md-fab-actions>");
+	jade_debug.unshift(new jade.DebugItem( 18, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
 	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 19, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
 	jade_debug.shift();
-	buf.push("</md-fab-speed-dial>");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</div>");
+	jade_debug.unshift(new jade.DebugItem( 19, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
 	jade_debug.shift();
 	jade_debug.shift();
 	buf.push("</md-content>");
 	jade_debug.shift();
 	jade_debug.shift();;return buf.join("");
 	} catch (err) {
-	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "//- md-toolbar.md-whiteframe-glow-z1.md-accent(md-style-color=\"{'background-color': 'primary.A200'}\")\n//-     div.md-toolbar-tools(fx-toolbar,items=\"homeCtl.toolbar\",layout=\"row\",ctls=\"homeCtl\")\nmd-content(flex=\"100\",layout=\"row\")\n    md-sidenav.md-sidenav-left(ui-view=\"sidenavLeft\",md-is-locked-open=\"$root.isOpenMenu\",md-component-id=\"left\",md-whiteframe=\"4\",layout=\"column\")\n    md-sidenav.md-sidenav-right(md-component-id=\"right\",ui-view=\"sidenavRight\",layout=\"column\",md-whiteframe=\"4\")\n    md-content(ui-view=\"content\",flex=\"100\",layout=\"column\")\n    div(execute-cmd,real-time=\"true\")\n    div.lock-size(ng-if=\"!homeCtl.isOpenMenu\")\n        md-fab-speed-dial.md-scale.md-fab-bottom-left(md-direction=\"right\",ng-mouseenter=\"$root.isOpenFab=true\",ng-mouseleave=\"$root.isOpenMFab=false\",md-open=\"$root.isOpenFab\")\n            md-fab-trigger\n                md-button.md-fab.md-default(aria-label=\"menu\",ng-click=\"$root.isOpenMenu=true;\")\n                    md-icon\n                        ng-md-icon(icon=\"menu\")\n            md-fab-actions\n                div(fx-toolbar,layout=\"row\",items=\"homeCtl.toolbars\",ctls=\"homeCtl\")");
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "//- md-toolbar.md-whiteframe-glow-z1.md-hue-3()\n    //- div.md-toolbar-tools(fx-toolbar,items=\"homeCtl.toolbars\",layout=\"row\",ctls=\"homeCtl\")\nmd-content(flex=\"100\",layout=\"row\")\n    md-sidenav.md-sidenav-left(ui-view=\"sidenavLeft\",md-is-locked-open=\"$root.isOpenMenu\",md-component-id=\"left\",md-whiteframe=\"4\",layout=\"column\")\n    //- md-sidenav.md-sidenav-right(md-component-id=\"right\",ui-view=\"sidenavRight\",layout=\"column\",md-whiteframe=\"4\")\n    md-content(flex=\"100\",layout=\"column\")\n        md-toolbar.md-hue-3\n            div.md-toolbar-tools(fx-toolbar,items=\"homeCtl.toolbars\",layout=\"row\",ctls=\"homeCtl\")\n        md-divider\n        md-content(flex,ui-view=\"content\",layout=\"column\")\n    div(execute-cmd,real-time=\"true\")\n    //- div.lock-size(ng-if=\"!homeCtl.isOpenMenu\")\n    //-     md-fab-speed-dial.md-scale.md-fab-bottom-left(md-direction=\"right\",ng-mouseenter=\"$root.isOpenFab=true\",ng-mouseleave=\"$root.isOpenMFab=false\",md-open=\"$root.isOpenFab\")\n    //-         md-fab-trigger\n    //-             md-button.md-fab.md-default(aria-label=\"menu\",ng-click=\"$root.isOpenMenu=true;\")\n    //-                 md-icon\n    //-                     ng-md-icon(icon=\"menu\")\n    //-         md-fab-actions\n    //-             div(fx-toolbar,layout=\"row\",items=\"homeCtl.toolbars\",ctls=\"homeCtl\")");
 	}
 	}
 
 /***/ },
-/* 137 */
+
+/***/ 137:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(29);
@@ -768,96 +580,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 138 */
-/***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(29);
-	
-	module.exports = function template(locals) {
-	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ) ];
-	try {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-	
-	jade_debug.unshift(new jade.DebugItem( 0, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	jade_debug.unshift(new jade.DebugItem( 1, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<md-content flex layout=\"column\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 2, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<md-content flex>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 4, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<!--md-list-->");
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 5, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<!--    md-list-item(aria-label=\"样式\", ng-click=\"sideRightCtl.showTheme($event)\")-->");
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 6, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<!--        md-icon-->");
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 7, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<!--            ng-md-icon(icon=\"style\")-->");
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 8, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<!--    md-list-item(ng-repeat=\"color in sideRightCtl.colors\",ng-click=\"sideRightCtl.selectTheme(color)\",md-colors=\"{background: '{{color}}'}\",md-colors-watch=\"false\")-->");
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 9, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<!--        p {{color}}-->");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-content>");
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 9, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<md-divider>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.shift();
-	buf.push("</md-divider>");
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 10, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<div layout=\"row\" layout-align=\"start center\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 11, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<md-button ng-click=\"sideRightCtl.doExit($event)\" flex aria-label=\"退出\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 12, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<md-tooltip md-direction=\"top\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 12, jade_debug[0].filename ));
-	buf.push("退出");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-tooltip>");
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 13, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<md-icon>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 14, "/srv/blessing/public/src/pages/home/tpls/sidenavr.template.jade" ));
-	buf.push("<ng-md-icon icon=\"settings_power\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.shift();
-	buf.push("</ng-md-icon>");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-icon>");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-button>");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</div>");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-content>");
-	jade_debug.shift();
-	jade_debug.shift();;return buf.join("");
-	} catch (err) {
-	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-content(flex,layout=\"column\")\n    md-content(flex)\n        //md-list\n        //    md-list-item(aria-label=\"样式\", ng-click=\"sideRightCtl.showTheme($event)\")\n        //        md-icon\n        //            ng-md-icon(icon=\"style\")\n        //    md-list-item(ng-repeat=\"color in sideRightCtl.colors\",ng-click=\"sideRightCtl.selectTheme(color)\",md-colors=\"{background: '{{color}}'}\",md-colors-watch=\"false\")\n        //        p {{color}}\n    md-divider\n    div(layout=\"row\",layout-align=\"start center\")\n        md-button(ng-click=\"sideRightCtl.doExit($event)\",flex,aria-label=\"退出\")\n            md-tooltip(md-direction=\"top\") 退出\n            md-icon\n                ng-md-icon(icon=\"settings_power\")");
-	}
-	}
-
-/***/ },
-/* 139 */
+/***/ 139:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(29);
@@ -914,26 +638,65 @@ webpackJsonp([0],[
 	jade_debug.shift();
 	buf.push("</md-toolbar>");
 	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 11, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<md-input-container ng-if=\"$index==0\" class=\"md-block no-errors\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 12, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<label>");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 12, jade_debug[0].filename ));
+	buf.push("搜索图标");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</label>");
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 13, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<input ng-model=\"contentCtl.filter\">");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</md-input-container>");
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 14, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<md-content flex ng-if=\"$index==0\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 15, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<md-button ng-click=\"contentCtl.doOpenIconInfo($event,icon)\" ng-repeat=\"icon in contentCtl.icons | filter:contentCtl.filter | orderBy | limitTo:50 \">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 16, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<div layout=\"column\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 17, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<md-icon>");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 18, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<ng-md-icon icon=\"{{::icon}}\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.shift();
+	buf.push("</ng-md-icon>");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</md-icon>");
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 19, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<span>");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 19, jade_debug[0].filename ));
+	buf.push("{{::icon}}");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</span>");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</div>");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</md-button>");
+	jade_debug.shift();
 	jade_debug.shift();
 	buf.push("</md-content>");
 	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 12, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
 	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 13, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 14, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 15, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 16, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 17, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 18, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 19, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 19, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("</md-content>");
 	jade_debug.shift();
 	jade_debug.shift();
 	buf.push("</li>");
@@ -949,13 +712,13 @@ webpackJsonp([0],[
 	jade_debug.shift();
 	jade_debug.shift();;return buf.join("");
 	} catch (err) {
-	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-content(flex)\n    //- h1 雅典娜\n    md-content(gridster=\"contentCtl.gridsterOpts\")\n        ul(flex)\n            li(gridster-item=\"item\",ng-repeat=\"item in contentCtl.standardItems\",ng-class=\"item.class\")\n                md-content(flex)\n                    md-toolbar(class=\"md-hue-2\")\n                        div.md-toolbar-tools\n                            h2\n                                span {{$index}}\n                //- md-input-container.md-block.no-errors\n                //-     label 搜索图标\n                //-     input(ng-model=\"contentCtl.filter\")\n                //- md-content(flex)\n                //-     md-button(ng-click=\"contentCtl.doOpenIconInfo($event,icon)\",ng-repeat=\"icon in contentCtl.icons | filter:contentCtl.filter | orderBy | limitTo:50 \")\n                //-         div(layout=\"column\")\n                //-             md-icon\n                //-                 ng-md-icon(icon=\"{{::icon}}\")\n                //-             span {{::icon}}");
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-content(flex)\n    //- h1 雅典娜\n    md-content(gridster=\"contentCtl.gridsterOpts\")\n        ul(flex)\n            li(gridster-item=\"item\",ng-repeat=\"item in contentCtl.standardItems\",ng-class=\"item.class\")\n                md-content(flex)\n                    md-toolbar(class=\"md-hue-2\")\n                        div.md-toolbar-tools\n                            h2\n                                span {{$index}}\n                    md-input-container.md-block.no-errors(ng-if=\"$index==0\")\n                        label 搜索图标\n                        input(ng-model=\"contentCtl.filter\")\n                    md-content(flex,ng-if=\"$index==0\")\n                        md-button(ng-click=\"contentCtl.doOpenIconInfo($event,icon)\",ng-repeat=\"icon in contentCtl.icons | filter:contentCtl.filter | orderBy | limitTo:50 \")\n                            div(layout=\"column\")\n                                md-icon\n                                    ng-md-icon(icon=\"{{::icon}}\")\n                                span {{::icon}}");
 	}
 	}
 
 /***/ },
-/* 140 */,
-/* 141 */
+
+/***/ 141:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1007,7 +770,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 142 */
+
+/***/ 142:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1018,7 +782,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 143 */
+
+/***/ 143:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1043,6 +808,8 @@ webpackJsonp([0],[
 	strategy.register("label", __webpack_require__(147)());
 	strategy.register("menu", __webpack_require__(148)());
 	strategy.register("menuItem", __webpack_require__(149)());
+	strategy.register("menuBar", __webpack_require__(283)());
+	strategy.register("menuDivider", __webpack_require__(284)());
 	var Controller = (function () {
 	    function Controller($scope, $rootScope, $compile, $interpolate, materialUtils) {
 	        this.$scope = $scope;
@@ -1145,7 +912,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 144 */
+
+/***/ 144:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(29);
@@ -1159,10 +927,10 @@ webpackJsonp([0],[
 	
 	jade_debug.unshift(new jade.DebugItem( 0, "/srv/blessing/public/src/directives/toolbar/tpls/icon.jade" ));
 	jade_debug.unshift(new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/icon.jade" ));
-	buf.push("<md-icon ng-if=\"iconCtl.icon\" md-menu-align-target>");
+	buf.push("<md-icon ng-if=\"iconCtl.icon\" md-menu-align-target ng-style=\"iconCtl.icon.style\" ng-class=\"iconCtl.className\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.unshift(new jade.DebugItem( 2, "/srv/blessing/public/src/directives/toolbar/tpls/icon.jade" ));
-	buf.push("<ng-md-icon icon=\"{{iconCtl.icon.icon}}\" ng-style=\"iconCtl.icon.style\" options=\"{&quot;rotation&quot;:&quot;none&quot;}\" size=\"{{iconCtl.size}}\">");
+	buf.push("<ng-md-icon icon=\"{{iconCtl.icon.icon}}\" ng-style=\"iconCtl.icon.style\" options=\"{&quot;rotation&quot;:&quot;none&quot;}\" size=\"{{iconCtl.icon.size||'24px'}}\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
 	buf.push("</ng-md-icon>");
@@ -1172,12 +940,13 @@ webpackJsonp([0],[
 	jade_debug.shift();
 	jade_debug.shift();;return buf.join("");
 	} catch (err) {
-	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-icon(ng-if=\"iconCtl.icon\",md-menu-align-target)\n    ng-md-icon(icon=\"{{iconCtl.icon.icon}}\",ng-style=\"iconCtl.icon.style\",options='{\"rotation\":\"none\"}',size='{{iconCtl.size}}')");
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-icon(ng-if=\"iconCtl.icon\",md-menu-align-target,ng-style=\"iconCtl.icon.style\",ng-class=\"iconCtl.className\")\n    ng-md-icon(icon=\"{{iconCtl.icon.icon}}\",ng-style=\"iconCtl.icon.style\",options='{\"rotation\":\"none\"}',size=\"{{iconCtl.icon.size||'24px'}}\")");
 	}
 	}
 
 /***/ },
-/* 145 */
+
+/***/ 145:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(29);
@@ -1251,7 +1020,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 146 */
+
+/***/ 146:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(29);
@@ -1277,7 +1047,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 147 */
+
+/***/ 147:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(29);
@@ -1306,7 +1077,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 148 */
+
+/***/ 148:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(29);
@@ -1365,7 +1137,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 149 */
+
+/***/ 149:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(29);
@@ -1391,7 +1164,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 150 */
+
+/***/ 150:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1419,6 +1193,12 @@ webpackJsonp([0],[
 	                            condition: condition,
 	                            prefix: prefix
 	                        }
+	                    });
+	                    return this;
+	                };
+	                Base.prototype.className = function (className) {
+	                    this.data = _.extend({}, this.data, {
+	                        className: className
 	                    });
 	                    return this;
 	                };
@@ -1480,6 +1260,13 @@ webpackJsonp([0],[
 	                    });
 	                    return this;
 	                };
+	                Base.prototype.items = function (items) {
+	                    if (items === void 0) { items = []; }
+	                    this.data = _.extend({}, this.data, {
+	                        items: items || []
+	                    });
+	                    return this;
+	                };
 	                Base.prototype.toValue = function () {
 	                    return this.data;
 	                };
@@ -1535,6 +1322,11 @@ webpackJsonp([0],[
 	                        layoutAlign: layoutAlign
 	                    });
 	                };
+	                Service.prototype.menuBarBuilder = function () {
+	                    return new Service({
+	                        type: "menuBar"
+	                    });
+	                };
 	                Service.prototype.noneBuilder = function (type) {
 	                    return new Service({
 	                        type: type
@@ -1550,7 +1342,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 151 */
+
+/***/ 151:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1566,7 +1359,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 152 */
+
+/***/ 152:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1664,7 +1458,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 153 */
+
+/***/ 153:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -1690,7 +1485,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 154 */
+
+/***/ 154:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(129)();
@@ -1704,7 +1500,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 155 */
+
+/***/ 155:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(29);
@@ -1736,7 +1533,7 @@ webpackJsonp([0],[
 	buf.push("</md-divider>");
 	jade_debug.shift();
 	jade_debug.unshift(new jade.DebugItem( 5, "/srv/blessing/public/src/directives/sidemenu/tpls/sidemenu.jade" ));
-	buf.push("<fx-side-menu-child ng-show=\"sideCtl.isShowChildren(node)\" class=\"side-menu-child\">");
+	buf.push("<fx-side-menu-child ng-show=\"sideCtl.isShowChildren(node)\" class=\"side-menu-child nga-fast nga-stagger-fast nga-slide-right\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
 	buf.push("</fx-side-menu-child>");
@@ -1755,12 +1552,13 @@ webpackJsonp([0],[
 	jade_debug.shift();
 	jade_debug.shift();;return buf.join("");
 	} catch (err) {
-	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "ul(ng-if=\"node.{{opts.children}}.length\")\n    li(ng-if=\"node.showed\",ng-repeat=\"node in node.{{opts.children}} | filter: sideCtl.options.filterExpression | orderBy:['{{opts.orderBy}}']:true\")\n        div(fx-side-menu-content-transclude,ng-click=\"sideCtl.showChildren(node)\")\n        md-divider(ng-if=\"node.depth===1\")\n        fx-side-menu-child.side-menu-child(ng-show=\"sideCtl.isShowChildren(node)\")\nmd-divider(ng-if=\"!$last && node.depth>1\")\n");
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "ul(ng-if=\"node.{{opts.children}}.length\")\n    li(ng-if=\"node.showed\",ng-repeat=\"node in node.{{opts.children}} | filter: sideCtl.options.filterExpression | orderBy:['{{opts.orderBy}}']:true\")\n        div(fx-side-menu-content-transclude,ng-click=\"sideCtl.showChildren(node)\")\n        md-divider(ng-if=\"node.depth===1\")\n        fx-side-menu-child.side-menu-child.nga-fast.nga-stagger-fast.nga-slide-right(ng-show=\"sideCtl.isShowChildren(node)\")\nmd-divider(ng-if=\"!$last && node.depth>1\")\n");
 	}
 	}
 
 /***/ },
-/* 156 */
+
+/***/ 156:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1790,7 +1588,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 157 */
+
+/***/ 157:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1809,7 +1608,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 158 */
+
+/***/ 158:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1829,7 +1629,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 159 */
+
+/***/ 159:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1880,7 +1681,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 160 */
+
+/***/ 160:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1906,7 +1708,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 161 */
+
+/***/ 161:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(29);
@@ -1953,7 +1756,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 162 */
+
+/***/ 162:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1989,14 +1793,16 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 163 */
+
+/***/ 163:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["SVGMorpheus"] = __webpack_require__(164);
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 164 */
+
+/***/ 164:
 /***/ function(module, exports) {
 
 	/*!
@@ -3527,7 +3333,8 @@ webpackJsonp([0],[
 	module.exports = SVGMorpheus;
 
 /***/ },
-/* 165 */
+
+/***/ 165:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -3553,7 +3360,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 166 */
+
+/***/ 166:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(129)();
@@ -3561,17 +3369,79 @@ webpackJsonp([0],[
 	
 	
 	// module
-	exports.push([module.id, ".logo {\n  height: 64px;\n  min-height: 64px !important;\n  line-height: 64px;\n  margin: 5px;\n  padding-left: 64px;\n  background: transparent url(" + __webpack_require__(167) + ") no-repeat top left;\n  background-size: contain; }\n  .logo.center {\n    background-position: top center;\n    height: 150px; }\n\n.gridster .gridster-item {\n  overflow: hidden; }\n", ""]);
+	exports.push([module.id, ".logo {\n  height: 64px;\n  min-height: 64px !important;\n  line-height: 64px;\n  margin: 5px;\n  padding-left: 64px;\n  background: transparent url(" + __webpack_require__(167) + ") no-repeat top left;\n  background-size: contain; }\n  .logo.center {\n    background-position: top center;\n    height: 150px; }\n\n.gridster .gridster-item {\n  overflow: hidden; }\n\n.md-no-padding {\n  padding: 0; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 167 */
+
+/***/ 167:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "7af35d2f474641e3a73ea274191a9107.jpg";
 
+/***/ },
+
+/***/ 283:
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(29);
+	
+	module.exports = function template(locals) {
+	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/menubar.jade" ) ];
+	try {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+	
+	jade_debug.unshift(new jade.DebugItem( 0, "/srv/blessing/public/src/directives/toolbar/tpls/menubar.jade" ));
+	jade_debug.unshift(new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/menubar.jade" ));
+	buf.push("<md-menu-bar md-offset=\"2 0\" ng-class=\"menuBarCtl.className\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 2, "/srv/blessing/public/src/directives/toolbar/tpls/menubar.jade" ));
+	buf.push("<div fx-toolbar items=\"menuBarCtl.items\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.shift();
+	buf.push("</div>");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</md-menu-bar>");
+	jade_debug.shift();
+	jade_debug.shift();;return buf.join("");
+	} catch (err) {
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-menu-bar(md-offset=\"2 0\",ng-class=\"menuBarCtl.className\")\n    div(fx-toolbar,items=\"menuBarCtl.items\")");
+	}
+	}
+
+/***/ },
+
+/***/ 284:
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(29);
+	
+	module.exports = function template(locals) {
+	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/menu-divider.jade" ) ];
+	try {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+	
+	jade_debug.unshift(new jade.DebugItem( 0, "/srv/blessing/public/src/directives/toolbar/tpls/menu-divider.jade" ));
+	jade_debug.unshift(new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/menu-divider.jade" ));
+	buf.push("<md-menu-divider>");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.shift();
+	buf.push("</md-menu-divider>");
+	jade_debug.shift();
+	jade_debug.shift();;return buf.join("");
+	} catch (err) {
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-menu-divider");
+	}
+	}
+
 /***/ }
-]);
+
+});
 //# sourceMappingURL=home.bundle.js.map

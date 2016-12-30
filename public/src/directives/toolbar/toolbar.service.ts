@@ -23,6 +23,14 @@ class Service {
                 return this;
             }
 
+            className(className: string) {
+                this.data = _.extend({}, this.data, {
+                    className: className
+                });
+
+                return this;
+            }
+
             noOptions(tooltip: boolean = false, icon: boolean = false) {
                 tooltip && delete this.data.tooltip;
                 icon && delete this.data.icon;
@@ -86,6 +94,13 @@ class Service {
                     items: items || []
                 });
 
+                return this;
+            }
+
+            items(items: Array<any> = []) {
+                this.data = _.extend({}, this.data, {
+                    items: items || []
+                });
                 return this;
             }
 
@@ -154,6 +169,12 @@ class Service {
                     flex: flex,
                     layout: layout,
                     layoutAlign: layoutAlign
+                });
+            }
+
+            menuBarBuilder(): Service {
+                return new Service({
+                    type: "menuBar"
                 });
             }
 

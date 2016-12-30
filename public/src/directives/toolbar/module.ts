@@ -26,6 +26,8 @@ strategy.register("layout", require('./tpls/layout.jade')());
 strategy.register("label", require('./tpls/label.jade')());
 strategy.register("menu", require('./tpls/menu.jade')());
 strategy.register("menuItem", require('./tpls/menu-item.jade')());
+strategy.register("menuBar", require('./tpls/menubar.jade')());
+strategy.register("menuDivider", require('./tpls/menu-divider.jade')());
 
 class Controller {
     static $inject = ["$scope", "$rootScope", "$compile", "$interpolate", "materialUtils"];

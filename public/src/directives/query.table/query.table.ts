@@ -11,7 +11,7 @@ class Controller {
     closeFn: Function;
     showSearchTable: boolean = true;
     ngModel: Array<any>;
-    _filter: any;
+    resFilter: any;
 
     constructor(private $scope, private fxAction, private toolbarUtils, private $mdDialog: ng.material.IDialogService, private materialUtils: fx.utils.materialStatic) {
         if (!this.clientData) {
@@ -67,12 +67,16 @@ function Directive(): ng.IDirective {
             key: '@fxQueryTable',
             closeFn: '&?closeFn',
             ngModel: '=?',
-            _filter: '=?'
+            resFilter: '=?'
         },
         template: require("./tpls/query.table.jade"),
         controller: Controller,
         controllerAs: 'qtCtl',
         link: function ($scope, $element, $attrs, $ctrl) {
+            // console.log($scope._filter);
+            $scope.$watch($attrs["_filter"], (n, o) => {
+                console.log(n, o);
+            })
 
         }
     };
