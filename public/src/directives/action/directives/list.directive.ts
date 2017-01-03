@@ -46,7 +46,7 @@ class Controller {
             if (!this.local) {
                 this.initToolbar();
                 this.initItemToolbar();
-                this.doSearch();
+                // this.doSearch();
                 this.initEvents();
             } else {
                 this.actionModel.list.itemToolbars = this.itemToolbars || [];
@@ -257,7 +257,9 @@ class Controller {
             return;
         }
         this.promise.then((result) => {
-            this.fxAction.doDealResult(this.actionModel, result, this.clientData);
+            this.$timeout(() => {
+                this.fxAction.doDealResult(this.actionModel, result, this.clientData);
+            }, 100);
             this.$rootScope.$broadcast(`${this.key}:searchComplete`, this.clientData);
         }).finally(() => {
             this.isBusy = false;

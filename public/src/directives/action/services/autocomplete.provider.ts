@@ -15,9 +15,11 @@ function Provider() {
             keyField: "",
             dataField: "",
             delay: 300,
-            noCache: false,
+            searchPrefix: "%",
+            noCache: true,
             _where: {},
             search: "",
+            minLength: 0,
             actionKey: ""
         }, args.form.acOptions || {});
     };

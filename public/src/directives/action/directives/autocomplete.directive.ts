@@ -33,25 +33,47 @@ class Builder {
 
         if (this.form.acOptions.keyField) {
             this.searchText = viewModel;
-            return this.query(true);
+            return this.query();
         }
         this.searchText = viewModel[this.form.acOptions.textField];
         this.onChange(viewModel);
+    }
+
+    getItemText(item, a, b, c) {
+        if (item) {
+            return item[this.form.acOptions.textField] || " ";
+        }
+        return this.searchText;
+    }
+
+    onTextChange() {
+        if (!this.searchText) {
+            // this.selected = null;
+            if (this.form.acOptions.keyField) {
+                pointer.remove(this.formData, `/${this.form.key.join('/')}`);
+            } else {
+                pointer.set(this.formData, `/${this.form.key.join('/')}`, {});
+            }
+        }
+        // return this.onChange(null);
+    }
+
+    onItemChange(item) {
+        return this.onChange(item);
     }
 
     /**
      * 当数据变化时，触发事件
      * @param item 更改后的item
      */
-    onChange(item, init?: boolean) {
+    onChange(item) {
         let curValue;
-        this.selected = item;
+        // this.selected = item;
 
-        if (_.isEmpty(item) || !this.searchText) {
-            this.selected = null;
-            pointer.remove(this.formData, `/${this.form.key.join('/')}`);
-            return undefined;
+        if (!this.searchText) {
+            return this.form.acOptions.keyField ? {} : null;
         }
+
         if (this.form.acOptions.keyField) {
             if (pointer.has(item, `/${this.form.acOptions.keyField}`)) {
                 curValue = pointer.get(item, `/${this.form.acOptions.keyField}`);
@@ -64,18 +86,15 @@ class Builder {
         }
 
         curValue = {};
+        _.each(this.form.items.concat(this.form.acOptions.fields || []), (childItem) => {
+            let keys = [].concat(childItem.key);
+            let childKey = keys.pop();
 
-        if (!init) {
-            _.each(this.form.items.concat(this.form.acOptions.fields || []), (childItem) => {
-                let keys = [].concat(childItem.key);
-                let childKey = keys.pop();
-
-                if (childKey && pointer.has(item, `/${childKey}`)) {
-                    pointer.set(curValue, `/${childKey}`, pointer.get(item, `/${childKey}`));
-                }
-            });
-            pointer.set(this.formData, `/${this.form.key.join('/')}`, curValue);
-        }
+            if (childKey && pointer.has(item, `/${childKey}`)) {
+                pointer.set(curValue, `/${childKey}`, pointer.get(item, `/${childKey}`));
+            }
+        });
+        pointer.set(this.formData, `/${this.form.key.join('/')}`, curValue);
 
         return curValue;
     }
@@ -85,7 +104,7 @@ class Builder {
      * 查询接口，返回数据
      * @returns {any}
      */
-    query(setValueIfOnlyOne) {
+    query() {
         let actionModel, clientData = {};
         let filter = {};
 
@@ -93,7 +112,7 @@ class Builder {
         // pointer.remove(this.formData, `/${this.form.key.join('/')}`);
         if (this.form.acOptions.actionKey) {
             // 设置搜索条件
-            pointer.set(filter, this.form.acOptions.search, this.searchText);
+            pointer.set(filter, this.form.acOptions.search, this.searchText || this.form.acOptions.searchPrefix);
             // 设置全局条件
             _.forEach(this.form.acOptions._where, (val, key) => {
                 pointer.set(filter, key, val);
@@ -106,9 +125,6 @@ class Builder {
             }).then((results) => {
                 return results[this.form.acOptions.dataField];
             }).then((results) => {
-                if (results.length === 1 && setValueIfOnlyOne) {
-                    return this.onChange(results[0], true);
-                }
                 return results;
             });
         }
