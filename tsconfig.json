@@ -10,17 +10,17 @@
         "noImplicitAny": false
     },
     "include": [
-        "./typings/index.d.ts",
-        "./public/typings/**/*",
-        "./public/src/**/*"
+        "typings/index.d.ts",
+        "public/typings/**/*",
+        "public/src/**/*"
     ],
     "exclude": [
-        "./.idea/**/*",
-        "./.vscode/**/*",
-        "./mappings/**/*",
-        "./server/**/*",
-        "./public/node_modules/**/*",
-        "./public/built/**/*",
-        "./public/svgs/**/*"
+        ".idea/**/*",
+        ".vscode/**/*",
+        "mappings/**/*",
+        "server/**/*",
+        "public/node_modules/**/*",
+        "public/built/**/*",
+        "public/svgs/**/*"
     ]
 }

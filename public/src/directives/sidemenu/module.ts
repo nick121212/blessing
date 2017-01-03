@@ -129,7 +129,7 @@ function Directive(mdSideMenuSections): ng.IDirective {
                     }
                 });
                 // 应用模板
-                $ctrl.template($scope, function (clone) {
+                $ctrl["template"]($scope, function (clone) {
                     $element.html('').append(clone);
                 });
                 $scope.$sideMenuTransclude = childTranscludeFn;

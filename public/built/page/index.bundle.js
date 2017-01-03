@@ -1,141 +1,24 @@
-webpackJsonp([1],{
+webpackJsonp([4],{
 
-/***/ 0:
+/***/ 62:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	__webpack_require__(2);
-	var loading_1 = __webpack_require__(169);
-	__webpack_require__(173);
-	__webpack_require__(175);
-	var module = angular.module("indexApp", ["angular-loading-bar", loading_1.default]);
-	module.config(["cfpLoadingBarProvider", function (cfpLoadingBarProvider) {
-	        cfpLoadingBarProvider.includeSpinner = true;
-	        cfpLoadingBarProvider.latencyThreshold = 1000;
-	    }]);
-	$(function () {
-	    angular.bootstrap(document, [module.name, 'homeModule', 'pageModule', 'passportModule']);
-	});
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-
-/***/ 169:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	__webpack_require__(170);
-	var _name = "fxLoading";
-	function Directive() {
-	    return {
-	        restrict: 'EA',
-	        template: __webpack_require__(172)(),
-	        scope: {},
-	        replace: false,
-	        link: function ($scope) {
-	        }
-	    };
-	}
-	Directive.$inject = [];
-	var module = angular.module(_name + "Module", []).directive(_name, Directive);
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = "" + module.name;
+	__webpack_require__(97);
+	module.exports = 'angular-loading-bar';
 
 
 /***/ },
 
-/***/ 170:
+/***/ 77:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(171);
+	var content = __webpack_require__(112);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(130)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/sass-loader/index.js!./loading.scss", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/sass-loader/index.js!./loading.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 171:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(129)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".fx-loading {\n  margin: 100px auto;\n  width: 90px;\n  height: 90px;\n  position: relative;\n  text-align: center;\n  animation: lodding-rotate 2.0s infinite linear; }\n  .fx-loading .dot1, .fx-loading .dot2 {\n    width: 60%;\n    height: 60%;\n    display: inline-block;\n    position: absolute;\n    top: 0;\n    background-color: #000;\n    border-radius: 100%;\n    -webkit-animation: lodding-bounce 2.0s infinite ease-in-out;\n    animation: lodding-bounce 2.0s infinite ease-in-out; }\n  .fx-loading .dot2 {\n    top: auto;\n    bottom: 0px;\n    -webkit-animation-delay: -1.0s;\n    animation-delay: -1.0s; }\n\n@-webkit-keyframes lodding-rotate {\n  100% {\n    -webkit-transform: rotate(360deg); } }\n\n@keyframes lodding-rotate {\n  100% {\n    transform: rotate(360deg);\n    -webkit-transform: rotate(360deg); } }\n\n@-webkit-keyframes lodding-bounce {\n  0%, 100% {\n    -webkit-transform: scale(0); }\n  50% {\n    -webkit-transform: scale(1); } }\n\n@keyframes lodding-bounce {\n  0%, 100% {\n    transform: scale(0);\n    -webkit-transform: scale(0); }\n  50% {\n    transform: scale(1);\n    -webkit-transform: scale(1); } }\n", ""]);
-	
-	// exports
-
-
-/***/ },
-
-/***/ 172:
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(29);
-	
-	module.exports = function template(locals) {
-	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/loading/tpls/loading.jade" ) ];
-	try {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-	
-	jade_debug.unshift(new jade.DebugItem( 0, "/srv/blessing/public/src/directives/loading/tpls/loading.jade" ));
-	jade_debug.unshift(new jade.DebugItem( 1, "/srv/blessing/public/src/directives/loading/tpls/loading.jade" ));
-	buf.push("<div class=\"fx-loading\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 2, "/srv/blessing/public/src/directives/loading/tpls/loading.jade" ));
-	buf.push("<div class=\"dot1\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.shift();
-	buf.push("</div>");
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 3, "/srv/blessing/public/src/directives/loading/tpls/loading.jade" ));
-	buf.push("<div class=\"dot2\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.shift();
-	buf.push("</div>");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</div>");
-	jade_debug.shift();
-	jade_debug.shift();;return buf.join("");
-	} catch (err) {
-	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "div.fx-loading\n    div.dot1\n    div.dot2\n");
-	}
-	}
-
-/***/ },
-
-/***/ 173:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(174);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(130)(content, {});
+	var update = __webpack_require__(10)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -153,31 +36,31 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 174:
+/***/ 82:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(129)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".over-hidden, body {\n  overflow: hidden; }\n\n.no-tb-margin {\n  margin-top: 0 !important;\n  margin-bottom: 0 !important; }\n\n.no-borders .md-input {\n  border: none !important; }\n\n.fx-autocomplete {\n  margin-top: -20px; }\n  .fx-autocomplete .md-input-container {\n    margin-bottom: 0; }\n\n.no-errors .md-errors-spacer {\n  display: none !important; }\n\nmd-tabs.scroll.md-dynamic-height md-tabs-content-wrapper {\n  overflow-y: auto !important;\n  overflow-x: hidden !important; }\n\n.fx-invalid {\n  opacity: 1 !important;\n  margin-top: 0 !important; }\n\n.schema-form-chips > label:not(.md-no-float):not(.md-container-ignore),\n.schema-form-chips .md-placeholder {\n  transform: translate3d(0, 0, 0) scale(1); }\n\ntable.md-table th.md-column {\n  color: inherit; }\n\n.red {\n  fill: red; }\n\n.green {\n  fill: green; }\n", ""]);
-	
-	// exports
+	"use strict";
+	__webpack_require__(177);
+	var _name = "fxLoading";
+	function Directive() {
+	    return {
+	        restrict: 'EA',
+	        template: __webpack_require__(143)(),
+	        scope: {},
+	        replace: false,
+	        link: function ($scope) {
+	        }
+	    };
+	}
+	Directive.$inject = [];
+	var module = angular.module(_name + "Module", []).directive(_name, Directive);
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = "" + module.name;
 
 
 /***/ },
 
-/***/ 175:
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(176);
-	module.exports = 'angular-loading-bar';
-
-
-/***/ },
-
-/***/ 176:
+/***/ 97:
 /***/ function(module, exports) {
 
 	/*! 
@@ -523,7 +406,124 @@ webpackJsonp([1],{
 	})();       //
 
 
+/***/ },
+
+/***/ 109:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".fx-loading {\n  margin: 100px auto;\n  width: 90px;\n  height: 90px;\n  position: relative;\n  text-align: center;\n  animation: lodding-rotate 2.0s infinite linear; }\n  .fx-loading .dot1, .fx-loading .dot2 {\n    width: 60%;\n    height: 60%;\n    display: inline-block;\n    position: absolute;\n    top: 0;\n    background-color: #000;\n    border-radius: 100%;\n    -webkit-animation: lodding-bounce 2.0s infinite ease-in-out;\n    animation: lodding-bounce 2.0s infinite ease-in-out; }\n  .fx-loading .dot2 {\n    top: auto;\n    bottom: 0px;\n    -webkit-animation-delay: -1.0s;\n    animation-delay: -1.0s; }\n\n@-webkit-keyframes lodding-rotate {\n  100% {\n    -webkit-transform: rotate(360deg); } }\n\n@keyframes lodding-rotate {\n  100% {\n    transform: rotate(360deg);\n    -webkit-transform: rotate(360deg); } }\n\n@-webkit-keyframes lodding-bounce {\n  0%, 100% {\n    -webkit-transform: scale(0); }\n  50% {\n    -webkit-transform: scale(1); } }\n\n@keyframes lodding-bounce {\n  0%, 100% {\n    transform: scale(0);\n    -webkit-transform: scale(0); }\n  50% {\n    transform: scale(1);\n    -webkit-transform: scale(1); } }\n", ""]);
+	
+	// exports
+
+
+/***/ },
+
+/***/ 112:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".over-hidden, body {\n  overflow: hidden; }\n\n.no-tb-margin {\n  margin-top: 0 !important;\n  margin-bottom: 0 !important; }\n\n.no-borders .md-input {\n  border: none !important; }\n\n.fx-autocomplete {\n  margin-top: -20px; }\n  .fx-autocomplete .md-input-container {\n    margin-bottom: 0; }\n\n.no-errors .md-errors-spacer {\n  display: none !important; }\n\nmd-tabs.scroll.md-dynamic-height md-tabs-content-wrapper {\n  overflow-y: auto !important;\n  overflow-x: hidden !important; }\n\n.fx-invalid {\n  opacity: 1 !important;\n  margin-top: 0 !important; }\n\n.schema-form-chips > label:not(.md-no-float):not(.md-container-ignore),\n.schema-form-chips .md-placeholder {\n  transform: translate3d(0, 0, 0) scale(1); }\n\ntable.md-table th.md-column {\n  color: inherit; }\n\n.red {\n  fill: red; }\n\n.green {\n  fill: green; }\n", ""]);
+	
+	// exports
+
+
+/***/ },
+
+/***/ 143:
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(1);
+	
+	module.exports = function template(locals) {
+	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/loading/tpls/loading.jade" ) ];
+	try {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+	
+	jade_debug.unshift(new jade.DebugItem( 0, "/srv/blessing/public/src/directives/loading/tpls/loading.jade" ));
+	jade_debug.unshift(new jade.DebugItem( 1, "/srv/blessing/public/src/directives/loading/tpls/loading.jade" ));
+	buf.push("<div class=\"fx-loading\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 2, "/srv/blessing/public/src/directives/loading/tpls/loading.jade" ));
+	buf.push("<div class=\"dot1\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.shift();
+	buf.push("</div>");
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 3, "/srv/blessing/public/src/directives/loading/tpls/loading.jade" ));
+	buf.push("<div class=\"dot2\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.shift();
+	buf.push("</div>");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</div>");
+	jade_debug.shift();
+	jade_debug.shift();;return buf.join("");
+	} catch (err) {
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "div.fx-loading\n    div.dot1\n    div.dot2\n");
+	}
+	}
+
+/***/ },
+
+/***/ 177:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(109);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(10)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/sass-loader/index.js!./loading.scss", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/sass-loader/index.js!./loading.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 212:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {"use strict";
+	__webpack_require__(17);
+	var loading_1 = __webpack_require__(82);
+	__webpack_require__(77);
+	__webpack_require__(62);
+	var module = angular.module("indexApp", ["angular-loading-bar", loading_1.default]);
+	module.config(["cfpLoadingBarProvider", function (cfpLoadingBarProvider) {
+	        cfpLoadingBarProvider.includeSpinner = true;
+	        cfpLoadingBarProvider.latencyThreshold = 1000;
+	    }]);
+	$(function () {
+	    angular.bootstrap(document, [module.name, 'homeModule', 'pageModule', 'passportModule']);
+	});
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+
 /***/ }
 
-});
+},[212]);
 //# sourceMappingURL=index.bundle.js.map

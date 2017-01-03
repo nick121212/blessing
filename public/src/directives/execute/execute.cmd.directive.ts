@@ -185,7 +185,7 @@ module.directive('angularTerminal', ['$rootScope', function ($rootScope) {
             var namespace = 'terminal.' + (attrs.angularTerminal || 'default'),
                 t;
 
-            t = element.terminal((input, terminal) => {
+            t = element["terminal"]((input, terminal) => {
                 $rootScope.$emit(namespace, input, terminal);
             }, {
                     greetings: attrs.greetings || '',

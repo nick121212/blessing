@@ -1,47 +1,12 @@
 webpackJsonp([3],{
 
-/***/ 0:
+/***/ 89:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var ngMaterial = __webpack_require__(1);
-	var router_1 = __webpack_require__(256);
-	var material_service_1 = __webpack_require__(140);
-	var rest_service_1 = __webpack_require__(18);
-	var action_1 = __webpack_require__(15);
-	var login_value_1 = __webpack_require__(263);
-	__webpack_require__(19);
-	var module = angular.module("passportModule", [ngMaterial, 'ui.router', material_service_1.default, rest_service_1.default, action_1.default, 'restangular']);
-	module.config([
-	    "$stateProvider",
-	    "$urlRouterProvider",
-	    function ($stateProvider, $urlRouterProvider) {
-	        router_1.initRouter($urlRouterProvider, $stateProvider);
-	    }])
-	    .run(["$state", "restUtils", function ($state, restUtils) {
-	        restUtils.setConfig(function (restAngularConfigure) {
-	            restAngularConfigure.setErrorInterceptor(function (response) {
-	                if (response.status === 401 && !response.config["salt"]) {
-	                    !$state.is("passport.login") && $state.go("passport.login");
-	                }
-	                return true;
-	            });
-	        });
-	    }]);
-	login_value_1.default(module);
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = "" + module.name;
-
-
-/***/ },
-
-/***/ 256:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var login_controller_1 = __webpack_require__(257);
-	var register_controller_1 = __webpack_require__(258);
-	var index_controller_1 = __webpack_require__(259);
+	var login_controller_1 = __webpack_require__(220);
+	var register_controller_1 = __webpack_require__(221);
+	var index_controller_1 = __webpack_require__(219);
 	exports.initRouter = function ($urlRouterProvider, $stateProvider) {
 	    $stateProvider.state("passport", {
 	        url: "/passport",
@@ -50,7 +15,7 @@ webpackJsonp([3],{
 	            "": {
 	                controller: index_controller_1.IndexController,
 	                controllerAs: "indexCtl",
-	                template: __webpack_require__(260)()
+	                template: __webpack_require__(162)()
 	            }
 	        }
 	    }).state("passport.login", {
@@ -59,7 +24,7 @@ webpackJsonp([3],{
 	            "passportContent": {
 	                controller: login_controller_1.LoginController,
 	                controllerAs: "loginCtl",
-	                template: __webpack_require__(261)()
+	                template: __webpack_require__(163)()
 	            }
 	        }
 	    }).state("passport.register", {
@@ -68,7 +33,7 @@ webpackJsonp([3],{
 	            "passportContent": {
 	                controller: register_controller_1.RegisterController,
 	                controllerAs: "registerCtl",
-	                template: __webpack_require__(262)()
+	                template: __webpack_require__(164)()
 	            }
 	        }
 	    });
@@ -77,82 +42,101 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 257:
-/***/ function(module, exports) {
-
-	"use strict";
-	var LoginController = (function () {
-	    function LoginController($rootScope, $state, fxAction, materialUtils) {
-	        this.$rootScope = $rootScope;
-	        this.$state = $state;
-	        this.fxAction = fxAction;
-	        this.materialUtils = materialUtils;
-	        this.key = "login";
-	        this.formData = { username: "nick", password: "nick" };
-	    }
-	    LoginController.prototype.doSubmit = function ($form) {
-	        var _this = this;
-	        var promise = this.fxAction.doAction(this.key, this.formData, $form);
-	        promise && promise.then(function (user) {
-	            _this.$rootScope.$emit('$stateRefresh');
-	            _this.materialUtils.showMsg("登陆成功,正在跳转!");
-	            _this.$state.go("home");
-	            _this.$rootScope['user'] = user.loginAction.username;
-	        });
-	    };
-	    LoginController.$inject = ["$rootScope", "$state", "fxAction", "materialUtils"];
-	    return LoginController;
-	}());
-	exports.LoginController = LoginController;
-
-
-/***/ },
-
-/***/ 258:
-/***/ function(module, exports) {
-
-	"use strict";
-	var RegisterController = (function () {
-	    function RegisterController($rootScope, $timeout) {
-	        this.$rootScope = $rootScope;
-	        this.$timeout = $timeout;
-	        this.title = "用户注册";
-	    }
-	    return RegisterController;
-	}());
-	exports.RegisterController = RegisterController;
-	RegisterController.$inject = ["$rootScope", "$timeout"];
-
-
-/***/ },
-
-/***/ 259:
-/***/ function(module, exports) {
-
-	"use strict";
-	var IndexController = (function () {
-	    function IndexController($scope, $mdMedia) {
-	        var _this = this;
-	        this.$scope = $scope;
-	        this.$mdMedia = $mdMedia;
-	        $scope.$watch(function () {
-	            return $mdMedia('xs');
-	        }, function (small) {
-	            _this.screenIsSmall = small;
-	        });
-	    }
-	    IndexController.$inject = ["$scope", "$mdMedia"];
-	    return IndexController;
-	}());
-	exports.IndexController = IndexController;
-
-
-/***/ },
-
-/***/ 260:
+/***/ 90:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(29);
+	"use strict";
+	var action_model_1 = __webpack_require__(4);
+	var interface_model_1 = __webpack_require__(21);
+	function LoginSchemaValue() {
+	    var actionModel = {
+	        key: "login",
+	        type: action_model_1.ActionType.form,
+	        icon: "",
+	        form: {
+	            dataSchema: {
+	                type: "object",
+	                required: ["username", "password"],
+	                properties: {
+	                    username: {
+	                        type: "string",
+	                        minLength: 4,
+	                        maxLength: 20,
+	                        title: "用户名"
+	                    },
+	                    password: {
+	                        type: "string",
+	                        title: "密码",
+	                        minLength: 4,
+	                        maxLength: 20
+	                    }
+	                }
+	            },
+	            formSchema: [{
+	                    key: "username",
+	                    type: "string",
+	                    placeHolder: "用户名",
+	                    icon: {
+	                        leftIcon: "account"
+	                    },
+	                    htmlClass: "md-icon-left md-block"
+	                }, {
+	                    key: "password",
+	                    type: "password",
+	                    icon: {
+	                        leftIcon: "lock"
+	                    },
+	                    htmlClass: "md-icon-left md-block"
+	                }]
+	        },
+	        interfaces: [{
+	                key: "loginAction",
+	                method: interface_model_1.MethodType.POST,
+	                address: "",
+	                port: null,
+	                path: "/passport/login",
+	                isRestful: false
+	            }]
+	    };
+	    return actionModel;
+	}
+	function LogoutSchemaValue() {
+	    var actionModel = {
+	        key: "logout",
+	        type: action_model_1.ActionType.confirm,
+	        icon: "",
+	        confirm: {
+	            confirmTitle: '用户中心',
+	            confirmContent: '确定要退出么?',
+	            confirmOk: "果断退出",
+	            confirmCancel: '在看看'
+	        },
+	        interfaces: [{
+	                key: "logoutAction",
+	                method: interface_model_1.MethodType.POST,
+	                address: "",
+	                port: null,
+	                path: "/passport/logout",
+	                isRestful: false
+	            }]
+	    };
+	    return actionModel;
+	}
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = function (module) {
+	    var models = [LoginSchemaValue(), LogoutSchemaValue()];
+	    _.each(models, function (model) {
+	        module.value(model.key, model);
+	    });
+	};
+
+
+/***/ },
+
+/***/ 162:
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(1);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/pages/passport/tpls/index.template.jade" ) ];
@@ -182,10 +166,10 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 261:
+/***/ 163:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(29);
+	var jade = __webpack_require__(1);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/pages/passport/tpls/login.template.jade" ) ];
@@ -315,10 +299,10 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 262:
+/***/ 164:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(29);
+	var jade = __webpack_require__(1);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/pages/passport/tpls/register.template.jade" ) ];
@@ -345,96 +329,113 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 263:
+/***/ 219:
+/***/ function(module, exports) {
+
+	"use strict";
+	var IndexController = (function () {
+	    function IndexController($scope, $mdMedia) {
+	        var _this = this;
+	        this.$scope = $scope;
+	        this.$mdMedia = $mdMedia;
+	        $scope.$watch(function () {
+	            return $mdMedia('xs');
+	        }, function (small) {
+	            _this.screenIsSmall = small;
+	        });
+	    }
+	    return IndexController;
+	}());
+	IndexController.$inject = ["$scope", "$mdMedia"];
+	exports.IndexController = IndexController;
+
+
+/***/ },
+
+/***/ 220:
+/***/ function(module, exports) {
+
+	"use strict";
+	var LoginController = (function () {
+	    function LoginController($rootScope, $state, fxAction, materialUtils) {
+	        this.$rootScope = $rootScope;
+	        this.$state = $state;
+	        this.fxAction = fxAction;
+	        this.materialUtils = materialUtils;
+	        this.key = "login";
+	        this.formData = { username: "nick", password: "nick" };
+	    }
+	    LoginController.prototype.doSubmit = function ($form) {
+	        var _this = this;
+	        var promise = this.fxAction.doAction(this.key, this.formData, $form);
+	        promise && promise.then(function (user) {
+	            _this.$rootScope.$emit('$stateRefresh');
+	            _this.materialUtils.showMsg("登陆成功,正在跳转!");
+	            _this.$state.go("home");
+	            _this.$rootScope['user'] = user.loginAction.username;
+	        });
+	    };
+	    return LoginController;
+	}());
+	LoginController.$inject = ["$rootScope", "$state", "fxAction", "materialUtils"];
+	exports.LoginController = LoginController;
+
+
+/***/ },
+
+/***/ 221:
+/***/ function(module, exports) {
+
+	"use strict";
+	var RegisterController = (function () {
+	    function RegisterController($rootScope, $timeout) {
+	        this.$rootScope = $rootScope;
+	        this.$timeout = $timeout;
+	        this.title = "用户注册";
+	    }
+	    return RegisterController;
+	}());
+	exports.RegisterController = RegisterController;
+	RegisterController.$inject = ["$rootScope", "$timeout"];
+
+
+/***/ },
+
+/***/ 222:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var action_model_1 = __webpack_require__(37);
-	var interface_model_1 = __webpack_require__(38);
-	function LoginSchemaValue() {
-	    var actionModel = {
-	        key: "login",
-	        type: action_model_1.ActionType.form,
-	        icon: "",
-	        form: {
-	            dataSchema: {
-	                type: "object",
-	                required: ["username", "password"],
-	                properties: {
-	                    username: {
-	                        type: "string",
-	                        minLength: 4,
-	                        maxLength: 20,
-	                        title: "用户名"
-	                    },
-	                    password: {
-	                        type: "string",
-	                        title: "密码",
-	                        minLength: 4,
-	                        maxLength: 20
-	                    }
+	var ngMaterial = __webpack_require__(6);
+	var router_1 = __webpack_require__(89);
+	var material_service_1 = __webpack_require__(15);
+	var rest_service_1 = __webpack_require__(19);
+	var action_1 = __webpack_require__(14);
+	var login_value_1 = __webpack_require__(90);
+	__webpack_require__(22);
+	var module = angular.module("passportModule", [ngMaterial, 'ui.router', material_service_1.default, rest_service_1.default, action_1.default, 'restangular']);
+	module.config([
+	    "$stateProvider",
+	    "$urlRouterProvider",
+	    function ($stateProvider, $urlRouterProvider) {
+	        router_1.initRouter($urlRouterProvider, $stateProvider);
+	    }
+	])
+	    .run(["$state", "restUtils", function ($state, restUtils) {
+	        restUtils.setConfig(function (restAngularConfigure) {
+	            restAngularConfigure.setErrorInterceptor(function (response) {
+	                if (response.status === 401 && !response.config["salt"]) {
+	                    !$state.is("passport.login") && $state.go("passport.login");
 	                }
-	            },
-	            formSchema: [{
-	                    key: "username",
-	                    type: "string",
-	                    placeHolder: "用户名",
-	                    icon: {
-	                        leftIcon: "account"
-	                    },
-	                    htmlClass: "md-icon-left md-block"
-	                }, {
-	                    key: "password",
-	                    type: "password",
-	                    icon: {
-	                        leftIcon: "lock"
-	                    },
-	                    htmlClass: "md-icon-left md-block"
-	                }]
-	        },
-	        interfaces: [{
-	                key: "loginAction",
-	                method: interface_model_1.MethodType.POST,
-	                address: "",
-	                port: null,
-	                path: "/passport/login",
-	                isRestful: false
-	            }]
-	    };
-	    return actionModel;
-	}
-	function LogoutSchemaValue() {
-	    var actionModel = {
-	        key: "logout",
-	        type: action_model_1.ActionType.confirm,
-	        icon: "",
-	        confirm: {
-	            confirmTitle: '用户中心',
-	            confirmContent: '确定要退出么?',
-	            confirmOk: "果断退出",
-	            confirmCancel: '在看看'
-	        },
-	        interfaces: [{
-	                key: "logoutAction",
-	                method: interface_model_1.MethodType.POST,
-	                address: "",
-	                port: null,
-	                path: "/passport/logout",
-	                isRestful: false
-	            }]
-	    };
-	    return actionModel;
-	}
+	                return true;
+	            });
+	        });
+	    }]);
+	login_value_1.default(module);
 	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = function (module) {
-	    var models = [LoginSchemaValue(), LogoutSchemaValue()];
-	    _.each(models, function (model) {
-	        module.value(model.key, model);
-	    });
-	};
+	exports.default = "" + module.name;
 
 
 /***/ }
 
-});
+},[222]);
 //# sourceMappingURL=passport.bundle.js.map
