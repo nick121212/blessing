@@ -5,15 +5,15 @@ import { client } from '../../utils/es';
 
 export default () => {
     return async(ctx, next) => {
-        let key = ctx.params["key"];
+        let { key, type } = ctx.params;
 
-        if (!key) {
-            throw boom.badData(`key不能为空`);
+        if (!key || !type) {
+            throw boom.badData(`key,type不能为空`);
         }
 
         let result = await client.delete({
             index: 'cmdb.device',
-            type: 'manual',
+            type: type,
             id: key
         });
 

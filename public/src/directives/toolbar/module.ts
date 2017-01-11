@@ -65,15 +65,23 @@ class Controller {
             model.materialUtils = this.materialUtils;
             model.ngModel = this.ngModel;
             model.index = this.index;
+
+            // 处理condition来控制控件的显示与隐藏
             if (model.conditionInfo && model.conditionInfo.condition) {
                 if (model.conditionInfo.prefix) {
                     model.condition = `${model['type']}Ctl.${model.conditionInfo.condition}`;
                 } else {
                     model.condition = `${model.conditionInfo.condition}`;
                 }
-            } else {
-                model.condition = "true";
+
+                if (model.conditionInfo.useDisabled) {
+                    model.disabled = model.condition;
+                    model.condition = "";
+                }
+
             }
+            !model.condition && (model.condition = "true");
+
             // 设置controllerAs
             $newScope[`${model['type']}Ctl`] = _.clone(model);
             if (this.ctls) {

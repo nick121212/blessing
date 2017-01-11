@@ -2,6 +2,7 @@ import './services/utils.service';
 import './services/action.provider';
 import './services/layout.provider';
 import './services/autocomplete.provider';
+import './services/suggest.provider';
 import './services/jsoneditor.provider';
 import './services/validator.custom.value';
 

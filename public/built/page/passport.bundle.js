@@ -4,9 +4,9 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var login_controller_1 = __webpack_require__(220);
-	var register_controller_1 = __webpack_require__(221);
-	var index_controller_1 = __webpack_require__(219);
+	var login_controller_1 = __webpack_require__(224);
+	var register_controller_1 = __webpack_require__(225);
+	var index_controller_1 = __webpack_require__(223);
 	exports.initRouter = function ($urlRouterProvider, $stateProvider) {
 	    $stateProvider.state("passport", {
 	        url: "/passport",
@@ -15,7 +15,7 @@ webpackJsonp([3],{
 	            "": {
 	                controller: index_controller_1.IndexController,
 	                controllerAs: "indexCtl",
-	                template: __webpack_require__(162)()
+	                template: __webpack_require__(165)()
 	            }
 	        }
 	    }).state("passport.login", {
@@ -24,7 +24,7 @@ webpackJsonp([3],{
 	            "passportContent": {
 	                controller: login_controller_1.LoginController,
 	                controllerAs: "loginCtl",
-	                template: __webpack_require__(163)()
+	                template: __webpack_require__(166)()
 	            }
 	        }
 	    }).state("passport.register", {
@@ -33,7 +33,7 @@ webpackJsonp([3],{
 	            "passportContent": {
 	                controller: register_controller_1.RegisterController,
 	                controllerAs: "registerCtl",
-	                template: __webpack_require__(164)()
+	                template: __webpack_require__(167)()
 	            }
 	        }
 	    });
@@ -133,7 +133,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 162:
+/***/ 165:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -166,7 +166,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 163:
+/***/ 166:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -299,7 +299,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 164:
+/***/ 167:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -329,7 +329,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 219:
+/***/ 223:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -352,7 +352,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 220:
+/***/ 224:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -383,7 +383,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 221:
+/***/ 225:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -401,7 +401,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 222:
+/***/ 226:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -437,5 +437,5 @@ webpackJsonp([3],{
 
 /***/ }
 
-},[222]);
+},[226]);
 //# sourceMappingURL=passport.bundle.js.map

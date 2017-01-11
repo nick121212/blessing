@@ -2,32 +2,37 @@ import fs from 'fs';
 import _ from 'lodash';
 import boom from 'boom';
 import { client } from '../../utils/es';
+import utils from "../";
 
-export default () => {
+export default (Model, config) => {
     return async(ctx, next) => {
         let model = ctx.request.body;
-        let results = await client.mget({
-            body: {
-                docs: [
-                    { _index: 'cmdb.device', _type: 'salt', _id: model.deviceSn },
-                    { _index: 'cmdb.device', _type: 'manual', _id: model.deviceSn }
-                ]
-            }
-        });
+        let curConfig = utils.elastic.getConfig(config, "/createItem");
+        let type = _.first(_.filter(curConfig.type, (t, key) => {
+            return key === model.deviceType;
+        }));
 
-        // 如果在salt里面有，则不能入库，如果manual里面有，则不能入库
-        if (results.docs[0].found || results.docs[1].found) {
-            throw boom.badData(`【${model.deviceSn}】已经存在!`);
+        if (!model.NO) {
+            throw boom.badData(`固定资产编号不能为空`);
         }
 
-        model.updatedAt = Date.now();
-        results = await client.create({
-            index: 'cmdb.device',
-            type: 'manual',
-            id: model.deviceSn,
+        // console.log("--------", curConfig.type, type, model.deviceType);
+
+        utils.elastic.removeAttributes(model, curConfig.removeAttributes);
+        utils.elastic.setSuggest(model, curConfig.suggest);
+
+        // model.model_suggest = {
+        //     input: [model.model]
+        // };
+        // model.brand_suggest = {
+        //     input: [model.brand]
+        // };
+
+        ctx.body = await client.create({
+            index: "cmdb.device",
+            type: type || "other",
+            id: model.NO,
             body: model
         });
-
-        ctx.body = results;
     };
 };

@@ -7,7 +7,6 @@ import * as ngMaterial from 'angular-material';
 import uiRouter from 'angular-ui-router';
 import * as ngMaterialIcons from 'angular-material-icons';
 import * as mdDataTable from 'angular-material-data-table';
-import * as Pointer from 'json-pointer';
 
 import { initRouter } from './router';
 import materialServiceMod from '../../services/material.service';

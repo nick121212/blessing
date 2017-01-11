@@ -2,7 +2,8 @@ import boom from 'boom';
 import db from '../../utils/db';
 import utils from '../';
 
-export default (sequelizeModel) => {
+export default (sequelizeModel, config) => {
+
     /**
      * 创建模块数据
      */
@@ -13,8 +14,8 @@ export default (sequelizeModel) => {
             throw boom.badData('数据没有填写完整!');
         }
 
-        utils.checkUniqueFields(sequelizeModel, modelIntance);
-        utils.removeAttributes();
+        utils.mysql.checkUniqueFields(sequelizeModel, modelIntance);
+        utils.mysql.removeAttributes();
 
         modelIntance.createdAt = Date.now();
 

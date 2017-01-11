@@ -1,12 +1,17 @@
 import boom from 'boom';
 import db from '../../utils/db';
-import utils from '../../utils';
+import utils from '../';
 
-export default (sequelizeModel) => {
+export default (sequelizeModel, config) => {
+
+    config = config || {};
+
     return async(ctx, next) => {
-        let filter = utils.query(ctx.query);
-        let result = await sequelizeModel.findAndCountAll(filter);
+        let curConfig = utils.mysql.getConfig(config, "/list/attrubutes");
+        let filter = utils.mysql.query(ctx.query);
+        let attributes = curConfig.attributes;
 
-        ctx.body = result;
+        attributes && (filter.attributes = attributes);
+        ctx.body = await sequelizeModel.findAndCountAll(filter);
     };
 };

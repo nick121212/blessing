@@ -16,15 +16,17 @@ export class BRouter {
         this.doInitOtherRoute(app);
     }
 
-    doInitRouter(key, router, model) {
+    doInitRouter(key, router, model, config = null) {
+        let controller;
+
         if (fs.existsSync(__dirname + `/../controllers/${key}`)) {
             try {
-                let controller = require(`../controllers/${key}`);
+                controller = require(`../controllers/${key}`);
 
                 try {
                     _.forEach(controller.routers, (route, routerKey) => {
                         router.addRoute(routerKey, _.map(route, (func) => {
-                            return func(model, controller.config || {});
+                            return func(model, config || controller.config || {});
                         }));
                     });
 
@@ -39,7 +41,10 @@ export class BRouter {
             }
         }
 
-        return router;
+        return {
+            router: router,
+            config: controller ? controller.config : null
+        };
     }
 
     doInitModelRouter(app) {
@@ -50,8 +55,8 @@ export class BRouter {
                 prefix: `/${model.name}s`
             });
 
-            this.doInitRouter(model.name, router, model);
-            this.doInitRouter('common', router, model);
+            let res = this.doInitRouter(model.name, router, model);
+            this.doInitRouter('common', router, model, res.config);
             this.routers[model.name] = router;
 
             app.use(router.middleware());
@@ -64,13 +69,13 @@ export class BRouter {
 
         app.use(this.doInitRouter("backup", Router({
             prefix: `/backups`
-        }), {}).middleware());
+        }), {}).router.middleware());
         app.use(this.doInitRouter("device", Router({
             prefix: `/devices`
-        }), {}).middleware());
+        }), {}).router.middleware());
         app.use(this.doInitRouter("apply", Router({
             prefix: `/applies`
-        }), {}).middleware());
+        }), {}).router.middleware());
     }
 }
 

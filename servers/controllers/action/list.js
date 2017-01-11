@@ -1,6 +1,5 @@
 import boom from 'boom';
 import db from '../../utils/db';
-import utils from '../../utils';
 
 export default (sequelizeModel) => {
     return async(ctx, next) => {

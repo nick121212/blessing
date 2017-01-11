@@ -27,6 +27,7 @@ async function init() {
     let server = socket.eventsIo.attach(app);
     // spa server 启动
     await spa(config, app.server);
+
     // 监听端口
     app.listen(process.env.PORT || config.site.PORT || 3000, () => {
         console.log("Server listening on %s", app.server._connectionKey);

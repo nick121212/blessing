@@ -6,9 +6,10 @@ import 'expose?JSONEditor!jsoneditor.js';
 import 'ng-jsoneditor';
 import 'angular-schema-form';
 import 'angular-schema-form-ng-material';
+import 'angular-sortable-view';
 
 const _name = "fxAction";
-export const module = angular.module(`${_name}Module`, [ngMaterial, restSvrMod, "schemaForm", "ng.jsoneditor"])
+export const module = angular.module(`${_name}Module`, [ngMaterial, restSvrMod, "schemaForm", "ng.jsoneditor", "angular-sortable-view"])
     .config(["sfErrorMessageProvider", (sfErrorMessageProvider) => {
         // 处理默认的错误信息
         sfErrorMessageProvider.setDefaultMessage("302", "[{{title}}]是必填项");
@@ -17,10 +18,10 @@ export const module = angular.module(`${_name}Module`, [ngMaterial, restSvrMod, 
         sfErrorMessageProvider.setDefaultMessage("200", "[{{title}}]字符长度小于最小值({{schema.minLength}})");
         sfErrorMessageProvider.setDefaultMessage("201", "[{{title}}]字符长度大于最大值({{schema.maxLength}})");
         sfErrorMessageProvider.setDefaultMessage("400", "数组长度不正确，{{schema.minItems||0}}-{{schema.maxItems||'∞'}}");
-        sfErrorMessageProvider.setDefaultMessage("500", "格式不正确");
+        sfErrorMessageProvider.setDefaultMessage("500", "[{{title}}]格式不正确");
         sfErrorMessageProvider.setDefaultMessage("compareTo", "{{title}}和{{form.compare.to}}不一致");
     }])
-    .config(["sfBuilderProvider", "schemaFormDecoratorsProvider", "jsonEditorBuilderProvider", "autoCompleteBuilderProvider", "layoutBuilderProvider", (sfBuilderProvider, schemaFormDecoratorsProvider, jsonEditorBuilder, autoCompleteBuilder, layoutBuilder) => {
+    .config(["sfBuilderProvider", "schemaFormDecoratorsProvider", "jsonEditorBuilderProvider", "autoCompleteBuilderProvider", "layoutBuilderProvider", "suggestBuilderProvider", (sfBuilderProvider, schemaFormDecoratorsProvider, jsonEditorBuilder, autoCompleteBuilder, layoutBuilder, suggestBuilder) => {
         // 添加自定义的表单组件
         // jsoneditor--schema-form组件化
         schemaFormDecoratorsProvider.defineAddOn(
@@ -58,6 +59,22 @@ export const module = angular.module(`${_name}Module`, [ngMaterial, restSvrMod, 
             "./decorators/modandact.jade",
             [sfBuilderProvider.builders.sfField, sfBuilderProvider.builders.ngModel, layoutBuilder.builder, sfBuilderProvider.builders.condition, sfBuilderProvider.builders.transclusion]
         );
+
+        // querytable--schema-form组件化
+        schemaFormDecoratorsProvider.defineAddOn(
+            'materialDecorator',
+            'formaction',
+            "./decorators/formaction.jade",
+            [sfBuilderProvider.builders.sfField, sfBuilderProvider.builders.ngModel, layoutBuilder.builder, sfBuilderProvider.builders.condition, sfBuilderProvider.builders.transclusion]
+        );
+
+        // querytable--schema-form组件化
+        schemaFormDecoratorsProvider.defineAddOn(
+            'materialDecorator',
+            'suggest',
+            "./decorators/suggest.chips.jade",
+            [sfBuilderProvider.builders.sfField, sfBuilderProvider.builders.ngModel, layoutBuilder.builder, sfBuilderProvider.builders.condition, sfBuilderProvider.builders.transclusion, autoCompleteBuilder.builder, suggestBuilder.builder]
+        );
     }])
     .run(["$templateCache", "autoCompleteBuilder", ($templateCache: ng.ITemplateCacheService) => {
         // 打包工具的原因,只能把模板字符串写入cache中
@@ -67,6 +84,8 @@ export const module = angular.module(`${_name}Module`, [ngMaterial, restSvrMod, 
         $templateCache.put('./decorators/section-1.jade', require("./decorators/section-1.jade")());
         $templateCache.put('./decorators/querytable.jade', require("./decorators/querytable.jade")());
         $templateCache.put('./decorators/modandact.jade', require("./decorators/modandact.jade")());
+        $templateCache.put('./decorators/formaction.jade', require("./decorators/formaction.jade")());
+        $templateCache.put('./decorators/suggest.chips.jade', require("./decorators/suggest.chips.jade")());
     }]);
 
 export default `${module.name}`;

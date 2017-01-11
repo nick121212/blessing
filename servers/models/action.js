@@ -28,6 +28,7 @@ export default (sequelize, DataTypes) => {
         wizard: JsonField(sequelize, 'action', 'wizard'),
         list: JsonField(sequelize, 'action', 'list'),
         interfaces: JsonField(sequelize, 'action', 'interfaces'),
+        redirect: JsonField(sequelize, 'action', 'redirect'),
         group: { type: DataTypes.STRING, allowNull: true }
     }, {
         relations: [{

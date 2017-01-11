@@ -1,6 +1,5 @@
 <div class="schema-form-array {{form.htmlClass}}" sf-field-model="sf-new-array" sf-new-array>
-
-    <md-toolbar class="md-default">
+    <md-toolbar class="md-default md-hue-2">
         <div class="md-toolbar-tools">
             <h2 flex>{{ ::form.title }}</h2>
             <md-button ng-hide="form.readonly || form.add === null" ng-click="appendToArray()" class="md-icon-button {{ form.style.add || 'btn-default' }}">
@@ -14,24 +13,40 @@
         </div>
     </md-toolbar>
 
-    <md-content ng-model="modelArray" flex layout-padding class="md-whiteframe-1dp">
-        <md-list ui-sortable="form.sortOptions">
-            <md-list-item layout="row" ng-repeat-start="item in $$value$$ track by $index" sf-field-model="ng-repeat-start" form="copyWithIndex($index)" schema-form-array-items>
-                <md-button flex-order="2" ng-hide="form.readonly || form.remove === null" ng-click="deleteFromArray($index)" class="md-icon-button" aria-label="Delete">
-                    <md-tooltip>
-                        删除
-                    </md-tooltip>
-                    <md-icon>
-                        <ng-md-icon icon="close-circle-outline"></ng-md-icon>
-                    </md-icon>
-                </md-button>
+    <md-content ng-model="modelArray" flex layout-padding class="md-whiteframe-1dp sortable-container" sv-root sv-part="modelArray">
+        <md-list>
+            <md-list-item layout="row" sv-element="{{form.sortOptions || {containment:'.sortable-container'} }}" ng-repeat-start="item in $$value$$ track by $index" sf-field-model="ng-repeat-start" form="copyWithIndex($index)" schema-form-array-items>
+                <md-toolbar class="md-hue-2" sv-placeholder flex></md-toolbar>
+                <div layout="row" flex-order="2">
+                    <md-button ng-hide="form.readonly || form.add === null" ng-click="appendToArray()" class="md-icon-button {{ form.style.add || 'btn-default' }}">
+                        <md-tooltip>
+                            新增
+                        </md-tooltip>
+                        <md-icon>
+                            <ng-md-icon icon="add_circle_outline"></ng-md-icon>
+                        </md-icon>
+                    </md-button>
+                    <md-button ng-hide="form.readonly || form.remove === null" ng-click="deleteFromArray($index)" class="md-icon-button" aria-label="Delete">
+                        <md-tooltip>
+                            删除
+                        </md-tooltip>
+                        <md-icon>
+                            <ng-md-icon icon="close-circle-outline"></ng-md-icon>
+                        </md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button md-default-theme" sv-handle>
+                        <md-icon>
+                            <ng-md-icon icon="cursor-move"></ng-md-icon>
+                        </md-icon>
+                    </md-button>
+                </div>
             </md-list-item>
             <md-divider ng-repeat-end=""></md-divider>
         </md-list>
     </md-content>
 
-    <md-input-container style="margin-top:0;" class="md-block" md-is-error="ngModel.$error && ngModel.$invalid">
-        <input class="ng-hide" name="{{::form.key|sfCamelKey}}" ng-model="modelArray" sf-changed="form">
+    <md-input-container style="margin-top:0;" class="md-block" md-is-error="ngModel.$error && ngModel.$invalid && ngModel.$dirty">
+        <md-contact-ships class="ng-hide" ng-model="$$value$$" sf-field-model sf-changed="form" schema-validate="form" name="{{::form.key|sfCamelKey}}"></md-contact-ships>
         <div ng-messages="ngModel.$error" aria-live="assertive">
             <div sf-message ng-message ng-class="{'fx-invalid':ngModel.$invalid}"></div>
         </div>

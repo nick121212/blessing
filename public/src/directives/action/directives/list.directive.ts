@@ -110,12 +110,12 @@ class Controller {
             return;
         }
         // 取得数据中的特定部分
-        if (actionModel.type === ActionType.form || actionModel.type === ActionType.wizard) {
-            itemSource = {};
-            if (pointer.has(item, actionModel.path || "")) {
-                itemSource = pointer.get(item, actionModel.path || "");
-            }
-        }
+        // if (actionModel.type === ActionType.form || actionModel.type === ActionType.wizard) {
+        //     itemSource = {};
+        //     if (pointer.has(item, actionModel.path || "")) {
+        //         itemSource = pointer.get(item, actionModel.path || "");
+        //     }
+        // }
         // 执行相应的操作
         let promise = this.fxAction.doActionModel($event, actionModel, itemSource);
 
@@ -167,7 +167,7 @@ class Controller {
      * 初始化单项的Item的toolbar
      */
     initItemToolbar() {
-        const menuTool: any = this.toolbarUtils.menuBuilder("", "md-icon-button").tooltipBuilder("操作菜单").iconBuilder("expand_more").menuOptionsBuilder().toValue();
+        const menuTool: any = this.toolbarUtils.menuBuilder("", "md-icon-button").tooltipBuilder("操作菜单").iconBuilder("dots-vertical").menuOptionsBuilder().toValue();
         const keys = [];
         let itemActionsObj = _.keyBy(this.actionModel.itemActions, "key");
 
@@ -192,7 +192,7 @@ class Controller {
                             });
                             // 处理显示/隐藏逻辑
                             if (condition) {
-                                menu.conditionBuilder(condition);
+                                menu.conditionBuilder(condition, true, true);
                             }
                             menuTool.items.push(menu.toValue());
                             break;
@@ -297,7 +297,7 @@ function Directive(): ng.IDirective {
     };
 }
 
-module.filter('skip', function () {
+module.filter('skip', function() {
     return (inputArray, skip, isLocal) => {
         if (!inputArray) return [];
 

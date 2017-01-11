@@ -1,13 +1,14 @@
 /**
  * 操作类型
  */
-import {IInterfaceModel} from "./interface.model";
+import { IInterfaceModel } from "./interface.model";
 export enum ActionType {
     none = 0,
     list = 1,
     form = 2,
     wizard = 3,
-    confirm = 4
+    confirm = 4,
+    redirect = 5
 }
 
 export interface IConfirm {
@@ -37,7 +38,7 @@ export interface ISchemaForm {
 export interface IWizard {
     defaultSchema?: ISchemaForm;
     // schemas?: Array<ISchemaForm>;
-    actions: Array<string|IActionModel>;
+    actions: Array<string | IActionModel>;
 }
 
 export interface IColumn {
@@ -92,7 +93,6 @@ export interface IItemActionSet {
     condition?: string;
 }
 
-
 /**
  * 操作的模型
  */
@@ -120,15 +120,20 @@ export interface IActionModel {
     // 子操作
     itemActions?: Array<IItemActionSet>;
     // 子操作
-    actions?: Array<IActionModel|string>;
+    actions?: Array<IActionModel | string>;
     // 接口列表
     interfaces?: Array<IInterfaceModel>;
     // 成功后显示的文字
     successMsg?: string;
     // 执行成功后是否刷新列表
-    refreshList?: boolean ;
+    refreshList?: boolean;
     // 执行成功后是否需要关闭dialog
     closeDialog?: boolean;
     // 回调是否取消事件
-    cancel?:boolean;
+    cancel?: boolean;
+}
+
+export interface IRedirect {
+    url: string;
+    container: string;
 }

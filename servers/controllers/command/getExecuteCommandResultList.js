@@ -11,9 +11,7 @@ export default (sequelizeModel) => {
      * 创建模块数据
      */
     return async(ctx, next) => {
-        let filter = utils.getEsQuery(ctx.query);
-
-        console.log(ctx.query);
+        let filter = utils.elastic.getEsQuery(ctx.query);
 
         filter.esQuery.aggs = {
             "count_success": {
@@ -31,7 +29,6 @@ export default (sequelizeModel) => {
             sort: filter.sort,
             timeout: '10s'
         });
-        // let results = await utils.getEsList(ctx.query, "commdone.logs");
 
         ctx.body = results;
     };

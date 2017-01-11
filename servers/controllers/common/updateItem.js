@@ -2,7 +2,7 @@ import boom from 'boom';
 import _ from 'lodash';
 import utils from '../';
 
-export default (sequelizeModel, uniqueFields = [], idField = "id") => {
+export default (sequelizeModel, config) => {
     return async(ctx, next) => {
         let key = ctx.params["key"];
         let model = ctx.request.body;
@@ -12,17 +12,12 @@ export default (sequelizeModel, uniqueFields = [], idField = "id") => {
         }
 
         let modelInstance = await sequelizeModel.findById(key);
-
         if (!modelInstance) {
             throw boom.badData(`找不到key:${key}的数据或者已删除!`);
         }
 
-        delete model.createdAt;
-        delete model.updatedAt;
-        delete modelInstance.createdAt;
-
-        modelInstance.updatedAt = new Date();
-        utils.removeAttributes(sequelizeModel, modelInstance);
+        let curConfig = utils.mysql.getConfig(config, "/updateItem");
+        utils.mysql.removeAttributes(model, sequelizeModel, curConfig.removeAttributes);
 
         ctx.body = await modelInstance.updateAttributes(model);
     };

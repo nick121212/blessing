@@ -1,0 +1,3 @@
+section.schema-form-formaction(class="{{form.htmlClass}}")
+    div(ng-if="!form.faOptions.key",fx-form-action,key="{{$$value$$}}",sf-field-model="key",ng-model="model")
+    div(ng-if="form.faOptions.key",fx-form-action,key="{{form.faOptions.key}}",ng-model="model")

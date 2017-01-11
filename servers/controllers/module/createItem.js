@@ -19,7 +19,7 @@ export default (sequelizeModel, uniqueFields = []) => {
             throw boom.badData('数据没有填写完整!');
         }
 
-        utils.checkUniqueFields(sequelizeModel, modelIntance);
+        utils.mysql.checkUniqueFields(sequelizeModel, modelIntance);
 
         let findModel = await sequelizeModel.count({
             where: {
@@ -63,8 +63,6 @@ export default (sequelizeModel, uniqueFields = []) => {
                 modelIntance.lft = 1;
                 modelIntance.rgt = 2;
             }
-
-            console.log(modelIntance);
 
             let newModel = await sequelizeModel.create(modelIntance, { transaction: trans });
 

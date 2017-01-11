@@ -15,8 +15,14 @@ export default (app) => {
      * 与当前操作最对比
      */
     return async(ctx, next) => {
-        let actionKey = ctx.req.headers['action-key'];
-        let member = await db.models.member.findById(ctx.state.user.id);
+        let actionKey = ctx.req.headers['action-key'] || ctx.query['action-key'];
+        let member = await db.models.member.findOne({
+            where: {
+                username: ctx.state.user.username
+            }
+        });
+
+        console.log(ctx.state.user);
 
         if (!member) {
             return err();

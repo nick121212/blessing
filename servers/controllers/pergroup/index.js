@@ -13,4 +13,8 @@ export const routers = {
 
 export const init = (router, sequelizeModel) => {}
 
-export const config = {}
+export const config = {
+    updateItem: {
+        removeAttributes: ["createdAt", "updatedAt"]
+    }
+}

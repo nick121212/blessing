@@ -9,7 +9,7 @@ class CustomFormat {
                 return true;
             }
 
-            return 10000;
+            return { code: 10002 };
         });
 
         // 验证手机
@@ -18,7 +18,7 @@ class CustomFormat {
                 return null;
             }
 
-            return 10003;
+            return { code: 10003 };
         });
 
         // 验证json
@@ -27,15 +27,23 @@ class CustomFormat {
                 return null;
             }
 
-            return 10004;
+            return { code: 10004 };
         });
 
-        tv4.addFormat("url-ip", (data, schema): any=> {
-            if (validator.isURL(data) || validator.isIP(data)) {
+        tv4.addFormat("url-ip", (data, schema): any => {
+            if (validator.isURL(data)) {
                 return null;
             }
-            return {code: 10005};
+            return { code: 10005 };
         });
+
+        tv4.addFormat("ip", (data, schema): any => {
+            if (validator.isIP(data)) {
+                return null;
+            }
+            return { code: 10006 };
+        });
+
         tv4.setErrorReporter(function (error, data, schema) {
             return "Error code: " + error.code;
         });

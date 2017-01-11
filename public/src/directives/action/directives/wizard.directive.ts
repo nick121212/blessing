@@ -194,8 +194,8 @@ function Directive(): ng.IDirective {
         link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attr: IDirectiveAttr, $ctl: Controller) => {
             $scope.$watch(() => {
                 return $ctl.key;
-            }, () => {
-                $ctl.getActionModel();
+            }, (newValue, oldValue) => {
+                newValue && $ctl.getActionModel();
             });
         }
     };

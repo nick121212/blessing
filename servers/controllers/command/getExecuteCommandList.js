@@ -8,7 +8,7 @@ export default (sequelizeModel) => {
      * 创建模块数据
      */
     return async(ctx, next) => {
-        let filter = utils.getEsQuery(ctx.query);
+        let filter = utils.elastic.getEsQuery(ctx.query);
 
         filter.esQuery.aggs = {
             "count_success": {

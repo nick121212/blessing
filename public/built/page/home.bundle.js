@@ -5,7 +5,7 @@ webpackJsonp([2],{
 
 	"use strict";
 	var _ = __webpack_require__(2);
-	__webpack_require__(178);
+	__webpack_require__(181);
 	var _name = "fxSideMenu", _module = _name + "Module";
 	var Controller = (function () {
 	    function Controller($scope, $compile, $interpolate, mdSideMenuSections) {
@@ -14,7 +14,7 @@ webpackJsonp([2],{
 	        this.$interpolate = $interpolate;
 	        this.mdSideMenuSections = mdSideMenuSections;
 	        this.options = {};
-	        this.template = $compile($interpolate(__webpack_require__(146)())({
+	        this.template = $compile($interpolate(__webpack_require__(149)())({
 	            opts: mdSideMenuSections.options
 	        }));
 	        this.options = this.mdSideMenuSections.options;
@@ -118,14 +118,14 @@ webpackJsonp([2],{
 	    return Strategy;
 	}());
 	var strategy = new Strategy();
-	strategy.register("icon", __webpack_require__(148)());
-	strategy.register("btn", __webpack_require__(147)());
-	strategy.register("layout", __webpack_require__(150)());
-	strategy.register("label", __webpack_require__(149)());
-	strategy.register("menu", __webpack_require__(153)());
-	strategy.register("menuItem", __webpack_require__(152)());
-	strategy.register("menuBar", __webpack_require__(154)());
-	strategy.register("menuDivider", __webpack_require__(151)());
+	strategy.register("icon", __webpack_require__(151)());
+	strategy.register("btn", __webpack_require__(150)());
+	strategy.register("layout", __webpack_require__(153)());
+	strategy.register("label", __webpack_require__(152)());
+	strategy.register("menu", __webpack_require__(156)());
+	strategy.register("menuItem", __webpack_require__(155)());
+	strategy.register("menuBar", __webpack_require__(157)());
+	strategy.register("menuDivider", __webpack_require__(154)());
 	var Controller = (function () {
 	    function Controller($scope, $rootScope, $compile, $interpolate, materialUtils) {
 	        this.$scope = $scope;
@@ -161,10 +161,12 @@ webpackJsonp([2],{
 	                else {
 	                    model.condition = "" + model.conditionInfo.condition;
 	                }
+	                if (model.conditionInfo.useDisabled) {
+	                    model.disabled = model.condition;
+	                    model.condition = "";
+	                }
 	            }
-	            else {
-	                model.condition = "true";
-	            }
+	            !model.condition && (model.condition = "true");
 	            $newScope[model['type'] + "Ctl"] = _.clone(model);
 	            if (_this.ctls) {
 	                $newScope[_this.ctls] = $scope.$parent[_this.ctls] || {};
@@ -4847,7 +4849,7 @@ webpackJsonp([2],{
 /***/ 66:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["SVGMorpheus"] = __webpack_require__(123);
+	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["SVGMorpheus"] = __webpack_require__(124);
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
@@ -4858,7 +4860,7 @@ webpackJsonp([2],{
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(111);
+	var content = __webpack_require__(112);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(10)(content, {});
@@ -4884,12 +4886,12 @@ webpackJsonp([2],{
 
 	"use strict";
 	var module_1 = __webpack_require__(11);
-	__webpack_require__(205);
-	__webpack_require__(202);
-	__webpack_require__(201);
-	__webpack_require__(203);
-	__webpack_require__(204);
+	__webpack_require__(209);
 	__webpack_require__(206);
+	__webpack_require__(205);
+	__webpack_require__(207);
+	__webpack_require__(208);
+	__webpack_require__(210);
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = module_1.default;
 
@@ -4901,7 +4903,7 @@ webpackJsonp([2],{
 
 	"use strict";
 	var module_1 = __webpack_require__(47);
-	__webpack_require__(207);
+	__webpack_require__(211);
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = module_1.default;
 
@@ -4912,9 +4914,9 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var home_controller_1 = __webpack_require__(209);
-	var sidenavl_controller_1 = __webpack_require__(210);
-	var content_controller_1 = __webpack_require__(208);
+	var home_controller_1 = __webpack_require__(213);
+	var sidenavl_controller_1 = __webpack_require__(214);
+	var content_controller_1 = __webpack_require__(212);
 	exports.initRouter = function ($urlRouterProvider, $stateProvider) {
 	    $urlRouterProvider.otherwise(function ($injector) {
 	        var $state = $injector.get("$state");
@@ -4932,17 +4934,17 @@ webpackJsonp([2],{
 	            "": {
 	                controller: home_controller_1.HomeController,
 	                controllerAs: "homeCtl",
-	                template: __webpack_require__(156)(),
+	                template: __webpack_require__(159)(),
 	            },
 	            "sidenavLeft@home": {
 	                controller: sidenavl_controller_1.SidenavLeftController,
 	                controllerAs: "sideLeftCtl",
-	                template: __webpack_require__(157)(),
+	                template: __webpack_require__(160)(),
 	            },
 	            "content@home": {
 	                controller: content_controller_1.ContentController,
 	                controllerAs: "contentCtl",
-	                template: __webpack_require__(155)(),
+	                template: __webpack_require__(158)(),
 	            }
 	        }
 	    });
@@ -5004,7 +5006,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 110:
+/***/ 111:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(8)();
@@ -5019,7 +5021,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 111:
+/***/ 112:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(8)();
@@ -5027,14 +5029,14 @@ webpackJsonp([2],{
 	
 	
 	// module
-	exports.push([module.id, ".logo {\n  height: 64px;\n  min-height: 64px !important;\n  line-height: 64px;\n  margin: 5px;\n  padding-left: 64px;\n  background: transparent url(" + __webpack_require__(224) + ") no-repeat top left;\n  background-size: contain; }\n  .logo.center {\n    background-position: top center;\n    height: 150px; }\n\n.gridster .gridster-item {\n  overflow: hidden; }\n\n.md-no-padding {\n  padding: 0; }\n", ""]);
+	exports.push([module.id, ".logo {\n  height: 64px;\n  min-height: 64px !important;\n  line-height: 64px;\n  margin: 5px;\n  padding-left: 64px;\n  background: transparent url(" + __webpack_require__(228) + ") no-repeat top left;\n  background-size: contain; }\n  .logo.center {\n    background-position: top center;\n    height: 150px; }\n\n.gridster .gridster-item {\n  overflow: hidden; }\n\n.md-no-padding {\n  padding: 0; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
 
-/***/ 123:
+/***/ 124:
 /***/ function(module, exports) {
 
 	/*!
@@ -6514,7 +6516,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 145:
+/***/ 148:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -6562,7 +6564,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 146:
+/***/ 149:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -6619,7 +6621,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 147:
+/***/ 150:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -6694,7 +6696,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 148:
+/***/ 151:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -6727,7 +6729,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 149:
+/***/ 152:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -6757,7 +6759,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 150:
+/***/ 153:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -6784,7 +6786,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 151:
+/***/ 154:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -6811,7 +6813,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 152:
+/***/ 155:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -6838,7 +6840,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 153:
+/***/ 156:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -6898,7 +6900,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 154:
+/***/ 157:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -6931,7 +6933,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 155:
+/***/ 158:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -7068,7 +7070,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 156:
+/***/ 159:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -7157,7 +7159,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 157:
+/***/ 160:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -7277,13 +7279,13 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 178:
+/***/ 181:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(110);
+	var content = __webpack_require__(111);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(10)(content, {});
@@ -7304,7 +7306,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 201:
+/***/ 205:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7325,7 +7327,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 202:
+/***/ 206:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7345,7 +7347,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 203:
+/***/ 207:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7397,7 +7399,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 204:
+/***/ 208:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7405,7 +7407,7 @@ webpackJsonp([2],{
 	function Directive(mdSideMenuSections, $timeout) {
 	    return {
 	        restrict: 'EA',
-	        template: __webpack_require__(145),
+	        template: __webpack_require__(148),
 	        controllerAs: "searchCtl",
 	        link: function ($scope) {
 	            $scope.searchText = "";
@@ -7424,7 +7426,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 205:
+/***/ 209:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7455,7 +7457,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 206:
+/***/ 210:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7492,7 +7494,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 207:
+/***/ 211:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7515,12 +7517,14 @@ webpackJsonp([2],{
 	            function Base(data) {
 	                this.data = data;
 	            }
-	            Base.prototype.conditionBuilder = function (condition, prefix) {
+	            Base.prototype.conditionBuilder = function (condition, prefix, useDisabled) {
 	                if (prefix === void 0) { prefix = true; }
+	                if (useDisabled === void 0) { useDisabled = false; }
 	                this.data = _.extend({}, this.data, {
 	                    conditionInfo: {
 	                        condition: condition,
-	                        prefix: prefix
+	                        prefix: prefix,
+	                        useDisabled: useDisabled
 	                    }
 	                });
 	                return this;
@@ -7671,7 +7675,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 208:
+/***/ 212:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7725,7 +7729,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 209:
+/***/ 213:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7772,7 +7776,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 210:
+/***/ 214:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7885,7 +7889,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 211:
+/***/ 215:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__dirname) {"use strict";
@@ -7988,12 +7992,12 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 224:
+/***/ 228:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "7af35d2f474641e3a73ea274191a9107.jpg";
 
 /***/ }
 
-},[211]);
+},[215]);
 //# sourceMappingURL=home.bundle.js.map

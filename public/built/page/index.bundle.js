@@ -15,7 +15,7 @@ webpackJsonp([4],{
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(112);
+	var content = __webpack_require__(113);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(10)(content, {});
@@ -40,12 +40,12 @@ webpackJsonp([4],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	__webpack_require__(177);
+	__webpack_require__(180);
 	var _name = "fxLoading";
 	function Directive() {
 	    return {
 	        restrict: 'EA',
-	        template: __webpack_require__(143)(),
+	        template: __webpack_require__(146)(),
 	        scope: {},
 	        replace: false,
 	        link: function ($scope) {
@@ -408,7 +408,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 109:
+/***/ 110:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(8)();
@@ -423,7 +423,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 112:
+/***/ 113:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(8)();
@@ -438,7 +438,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 143:
+/***/ 146:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(1);
@@ -477,13 +477,13 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 177:
+/***/ 180:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(109);
+	var content = __webpack_require__(110);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(10)(content, {});
@@ -504,7 +504,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 212:
+/***/ 216:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {"use strict";
@@ -525,5 +525,5 @@ webpackJsonp([4],{
 
 /***/ }
 
-},[212]);
+},[216]);
 //# sourceMappingURL=index.bundle.js.map

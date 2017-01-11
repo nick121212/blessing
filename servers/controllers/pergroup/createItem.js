@@ -16,8 +16,8 @@ export default (sequelizeModel) => {
             throw boom.badData('数据没有填写完整!');
         }
 
-        utils.checkUniqueFields(sequelizeModel, modelIntance);
-        utils.removeAttributes();
+        utils.mysql.checkUniqueFields(sequelizeModel, modelIntance);
+        utils.mysql.removeAttributes();
 
 
         delete modelIntance.actions;

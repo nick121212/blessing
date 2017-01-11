@@ -1,0 +1,108 @@
+{
+    "template": "cmdb.device*",
+    "settings": {
+        "index.number_of_shards": 5,
+        "number_of_replicas": 1
+    },
+    "mappings": {
+        "_default_": {
+            "_id": {
+                "path": "deviceSn"
+            },
+            "_timestamp": {
+                "enabled": true
+            },
+            "_source": {
+                "enabled": true,
+                "compress": true
+            },
+            "properties": {
+                "NO": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "deviceSn": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "remark": {
+                    "type": "nested",
+                    "properties": {
+                        "idc": {
+                            "type": "string",
+                            "index": "analyzed"
+                        },
+                        "cabinet": {
+                            "type": "string",
+                            "index": "analyzed"
+                        },
+                        "position": {
+                            "type": "integer",
+                            "index": "analyzed"
+                        },
+                        "unit": {
+                            "type": "integer",
+                            "index": "analyzed"
+                        }
+                    }
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "mac": {
+                    "type": "string"
+                },
+                "systemVersion": {
+                    "type": "string"
+                },
+                "disk": {
+                    "type": "string"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "memorySlotsNumber": {
+                    "type": "integer"
+                },
+                "memorySlotsUsed": {
+                    "type": "integer"
+                },
+                "physicalMemory": {
+                    "type": "double"
+                },
+                "physicalCpuModel": {
+                    "type": "string"
+                },
+                "physicalCpuNumber": {
+                    "type": "integer"
+                },
+                "physicalCpuCores": {
+                    "type": "integer"
+                },
+                "logicalCpuCores": {
+                    "type": "string"
+                },
+                "physicalCpuMhz": {
+                    "type": "double"
+                },
+                "hardDisk": {
+                    "type": "string"
+                },
+                "ethernetInterfaceNumber": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "format": "strict_date_optional_time||epoch_millis",
+                    "type": "date"
+                },
+                "updatedAt": {
+                    "format": "strict_date_optional_time||epoch_millis",
+                    "type": "date"
+                }
+            }
+        }
+    }
+}

@@ -20,13 +20,7 @@ export default (sequelizeModel) => {
             throw boom.badData(`找不到key:${key}的数据或者已删除!`);
         }
 
-        delete model.createdAt;
-        delete model.updatedAt;
-        delete model.actions;
-        delete modelInstance.createdAt;
-
-        modelInstance.updatedAt = new Date();
-        utils.removeAttributes(sequelizeModel, modelInstance);
+        utils.mysql.removeAttributes(model, sequelizeModel);
 
         try {
             model.groupActions = [];

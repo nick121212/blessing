@@ -12,11 +12,12 @@ class Service {
 
             }
 
-            conditionBuilder(condition: string, prefix: boolean = true) {
+            conditionBuilder(condition: string, prefix: boolean = true, useDisabled: boolean = false) {
                 this.data = _.extend({}, this.data, {
                     conditionInfo: {
                         condition: condition,
-                        prefix: prefix
+                        prefix: prefix,
+                        useDisabled:useDisabled
                     }
                 });
 

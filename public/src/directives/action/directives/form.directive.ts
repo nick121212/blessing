@@ -19,6 +19,7 @@ class Controller {
     ngModel: Object;
     formData: Object;
     isBusy: boolean;
+    layout: string;
 
     constructor(private $scope, private fxAction) {
         this.$scope.$on("$destroy", () => {
@@ -29,6 +30,15 @@ class Controller {
         if (this.actionModel) {
             this.getModelData(this.actionModel);
         }
+        this.layout = this.layout || "column";
+
+        $scope.$watch(() => {
+            return this.key;
+        }, (newValue, oldValue) => {
+            if (newValue && (!this.actionModel || (this.actionModel && this.actionModel.key !== newValue))) {
+                this.getActionModel();
+            }
+        });
     }
 
     getModelData(actionModel: IActionModel) {
@@ -42,17 +52,22 @@ class Controller {
     }
 
     getActionModel() {
+        // if (!this.key) {
+        //     return;
+        // }
+        if (this.isBusy) return;
+        this.actionModel = null;
         this.isBusy = true;
         this.fxAction.getModel(this.key).then((actionModel: IActionModel) => {
             this.getModelData(actionModel);
             return this.fxAction.getSchema(actionModel);
         }).then((model) => {
-             this.actionModel = model;
-        }).then(()=>{
-            return this.fxAction.doAction(this.key,this.formData,null,"open");
-        }).then((results)=>{
-           this.formData =  this.fxAction.doDealResult(this.actionModel,results,this.formData);
-           console.log(this.formData);
+            this.actionModel = model;
+        }).then(() => {
+            return this.fxAction.doAction(this.key, this.ngModel, null, "open");
+        }).then((results) => {
+            this.ngModel = this.fxAction.doDealResult(this.actionModel, results, this.ngModel);
+             this.getModelData(this.actionModel);
         }).finally(() => {
             this.isBusy = false;
         });
@@ -74,18 +89,22 @@ function Directive(): ng.IDirective {
             ngModel: "=ngModel",
             actionModel: "=?",
             isBusy: "=?ngDisabled",
-            key: "@?"
+            key: "@?",
+            layout: "@?"
         },
         controller: Controller,
         controllerAs: 'formCtl',
         replace: true,
         transclude: true,
         link: ($scope: IDirectiveScope, $ele: ng.IAugmentedJQuery, $attrs: IDirectiveAttr, $ctl: Controller) => {
-            $scope.$watch(() => {
-                return $ctl.key;
-            }, (newValue) => {
-                newValue && $ctl.getActionModel();
-            });
+            // $scope.$watch(() => {
+            //     return $ctl.key;
+            // }, (newValue, oldValue) => {
+            //     // if (newValue === oldValue) {
+            //     //     return;
+            //     // }
+            //     newValue && $ctl.getActionModel();
+            // });
         }
     };
 }

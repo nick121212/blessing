@@ -1,14 +1,12 @@
-<md-input-container class="form-group schema-form-chips {{form.htmlClass}}" sf-field-model="sf-new-array" sf-new-array md-no-float="true" md-is-error="ngModel.$error && ngModel.$invalid">
-    <label ng-show="form.readonly" for="{{::form.key|sfCamelKey}}">{{::form.title}}</label>
-    <md-chips ng-model="modelArray" schema-validate="form" readonly="form.readonly" md-add-on-blur="form.addOnBlur" class="no-errors" name="{{::form.key|sfCamelKey}}" placeholder="{{::form.title}}">
+<div class="form-group schema-form-chips {{form.htmlClass}}" sf-field-model="sf-new-array" sf-new-array md-no-float="true" style="margin:1px 0;">
+    <label ng-show="form.readonly">{{::form.title}}</label>
+    <md-chips ng-model="modelArray" sf-changed="form" schema-validate="form" readonly="form.readonly" class="no-errors" placeholder="{{::form.title}}">
         <md-chip-template>
-            <!-- should include an optional template from form.template -->
             <strong ng-if="!form.template">{{$chip}}</strong>
         </md-chip-template>
     </md-chips>
-    <div class="md-errors-spacer"></div>
-    <div class="errors" ng-messages="ngModel.$error" aria-live="assertive">
-        <div sf-message ng-message></div>
-    </div>
-    <div class="hint md-char-counter" ng-if="form.showHints" ng-bind="form.description"></div>
-</md-input-container>
+    <md-input-container class="md-block no-errors" style="margin-top:0;" md-is-error="ngModel.$error && ngModel.$invalid && ngModel.$dirty">
+        <div sf-message ng-message ng-class="{'fx-invalid':ngModel.$invalid && ngModel.$dirty}"></div>
+        <div class="hint md-char-counter" ng-if="form.showHints" ng-bind="form.description"></div>
+    </md-input-container>
+</div>

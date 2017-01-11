@@ -3,13 +3,17 @@ import * as _ from 'lodash';
 import * as pointer from 'json-pointer';
 
 const _name = "fxAutocompleteBoost";
+const _name1 = "fxSuggestBoost";
 
 class Builder {
     searchText: string;
     selected: any;
+    isBusy: boolean = false;
 
     constructor(private form, private fxAction, private formData) {
-        this.init();
+        if (this.form.acOptions.init) {
+            this.init();
+        }
     }
 
     /**
@@ -39,7 +43,7 @@ class Builder {
         this.onChange(viewModel);
     }
 
-    getItemText(item, a, b, c) {
+    getItemText(item) {
         if (item) {
             return item[this.form.acOptions.textField] || " ";
         }
@@ -54,8 +58,11 @@ class Builder {
             } else {
                 pointer.set(this.formData, `/${this.form.key.join('/')}`, {});
             }
+        } else {
+            if (this.form.acOptions.useSearchText && this.form.acOptions.keyField) {
+                pointer.set(this.formData, `/${this.form.key.join('/')}`, this.searchText);
+            }
         }
-        // return this.onChange(null);
     }
 
     onItemChange(item) {
@@ -108,15 +115,17 @@ class Builder {
         let actionModel, clientData = {};
         let filter = {};
 
-        // this.selected = null;
-        // pointer.remove(this.formData, `/${this.form.key.join('/')}`);
-        if (this.form.acOptions.actionKey) {
+        if (!this.searchText) {
+
+        }
+        if (this.form.acOptions.actionKey && !this.isBusy) {
             // 设置搜索条件
             pointer.set(filter, this.form.acOptions.search, this.searchText || this.form.acOptions.searchPrefix);
             // 设置全局条件
             _.forEach(this.form.acOptions._where, (val, key) => {
                 pointer.set(filter, key, val);
             });
+            this.isBusy = true;
             return this.fxAction.getModel(this.form.acOptions.actionKey).then((aModel) => {
                 actionModel = aModel;
                 return this.fxAction.doAction(actionModel.key, filter);
@@ -125,7 +134,9 @@ class Builder {
             }).then((results) => {
                 return results[this.form.acOptions.dataField];
             }).then((results) => {
-                return results;
+                return results || [];
+            }).finally(() => {
+                this.isBusy = false;
             });
         }
 
@@ -152,18 +163,33 @@ class Controller {
         // 获取copy，填充数组索引
         !form && formWithIndex && (form = _.first(_.filter(formWithIndex.items, compare)));
 
-        $scope.boost = new Builder(form ? form : $scope.form, fxAction, $scope.model);
-        let onChange = $scope.boost.onChange.bind($scope.boost);
-        $scope.boost.onChange = (item) => {
+        $scope.acBoost = new Builder(form ? form : $scope.form, fxAction, $scope.model);
+        let onChange = $scope.acBoost.onChange.bind($scope.acBoost);
+        $scope.acBoost.onChange = (item) => {
             $scope.ngModel.$setViewValue(onChange(item));
             $scope.ngModel.$commitViewValue();
         }
         $scope.options = $scope.form.ngModelOptions;
 
         $scope.$on("$destroy", () => {
-            $scope.boost = null;
+            $scope.acBoost = null;
             $scope.options = null;
         });
+    }
+}
+
+class Controller1 {
+    static $inject = ["$scope", "fxAction"];
+
+    constructor(private $scope, private fxAction) {
+        $scope.cpBoost = {
+            transformChip: (chip) => {
+                if (angular.isObject(chip)) {
+                    return chip[$scope.form.cpOptions.textField || "text"];
+                }
+                return chip;
+            }
+        };
     }
 }
 
@@ -185,5 +211,24 @@ function Directive(): ng.IDirective {
 
 Directive.$inject = [];
 
+/**
+ * 操作指令,某个表单操作
+ * @returns {{restrict: string, template: any, scope: {}, replace: boolean, link: (($scope:IDirectiveScope))}}
+ * @constructor
+ */
+function Directive1(): ng.IDirective {
+    return {
+        restrict: 'A',
+        scope: false,
+        priority: 9,
+        require: "ngModel",
+        controller: Controller1
+    };
+
+}
+
+Directive1.$inject = [];
+
 module.directive(_name, Directive);
+module.directive(_name1, Directive1);
 

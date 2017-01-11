@@ -11,16 +11,16 @@ export const init = (router, sequelizeModel) => {
 
 export const config = {
     createItem: {
-        attributes: []
+
     },
     list: {
-        attributes: []
+
     },
     removeItem: {
 
     },
     updateItem: {
-
+        removeAttributes: ["createdAt", "updatedAt"]
     },
     getItem: {
 

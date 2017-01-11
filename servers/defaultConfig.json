@@ -57,10 +57,10 @@
             "baseURL": "http://code.4nb.tech/"
         },
         "ldap": {
-            "url": "ldap://192.168.119.51:389",
-            "baseDN": "OU=demo,DC=jack,DC=com",
-            "username": "user1",
-            "password": "1qaz2wsx.."
+            "url": "ldap://192.168.248.252:389",
+            "baseDN": "OU=电商零售,OU=集团,OU=Chinaredstar,DC=group,DC=redstar,DC=corp",
+            "username": "xiao.feng695@chinaredstar.com",
+            "password": "871225feng-"
         }
     }
 }

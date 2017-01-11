@@ -9,7 +9,7 @@ function Provider() {
      * 初始化搜索功能
      * @param args
      */
-    this.builder = function (args) {
+    this.builder = function(args) {
         args.form.acOptions = _.extend({
             textField: "",
             keyField: "",
@@ -19,12 +19,13 @@ function Provider() {
             noCache: true,
             _where: {},
             search: "",
+            init: true,
             minLength: 0,
             actionKey: ""
         }, args.form.acOptions || {});
     };
 
-    this.$get = [function () {
+    this.$get = [function() {
         return {};
     }];
 }

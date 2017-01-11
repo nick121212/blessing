@@ -1,99 +1,149 @@
 {
     "template": "cmdb.device*",
     "settings": {
-        "index.number_of_shards": 5,
+        "number_of_shards": 5,
         "number_of_replicas": 1
     },
     "mappings": {
         "_default_": {
+            "_timestamp": {
+                "enabled": true
+            },
             "_source": {
                 "enabled": true
             },
+            "dynamic": false,
             "properties": {
+                "NO": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
                 "deviceSn": {
-                    "type": "string"
+                    "type": "string",
+                    "index": "analyzed"
                 },
-                "remark": {
-                    "type": "nested",
-                    "properties": {
-                        "idc": {
-                            "type": "string",
-                            "index": "analyzed"
-                        },
-                        "cabinet": {
-                            "type": "string",
-                            "index": "analyzed"
-                        },
-                        "position": {
-                            "type": "integer",
-                            "index": "analyzed"
-                        },
-                        "unit": {
-                            "type": "integer",
-                            "index": "analyzed"
-                        }
-                    }
+                "brand": {
+                    "type": "string",
+                    "index": "analyzed"
                 },
-                "project": {
-                    "type": "string"
+                "model": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "used": {
+                    "type": "boolean"
+                },
+                "content": {
+                    "type": "string",
+                    "index": "no"
                 },
                 "hostname": {
-                    "type": "string"
-                },
-                "ip": {
-                    "type": "string"
-                },
-                "mac": {
-                    "type": "string"
-                },
-                "systemVersion": {
-                    "type": "string"
-                },
-                "disk": {
-                    "type": "string"
-                },
-                "env": {
-                    "type": "string"
-                },
-                "memorySlotsNumber": {
-                    "type": "integer"
-                },
-                "memorySlotsUsed": {
-                    "type": "integer"
-                },
-                "physicalMemory": {
-                    "type": "double"
-                },
-                "physicalCpuModel": {
-                    "type": "string"
-                },
-                "physicalCpuNumber": {
-                    "type": "integer"
-                },
-                "physicalCpuCores": {
-                    "type": "integer"
-                },
-                "logicalCpuCores": {
-                    "type": "string"
-                },
-                "physicalCpuMhz": {
-                    "type": "double"
-                },
-                "hardDisk": {
-                    "type": "string"
-                },
-                "ethernetInterfaceNumber": {
-                    "type": "integer"
+                    "type": "string",
+                    "index": "analyzed"
                 },
                 "createdAt": {
-                    "format": "strict_date_optional_time||epoch_millis",
-                    "type": "date"
+                    "type": "date",
+                    "index": "analyzed",
+                    "format": "strict_date_optional_time||epoch_millis"
                 },
-                "updatedAt": {
-                    "format": "strict_date_optional_time||epoch_millis",
-                    "type": "date"
+                "brand_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
+                },
+                "model_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
                 }
             }
+        },
+        "computer": {
+            "properties": {
+                "BU": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "depart": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "user": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "cpu": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "disk": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "ram": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "os": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "ip": {
+                    "type": "ip"
+                },
+                "cpu_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
+                },
+                "disk_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
+                },
+                "ram_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
+                },
+                "os_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
+                }
+            }
+        },
+        "printer": {
+            "properties": {
+                "position": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "ip": {
+                    "type": "ip"
+                }
+            }
+        },
+        "ap": {
+            "properties": {
+                "position": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "mac": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                }
+            }
+        },
+        "other": {
+
         }
     }
 }
