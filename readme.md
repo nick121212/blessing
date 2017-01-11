@@ -20,7 +20,6 @@
 | ------------- |:------------- | ----------|
 | user          | string        | 使用人      |
 | cpu           | string        | CPU（多个）        |
-| system        | string        | 操作系统（多个）        |
 | disk          | string        | 硬盘（多个）        |
 | ram           | string        | 内存（多个）        |
 | os            | string        | 操作系统（多个）      |
