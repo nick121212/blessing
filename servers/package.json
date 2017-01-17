@@ -1,7 +1,7 @@
 {
   "name": "blessing-koa2",
   "version": "1.0.0",
-  "description": "",
+  "description": "blessing-koa2",
   "main": "index.js",
   "scripts": {
     "test": "make test",
@@ -31,6 +31,7 @@
     "bunyan": "^1.8.5",
     "crypto-browserify": "^3.11.0",
     "elasticsearch": "^12.1.0",
+    "eureca.io": "^0.6.42",
     "ioredis": "^2.2.0",
     "json-pointer": "^0.6.0",
     "koa": "^2.0.0-alpha.7",
@@ -70,8 +71,7 @@
     "sequelize-paper-trail": "^1.2.3",
     "sequelize-relations-helper": "^1.0.0",
     "socket.io": "^1.7.1",
-    "socket.io-client": "^1.5.0",
-    "xlsx": "^0.8.1"
+    "socket.io-client": "^1.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.20",
