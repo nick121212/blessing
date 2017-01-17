@@ -1,5 +1,14 @@
 'use strict';
 
+process.on('uncaughtException', function(err) {
+    console.log('Caught exception: ' + err);
+});
+process.on('unhandledRejection', function(reason, p) {
+    console.log("Unhandled Rejection at: Promise ", p, " reason: ", reason);
+    // application specific logging, throwing an error, or other logic here
+});
+
+
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -12,7 +21,7 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var init = function () {
+var init = function() {
     var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
         var _this = this;
 
@@ -29,7 +38,7 @@ var init = function () {
 
                     case 3:
                         // 加载中间件
-                        app.use(function () {
+                        app.use(function() {
                             var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(ctx, next) {
                                 var start;
                                 return _regenerator2.default.wrap(function _callee$(_context) {
@@ -40,7 +49,7 @@ var init = function () {
                                                 console.log(ctx.body);
 
                                                 start = new Date();
-                                                return _context.abrupt('return', next().then(function () {
+                                                return _context.abrupt('return', next().then(function() {
                                                     var ms = new Date() - start;
                                                     console.log(ctx.method + ' ' + ctx.url + ' - ' + ms + 'ms');
                                                 }));
@@ -53,7 +62,7 @@ var init = function () {
                                 }, _callee, _this);
                             }));
 
-                            return function (_x, _x2) {
+                            return function(_x, _x2) {
                                 return _ref2.apply(this, arguments);
                             };
                         }());
@@ -68,7 +77,7 @@ var init = function () {
 
                     case 8:
                         // 监听端口
-                        app.listen(process.env.PORT || _config2.default.site.PORT || 3000, function () {
+                        app.listen(process.env.PORT || _config2.default.site.PORT || 3000, function() {
                             console.log("Server listening on %s", app.server._connectionKey);
                         });
 
@@ -117,13 +126,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = new _koa2.default();
 
-process.on('uncaughtException', function (err) {
-    console.log('Caught exception: ' + err);
-});
-process.on('unhandledRejection', function (reason, p) {
-    console.log("Unhandled Rejection at: Promise ", p, " reason: ", reason);
-    // application specific logging, throwing an error, or other logic here
-});
+
 
 init();
 

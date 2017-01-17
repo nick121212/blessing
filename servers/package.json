@@ -1,12 +1,11 @@
 {
   "name": "blessing-koa2",
   "version": "1.0.0",
-  "description": "祝福系统",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "make test",
-    "start": "./node_modules/.bin/nodemon",
-    "built": "babel -s built/ src/"
+    "built": "babel -d built/ src/"
   },
   "repository": {
     "type": "git",
@@ -76,6 +75,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.0.20",
+    "babel-generator": "^6.21.0",
     "babel-plugin-syntax-async-functions": "^6.8.0",
     "babel-plugin-transform-async-to-generator": "^6.8.0",
     "babel-plugin-transform-runtime": "^6.12.0",
