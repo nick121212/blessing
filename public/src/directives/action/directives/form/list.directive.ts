@@ -23,9 +23,13 @@ class Controller {
     itemToolbars: Array<any>;
     topToolbars: Array<any>;
 
+    topMenuToolbars: any;
+
     onOrderChange: Function;
     onPageChange: Function;
     doSearchBind: Function;
+
+
 
     /**
      * 构造函数
@@ -133,18 +137,26 @@ class Controller {
      * 初始化顶部toolbar
      */
     initToolbar() {
+        const menuTool: any = this.toolbarUtils.menuBuilder("", "md-icon-button").tooltipBuilder("").iconBuilder("dots-vertical").menuOptionsBuilder().toValue();
         this.actionModel.list.toolbars = [];
+        // this.topMenuToolbars = [];
         // 获取操作按钮
         this.fxAction.getModels(this.actionModel.actions).then((actionModels) => {
             // 添加标题label和icon
             this.actionModel.list.toolbars.push(this.toolbarUtils.noneBuilder("icon").iconBuilder(this.actionModel.icon).toValue());
             this.actionModel.list.toolbars.push(this.toolbarUtils.labelBuilder(`${this.actionModel.title}`).attrBuilder({ flex: "" }).toValue());
+
+            this.topMenuToolbars = [].concat(this.actionModel.list.toolbars);
+
             // 添加顶部按钮
             _.each(this.actionModel.actions, (action: string) => {
                 let actionModel = actionModels[action];
 
                 if (actionModel && actionModel.type !== ActionType.list) {
                     this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder(actionModel.title, "md-icon-button", false).tooltipBuilder("").iconBuilder(actionModel.icon, {}).btnClick(($event, item: any) => {
+                        this.doClickActionMenu($event, actionModel, this.queryData);
+                    }).toValue());
+                    menuTool.items.push(this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").tooltipBuilder("").iconBuilder(actionModel.icon, {}).btnClick(($event, item: any) => {
                         this.doClickActionMenu($event, actionModel, this.queryData);
                     }).toValue());
                 }
@@ -155,13 +167,23 @@ class Controller {
                 this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("刷新", "md-icon-button", false).iconBuilder("refresh", {}).btnClick(($event) => {
                     this.doSearch(this.queryData.where || {});
                 }).toValue());
+
+                menuTool.items.push(this.toolbarUtils.menuItemBuilder("刷新", null, true).tooltipBuilder("").iconBuilder("refresh", {}).btnClick(($event) => {
+                    this.doSearch(this.queryData.where || {});
+                }).toValue());
             }
             // 添加显示/隐藏搜索按钮
             if (this.actionModel.list.showSearchBtn) {
                 this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder("{{listCtl.actionModel.list.showSearchPanel?'关闭搜索栏':'打开搜索栏'}}", "md-icon-button", false).iconBuilder("{{listCtl.actionModel.list.showSearchPanel?'window-open':'window-closed'}}", {}).btnClick(($event) => {
                     this.actionModel.list.showSearchPanel = !this.actionModel.list.showSearchPanel;
                 }).toValue());
+
+                menuTool.items.push(this.toolbarUtils.menuItemBuilder("{{listCtl.actionModel.list.showSearchPanel?'关闭搜索栏':'打开搜索栏'}}", null, true).tooltipBuilder("").iconBuilder("{{listCtl.actionModel.list.showSearchPanel?'window-open':'window-closed'}}", {}).btnClick(($event) => {
+                    this.actionModel.list.showSearchPanel = !this.actionModel.list.showSearchPanel;
+                }).toValue());
             }
+
+            this.topMenuToolbars.push(menuTool);
             this.$rootScope.$broadcast(`${this.key}:toolbarComplete`, this.actionModel.list.toolbars);
         });
     }

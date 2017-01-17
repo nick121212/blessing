@@ -8,7 +8,7 @@ export class HomeController {
     toolbars: Object | Array<Object>;
 
     constructor(private $rootScope: ng.IRootScopeService, private materialUtils: fx.utils.materialStatic, private toolbarUtils, private fxAction) {
-        $rootScope["isOpenMenu"] = true;
+        $rootScope["isOpenMenu"] = false;
 
         this.toolbars = [
             toolbarUtils.labelBuilder("").attrBuilder({ flex: "" }).toValue(),
@@ -16,9 +16,9 @@ export class HomeController {
             toolbarUtils.labelBuilder("{{$root.user.username}}", "md-subhead").attrBuilder({}).toValue(),
             toolbarUtils.menuBarBuilder().className("md-no-padding").tooltipBuilder("").items([
                 toolbarUtils.menuBuilder("", "md-icon-button").attrBuilder({ "md-position-mode": "left bottom" }).iconBuilder("expand_more").menuOptionsBuilder().items([
-                    toolbarUtils.menuItemBuilder("系统设置", "", true).iconBuilder("settings").btnClick(($event) => {
-                    }).toValue(),
-                    toolbarUtils.noneBuilder("menuDivider").toValue(),
+                    // toolbarUtils.menuItemBuilder("系统设置", "", true).iconBuilder("settings").btnClick(($event) => {
+                    // }).toValue(),
+                    // toolbarUtils.noneBuilder("menuDivider").toValue(),
                     // toolbarUtils.menuItemBuilder("修改密码", "", true).iconBuilder("key-change").btnClick(($event) => {
                     //     this.doExit($event);
                     // }).toValue(),

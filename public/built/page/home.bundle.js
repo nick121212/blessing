@@ -7536,7 +7536,7 @@ webpackJsonp([2],{
 	buf.push("<md-content flex=\"100\" layout=\"row\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.unshift(new jade.DebugItem( 4, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	buf.push("<md-sidenav ui-view=\"sidenavLeft\" md-is-locked-open=\"$root.isOpenMenu\" md-component-id=\"left\" md-whiteframe=\"4\" layout=\"column\" class=\"md-sidenav-left\">");
+	buf.push("<md-sidenav ui-view=\"sidenavLeft\" md-is-locked-open=\"$mdMedia('gt-md') || $root.isOpenMenu\" md-component-id=\"left\" md-whiteframe=\"4\" layout=\"column\" class=\"md-sidenav-left\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
 	buf.push("</md-sidenav>");
@@ -7579,28 +7579,48 @@ webpackJsonp([2],{
 	jade_debug.shift();
 	buf.push("</div>");
 	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 12, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
+	buf.push("<div ng-if=\"!$mdMedia('gt-md')\" class=\"lock-size\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.unshift(new jade.DebugItem( 13, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	jade_debug.shift();
+	buf.push("<md-fab-speed-dial md-direction=\"right\" ng-mouseenter=\"$root.isOpenFab=true\" ng-mouseleave=\"$root.isOpenFab=false\" md-open=\"$root.isOpenFab\" class=\"md-scale md-fab-bottom-left\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.unshift(new jade.DebugItem( 14, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	jade_debug.shift();
+	buf.push("<md-fab-trigger>");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.unshift(new jade.DebugItem( 15, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	jade_debug.shift();
+	buf.push("<md-button aria-label=\"menu\" ng-click=\"homeCtl.materialUtils.buildToggle('left')()\" class=\"md-fab md-default\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.unshift(new jade.DebugItem( 16, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
-	jade_debug.shift();
+	buf.push("<md-icon>");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.unshift(new jade.DebugItem( 17, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
+	buf.push("<ng-md-icon icon=\"menu\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 18, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
+	buf.push("</ng-md-icon>");
 	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 19, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
 	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 19, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ));
+	buf.push("</md-icon>");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</md-button>");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</md-fab-trigger>");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</md-fab-speed-dial>");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</div>");
 	jade_debug.shift();
 	jade_debug.shift();
 	buf.push("</md-content>");
 	jade_debug.shift();
 	jade_debug.shift();;return buf.join("");
 	} catch (err) {
-	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "//- md-toolbar.md-whiteframe-glow-z1.md-hue-3()\n    //- div.md-toolbar-tools(fx-toolbar,items=\"homeCtl.toolbars\",layout=\"row\",ctls=\"homeCtl\")\nmd-content(flex=\"100\",layout=\"row\")\n    md-sidenav.md-sidenav-left(ui-view=\"sidenavLeft\",md-is-locked-open=\"$root.isOpenMenu\",md-component-id=\"left\",md-whiteframe=\"4\",layout=\"column\")\n    //- md-sidenav.md-sidenav-right(md-component-id=\"right\",ui-view=\"sidenavRight\",layout=\"column\",md-whiteframe=\"4\")\n    md-content(flex=\"100\",layout=\"column\")\n        md-toolbar.md-hue-3\n            div.md-toolbar-tools(fx-toolbar,items=\"homeCtl.toolbars\",layout=\"row\",ctls=\"homeCtl\")\n        md-divider\n        md-content(flex,ui-view=\"content\",layout=\"column\")\n    div(execute-cmd,real-time=\"true\")\n    //- div.lock-size(ng-if=\"!homeCtl.isOpenMenu\")\n    //-     md-fab-speed-dial.md-scale.md-fab-bottom-left(md-direction=\"right\",ng-mouseenter=\"$root.isOpenFab=true\",ng-mouseleave=\"$root.isOpenMFab=false\",md-open=\"$root.isOpenFab\")\n    //-         md-fab-trigger\n    //-             md-button.md-fab.md-default(aria-label=\"menu\",ng-click=\"$root.isOpenMenu=true;\")\n    //-                 md-icon\n    //-                     ng-md-icon(icon=\"menu\")\n    //-         md-fab-actions\n    //-             div(fx-toolbar,layout=\"row\",items=\"homeCtl.toolbars\",ctls=\"homeCtl\")");
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "//- md-toolbar.md-whiteframe-glow-z1.md-hue-3()\n    //- div.md-toolbar-tools(fx-toolbar,items=\"homeCtl.toolbars\",layout=\"row\",ctls=\"homeCtl\")\nmd-content(flex=\"100\",layout=\"row\")\n    md-sidenav.md-sidenav-left(ui-view=\"sidenavLeft\",md-is-locked-open=\"$mdMedia('gt-md') || $root.isOpenMenu\",md-component-id=\"left\",md-whiteframe=\"4\",layout=\"column\")\n    //- md-sidenav.md-sidenav-right(md-component-id=\"right\",ui-view=\"sidenavRight\",layout=\"column\",md-whiteframe=\"4\")\n    md-content(flex=\"100\",layout=\"column\")\n        md-toolbar.md-hue-3\n            div.md-toolbar-tools(fx-toolbar,items=\"homeCtl.toolbars\",layout=\"row\",ctls=\"homeCtl\")\n        md-divider\n        md-content(flex,ui-view=\"content\",layout=\"column\")\n    div(execute-cmd,real-time=\"true\")\n    div.lock-size(ng-if=\"!$mdMedia('gt-md')\")\n        md-fab-speed-dial.md-scale.md-fab-bottom-left(md-direction=\"right\",ng-mouseenter=\"$root.isOpenFab=true\",ng-mouseleave=\"$root.isOpenFab=false\",md-open=\"$root.isOpenFab\")\n            md-fab-trigger\n                md-button.md-fab.md-default(aria-label=\"menu\",ng-click=\"homeCtl.materialUtils.buildToggle('left')()\")\n                    md-icon\n                        ng-md-icon(icon=\"menu\")\n           ");
 	}
 	}
 
@@ -8248,16 +8268,13 @@ webpackJsonp([2],{
 	        this.materialUtils = materialUtils;
 	        this.toolbarUtils = toolbarUtils;
 	        this.fxAction = fxAction;
-	        $rootScope["isOpenMenu"] = true;
+	        $rootScope["isOpenMenu"] = false;
 	        this.toolbars = [
 	            toolbarUtils.labelBuilder("").attrBuilder({ flex: "" }).toValue(),
 	            toolbarUtils.noneBuilder("icon").className("md-margin").iconBuilder("people", {}, null, null, "24px").toValue(),
 	            toolbarUtils.labelBuilder("{{$root.user.username}}", "md-subhead").attrBuilder({}).toValue(),
 	            toolbarUtils.menuBarBuilder().className("md-no-padding").tooltipBuilder("").items([
 	                toolbarUtils.menuBuilder("", "md-icon-button").attrBuilder({ "md-position-mode": "left bottom" }).iconBuilder("expand_more").menuOptionsBuilder().items([
-	                    toolbarUtils.menuItemBuilder("系统设置", "", true).iconBuilder("settings").btnClick(function ($event) {
-	                    }).toValue(),
-	                    toolbarUtils.noneBuilder("menuDivider").toValue(),
 	                    toolbarUtils.menuItemBuilder("退出登录", "", true).iconBuilder("power-settings").btnClick(function ($event) {
 	                        _this.doExit($event);
 	                    }).toValue(),

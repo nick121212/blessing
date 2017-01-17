@@ -1,7 +1,7 @@
 //- md-toolbar.md-whiteframe-glow-z1.md-hue-3()
     //- div.md-toolbar-tools(fx-toolbar,items="homeCtl.toolbars",layout="row",ctls="homeCtl")
 md-content(flex="100",layout="row")
-    md-sidenav.md-sidenav-left(ui-view="sidenavLeft",md-is-locked-open="$root.isOpenMenu",md-component-id="left",md-whiteframe="4",layout="column")
+    md-sidenav.md-sidenav-left(ui-view="sidenavLeft",md-is-locked-open="$mdMedia('gt-md') || $root.isOpenMenu",md-component-id="left",md-whiteframe="4",layout="column")
     //- md-sidenav.md-sidenav-right(md-component-id="right",ui-view="sidenavRight",layout="column",md-whiteframe="4")
     md-content(flex="100",layout="column")
         md-toolbar.md-hue-3
@@ -9,11 +9,10 @@ md-content(flex="100",layout="row")
         md-divider
         md-content(flex,ui-view="content",layout="column")
     div(execute-cmd,real-time="true")
-    //- div.lock-size(ng-if="!homeCtl.isOpenMenu")
-    //-     md-fab-speed-dial.md-scale.md-fab-bottom-left(md-direction="right",ng-mouseenter="$root.isOpenFab=true",ng-mouseleave="$root.isOpenMFab=false",md-open="$root.isOpenFab")
-    //-         md-fab-trigger
-    //-             md-button.md-fab.md-default(aria-label="menu",ng-click="$root.isOpenMenu=true;")
-    //-                 md-icon
-    //-                     ng-md-icon(icon="menu")
-    //-         md-fab-actions
-    //-             div(fx-toolbar,layout="row",items="homeCtl.toolbars",ctls="homeCtl")
+    div.lock-size(ng-if="!$mdMedia('gt-md')")
+        md-fab-speed-dial.md-scale.md-fab-bottom-left(md-direction="right",ng-mouseenter="$root.isOpenFab=true",ng-mouseleave="$root.isOpenFab=false",md-open="$root.isOpenFab")
+            md-fab-trigger
+                md-button.md-fab.md-default(aria-label="menu",ng-click="homeCtl.materialUtils.buildToggle('left')()")
+                    md-icon
+                        ng-md-icon(icon="menu")
+           
