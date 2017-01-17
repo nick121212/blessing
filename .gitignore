@@ -1,5 +1,7 @@
-servers/node_modules
-public/node_modules
-!public/built
-typings
+servers/node_modules/*
+public/node_modules/*
+servers/uploads/*
+!public/built/*
+!servers/built/*
+typings/*
 public/npm-debug.log
