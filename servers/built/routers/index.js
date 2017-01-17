@@ -90,13 +90,12 @@ var BRouter = exports.BRouter = function () {
             var _this = this;
 
             this.routers = {};
-
             _lodash2.default.each(_db2.default.models, function (model) {
                 var router = (0, _koaBetterRouter2.default)({
                     prefix: '/' + model.name + 's'
                 });
 
-                var res = _this.doInitRouter(model.name, router, model);
+                var res = _this.doInitRouter(model.name.toLowerCase(), router, model);
                 _this.doInitRouter('common', router, model, res.config);
                 _this.routers[model.name] = router;
 

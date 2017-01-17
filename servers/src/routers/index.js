@@ -49,13 +49,12 @@ export class BRouter {
 
     doInitModelRouter(app) {
         this.routers = {};
-
         _.each(db.models, (model) => {
             let router = Router({
                 prefix: `/${model.name}s`
             });
 
-            let res = this.doInitRouter(model.name, router, model);
+            let res = this.doInitRouter(model.name.toLowerCase(), router, model);
             this.doInitRouter('common', router, model, res.config);
             this.routers[model.name] = router;
 
