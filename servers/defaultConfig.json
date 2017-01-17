@@ -25,6 +25,7 @@
         "username": "root",
         "password": "",
         "database": "blessing",
+        "backup": "./backups",
         "force": true,
         "options": {
             "dialect": "mysql",

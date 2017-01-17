@@ -20,6 +20,10 @@ var _config = require('../../config');
 
 var _config2 = _interopRequireDefault(_config);
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
@@ -29,22 +33,25 @@ exports.default = function () {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
+
+                            console.log(_path2.default.resolve(_config2.default.db.backup));
+
                             if (_fs2.default.existsSync(_config2.default.db.backup)) {
-                                _context.next = 2;
+                                _context.next = 3;
                                 break;
                             }
 
                             return _context.abrupt('return', ctx.body = []);
 
-                        case 2:
-                            _context.next = 4;
+                        case 3:
+                            _context.next = 5;
                             return _fs2.default.readdirSync(_config2.default.db.backup);
 
-                        case 4:
+                        case 5:
                             ctx.body = _context.sent;
                             ;
 
-                        case 6:
+                        case 7:
                         case 'end':
                             return _context.stop();
                     }
