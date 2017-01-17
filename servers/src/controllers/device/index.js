@@ -4,7 +4,7 @@ import removeItem from './removeItem';
 import updateItem from './updateItem';
 import list from './list';
 import auth from '../../auth';
-import exportExcel from "./export";
+// import exportExcel from "./export";
 import suggest from "./suggest";
 
 export const routers = {
