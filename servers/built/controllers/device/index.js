@@ -41,7 +41,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var routers = exports.routers = {
     'GET /': [_auth2.default.passport, _auth2.default.permission, _list2.default],
-    'GET /manual/export': [_auth2.default.passport, _auth2.default.permission, _export2.default],
+    // 'GET /manual/export': [auth.passport, auth.permission, exportExcel],
     'GET /manual/suggest': [_auth2.default.passport, _auth2.default.permission, _suggest2.default],
     'GET /:key/:type': [_auth2.default.passport, _auth2.default.permission, _getItem2.default],
     'POST /': [_auth2.default.passport, _auth2.default.permission, _createItem2.default],
