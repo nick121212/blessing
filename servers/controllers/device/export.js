@@ -7,7 +7,7 @@ export default () => {
     return async(ctx, next) => {
         let results = await utils.elastic.getEsList(ctx.query, 'cmdb.device');
 
-
+        
 
 
         var _headers = ['id', 'name', 'age', 'country', 'remark']

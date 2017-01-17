@@ -13,7 +13,7 @@ class ListSchema {
             interfaces: [{
                 key: "modulesList",
                 method: MethodType.GET,
-                address: "",
+                host: "",
                 port: null,
                 path: "schemas",
                 jpp: {
@@ -38,7 +38,7 @@ class ListAction {
             interfaces: [{
                 key: "actionList",
                 method: MethodType.GET,
-                address: "",
+                host: "",
                 port: null,
                 path: "/actions/manual/opera",
                 jpp: {
@@ -63,7 +63,7 @@ class ConfigAction {
             interfaces: [{
                 key: "configAction",
                 method: MethodType.GET,
-                address: "",
+                host: "",
                 port: null,
                 path: "/home/config",
                 isRestful: false

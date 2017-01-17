@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a852fbb4-3296-487b-829b-49d811ca8dcc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/servers/utils/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/core-site.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/hdfs-site.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/src/directives/action/directives/autocomplete.directive.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/src/directives/action/services/autocomplete.provider.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/src/directives/action/tpls/index.jade" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mappings/cmdb.device.json" afterPath="$PROJECT_DIR$/mappings/cmdb.device.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/commons.bundle.js" afterPath="$PROJECT_DIR$/public/built/commons.bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/commons.bundle.js.map" afterPath="$PROJECT_DIR$/public/built/commons.bundle.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/dashboard.css" afterPath="$PROJECT_DIR$/public/built/dashboard.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/index.html" afterPath="$PROJECT_DIR$/public/built/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/manifest.json" afterPath="$PROJECT_DIR$/public/built/manifest.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/home.bundle.js" afterPath="$PROJECT_DIR$/public/built/page/home.bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/home.bundle.js.map" afterPath="$PROJECT_DIR$/public/built/page/home.bundle.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/index.bundle.js" afterPath="$PROJECT_DIR$/public/built/page/index.bundle.js" />
@@ -17,63 +22,24 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/passport.bundle.js" afterPath="$PROJECT_DIR$/public/built/page/passport.bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/passport.bundle.js.map" afterPath="$PROJECT_DIR$/public/built/page/passport.bundle.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/style.bundle.js" afterPath="$PROJECT_DIR$/public/built/page/style.bundle.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/page/style.bundle.js.map" afterPath="$PROJECT_DIR$/public/built/page/style.bundle.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/vendor.bundle.js" afterPath="$PROJECT_DIR$/public/built/vendor.bundle.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/built/vendor.bundle.js.map" afterPath="$PROJECT_DIR$/public/built/vendor.bundle.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/package.json" afterPath="$PROJECT_DIR$/public/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/decorators/autocomplete-1.jade" afterPath="$PROJECT_DIR$/public/src/directives/action/decorators/autocomplete-1.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/directives/autocomplete.directive.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/directives/autocomplete.directive.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/directives/form.directive.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/directives/form.directive.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/directives/list.directive.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/directives/list.directive.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/directives/wizard.directive.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/directives/wizard.directive.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/decorators/suggest.chips.jade" afterPath="$PROJECT_DIR$/public/src/directives/action/decorators/suggest.chips.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/index.scss" afterPath="$PROJECT_DIR$/public/src/directives/action/index.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/index.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/index.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/models/action.model.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/models/action.model.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/module.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/services/action.provider.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/services/autocomplete.provider.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/services/autocomplete.provider.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/services/validator.custom.value.ts" afterPath="$PROJECT_DIR$/public/src/directives/action/services/validator.custom.value.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/tpls/form.jade" afterPath="$PROJECT_DIR$/public/src/directives/action/tpls/form.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/action/tpls/wizard.jade" afterPath="$PROJECT_DIR$/public/src/directives/action/tpls/wizard.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/angular-schema-form-material/material-decorator.js" afterPath="$PROJECT_DIR$/public/src/directives/angular-schema-form-material/material-decorator.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/angular-schema-form-material/material-decorator.min.js" afterPath="$PROJECT_DIR$/public/src/directives/angular-schema-form-material/material-decorator.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/angular-schema-form-material/src/array.html" afterPath="$PROJECT_DIR$/public/src/directives/angular-schema-form-material/src/array.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/angular-schema-form-material/src/chips.html" afterPath="$PROJECT_DIR$/public/src/directives/angular-schema-form-material/src/chips.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/angular-schema-form-material/src/select.html" afterPath="$PROJECT_DIR$/public/src/directives/angular-schema-form-material/src/select.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/toolbar/module.ts" afterPath="$PROJECT_DIR$/public/src/directives/toolbar/module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/directives/toolbar/toolbar.service.ts" afterPath="$PROJECT_DIR$/public/src/directives/toolbar/toolbar.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/pages/page/index.ts" afterPath="$PROJECT_DIR$/public/src/pages/page/index.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/app.js" afterPath="$PROJECT_DIR$/servers/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/pages/home/ctls/content.controller.ts" afterPath="$PROJECT_DIR$/public/src/pages/home/ctls/content.controller.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/pages/home/index.ts" afterPath="$PROJECT_DIR$/public/src/pages/home/index.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/pages/home/tpls/content.template.jade" afterPath="$PROJECT_DIR$/public/src/pages/home/tpls/content.template.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/pages/passport/ctls/login.controller.ts" afterPath="$PROJECT_DIR$/public/src/pages/passport/ctls/login.controller.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/pages/style/index.ts" afterPath="$PROJECT_DIR$/public/src/pages/style/index.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/webpack.config.js" afterPath="$PROJECT_DIR$/public/webpack.config.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/auth/permission.js" afterPath="$PROJECT_DIR$/servers/auth/permission.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/action/index.js" afterPath="$PROJECT_DIR$/servers/controllers/action/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/action/list.js" afterPath="$PROJECT_DIR$/servers/controllers/action/list.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/apply/createItem.js" afterPath="$PROJECT_DIR$/servers/controllers/apply/createItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/apply/index.js" afterPath="$PROJECT_DIR$/servers/controllers/apply/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/apply/list.js" afterPath="$PROJECT_DIR$/servers/controllers/apply/list.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/command/getExecuteCommandList.js" afterPath="$PROJECT_DIR$/servers/controllers/command/getExecuteCommandList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/command/getExecuteCommandResultList.js" afterPath="$PROJECT_DIR$/servers/controllers/command/getExecuteCommandResultList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/common/createItem.js" afterPath="$PROJECT_DIR$/servers/controllers/common/createItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/common/index.js" afterPath="$PROJECT_DIR$/servers/controllers/common/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/common/list.js" afterPath="$PROJECT_DIR$/servers/controllers/common/list.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/common/updateItem.js" afterPath="$PROJECT_DIR$/servers/controllers/common/updateItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/device/createItem.js" afterPath="$PROJECT_DIR$/servers/controllers/device/createItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/device/getItem.js" afterPath="$PROJECT_DIR$/servers/controllers/device/getItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/device/index.js" afterPath="$PROJECT_DIR$/servers/controllers/device/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/device/list.js" afterPath="$PROJECT_DIR$/servers/controllers/device/list.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/device/removeItem.js" afterPath="$PROJECT_DIR$/servers/controllers/device/removeItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/device/updateItem.js" afterPath="$PROJECT_DIR$/servers/controllers/device/updateItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/index.js" afterPath="$PROJECT_DIR$/servers/controllers/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/module/createItem.js" afterPath="$PROJECT_DIR$/servers/controllers/module/createItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/module/index.js" afterPath="$PROJECT_DIR$/servers/controllers/module/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/module/menu.js" afterPath="$PROJECT_DIR$/servers/controllers/module/menu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/pergroup/createItem.js" afterPath="$PROJECT_DIR$/servers/controllers/pergroup/createItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/pergroup/index.js" afterPath="$PROJECT_DIR$/servers/controllers/pergroup/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/controllers/pergroup/updateItem.js" afterPath="$PROJECT_DIR$/servers/controllers/pergroup/updateItem.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/config/passports/ad.js" afterPath="$PROJECT_DIR$/servers/config/passports/ad.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/defaultConfig.json" afterPath="$PROJECT_DIR$/servers/defaultConfig.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/models/action.js" afterPath="$PROJECT_DIR$/servers/models/action.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/package.json" afterPath="$PROJECT_DIR$/servers/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/routers/index.js" afterPath="$PROJECT_DIR$/servers/routers/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/spa.js" afterPath="$PROJECT_DIR$/servers/spa.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/test.js" afterPath="$PROJECT_DIR$/servers/test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/utils/db.js" afterPath="$PROJECT_DIR$/servers/utils/db.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servers/models/member.js" afterPath="$PROJECT_DIR$/servers/models/member.js" />
     </list>
     <ignored path="blessing.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -106,25 +72,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="autocomplete.directive.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/src/directives/action/directives/autocomplete.directive.ts">
+      <file leaf-file-name="aaa.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/servers/aaa.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1425">
-              <caret line="97" column="29" lean-forward="false" selection-start-line="97" selection-start-column="29" selection-end-line="97" selection-end-column="29" />
+            <state relative-caret-position="525">
+              <caret line="242" column="4" lean-forward="false" selection-start-line="242" selection-start-column="4" selection-end-line="242" selection-end-column="4" />
+              <folding>
+                <element signature="n#!!block;n#10000001#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#nodes#0;n#!!block;n#10000001#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="455">
+              <caret line="92" column="26" lean-forward="false" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="aaa.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/servers/aaa.json">
+      <file leaf-file-name="webpack.config.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/webpack.config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="242" column="4" lean-forward="true" selection-start-line="242" selection-start-column="4" selection-end-line="242" selection-end-column="4" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <element signature="n#!!block;n#10000001#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#nodes#0;n#!!block;n#10000001#0;n#!!top" expanded="false" />
+                <marker date="1484126187000" expanded="true" signature="948:2745" ph="{...}" />
+                <marker date="1484126187000" expanded="true" signature="1134:2739" ph="{&quot;tv4&quot;: 'tv4/tv4'...}" />
+                <marker date="1484126187000" expanded="true" signature="2759:3520" ph="{...}" />
+                <marker date="1484126187000" expanded="true" signature="2778:3514" ph="[...]" />
+                <marker date="1484126187000" expanded="true" signature="3255:3413" ph="{&quot;loader&quot;: &quot;url-loader?limit=10000&amp;minetype=application/font-woff&quot;...}" />
+                <marker date="1484126187000" expanded="true" signature="3570:3631" ph="{&quot;process.env.NODE_ENV&quot;: 'development'...}" />
+                <marker date="1484126187000" expanded="true" signature="3668:3772" ph="{&quot;$&quot;: &quot;jquery&quot;...}" />
+                <marker date="1484126187000" expanded="true" signature="3823:3930" ph="{&quot;name&quot;: 'commons'...}" />
+                <marker date="1484126187000" expanded="true" signature="4011:4412" ph="{&quot;title&quot;: 'My App'...}" />
+                <marker date="1484126187000" expanded="true" signature="4307:4402" ph="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="content.template.jade" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/src/pages/home/tpls/content.template.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -172,7 +169,6 @@
         <option value="$PROJECT_DIR$/public/src/pages/salt/service/salt.api.value.ts" />
         <option value="$PROJECT_DIR$/server/config/config/env/development.js" />
         <option value="$PROJECT_DIR$/server/config/config/env/production.js" />
-        <option value="$PROJECT_DIR$/public/src/pages/home/tpls/content.template.jade" />
         <option value="$PROJECT_DIR$/public/src/pages/passport/services/login.value.ts" />
         <option value="$PROJECT_DIR$/public/src/pages/passport/index.ts" />
         <option value="$PROJECT_DIR$/public/src/pages/tty/services/crawler.value.ts" />
@@ -216,6 +212,7 @@
         <option value="$PROJECT_DIR$/public/src/directives/action/schemas/action.value.ts" />
         <option value="$PROJECT_DIR$/public/src/directives/action/directives/autocomplete.directive.ts" />
         <option value="$PROJECT_DIR$/servers/aaa.json" />
+        <option value="$PROJECT_DIR$/public/src/pages/home/tpls/content.template.jade" />
       </list>
     </option>
   </component>
@@ -228,11 +225,11 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/public/node_modules" />
     <handled-path value="$PROJECT_DIR$/public/src/directives/angular-schema-form-material/node_modules" />
+    <handled-path value="$PROJECT_DIR$/servers/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1280" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -249,8 +246,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -335,7 +332,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="directives" />
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="home" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -357,71 +358,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="directives" />
+              <option name="myItemId" value="pages" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blessing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blessing" />
+              <option name="myItemId" value="home" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="directives" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="schemas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blessing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blessing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="directives" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="directives" />
+              <option name="myItemId" value="tpls" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -590,6 +535,7 @@
       <workItem from="1477534374113" duration="104000" />
       <workItem from="1478054963457" duration="8081000" />
       <workItem from="1484119535717" duration="1293000" />
+      <workItem from="1484124577666" duration="2337000" />
     </task>
     <task id="LOCAL-00051" summary="爬虫 设置项">
       <created>1474555836211</created>
@@ -938,14 +884,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="682397000" />
+    <option name="totallyTimeSpent" value="684734000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1280" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1716693" sideWeight="0.4918033" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25814137" sideWeight="0.4918033" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21566264" sideWeight="0.50880903" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -958,6 +903,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1029,20 +975,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/src/pages/page/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/directives/angular-schema-form-material/src/material-decorator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-542">
-          <caret line="257" column="85" lean-forward="false" selection-start-line="257" selection-start-column="24" selection-end-line="257" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/src/directives/angular-schema-form-material/src/material-class.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -1068,13 +1000,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
           <caret line="407" column="32" lean-forward="false" selection-start-line="407" selection-start-column="14" selection-end-line="407" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1218,9 +1143,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#35#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1258,9 +1180,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="40" column="28" lean-forward="true" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1268,11 +1187,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="6" column="35" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="35" />
-          <folding>
-            <element signature="n#Copy#0" expanded="false" />
-            <element signature="n#Delete#0" expanded="false" />
-            <element signature="n#Search#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1280,10 +1194,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="13" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-            <element signature="e#496#527#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1291,20 +1201,52 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/servers/aaa.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
-          <caret line="242" column="4" lean-forward="true" selection-start-line="242" selection-start-column="4" selection-end-line="242" selection-end-column="4" />
+          <caret line="242" column="4" lean-forward="false" selection-start-line="242" selection-start-column="4" selection-end-line="242" selection-end-column="4" />
           <folding>
             <element signature="n#!!block;n#10000001#0;n#!!top" expanded="false" />
             <element signature="n#!!block;n#nodes#0;n#!!block;n#10000001#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="92" column="26" lean-forward="false" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1484126187000" expanded="true" signature="948:2745" ph="{...}" />
+            <marker date="1484126187000" expanded="true" signature="1134:2739" ph="{&quot;tv4&quot;: 'tv4/tv4'...}" />
+            <marker date="1484126187000" expanded="true" signature="2759:3520" ph="{...}" />
+            <marker date="1484126187000" expanded="true" signature="2778:3514" ph="[...]" />
+            <marker date="1484126187000" expanded="true" signature="3255:3413" ph="{&quot;loader&quot;: &quot;url-loader?limit=10000&amp;minetype=application/font-woff&quot;...}" />
+            <marker date="1484126187000" expanded="true" signature="3570:3631" ph="{&quot;process.env.NODE_ENV&quot;: 'development'...}" />
+            <marker date="1484126187000" expanded="true" signature="3668:3772" ph="{&quot;$&quot;: &quot;jquery&quot;...}" />
+            <marker date="1484126187000" expanded="true" signature="3823:3930" ph="{&quot;name&quot;: 'commons'...}" />
+            <marker date="1484126187000" expanded="true" signature="4011:4412" ph="{&quot;title&quot;: 'My App'...}" />
+            <marker date="1484126187000" expanded="true" signature="4307:4402" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/src/pages/home/tpls/content.template.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>

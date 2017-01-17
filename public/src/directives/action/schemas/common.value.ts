@@ -16,7 +16,7 @@ class Config {
             interfaces: [{
                 key: "configAction",
                 method: MethodType.GET,
-                address: "",
+                host: "",
                 port: null,
                 path: "/home/config",
                 isRestful: false

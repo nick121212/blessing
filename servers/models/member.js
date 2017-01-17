@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     return sequelize.define('member', {
         username: { type: DataTypes.STRING(45), allowNull: false, unique: true },
         password: { type: DataTypes.STRING(100), allowNull: false },
-        name: { type: DataTypes.STRING(10), allowNull: true },
+        name: { type: DataTypes.STRING(45), allowNull: true },
         avatar: { type: DataTypes.STRING(200), allowNull: true },
         role: { type: DataTypes.STRING(45), allowNull: true }
     }, {

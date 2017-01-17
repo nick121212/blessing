@@ -298,7 +298,7 @@ class Provider {
 
         _.each(idFieldPaths, (field: string) => {
             if (!pointer.has(queryDataCline, field)) {
-                let err = new Error(`没有找到路径${field}，${ JSON.stringify(interfaceModel)}`);
+                let err = new Error(`没有找到路径${field}，${JSON.stringify(interfaceModel)}`);
                 console.error(err);
                 throw err;
             }
@@ -310,7 +310,8 @@ class Provider {
 
     doRedirct(actionModel: IActionModel, item: any) {
         _.forEach(this.getActionModelInterfacesInfo(actionModel, item), (val, key) => {
-            window.open(val.restAngular.getRestangularUrl() + "?action-key=" + actionModel.key);
+            val.restAngular["reqParams"] = _.extend({ "action-key": actionModel.key }, val.queryData);
+            window.open(val.restAngular["getRequestedUrl"]());
         });
     }
 
@@ -329,8 +330,8 @@ class Provider {
             // 获取接口的地址
             let promise: ng.IPromise<any>,
                 restAngular = interfaceModel.isRestful
-                    ? this.restUtils.getCustomRestful(interfaceModel.address, interfaceModel.port, interfaceModel.path)
-                    : this.restUtils.getCustom(interfaceModel.address, interfaceModel.port, interfaceModel.path);
+                    ? this.restUtils.getCustomRestful(interfaceModel.protocol, interfaceModel.host, interfaceModel.port, interfaceModel.path)
+                    : this.restUtils.getCustom(interfaceModel.protocol, interfaceModel.host, interfaceModel.port, interfaceModel.path);
 
             queryDataCline = _.cloneDeep(queryData);
 

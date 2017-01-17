@@ -10,3 +10,8 @@
     height: 50px;
     position: absolute !important;
 }
+
+.tree-panel {
+    // max-height: 300px;
+    overflow: auto;
+}

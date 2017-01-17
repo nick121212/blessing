@@ -33,7 +33,7 @@ class List {
             interfaces: [{
                 key: "actionList",
                 method: MethodType.GET,
-                address: "",
+                host: "",
                 port: null,
                 path: "actions",
                 jpp: {
@@ -334,7 +334,7 @@ class AddBase {
             interfaces: [{
                 key: "actionAdd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 port: null,
                 path: "actions",
                 isRestful: true
@@ -440,7 +440,7 @@ class AddInterface {
             interfaces: [{
                 key: "actionAdd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 port: null,
                 path: "actions",
                 isRestful: true
@@ -468,7 +468,7 @@ class Add {
             interfaces: [{
                 key: "actionAdd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 port: null,
                 path: "actions",
                 isRestful: true
@@ -497,7 +497,7 @@ class Edit {
                 key: "actionEdit",
                 method: MethodType.PUT,
                 idFieldPath: "/id",
-                address: "",
+                host: "",
                 port: null,
                 path: "actions",
                 isRestful: true
@@ -525,7 +525,7 @@ class Copy {
             interfaces: [{
                 key: "actionAdd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 port: null,
                 jpp: { del: ["/id"] },
                 path: "actions",
@@ -555,7 +555,7 @@ class Delete {
                 key: "actionDelete",
                 method: MethodType.DELETE,
                 idFieldPath: "/id",
-                address: "",
+                host: "",
                 port: null,
                 path: "actions",
                 isRestful: true

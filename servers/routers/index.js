@@ -76,6 +76,9 @@ export class BRouter {
         app.use(this.doInitRouter("apply", Router({
             prefix: `/applies`
         }), {}).router.middleware());
+        app.use(this.doInitRouter("upload", Router({
+            prefix: `/uploads`
+        }), {}).router.middleware());
     }
 }
 

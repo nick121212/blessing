@@ -50,7 +50,7 @@ function LoginSchemaValue() {
         interfaces: [{
             key: "loginAction",
             method: MethodType.POST,
-            address: "",
+            host: "",
             port: null,
             path: "/passport/login",
             isRestful: false
@@ -74,7 +74,7 @@ function LogoutSchemaValue() {
         interfaces: [{
             key: "logoutAction",
             method: MethodType.POST,
-            address: "",
+            host: "",
             port: null,
             path: "/passport/logout",
             isRestful: false

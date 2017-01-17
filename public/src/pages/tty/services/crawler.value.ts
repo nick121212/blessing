@@ -33,7 +33,7 @@ class List {
             interfaces: [{
                 key: "crawlerSettingList",
                 method: MethodType.GET,
-                address: "",
+                host: "",
                 port: null,
                 path: "crawler_settings",
                 jpp: {
@@ -164,7 +164,7 @@ class Add {
             interfaces: [{
                 key: "crawlerSettingAdd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 port: null,
                 path: "crawler_settings",
                 isRestful: true
@@ -195,7 +195,7 @@ class Copy {
             interfaces: [{
                 key: "crawlerSettingAdd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 port: null,
                 path: "crawler_settings",
                 isRestful: true
@@ -228,7 +228,7 @@ class Edit {
                 key: "crawlerSettingEdit",
                 method: MethodType.PUT,
                 idFieldPath: "/key",
-                address: "",
+                host: "",
                 port: null,
                 path: "crawler_settings",
                 isRestful: true
@@ -257,7 +257,7 @@ class Delete {
                 key: "crawlerSettingDelete",
                 method: MethodType.DELETE,
                 idFieldPath: "/key",
-                address: "",
+                host: "",
                 port: null,
                 path: "crawler_settings",
                 isRestful: true

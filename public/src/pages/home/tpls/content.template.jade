@@ -1,19 +1,38 @@
 md-content(flex)
-    //- h1 雅典娜
-    md-content(gridster="contentCtl.gridsterOpts")
-        ul(flex)
-            li(gridster-item="item",ng-repeat="item in contentCtl.standardItems",ng-class="item.class")
-                md-content(flex)
-                    md-toolbar(class="md-hue-2")
-                        div.md-toolbar-tools
-                            h2
-                                span {{$index}}
-                    md-input-container.md-block.no-errors(ng-if="$index==0")
-                        label 搜索图标
-                        input(ng-model="contentCtl.filter")
-                    md-content(flex,ng-if="$index==0")
-                        md-button(ng-click="contentCtl.doOpenIconInfo($event,icon)",ng-repeat="icon in contentCtl.icons | filter:contentCtl.filter | orderBy | limitTo:50 ")
-                            div(layout="column")
-                                md-icon
-                                    ng-md-icon(icon="{{::icon}}")
-                                span {{::icon}}
+    treecontrol.tree-classic(tree-model="contentCtl.departs",options="contentCtl.treeOptions")
+        span {{node.title}}
+
+script(type="text/ng-template",id="treeControlExternalTemplate1.html")
+    ul({{options.ulClass}})
+        li(ng-repeat="node in node.{{options.nodeChildren}} | filter:filterExpression:filterComparator {{options.orderBy}}",
+            ng-class="headClass(node)",
+            {{options.liClass}},
+            set-node-to-data
+        )
+            div(layout="row")
+                div.tree-label(ng-class="[selectedClass(), unselectableClass()]", ng-click="selectNodeLabel(node)",tree-transclude,flex)
+                md-icon(ng-if="!this.options.isLeaf(node,this)")
+                    ng-md-icon(icon="expand_more")
+            treeitem(ng-show="nodeExpanded()")
+    
+    //- md-content(gridster="contentCtl.gridsterOpts")
+    //-     ul(flex)
+    //-         li(gridster-item="item",ng-repeat="item in contentCtl.standardItems",ng-class="item.class")
+    //-             md-content(flex)
+    //-                 md-toolbar(class="md-hue-2")
+    //-                     div.md-toolbar-tools
+    //-                         h2
+    //-                             span {{$index}}
+    //-                 md-input-container.md-block.no-errors(ng-if="$index==0")
+    //-                     label 搜索图标
+    //-                     input(ng-model="contentCtl.filter")
+    //-                 md-content(flex,ng-if="$index==0")
+    //-                     md-button(ng-click="contentCtl.doOpenIconInfo($event,icon)",ng-repeat="icon in contentCtl.icons | filter:contentCtl.filter | orderBy | limitTo:50 ")
+    //-                         div(layout="column")
+    //-                             md-icon
+    //-                                 ng-md-icon(icon="{{::icon}}")
+    //-                             span {{::icon}}
+    //-                 treecontrol(ng-if="$index==1",tree-model="contentCtl.departs",options="contentCtl.treeOptions")
+    //-                     md-list
+    //-                         md-list-item.tree-expanded()
+    //-                             span.tree-label {{node.title}}

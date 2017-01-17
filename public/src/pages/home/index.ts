@@ -18,8 +18,9 @@ import { ActionType } from '../../directives/action/models/action.model';
 import "./index.scss";
 
 import 'angular-gridster';
+import 'angular-tree-control';
 
-const module = angular.module("homeModule", [actionDir, toolbar, sidemenu, svgUtilsMod, materialService, ngMaterial, 'ui.router', ngMaterialIcons, 'gridster']);
+const module = angular.module("homeModule", [actionDir, toolbar, sidemenu, svgUtilsMod, materialService, ngMaterial, 'ui.router', ngMaterialIcons, 'gridster','treeControl']);
 
 module.config([
     "$stateProvider",

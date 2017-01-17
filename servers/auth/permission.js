@@ -22,8 +22,6 @@ export default (app) => {
             }
         });
 
-        console.log(ctx.state.user);
-
         if (!member) {
             return err();
         }

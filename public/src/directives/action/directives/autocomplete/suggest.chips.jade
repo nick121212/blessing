@@ -1,0 +1,31 @@
+md-input-container(class="schema-form-suggest-chips {{form.htmlClass}}",md-no-float="true",sf-field,md-is-error="ngModel.$error && ngModel.$invalid && ngModel.$dirty")
+    md-chips(ng-model="$$value$$",sf-field-model,md-autocomplete-snap,md-require-match="form.cpOptions.requireMatch",md-transform-chip="cpBoost.transformChip($chip)",fx-autocomplete-boost,fx-suggest-boost)
+        md-autocomplete(
+            ng-disabled="form.readonly",
+            md-no-cache="form.acOptions.noCache",
+            md-autoselect="true",
+            md-delay="form.acOptions.delay",
+            md-select-on-match="true",
+            md-selected-item="acBoost.selected",
+            md-is-error="ngModel.$invalid && ngModel.$dirty",
+            md-search-text="acBoost.searchText",
+            md-items="item in acBoost.query()",
+            md-item-text="acBoost.getItemText(item)",
+            md-min-length="form.acOptions.minLength",
+            placeholder="{{ form.title || form.placeholder }}",
+            md-menu-class="autocomplete-custom-template"
+        )
+            md-item-template
+                div
+                    span(ng-if="!form.muti",md-highlight-text="acBoost.searchText") {{ item[form.acOptions.textField] }}
+                    span(ng-if="form.muti",md-highlight-text="acBoost.searchText",ng-repeat="key in form.muti") {{ !$first ? (form.acOptions.prefix || '-'):'' }} {{item[key] }}
+            md-not-found(flex)
+                div
+                    span(flex) 没有匹配{{ acBoost.searchText}}的记录
+        md-chip-template
+            span() {{ $chip }}
+
+    div.no-errors(ng-messages="ngModel.$error",aria-live="assertive")
+        md-contact-ships.ng-hide(ng-model="$$value$$",sf-field-model,sf-changed="form",schema-validate="form",name="{{::form.key|sfCamelKey}}")
+        div(sf-message,ng-message,ng-class="{'fx-invalid':ngModel.$invalid && ngModel.$dirty}")
+    div.hint.md-char-counter(ng-if="form.showHints",ng-bind="form.description")

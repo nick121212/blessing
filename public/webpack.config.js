@@ -48,7 +48,10 @@ module.exports = {
             'jquery': 'jquery/dist/jquery',
             'jquery-terminal': 'jquery.terminal/js/jquery.terminal.min',
             'jquery-mousewheel': 'jquery.mousewheel/jquery.mousewheel',
-            'jquery-terminal.css': 'jquery.terminal/css/jquery.terminal.min.css'
+            'jquery-terminal.css': 'jquery.terminal/css/jquery.terminal.min.css',
+            'tree-control.css': 'angular-tree-control/css/tree-control.css',
+            'tree-control-attribute.css': 'angular-tree-control/css/tree-control-attribute.css',
+            'smdatetimerangepicker.css': 'smdatetimerangepicker/src/picker.css'
         }
     },
     module: {

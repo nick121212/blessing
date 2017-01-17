@@ -68,7 +68,7 @@ export class ExecuteCmdForm {
             interfaces: [{
                 key: "execute.cmd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 // port: "",
                 path: "/commands/manual/test",
                 jpp: {

@@ -1,24 +1,24 @@
-webpackJsonp([4],{
+webpackJsonp([5],{
 
-/***/ 62:
+/***/ 171:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(97);
+	__webpack_require__(210);
 	module.exports = 'angular-loading-bar';
 
 
 /***/ },
 
-/***/ 77:
+/***/ 190:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(113);
+	var content = __webpack_require__(228);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
+	var update = __webpack_require__(11)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -36,16 +36,16 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 82:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	__webpack_require__(180);
+	__webpack_require__(304);
 	var _name = "fxLoading";
 	function Directive() {
 	    return {
 	        restrict: 'EA',
-	        template: __webpack_require__(146)(),
+	        template: __webpack_require__(264)(),
 	        scope: {},
 	        replace: false,
 	        link: function ($scope) {
@@ -60,7 +60,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 97:
+/***/ 210:
 /***/ function(module, exports) {
 
 	/*! 
@@ -408,10 +408,10 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 110:
+/***/ 225:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(8)();
+	exports = module.exports = __webpack_require__(10)();
 	// imports
 	
 	
@@ -423,10 +423,10 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 113:
+/***/ 228:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(8)();
+	exports = module.exports = __webpack_require__(10)();
 	// imports
 	
 	
@@ -438,10 +438,10 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 146:
+/***/ 264:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/loading/tpls/loading.jade" ) ];
@@ -477,16 +477,16 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 180:
+/***/ 304:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(110);
+	var content = __webpack_require__(225);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
+	var update = __webpack_require__(11)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -504,14 +504,14 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 216:
+/***/ 341:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	__webpack_require__(17);
-	var loading_1 = __webpack_require__(82);
-	__webpack_require__(77);
-	__webpack_require__(62);
+	__webpack_require__(18);
+	var loading_1 = __webpack_require__(195);
+	__webpack_require__(190);
+	__webpack_require__(171);
 	var module = angular.module("indexApp", ["angular-loading-bar", loading_1.default]);
 	module.config(["cfpLoadingBarProvider", function (cfpLoadingBarProvider) {
 	        cfpLoadingBarProvider.includeSpinner = true;
@@ -521,9 +521,9 @@ webpackJsonp([4],{
 	    angular.bootstrap(document, [module.name, 'homeModule', 'pageModule', 'passportModule']);
 	});
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }
 
-},[216]);
+},[341]);
 //# sourceMappingURL=index.bundle.js.map

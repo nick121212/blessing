@@ -1,11 +1,11 @@
 webpackJsonp([2],{
 
-/***/ 11:
+/***/ 12:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _ = __webpack_require__(2);
-	__webpack_require__(181);
+	var _ = __webpack_require__(3);
+	__webpack_require__(305);
 	var _name = "fxSideMenu", _module = _name + "Module";
 	var Controller = (function () {
 	    function Controller($scope, $compile, $interpolate, mdSideMenuSections) {
@@ -14,7 +14,7 @@ webpackJsonp([2],{
 	        this.$interpolate = $interpolate;
 	        this.mdSideMenuSections = mdSideMenuSections;
 	        this.options = {};
-	        this.template = $compile($interpolate(__webpack_require__(149)())({
+	        this.template = $compile($interpolate(__webpack_require__(267)())({
 	            opts: mdSideMenuSections.options
 	        }));
 	        this.options = this.mdSideMenuSections.options;
@@ -99,11 +99,11 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 47:
+/***/ 156:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _ = __webpack_require__(2);
+	var _ = __webpack_require__(3);
 	var _name = "fxToolbar";
 	var Strategy = (function () {
 	    function Strategy() {
@@ -118,14 +118,14 @@ webpackJsonp([2],{
 	    return Strategy;
 	}());
 	var strategy = new Strategy();
-	strategy.register("icon", __webpack_require__(151)());
-	strategy.register("btn", __webpack_require__(150)());
-	strategy.register("layout", __webpack_require__(153)());
-	strategy.register("label", __webpack_require__(152)());
-	strategy.register("menu", __webpack_require__(156)());
-	strategy.register("menuItem", __webpack_require__(155)());
-	strategy.register("menuBar", __webpack_require__(157)());
-	strategy.register("menuDivider", __webpack_require__(154)());
+	strategy.register("icon", __webpack_require__(269)());
+	strategy.register("btn", __webpack_require__(268)());
+	strategy.register("layout", __webpack_require__(271)());
+	strategy.register("label", __webpack_require__(270)());
+	strategy.register("menu", __webpack_require__(274)());
+	strategy.register("menuItem", __webpack_require__(273)());
+	strategy.register("menuBar", __webpack_require__(275)());
+	strategy.register("menuDivider", __webpack_require__(272)());
 	var Controller = (function () {
 	    function Controller($scope, $rootScope, $compile, $interpolate, materialUtils) {
 	        this.$scope = $scope;
@@ -231,7 +231,459 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 65:
+/***/ 174:
+/***/ function(module, exports) {
+
+	/* commonjs package manager support (eg componentjs) */
+	if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
+	  module.exports = 'treeControl';
+	}
+	(function ( angular ) {
+	    'use strict';
+	
+	    function createPath(startScope) {
+	        return function path() {
+	            var _path = [];
+	            var scope = startScope;
+	            var prevNode;
+	            while (scope && scope.node !== startScope.synteticRoot) {
+	                if (prevNode !== scope.node)
+	                    _path.push(scope.node);
+	                prevNode = scope.node;
+	                scope = scope.$parent;
+	            }
+	            return _path;
+	        }
+	    }
+	
+	    function ensureDefault(obj, prop, value) {
+	        if (!obj.hasOwnProperty(prop))
+	            obj[prop] = value;
+	    }
+	
+	    function defaultIsLeaf(node, $scope) {
+	        return !node[$scope.options.nodeChildren] || node[$scope.options.nodeChildren].length === 0;
+	    }
+	
+	    function shallowCopy(src, dst) {
+	        if (angular.isArray(src)) {
+	            dst = dst || [];
+	
+	            for (var i = 0; i < src.length; i++) {
+	                dst[i] = src[i];
+	            }
+	        } else if (angular.isObject(src)) {
+	            dst = dst || {};
+	
+	            for (var key in src) {
+	                if (hasOwnProperty.call(src, key) && !(key.charAt(0) === '$' && key.charAt(1) === '$')) {
+	                    dst[key] = src[key];
+	                }
+	            }
+	        }
+	
+	        return dst || src;
+	    }
+	    function defaultEquality(a, b,$scope) {
+	        if (!a || !b)
+	            return false;
+	        a = shallowCopy(a);
+	        a[$scope.options.nodeChildren] = [];
+	        b = shallowCopy(b);
+	        b[$scope.options.nodeChildren] = [];
+	        return angular.equals(a, b);
+	    }
+	
+	    function defaultIsSelectable() {
+	        return true;
+	    }
+	
+	    function ensureAllDefaultOptions($scope) {
+	        ensureDefault($scope.options, "multiSelection", false);
+	        ensureDefault($scope.options, "nodeChildren", "children");
+	        ensureDefault($scope.options, "dirSelectable", "true");
+	        ensureDefault($scope.options, "injectClasses", {});
+	        ensureDefault($scope.options.injectClasses, "ul", "");
+	        ensureDefault($scope.options.injectClasses, "li", "");
+	        ensureDefault($scope.options.injectClasses, "liSelected", "");
+	        ensureDefault($scope.options.injectClasses, "iExpanded", "");
+	        ensureDefault($scope.options.injectClasses, "iCollapsed", "");
+	        ensureDefault($scope.options.injectClasses, "iLeaf", "");
+	        ensureDefault($scope.options.injectClasses, "label", "");
+	        ensureDefault($scope.options.injectClasses, "labelSelected", "");
+	        ensureDefault($scope.options, "equality", defaultEquality);
+	        ensureDefault($scope.options, "isLeaf", defaultIsLeaf);
+	        ensureDefault($scope.options, "allowDeselect", true);
+	        ensureDefault($scope.options, "isSelectable", defaultIsSelectable);
+	    }
+	    
+	    angular.module( 'treeControl', [] )
+	        .constant('treeConfig', {
+	            templateUrl: null
+	        })
+	        .directive( 'treecontrol', ['$compile', function( $compile ) {
+	            /**
+	             * @param cssClass - the css class
+	             * @param addClassProperty - should we wrap the class name with class=""
+	             */
+	            function classIfDefined(cssClass, addClassProperty) {
+	                if (cssClass) {
+	                    if (addClassProperty)
+	                        return 'class="' + cssClass + '"';
+	                    else
+	                        return cssClass;
+	                }
+	                else
+	                    return "";
+	            }
+	            
+	            
+	            
+	            return {
+	                restrict: 'EA',
+	                require: "treecontrol",
+	                transclude: true,
+	                scope: {
+	                    treeModel: "=",
+	                    selectedNode: "=?",
+	                    selectedNodes: "=?",
+	                    expandedNodes: "=?",
+	                    onSelection: "&",
+	                    onNodeToggle: "&",
+	                    options: "=?",
+	                    orderBy: "=?",
+	                    reverseOrder: "@",
+	                    filterExpression: "=?",
+	                    filterComparator: "=?"
+	                },
+	                controller: ['$scope', '$templateCache', '$interpolate', 'treeConfig', function ($scope, $templateCache, $interpolate, treeConfig) {
+	                    
+	                    $scope.options = $scope.options || {};
+	                    
+	                    ensureAllDefaultOptions($scope);
+	                  
+	                    $scope.selectedNodes = $scope.selectedNodes || [];
+	                    $scope.expandedNodes = $scope.expandedNodes || [];
+	                    $scope.expandedNodesMap = {};
+	                    for (var i=0; i < $scope.expandedNodes.length; i++) {
+	                        $scope.expandedNodesMap["a"+i] = $scope.expandedNodes[i];
+	                    }
+	                    $scope.parentScopeOfTree = $scope.$parent;
+	
+	
+	                    function isSelectedNode(node) {
+	                        if (!$scope.options.multiSelection && ($scope.options.equality(node, $scope.selectedNode , $scope)))
+	                            return true;
+	                        else if ($scope.options.multiSelection && $scope.selectedNodes) {
+	                            for (var i = 0; (i < $scope.selectedNodes.length); i++) {
+	                                if ($scope.options.equality(node, $scope.selectedNodes[i] , $scope)) {
+	                                    return true;
+	                                }
+	                            }
+	                            return false;
+	                        }
+	                    }
+	
+	                    $scope.headClass = function(node) {
+	                        var liSelectionClass = classIfDefined($scope.options.injectClasses.liSelected, false);
+	                        var injectSelectionClass = "";
+	                        if (liSelectionClass && isSelectedNode(node))
+	                            injectSelectionClass = " " + liSelectionClass;
+	                        if ($scope.options.isLeaf(node, $scope))
+	                            return "tree-leaf" + injectSelectionClass;
+	                        if ($scope.expandedNodesMap[this.$id])
+	                            return "tree-expanded" + injectSelectionClass;
+	                        else
+	                            return "tree-collapsed" + injectSelectionClass;
+	                    };
+	
+	                    $scope.iBranchClass = function() {
+	                        if ($scope.expandedNodesMap[this.$id])
+	                            return classIfDefined($scope.options.injectClasses.iExpanded);
+	                        else
+	                            return classIfDefined($scope.options.injectClasses.iCollapsed);
+	                    };
+	
+	                    $scope.nodeExpanded = function() {
+	                        return !!$scope.expandedNodesMap[this.$id];
+	                    };
+	
+	                    $scope.selectNodeHead = function() {
+	                        var transcludedScope = this;
+	                        var expanding = $scope.expandedNodesMap[transcludedScope.$id] === undefined;
+	                        $scope.expandedNodesMap[transcludedScope.$id] = (expanding ? transcludedScope.node : undefined);
+	                        if (expanding) {
+	                            $scope.expandedNodes.push(transcludedScope.node);
+	                        }
+	                        else {
+	                            var index;
+	                            for (var i=0; (i < $scope.expandedNodes.length) && !index; i++) {
+	                                if ($scope.options.equality($scope.expandedNodes[i], transcludedScope.node , $scope)) {
+	                                    index = i;
+	                                }
+	                            }
+	                            if (index !== undefined)
+	                                $scope.expandedNodes.splice(index, 1);
+	                        }
+	                        if ($scope.onNodeToggle) {
+	                            var parentNode = (transcludedScope.$parent.node === transcludedScope.synteticRoot)?null:transcludedScope.$parent.node;
+	                            var path = createPath(transcludedScope);
+	                            $scope.onNodeToggle({node: transcludedScope.node, $parentNode: parentNode, $path: path,
+	                              $index: transcludedScope.$index, $first: transcludedScope.$first, $middle: transcludedScope.$middle,
+	                              $last: transcludedScope.$last, $odd: transcludedScope.$odd, $even: transcludedScope.$even, expanded: expanding});
+	
+	                        }
+	                    };
+	
+	                    $scope.selectNodeLabel = function( selectedNode){
+	                        var transcludedScope = this;
+	                        if(!$scope.options.isLeaf(selectedNode, $scope) && (!$scope.options.dirSelectable || !$scope.options.isSelectable(selectedNode))) {
+	                            // Branch node is not selectable, expand
+	                            this.selectNodeHead();
+	                        }
+	                        else if($scope.options.isLeaf(selectedNode, $scope) && (!$scope.options.isSelectable(selectedNode))) {
+	                            // Leaf node is not selectable
+	                            return;
+	                        }
+	                        else {
+	                            var selected = false;
+	                            if ($scope.options.multiSelection) {
+	                                var pos = -1;
+	                                for (var i=0; i < $scope.selectedNodes.length; i++) {
+	                                    if($scope.options.equality(selectedNode, $scope.selectedNodes[i] , $scope)) {
+	                                        pos = i;
+	                                        break;
+	                                    }
+	                                }
+	                                if (pos === -1) {
+	                                    $scope.selectedNodes.push(selectedNode);
+	                                    selected = true;
+	                                } else {
+	                                    $scope.selectedNodes.splice(pos, 1);
+	                                }
+	                            } else {
+	                                if (!$scope.options.equality(selectedNode, $scope.selectedNode , $scope)) {
+	                                    $scope.selectedNode = selectedNode;
+	                                    selected = true;
+	                                }
+	                                else {
+	                                    if ($scope.options.allowDeselect) {
+	                                        $scope.selectedNode = undefined;
+	                                    } else {
+	                                        $scope.selectedNode = selectedNode;
+	                                        selected = true;
+	                                    }
+	                                }
+	                            }
+	                            if ($scope.onSelection) {
+	                                var parentNode = (transcludedScope.$parent.node === transcludedScope.synteticRoot)?null:transcludedScope.$parent.node;
+	                                var path = createPath(transcludedScope)
+	                                $scope.onSelection({node: selectedNode, selected: selected, $parentNode: parentNode, $path: path,
+	                                  $index: transcludedScope.$index, $first: transcludedScope.$first, $middle: transcludedScope.$middle,
+	                                  $last: transcludedScope.$last, $odd: transcludedScope.$odd, $even: transcludedScope.$even});
+	                            }
+	                        }
+	                    };
+	
+	                    $scope.selectedClass = function() {
+	                        var isThisNodeSelected = isSelectedNode(this.node);
+	                        var labelSelectionClass = classIfDefined($scope.options.injectClasses.labelSelected, false);
+	                        var injectSelectionClass = "";
+	                        if (labelSelectionClass && isThisNodeSelected)
+	                            injectSelectionClass = " " + labelSelectionClass;
+	
+	                        return isThisNodeSelected ? "tree-selected" + injectSelectionClass : "";
+	                    };
+	
+	                    $scope.unselectableClass = function() {
+	                        var isThisNodeUnselectable = !$scope.options.isSelectable(this.node);
+	                        var labelUnselectableClass = classIfDefined($scope.options.injectClasses.labelUnselectable, false);
+	                        return isThisNodeUnselectable ? "tree-unselectable " + labelUnselectableClass : "";
+	                    };
+	
+	                    //tree template
+	                    $scope.isReverse = function() {
+	                      return !($scope.reverseOrder === 'false' || $scope.reverseOrder === 'False' || $scope.reverseOrder === '' || $scope.reverseOrder === false);
+	                    };
+	
+	                    $scope.orderByFunc = function() {
+	                      return $scope.orderBy;
+	                    };
+	//                    return "" + $scope.orderBy;
+	
+	                    var templateOptions = {
+	                        orderBy: $scope.orderBy ? " | orderBy:orderByFunc():isReverse()" : '',
+	                        ulClass: classIfDefined($scope.options.injectClasses.ul, true),
+	                        nodeChildren:  $scope.options.nodeChildren,
+	                        liClass: classIfDefined($scope.options.injectClasses.li, true),
+	                        iLeafClass: classIfDefined($scope.options.injectClasses.iLeaf, false),
+	                        labelClass: classIfDefined($scope.options.injectClasses.label, false)
+	                    };
+	
+	                    var template;
+	                    var templateUrl = $scope.options.templateUrl || treeConfig.templateUrl;
+	
+	                    if(templateUrl) {
+	                        template = $templateCache.get(templateUrl);
+	                    }
+	
+	                    if(!template) {
+	                        template =
+	                            '<ul {{options.ulClass}} >' +
+	                            '<li ng-repeat="node in node.{{options.nodeChildren}} | filter:filterExpression:filterComparator {{options.orderBy}}" ng-class="headClass(node)" {{options.liClass}}' +
+	                            'set-node-to-data>' +
+	                            '<i class="tree-branch-head" ng-class="iBranchClass()" ng-click="selectNodeHead(node)"></i>' +
+	                            '<i class="tree-leaf-head {{options.iLeafClass}}"></i>' +
+	                            '<div class="tree-label {{options.labelClass}}" ng-class="[selectedClass(), unselectableClass()]" ng-click="selectNodeLabel(node)" tree-transclude></div>' +
+	                            '<treeitem ng-if="nodeExpanded()"></treeitem>' +
+	                            '</li>' +
+	                            '</ul>';
+	                    }
+	
+	                    this.template = $compile($interpolate(template)({options: templateOptions}));
+	                }],
+	                compile: function(element, attrs, childTranscludeFn) {
+	                    return function ( scope, element, attrs, treemodelCntr ) {
+	
+	                        scope.$watch("treeModel", function updateNodeOnRootScope(newValue) {
+	                            if (angular.isArray(newValue)) {
+	                                if (angular.isDefined(scope.node) && angular.equals(scope.node[scope.options.nodeChildren], newValue))
+	                                    return;
+	                                scope.node = {};
+	                                scope.synteticRoot = scope.node;
+	                                scope.node[scope.options.nodeChildren] = newValue;
+	                            }
+	                            else {
+	                                if (angular.equals(scope.node, newValue))
+	                                    return;
+	                                scope.node = newValue;
+	                            }
+	                        });
+	
+	                        scope.$watchCollection('expandedNodes', function(newValue, oldValue) {
+	                            var notFoundIds = 0;
+	                            var newExpandedNodesMap = {};
+	                            var $liElements = element.find('li');
+	                            var existingScopes = [];
+	                            // find all nodes visible on the tree and the scope $id of the scopes including them
+	                            angular.forEach($liElements, function(liElement) {
+	                                var $liElement = angular.element(liElement);
+	                                var liScope = {
+	                                    $id: $liElement.data('scope-id'),
+	                                    node: $liElement.data('node')
+	                                };
+	                                existingScopes.push(liScope);
+	                            });
+	                            // iterate over the newValue, the new expanded nodes, and for each find it in the existingNodesAndScopes
+	                            // if found, add the mapping $id -> node into newExpandedNodesMap
+	                            // if not found, add the mapping num -> node into newExpandedNodesMap
+	                            angular.forEach(newValue, function(newExNode) {
+	                                var found = false;
+	                                for (var i=0; (i < existingScopes.length) && !found; i++) {
+	                                    var existingScope = existingScopes[i];
+	                                    if (scope.options.equality(newExNode, existingScope.node , scope)) {
+	                                        newExpandedNodesMap[existingScope.$id] = existingScope.node;
+	                                        found = true;
+	                                    }
+	                                }
+	                                if (!found)
+	                                    newExpandedNodesMap['a' + notFoundIds++] = newExNode;
+	                            });
+	                            scope.expandedNodesMap = newExpandedNodesMap;
+	                        });
+	
+	//                        scope.$watch('expandedNodesMap', function(newValue) {
+	//
+	//                        });
+	
+	                        //Rendering template for a root node
+	                        treemodelCntr.template( scope, function(clone) {
+	                            element.html('').append( clone );
+	                        });
+	                        // save the transclude function from compile (which is not bound to a scope as apposed to the one from link)
+	                        // we can fix this to work with the link transclude function with angular 1.2.6. as for angular 1.2.0 we need
+	                        // to keep using the compile function
+	                        scope.$treeTransclude = childTranscludeFn;
+	                    };
+	                }
+	            };
+	        }])
+	        .directive("setNodeToData", ['$parse', function($parse) {
+	            return {
+	                restrict: 'A',
+	                link: function($scope, $element, $attrs) {
+	                    $element.data('node', $scope.node);
+	                    $element.data('scope-id', $scope.$id);
+	                }
+	            };
+	        }])
+	        .directive("treeitem", function() {
+	            return {
+	                restrict: 'E',
+	                require: "^treecontrol",
+	                link: function( scope, element, attrs, treemodelCntr) {
+	                    // Rendering template for the current node
+	                    treemodelCntr.template(scope, function(clone) {
+	                        element.html('').append(clone);
+	                    });
+	                }
+	            };
+	        })
+	        .directive("treeTransclude", function () {
+	            return {
+	                controller: ['$scope',function ($scope) {
+	                    ensureAllDefaultOptions($scope);
+	                }],
+	
+	                link: function(scope, element, attrs, controller) {
+	                    if (!scope.options.isLeaf(scope.node, scope)) {
+	                        angular.forEach(scope.expandedNodesMap, function (node, id) {
+	                            if (scope.options.equality(node, scope.node , scope)) {
+	                                scope.expandedNodesMap[scope.$id] = scope.node;
+	                                scope.expandedNodesMap[id] = undefined;
+	                            }
+	                        });
+	                    }
+	                    if (!scope.options.multiSelection && scope.options.equality(scope.node, scope.selectedNode , scope)) {
+	                        scope.selectedNode = scope.node;
+	                    } else if (scope.options.multiSelection) {
+	                        var newSelectedNodes = [];
+	                        for (var i = 0; (i < scope.selectedNodes.length); i++) {
+	                            if (scope.options.equality(scope.node, scope.selectedNodes[i] , scope)) {
+	                                newSelectedNodes.push(scope.node);
+	                            }
+	                        }
+	                        scope.selectedNodes = newSelectedNodes;
+	                    }
+	
+	                    // create a scope for the transclusion, whos parent is the parent of the tree control
+	                    scope.transcludeScope = scope.parentScopeOfTree.$new();
+	                    scope.transcludeScope.node = scope.node;
+	                    scope.transcludeScope.$path = createPath(scope);
+	                    scope.transcludeScope.$parentNode = (scope.$parent.node === scope.synteticRoot)?null:scope.$parent.node;
+	                    scope.transcludeScope.$index = scope.$index;
+	                    scope.transcludeScope.$first = scope.$first;
+	                    scope.transcludeScope.$middle = scope.$middle;
+	                    scope.transcludeScope.$last = scope.$last;
+	                    scope.transcludeScope.$odd = scope.$odd;
+	                    scope.transcludeScope.$even = scope.$even;
+	                    scope.$on('$destroy', function() {
+	                        scope.transcludeScope.$destroy();
+	                    });
+	
+	                    scope.$treeTransclude(scope.transcludeScope, function(clone) {
+	                        element.empty();
+	                        element.append(clone);
+	                    });
+	                }
+	            };
+	        });
+	})( angular );
+
+
+/***/ },
+
+/***/ 175:
 /***/ function(module, exports) {
 
 	/**
@@ -4846,24 +5298,24 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 66:
+/***/ 176:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["SVGMorpheus"] = __webpack_require__(124);
+	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["SVGMorpheus"] = __webpack_require__(239);
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 
-/***/ 76:
+/***/ 189:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(112);
+	var content = __webpack_require__(227);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
+	var update = __webpack_require__(11)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -4881,42 +5333,42 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 85:
+/***/ 198:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var module_1 = __webpack_require__(11);
-	__webpack_require__(209);
-	__webpack_require__(206);
-	__webpack_require__(205);
-	__webpack_require__(207);
-	__webpack_require__(208);
-	__webpack_require__(210);
+	var module_1 = __webpack_require__(12);
+	__webpack_require__(334);
+	__webpack_require__(331);
+	__webpack_require__(330);
+	__webpack_require__(332);
+	__webpack_require__(333);
+	__webpack_require__(335);
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = module_1.default;
 
 
 /***/ },
 
-/***/ 86:
+/***/ 199:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var module_1 = __webpack_require__(47);
-	__webpack_require__(211);
+	var module_1 = __webpack_require__(156);
+	__webpack_require__(336);
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = module_1.default;
 
 
 /***/ },
 
-/***/ 87:
+/***/ 200:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var home_controller_1 = __webpack_require__(213);
-	var sidenavl_controller_1 = __webpack_require__(214);
-	var content_controller_1 = __webpack_require__(212);
+	var home_controller_1 = __webpack_require__(338);
+	var sidenavl_controller_1 = __webpack_require__(339);
+	var content_controller_1 = __webpack_require__(337);
 	exports.initRouter = function ($urlRouterProvider, $stateProvider) {
 	    $urlRouterProvider.otherwise(function ($injector) {
 	        var $state = $injector.get("$state");
@@ -4934,17 +5386,17 @@ webpackJsonp([2],{
 	            "": {
 	                controller: home_controller_1.HomeController,
 	                controllerAs: "homeCtl",
-	                template: __webpack_require__(159)(),
+	                template: __webpack_require__(277)(),
 	            },
 	            "sidenavLeft@home": {
 	                controller: sidenavl_controller_1.SidenavLeftController,
 	                controllerAs: "sideLeftCtl",
-	                template: __webpack_require__(160)(),
+	                template: __webpack_require__(278)(),
 	            },
 	            "content@home": {
 	                controller: content_controller_1.ContentController,
 	                controllerAs: "contentCtl",
-	                template: __webpack_require__(158)(),
+	                template: __webpack_require__(276)(),
 	            }
 	        }
 	    });
@@ -4953,13 +5405,13 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 91:
+/***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _ = __webpack_require__(2);
-	var ngMaterialIcons = __webpack_require__(18);
-	var ngMaterial = __webpack_require__(6);
+	var _ = __webpack_require__(3);
+	var ngMaterialIcons = __webpack_require__(19);
+	var ngMaterial = __webpack_require__(7);
 	var Service = (function () {
 	    function Service() {
 	    }
@@ -5006,10 +5458,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 111:
+/***/ 226:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(8)();
+	exports = module.exports = __webpack_require__(10)();
 	// imports
 	
 	
@@ -5021,22 +5473,22 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 112:
+/***/ 227:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(8)();
+	exports = module.exports = __webpack_require__(10)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, ".logo {\n  height: 64px;\n  min-height: 64px !important;\n  line-height: 64px;\n  margin: 5px;\n  padding-left: 64px;\n  background: transparent url(" + __webpack_require__(228) + ") no-repeat top left;\n  background-size: contain; }\n  .logo.center {\n    background-position: top center;\n    height: 150px; }\n\n.gridster .gridster-item {\n  overflow: hidden; }\n\n.md-no-padding {\n  padding: 0; }\n", ""]);
+	exports.push([module.id, ".logo {\n  height: 64px;\n  min-height: 64px !important;\n  line-height: 64px;\n  margin: 5px;\n  padding-left: 64px;\n  background: transparent url(" + __webpack_require__(353) + ") no-repeat top left;\n  background-size: contain; }\n  .logo.center {\n    background-position: top center;\n    height: 150px; }\n\n.gridster .gridster-item {\n  overflow: hidden; }\n\n.md-no-padding {\n  padding: 0; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
 
-/***/ 124:
+/***/ 239:
 /***/ function(module, exports) {
 
 	/*!
@@ -6516,10 +6968,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 148:
+/***/ 266:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/sidemenu/tpls/search.jade" ) ];
@@ -6564,10 +7016,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 149:
+/***/ 267:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/sidemenu/tpls/sidemenu.jade" ) ];
@@ -6621,10 +7073,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 150:
+/***/ 268:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/btn.jade" ) ];
@@ -6696,10 +7148,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 151:
+/***/ 269:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/icon.jade" ) ];
@@ -6729,10 +7181,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 152:
+/***/ 270:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/label.jade" ) ];
@@ -6759,10 +7211,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 153:
+/***/ 271:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/layout.jade" ) ];
@@ -6786,10 +7238,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 154:
+/***/ 272:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/menu-divider.jade" ) ];
@@ -6813,10 +7265,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 155:
+/***/ 273:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/menu-item.jade" ) ];
@@ -6840,10 +7292,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 156:
+/***/ 274:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/menu.jade" ) ];
@@ -6900,10 +7352,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 157:
+/***/ 275:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/directives/toolbar/tpls/menubar.jade" ) ];
@@ -6933,10 +7385,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 158:
+/***/ 276:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ) ];
@@ -6949,79 +7401,47 @@ webpackJsonp([2],{
 	jade_debug.unshift(new jade.DebugItem( 1, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
 	buf.push("<md-content flex>");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 2, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<treecontrol tree-model=\"contentCtl.departs\" options=\"contentCtl.treeOptions\" class=\"tree-classic\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.unshift(new jade.DebugItem( 3, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 3, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<md-content gridster=\"contentCtl.gridsterOpts\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 4, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<ul flex>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 5, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<li gridster-item=\"item\" ng-repeat=\"item in contentCtl.standardItems\" ng-class=\"item.class\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 6, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<md-content flex>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 7, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<md-toolbar class=\"md-hue-2\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 8, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<div class=\"md-toolbar-tools\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 9, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<h2>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 10, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
 	buf.push("<span>");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 10, jade_debug[0].filename ));
-	buf.push("{{$index}}");
+	jade_debug.unshift(new jade.DebugItem( 3, jade_debug[0].filename ));
+	buf.push("{{node.title}}");
 	jade_debug.shift();
 	jade_debug.shift();
 	buf.push("</span>");
 	jade_debug.shift();
 	jade_debug.shift();
-	buf.push("</h2>");
+	buf.push("</treecontrol>");
 	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</md-content>");
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 5, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<script type=\"text/ng-template\" id=\"treeControlExternalTemplate1.html\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 6, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<ul {{options.ulClass}}>");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 7, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<li ng-repeat=\"node in node.{{options.nodeChildren}} | filter:filterExpression:filterComparator {{options.orderBy}}\" ng-class=\"headClass(node)\" {{options.liClass}} set-node-to-data>");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 12, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<div layout=\"row\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 13, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<div ng-class=\"[selectedClass(), unselectableClass()]\" ng-click=\"selectNodeLabel(node)\" tree-transclude flex class=\"tree-label\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
 	buf.push("</div>");
 	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-toolbar>");
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 11, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<md-input-container ng-if=\"$index==0\" class=\"md-block no-errors\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 12, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<label>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 12, jade_debug[0].filename ));
-	buf.push("搜索图标");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</label>");
-	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 13, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<input ng-model=\"contentCtl.filter\">");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-input-container>");
-	jade_debug.shift();
 	jade_debug.unshift(new jade.DebugItem( 14, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<md-content flex ng-if=\"$index==0\">");
+	buf.push("<md-icon ng-if=\"!this.options.isLeaf(node,this)\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.unshift(new jade.DebugItem( 15, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<md-button ng-click=\"contentCtl.doOpenIconInfo($event,icon)\" ng-repeat=\"icon in contentCtl.icons | filter:contentCtl.filter | orderBy | limitTo:50 \">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 16, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<div layout=\"column\">");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 17, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<md-icon>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 18, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<ng-md-icon icon=\"{{::icon}}\">");
+	buf.push("<ng-md-icon icon=\"expand_more\">");
 	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
 	buf.push("</ng-md-icon>");
@@ -7029,26 +7449,14 @@ webpackJsonp([2],{
 	jade_debug.shift();
 	buf.push("</md-icon>");
 	jade_debug.shift();
-	jade_debug.unshift(new jade.DebugItem( 19, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
-	buf.push("<span>");
-	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
-	jade_debug.unshift(new jade.DebugItem( 19, jade_debug[0].filename ));
-	buf.push("{{::icon}}");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</span>");
-	jade_debug.shift();
 	jade_debug.shift();
 	buf.push("</div>");
 	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 16, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<treeitem ng-show=\"nodeExpanded()\">");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
 	jade_debug.shift();
-	buf.push("</md-button>");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-content>");
-	jade_debug.shift();
-	jade_debug.shift();
-	buf.push("</md-content>");
+	buf.push("</treeitem>");
 	jade_debug.shift();
 	jade_debug.shift();
 	buf.push("</li>");
@@ -7056,24 +7464,63 @@ webpackJsonp([2],{
 	jade_debug.shift();
 	buf.push("</ul>");
 	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 19, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
 	jade_debug.shift();
-	buf.push("</md-content>");
+	jade_debug.unshift(new jade.DebugItem( 20, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 21, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 22, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 23, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 24, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 25, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 26, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 27, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 28, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 29, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 30, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 31, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 32, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 33, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 34, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 35, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 36, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 37, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 38, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.shift();
+	jade_debug.unshift(new jade.DebugItem( 38, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
 	jade_debug.shift();
 	jade_debug.shift();
-	buf.push("</md-content>");
+	buf.push("</script>");
 	jade_debug.shift();
 	jade_debug.shift();;return buf.join("");
 	} catch (err) {
-	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-content(flex)\n    //- h1 雅典娜\n    md-content(gridster=\"contentCtl.gridsterOpts\")\n        ul(flex)\n            li(gridster-item=\"item\",ng-repeat=\"item in contentCtl.standardItems\",ng-class=\"item.class\")\n                md-content(flex)\n                    md-toolbar(class=\"md-hue-2\")\n                        div.md-toolbar-tools\n                            h2\n                                span {{$index}}\n                    md-input-container.md-block.no-errors(ng-if=\"$index==0\")\n                        label 搜索图标\n                        input(ng-model=\"contentCtl.filter\")\n                    md-content(flex,ng-if=\"$index==0\")\n                        md-button(ng-click=\"contentCtl.doOpenIconInfo($event,icon)\",ng-repeat=\"icon in contentCtl.icons | filter:contentCtl.filter | orderBy | limitTo:50 \")\n                            div(layout=\"column\")\n                                md-icon\n                                    ng-md-icon(icon=\"{{::icon}}\")\n                                span {{::icon}}");
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-content(flex)\n    treecontrol.tree-classic(tree-model=\"contentCtl.departs\",options=\"contentCtl.treeOptions\")\n        span {{node.title}}\n\nscript(type=\"text/ng-template\",id=\"treeControlExternalTemplate1.html\")\n    ul({{options.ulClass}})\n        li(ng-repeat=\"node in node.{{options.nodeChildren}} | filter:filterExpression:filterComparator {{options.orderBy}}\",\n            ng-class=\"headClass(node)\",\n            {{options.liClass}},\n            set-node-to-data\n        )\n            div(layout=\"row\")\n                div.tree-label(ng-class=\"[selectedClass(), unselectableClass()]\", ng-click=\"selectNodeLabel(node)\",tree-transclude,flex)\n                md-icon(ng-if=\"!this.options.isLeaf(node,this)\")\n                    ng-md-icon(icon=\"expand_more\")\n            treeitem(ng-show=\"nodeExpanded()\")\n    \n    //- md-content(gridster=\"contentCtl.gridsterOpts\")\n    //-     ul(flex)\n    //-         li(gridster-item=\"item\",ng-repeat=\"item in contentCtl.standardItems\",ng-class=\"item.class\")\n    //-             md-content(flex)\n    //-                 md-toolbar(class=\"md-hue-2\")\n    //-                     div.md-toolbar-tools\n    //-                         h2\n    //-                             span {{$index}}\n    //-                 md-input-container.md-block.no-errors(ng-if=\"$index==0\")\n    //-                     label 搜索图标\n    //-                     input(ng-model=\"contentCtl.filter\")\n    //-                 md-content(flex,ng-if=\"$index==0\")\n    //-                     md-button(ng-click=\"contentCtl.doOpenIconInfo($event,icon)\",ng-repeat=\"icon in contentCtl.icons | filter:contentCtl.filter | orderBy | limitTo:50 \")\n    //-                         div(layout=\"column\")\n    //-                             md-icon\n    //-                                 ng-md-icon(icon=\"{{::icon}}\")\n    //-                             span {{::icon}}\n    //-                 treecontrol(ng-if=\"$index==1\",tree-model=\"contentCtl.departs\",options=\"contentCtl.treeOptions\")\n    //-                     md-list\n    //-                         md-list-item.tree-expanded()\n    //-                             span.tree-label {{node.title}}");
 	}
 	}
 
 /***/ },
 
-/***/ 159:
+/***/ 277:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/pages/home/tpls/home.template.jade" ) ];
@@ -7159,10 +7606,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 160:
+/***/ 278:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/pages/home/tpls/sidenavl.template.jade" ) ];
@@ -7279,16 +7726,16 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 181:
+/***/ 305:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(111);
+	var content = __webpack_require__(226);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
+	var update = __webpack_require__(11)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -7306,11 +7753,11 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 205:
+/***/ 330:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var module_1 = __webpack_require__(11);
+	var module_1 = __webpack_require__(12);
 	function Directive() {
 	    return {
 	        restrict: 'EA',
@@ -7327,11 +7774,11 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 206:
+/***/ 331:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var module_1 = __webpack_require__(11);
+	var module_1 = __webpack_require__(12);
 	function Directive() {
 	    return {
 	        link: function ($scope, $element, $attrs, $ctrl) {
@@ -7347,11 +7794,11 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 207:
+/***/ 332:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var module_1 = __webpack_require__(11);
+	var module_1 = __webpack_require__(12);
 	var _name = "mdStyleColor";
 	function Directive(mdSideMenuSections) {
 	    return {
@@ -7399,15 +7846,15 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 208:
+/***/ 333:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var module_1 = __webpack_require__(11);
+	var module_1 = __webpack_require__(12);
 	function Directive(mdSideMenuSections, $timeout) {
 	    return {
 	        restrict: 'EA',
-	        template: __webpack_require__(148),
+	        template: __webpack_require__(266),
 	        controllerAs: "searchCtl",
 	        link: function ($scope) {
 	            $scope.searchText = "";
@@ -7426,11 +7873,11 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 209:
+/***/ 334:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var module_1 = __webpack_require__(11);
+	var module_1 = __webpack_require__(12);
 	function Provider() {
 	    var _sections = [], _theme, _palettes;
 	    this.initWithSections = function (value) {
@@ -7457,12 +7904,12 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 210:
+/***/ 335:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var module_1 = __webpack_require__(11);
-	var _ = __webpack_require__(2);
+	var module_1 = __webpack_require__(12);
+	var _ = __webpack_require__(3);
 	function Factory($rootScope, $timeout, mdSideMenuSections) {
 	    var onStateChangeStart = function (event, toState, toParams) {
 	        var options = mdSideMenuSections.options;
@@ -7494,7 +7941,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 211:
+/***/ 336:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7503,9 +7950,9 @@ webpackJsonp([2],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var module_1 = __webpack_require__(47);
-	var _ = __webpack_require__(2);
-	__webpack_require__(22);
+	var module_1 = __webpack_require__(156);
+	var _ = __webpack_require__(3);
+	__webpack_require__(24);
 	var Service = (function () {
 	    function Service() {
 	    }
@@ -7675,11 +8122,11 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 212:
+/***/ 337:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _ = __webpack_require__(2);
+	var _ = __webpack_require__(3);
 	var ContentController = (function () {
 	    function ContentController($rootScope, $timeout, materialUtils, svgUtils, fxAction, iconInfoDetailForm) {
 	        var _this = this;
@@ -7717,9 +8164,70 @@ webpackJsonp([2],{
 	                }
 	            }
 	        };
+	        this.getDetatInfo();
 	    }
 	    ContentController.prototype.doOpenIconInfo = function ($event, iconInfo) {
 	        this.fxAction.doActionModel($event, this.iconInfoDetailForm, { key: iconInfo });
+	    };
+	    ContentController.prototype.getDetatInfo = function () {
+	        var _this = this;
+	        var promise = this.fxAction.doAction('departTreeAction', null);
+	        promise && promise.then(function (results) {
+	            var nodes = [];
+	            _.forEach(results, function (result) {
+	                if (_.isArray(result)) {
+	                    nodes = nodes.concat(result);
+	                }
+	            });
+	            var nodesGroupByDepth = _.groupBy(_.keyBy(nodes, "key"), "depth");
+	            var depth = 0, root = {};
+	            var _loop_1 = function () {
+	                var nodesIsDepth = nodesGroupByDepth[depth];
+	                var parentIsDepth = nodesGroupByDepth[depth - 1];
+	                if (nodesIsDepth && nodesIsDepth.length > 0) {
+	                    switch (depth) {
+	                        case 0:
+	                            root = nodesIsDepth[0];
+	                            break;
+	                        case 1:
+	                            root['nodes'] = nodesIsDepth;
+	                            break;
+	                        default:
+	                            _.forEach(parentIsDepth, function (parentNode) {
+	                                parentNode["nodes"] = _.filter(nodesIsDepth, function (node) {
+	                                    return node.lft > parentNode.lft && parentNode.rgt > node.rgt;
+	                                });
+	                            });
+	                            break;
+	                    }
+	                }
+	                else {
+	                    return "break";
+	                }
+	                depth++;
+	            };
+	            while (true) {
+	                var state_1 = _loop_1();
+	                if (state_1 === "break")
+	                    break;
+	            }
+	            _this.departs = root["nodes"];
+	        });
+	        this.treeOptions = {
+	            nodeChildren: "nodes",
+	            dirSelectable: false,
+	            templateUrl: 'treeControlExternalTemplate.html',
+	            injectClasses: {
+	                ul: "a1",
+	                li: "a2",
+	                liSelected: "a7",
+	                iExpanded: "a3",
+	                iCollapsed: "a4",
+	                iLeaf: "a5",
+	                label: "a6",
+	                labelSelected: "a8"
+	            }
+	        };
 	    };
 	    return ContentController;
 	}());
@@ -7729,7 +8237,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 213:
+/***/ 338:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7776,11 +8284,11 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 214:
+/***/ 339:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _ = __webpack_require__(2);
+	var _ = __webpack_require__(3);
 	var SidenavLeftController = (function () {
 	    function SidenavLeftController($rootScope, mdSideMenuSections, toolbarUtils, fxAction, $state, $stateParams, $timeout, fxSideMenuFactory) {
 	        this.$rootScope = $rootScope;
@@ -7889,25 +8397,26 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 215:
+/***/ 340:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__dirname) {"use strict";
-	var ngMaterial = __webpack_require__(6);
-	__webpack_require__(65);
-	var ngMaterialIcons = __webpack_require__(18);
-	var _ = __webpack_require__(2);
-	var action_1 = __webpack_require__(14);
-	var router_1 = __webpack_require__(87);
-	var material_service_1 = __webpack_require__(15);
-	var svg_service_1 = __webpack_require__(91);
-	var toolbar_1 = __webpack_require__(86);
-	var sidemenu_1 = __webpack_require__(85);
-	__webpack_require__(66);
-	var action_model_1 = __webpack_require__(4);
-	__webpack_require__(76);
-	__webpack_require__(23);
-	var module = angular.module("homeModule", [action_1.default, toolbar_1.default, sidemenu_1.default, svg_service_1.default, material_service_1.default, ngMaterial, 'ui.router', ngMaterialIcons, 'gridster']);
+	var ngMaterial = __webpack_require__(7);
+	__webpack_require__(175);
+	var ngMaterialIcons = __webpack_require__(19);
+	var _ = __webpack_require__(3);
+	var action_1 = __webpack_require__(15);
+	var router_1 = __webpack_require__(200);
+	var material_service_1 = __webpack_require__(16);
+	var svg_service_1 = __webpack_require__(204);
+	var toolbar_1 = __webpack_require__(199);
+	var sidemenu_1 = __webpack_require__(198);
+	__webpack_require__(176);
+	var action_model_1 = __webpack_require__(5);
+	__webpack_require__(189);
+	__webpack_require__(25);
+	__webpack_require__(174);
+	var module = angular.module("homeModule", [action_1.default, toolbar_1.default, sidemenu_1.default, svg_service_1.default, material_service_1.default, ngMaterial, 'ui.router', ngMaterialIcons, 'gridster', 'treeControl']);
 	module.config([
 	    "$stateProvider",
 	    "$urlRouterProvider",
@@ -7992,12 +8501,12 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 228:
+/***/ 353:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "7af35d2f474641e3a73ea274191a9107.jpg";
 
 /***/ }
 
-},[215]);
+},[340]);
 //# sourceMappingURL=home.bundle.js.map

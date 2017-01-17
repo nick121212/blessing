@@ -58,7 +58,7 @@ class Login {
             interfaces: [{
                 key: "saltApiLogin",
                 method: MethodType.POST,
-                address: ip,
+                host: ip,
                 port: port,
                 path: "login",
                 jpp: {
@@ -97,7 +97,7 @@ class Logout {
             interfaces: [{
                 key: "saltApiLogin",
                 method: MethodType.POST,
-                address: ip,
+                host: ip,
                 port: port,
                 path: "logout",
                 jpp: {
@@ -131,7 +131,7 @@ class Minions {
             interfaces: [{
                 key: "saltApiMinions",
                 method: MethodType.GET,
-                address: ip,
+                host: ip,
                 port: port,
                 path: "minions",
                 jpp: {
@@ -165,7 +165,7 @@ class Jobs {
             interfaces: [{
                 key: "saltApiJobs",
                 method: MethodType.GET,
-                address: ip,
+                host: ip,
                 port: port,
                 path: "jobs",
                 jpp: {
@@ -199,7 +199,7 @@ class Events {
             interfaces: [{
                 key: "saltApiEvents",
                 method: MethodType.GET,
-                address: ip,
+                host: ip,
                 port: port,
                 path: "events",
                 jpp: {
@@ -233,7 +233,7 @@ class Stats {
             interfaces: [{
                 key: "saltApiStats",
                 method: MethodType.GET,
-                address: ip,
+                host: ip,
                 port: port,
                 path: "stats",
                 jpp: {
@@ -310,7 +310,7 @@ class Run {
             interfaces: [{
                 key: "saltApiRun",
                 method: MethodType.POST,
-                address: ip,
+                host: ip,
                 port: port,
                 path: "run",
                 jpp: {
@@ -381,7 +381,7 @@ class Run1 {
             interfaces: [{
                 key: "saltApiRun",
                 method: MethodType.POST,
-                address: ip,
+                host: ip,
                 port: port,
                 path: "minions",
                 jpp: {

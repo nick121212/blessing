@@ -19,7 +19,14 @@ async function init() {
     await db.execute(config.db, app);
     // 加载中间件
     app.use(async(ctx, next) => {
-        await next();
+
+        console.log(ctx.body);
+
+        const start = new Date();
+        return next().then(() => {
+            const ms = new Date() - start;
+            console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+        });
     });
     // 初始化路由
     router.execute(app);
@@ -27,7 +34,6 @@ async function init() {
     let server = socket.eventsIo.attach(app);
     // spa server 启动
     await spa(config, app.server);
-
     // 监听端口
     app.listen(process.env.PORT || config.site.PORT || 3000, () => {
         console.log("Server listening on %s", app.server._connectionKey);

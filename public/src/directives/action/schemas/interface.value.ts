@@ -38,7 +38,7 @@ class List {
             interfaces: [{
                 key: "modulesList",
                 method: MethodType.GET,
-                address: "",
+                host: "",
                 port: null,
                 path: "interfaces",
                 jpp: {
@@ -70,7 +70,7 @@ class Add {
             interfaces: [{
                 key: "interfaceAdd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 port: null,
                 path: "interfaces",
                 isRestful: true
@@ -100,7 +100,7 @@ class Edit {
                 key: "interfaceEdit",
                 method: MethodType.PUT,
                 idFieldPath: "/id",
-                address: "",
+                host: "",
                 port: null,
                 path: "interfaces",
                 isRestful: true
@@ -129,7 +129,7 @@ class Copy {
             interfaces: [{
                 key: "interfaceAdd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 port: null,
                 path: "interfaces",
                 jpp: {
@@ -161,7 +161,7 @@ class Delete {
                 key: "interfaceDelete",
                 method: MethodType.DELETE,
                 idFieldPath: "/id",
-                address: "",
+                host: "",
                 port: null,
                 path: "interfaces",
                 isRestful: true

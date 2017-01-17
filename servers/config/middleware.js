@@ -13,6 +13,9 @@ export default (config) => {
                 files: true,
                 // querystring: require("qs")
             }],
+            "koa-body": [{
+
+            }],
             "koa-methodoverride": [],
             "koa-compress": [{
                 filter: (content_type) => {
@@ -40,7 +43,10 @@ export default (config) => {
             "koa-cors": [{
                 methods: ["PUT", "GET", "POST", "DELETE", "HEAD"],
                 origin: "*"
-            }]
+            }],
+            "koa-static": (app, statuc) => {
+                app.use(statuc('.'));
+            }
         },
         custom: {
             "error": (app) => {
@@ -49,7 +55,7 @@ export default (config) => {
                         await next();
                         if (ctx.status === 404) ctx.throw(404);
                     } catch (err) {
-                        // console.log("middlewares--", err);
+                        console.log("middlewares--", err);
                         if (err.isBoom) {
                             ctx.status = err.output.statusCode;
                         } else {
@@ -72,10 +78,12 @@ export default (config) => {
             "koa-compress",
             "koa-conditional-get",
             "koa-etag",
-            "koa-cors",
-            "koa-better-body",
+            // "koa-cors",
+            // "koa-better-body",
+            "koa-body",
             "koa-session2",
             "koa-passport",
+            "koa-static",
             "error"
         ]
     };

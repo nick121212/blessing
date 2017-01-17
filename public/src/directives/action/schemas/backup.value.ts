@@ -30,7 +30,7 @@ class List {
             interfaces: [{
                 key: "backupList",
                 method: MethodType.GET,
-                address: "",
+                host: "",
                 port: null,
                 path: "backups",
                 jpp: {
@@ -62,7 +62,7 @@ class Backup {
                 key: "backupDump",
                 method: MethodType.POST,
                 idFieldPath: "",
-                address: "",
+                host: "",
                 port: null,
                 path: "backups",
                 isRestful: true
@@ -91,7 +91,7 @@ class Delete {
                 key: "backupDelete",
                 method: MethodType.DELETE,
                 idFieldPath: "",
-                address: "",
+                host: "",
                 port: null,
                 path: "backups",
                 isRestful: true
@@ -121,7 +121,7 @@ class Dump {
                 method: MethodType.PUT,
                 params: false,
                 idFieldPath: "",
-                address: "",
+                host: "",
                 port: null,
                 path: "backups",
                 isRestful: true
@@ -148,7 +148,7 @@ class Download {
                 method: MethodType.GET,
                 idFieldPath: "",
                 params: true,
-                address: "",
+                host: "",
                 port: null,
                 path: "backups",
                 isRestful: true

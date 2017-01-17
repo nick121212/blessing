@@ -33,7 +33,7 @@ export interface IInterfaceModel {
     // 调用方法
     method: MethodType;
     // 接口服务器地址
-    address: string;
+    host?: string;
     // 端口
     port?: number;
     // 接口地址
@@ -53,5 +53,6 @@ export interface IInterfaceModel {
     // 请求带上的配置
     config?: Object;
     // open ：表单打开时候调用接口
-    useType?:string;
+    useType?: string;
+    protocol?: string;
 }

@@ -40,13 +40,17 @@ class Service {
              * @param path
              * @param params
              */
-            getCustom(address: string, port: number = 0, path: string): restangular.ICollection {
+            getCustom(protocol: string, address: string, port: number = 0, path: string): restangular.ICollection {
                 let baseUrl = "";
                 let restangu: restangular.ICollection;
 
-                if (address) {
-                    baseUrl = `${address}`;
+                if (protocol && address) {
+                    baseUrl = protocol.toLowerCase() + "://";
+                    baseUrl += `${address}`;
                 }
+                // if (address) {
+                //     baseUrl += `${address}`;
+                // }
                 if (address && port) {
                     baseUrl += `:${port}`;
                 }
@@ -68,11 +72,14 @@ class Service {
                 return restangu;
             }
 
-            getCustomRestful(address: string, port: number = 0, path: string): restangular.ICollection {
+            getCustomRestful(protocol: string, address: string, port: number = 0, path: string): restangular.ICollection {
                 let baseUrl = "";
 
+                if (protocol) {
+                    baseUrl = protocol.toLowerCase() + "://";
+                }
                 if (address) {
-                    baseUrl = `${address}`;
+                    baseUrl += `${address}`;
                 }
                 if (address && port) {
                     baseUrl += `:${port}`;

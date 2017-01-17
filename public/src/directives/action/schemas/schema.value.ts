@@ -34,7 +34,7 @@ class List {
             interfaces: [{
                 key: "modulesList",
                 method: MethodType.GET,
-                address: "",
+                host: "",
                 port: null,
                 path: "schemas",
                 jpp: {
@@ -66,7 +66,7 @@ class Add {
             interfaces: [{
                 key: "schemaAdd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 port: null,
                 path: "schemas",
                 isRestful: true
@@ -96,7 +96,7 @@ class Edit {
                 key: "schemaEdit",
                 method: MethodType.PUT,
                 idFieldPath: "/id",
-                address: "",
+                host: "",
                 port: null,
                 path: "schemas",
                 isRestful: true
@@ -125,7 +125,7 @@ class Copy {
             interfaces: [{
                 key: "schemaAdd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 port: null,
                 path: "schemas",
                 jpp: {
@@ -157,7 +157,7 @@ class Delete {
                 key: "schemaDelete",
                 method: MethodType.DELETE,
                 idFieldPath: "/id",
-                address: "",
+                host: "",
                 port: null,
                 path: "schemas",
                 isRestful: true

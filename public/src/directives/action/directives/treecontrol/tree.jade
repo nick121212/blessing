@@ -1,0 +1,5 @@
+md-content(layout="column",flex)
+    md-progress-circular(ng-show="ctrl.isBusy",md-mode="indeterminate",md-diameter="16px")
+    div.dialog-content
+        treecontrol.tree-classic(tree-model="ctrl.nodes",expanded-nodes="ctrl.expandedNodes",options="ctrl.form.tcOptions",flex,selected-node="ctrl.selected",on-selection="ctrl.setItem(node)",)
+            span {{node.title}}

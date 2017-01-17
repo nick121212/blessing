@@ -9,7 +9,7 @@ export class LoginController {
     static $inject = ["$rootScope", "$state", "fxAction", "materialUtils"];
 
     key: string = "login";
-    formData: Object = { username: "nick", password: "nick" };
+    formData: Object = { username: "xiao.feng695", password: "871225feng-" };
 
     constructor(private $rootScope: angular.IRootScopeService, private $state: ng.ui.IStateService, private fxAction, private materialUtils: fx.utils.materialStatic) {
     }

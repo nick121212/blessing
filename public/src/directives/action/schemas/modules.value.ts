@@ -38,7 +38,7 @@ class List {
             interfaces: [{
                 key: "modulesList",
                 method: MethodType.GET,
-                address: "",
+                host: "",
                 port: null,
                 path: "modules",
                 jpp: {
@@ -67,7 +67,7 @@ class Menus {
             interfaces: [{
                 key: "moduleMenu",
                 method: MethodType.GET,
-                address: "",
+                host: "",
                 port: null,
                 path: "/modules/menu",
                 isRestful: false
@@ -99,7 +99,7 @@ class Add {
             interfaces: [{
                 key: "modulesAdd",
                 method: MethodType.POST,
-                address: "",
+                host: "",
                 port: null,
                 path: "modules",
                 isRestful: true
@@ -132,7 +132,7 @@ class Edit {
                 key: "modulesEdit",
                 method: MethodType.PUT,
                 idFieldPath: "/id",
-                address: "",
+                host: "",
                 port: null,
                 path: "modules",
                 isRestful: true
@@ -163,7 +163,7 @@ class Delete {
                 key: "modulesDelete",
                 method: MethodType.DELETE,
                 idFieldPath: "/id",
-                address: "",
+                host: "",
                 port: null,
                 path: "modules",
                 isRestful: true

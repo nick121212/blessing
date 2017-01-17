@@ -9,8 +9,13 @@ import * as jsonPointer from 'json-pointer';
 export class CmdbEvents {
     constructor(socket) {
         this.socket = socket;
-        this.getEvents();
-        this.checkExecuteTimeout();
+        // this.getEvents();
+        // this.checkExecuteTimeout();
+
+        // limit=50&offset=0&page=1&where=%7B%7D
+        // bool:{
+
+        // }
     }
 
     async checkExecuteTimeout() {
@@ -20,6 +25,13 @@ export class CmdbEvents {
         await result.ch.consume(result.q.queue, async(msg) => {
             let commandResult = JSON.parse(msg.content.toString());
             let where = {};
+
+
+            var a = {
+                where: {
+                    "/field/missing/filter/constant_score/-/must/bool": "ip"
+                }
+            }
 
             jsonPointer.set(where, "/field/missing/filter/constant_score/-/must/bool", "_stamp");
             jsonPointer.set(where, "/jid/match/-/must/bool", commandResult.jobid);

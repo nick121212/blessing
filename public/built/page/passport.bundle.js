@@ -1,12 +1,12 @@
-webpackJsonp([3],{
+webpackJsonp([4],{
 
-/***/ 89:
+/***/ 202:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var login_controller_1 = __webpack_require__(224);
-	var register_controller_1 = __webpack_require__(225);
-	var index_controller_1 = __webpack_require__(223);
+	var login_controller_1 = __webpack_require__(349);
+	var register_controller_1 = __webpack_require__(350);
+	var index_controller_1 = __webpack_require__(348);
 	exports.initRouter = function ($urlRouterProvider, $stateProvider) {
 	    $stateProvider.state("passport", {
 	        url: "/passport",
@@ -15,7 +15,7 @@ webpackJsonp([3],{
 	            "": {
 	                controller: index_controller_1.IndexController,
 	                controllerAs: "indexCtl",
-	                template: __webpack_require__(165)()
+	                template: __webpack_require__(283)()
 	            }
 	        }
 	    }).state("passport.login", {
@@ -24,7 +24,7 @@ webpackJsonp([3],{
 	            "passportContent": {
 	                controller: login_controller_1.LoginController,
 	                controllerAs: "loginCtl",
-	                template: __webpack_require__(166)()
+	                template: __webpack_require__(284)()
 	            }
 	        }
 	    }).state("passport.register", {
@@ -33,7 +33,7 @@ webpackJsonp([3],{
 	            "passportContent": {
 	                controller: register_controller_1.RegisterController,
 	                controllerAs: "registerCtl",
-	                template: __webpack_require__(167)()
+	                template: __webpack_require__(285)()
 	            }
 	        }
 	    });
@@ -42,12 +42,12 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 90:
+/***/ 203:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var action_model_1 = __webpack_require__(4);
-	var interface_model_1 = __webpack_require__(21);
+	var action_model_1 = __webpack_require__(5);
+	var interface_model_1 = __webpack_require__(22);
 	function LoginSchemaValue() {
 	    var actionModel = {
 	        key: "login",
@@ -92,7 +92,7 @@ webpackJsonp([3],{
 	        interfaces: [{
 	                key: "loginAction",
 	                method: interface_model_1.MethodType.POST,
-	                address: "",
+	                host: "",
 	                port: null,
 	                path: "/passport/login",
 	                isRestful: false
@@ -114,7 +114,7 @@ webpackJsonp([3],{
 	        interfaces: [{
 	                key: "logoutAction",
 	                method: interface_model_1.MethodType.POST,
-	                address: "",
+	                host: "",
 	                port: null,
 	                path: "/passport/logout",
 	                isRestful: false
@@ -133,10 +133,10 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 165:
+/***/ 283:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/pages/passport/tpls/index.template.jade" ) ];
@@ -166,10 +166,10 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 166:
+/***/ 284:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/pages/passport/tpls/login.template.jade" ) ];
@@ -299,10 +299,10 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 167:
+/***/ 285:
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(1);
+	var jade = __webpack_require__(2);
 	
 	module.exports = function template(locals) {
 	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/pages/passport/tpls/register.template.jade" ) ];
@@ -329,7 +329,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 223:
+/***/ 348:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -352,7 +352,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 224:
+/***/ 349:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -363,7 +363,7 @@ webpackJsonp([3],{
 	        this.fxAction = fxAction;
 	        this.materialUtils = materialUtils;
 	        this.key = "login";
-	        this.formData = { username: "nick", password: "nick" };
+	        this.formData = { username: "xiao.feng695", password: "871225feng-" };
 	    }
 	    LoginController.prototype.doSubmit = function ($form) {
 	        var _this = this;
@@ -383,7 +383,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 225:
+/***/ 350:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -401,17 +401,17 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 226:
+/***/ 351:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var ngMaterial = __webpack_require__(6);
-	var router_1 = __webpack_require__(89);
-	var material_service_1 = __webpack_require__(15);
-	var rest_service_1 = __webpack_require__(19);
-	var action_1 = __webpack_require__(14);
-	var login_value_1 = __webpack_require__(90);
-	__webpack_require__(22);
+	var ngMaterial = __webpack_require__(7);
+	var router_1 = __webpack_require__(202);
+	var material_service_1 = __webpack_require__(16);
+	var rest_service_1 = __webpack_require__(20);
+	var action_1 = __webpack_require__(15);
+	var login_value_1 = __webpack_require__(203);
+	__webpack_require__(24);
 	var module = angular.module("passportModule", [ngMaterial, 'ui.router', material_service_1.default, rest_service_1.default, action_1.default, 'restangular']);
 	module.config([
 	    "$stateProvider",
@@ -437,5 +437,5 @@ webpackJsonp([3],{
 
 /***/ }
 
-},[226]);
+},[351]);
 //# sourceMappingURL=passport.bundle.js.map

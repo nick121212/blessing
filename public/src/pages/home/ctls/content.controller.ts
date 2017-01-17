@@ -13,6 +13,9 @@ export class ContentController {
     standardItems: any;
     gridsterOpts: any;
 
+    departs: any;
+    treeOptions: any;
+
     constructor(private $rootScope, private $timeout, private materialUtils, private svgUtils, private fxAction, private iconInfoDetailForm) {
         this.icons.length = 0;
 
@@ -43,10 +46,72 @@ export class ContentController {
                 } // optional callback fired when item is finished dragging
             }
         };
+
+        this.getDetatInfo();
     }
 
     doOpenIconInfo($event, iconInfo: string) {
         this.fxAction.doActionModel($event, this.iconInfoDetailForm, { key: iconInfo });
+    }
+
+    getDetatInfo() {
+        let promise = this.fxAction.doAction('departTreeAction', null);
+
+        promise && promise.then((results) => {
+            let nodes: Array<any> = [];
+
+            _.forEach(results, (result) => {
+                if (_.isArray(result)) {
+                    nodes = nodes.concat(result);
+                }
+            });
+
+            let nodesGroupByDepth = _.groupBy(_.keyBy(nodes, "key"), "depth");
+            let depth = 0, root = {};
+
+            while (true) {
+                let nodesIsDepth = nodesGroupByDepth[depth];
+                let parentIsDepth = nodesGroupByDepth[depth - 1];
+
+                if (nodesIsDepth && nodesIsDepth.length > 0) {
+                    switch (depth) {
+                        case 0:
+                            root = nodesIsDepth[0];
+                            break;
+                        case 1:
+                            root['nodes'] = nodesIsDepth;
+                            break;
+                        default:
+                            _.forEach(parentIsDepth, (parentNode) => {
+                                parentNode["nodes"] = _.filter(nodesIsDepth, (node) => {
+                                    return node.lft > parentNode.lft && parentNode.rgt > node.rgt;
+                                });
+                            });
+                            break;
+                    }
+                } else {
+                    break;
+                }
+                depth++;
+            }
+            this.departs = root["nodes"];
+        });
+
+        this.treeOptions = {
+            nodeChildren: "nodes",
+            dirSelectable: false,
+            templateUrl: 'treeControlExternalTemplate.html',
+            injectClasses: {
+                ul: "a1",
+                li: "a2",
+                liSelected: "a7",
+                iExpanded: "a3",
+                iCollapsed: "a4",
+                iLeaf: "a5",
+                label: "a6",
+                labelSelected: "a8"
+            }
+        };
     }
 }
 

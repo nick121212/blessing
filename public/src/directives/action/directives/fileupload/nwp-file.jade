@@ -1,0 +1,41 @@
+md-card(class="schema-form-file-upload {{form.htmlClass}}",sf-field,md-is-error="ngModel.$error && ngModel.$invalid && ngModel.$dirty")
+    md-card-title
+        md-card-header-text(layout="row",flex)
+            span.md-title(flex) {{::form.title}}
+    md-card-content(flex)
+        ng-form(flex,layout="column")
+            div(layout="row",ng-model="$$value$$",sf-field-model,ng-schema-file,name="{{::form.key|sfCamelKey}}")
+                div.drop-box(flex,
+                    ngf-drop="selectFiles($files)",
+                    ngf-select="selectFiles($files)",
+                    type="file" ,
+                    ngf-multiple="true"
+                    ng-model="picFiles",
+                    ngf-max-files="form.fuOptions.maxFiles",
+                    ngf-pattern="form.fuOptions.pattern",
+                    ngf-accept="form.fuOptions.accept",
+                    ngf-capture="form.fuOptions.capture"
+                )
+                    span Click Me OR Drop file into here
+            md-button(flex,ngf-select="selectFiles($files)",ngf-multiple="true",ngf-pattern="form.fuOptions.pattern",ngf-accept="form.fuOptions.accept",ngf-max-files="form.fuOptions.maxFiles")
+                md-icon
+                    ng-md-icon(icon="add")
+                
+            md-list(flex)
+                md-subheader.md-no-sticky(ng-repeat-start="file in picFiles") {{file.name}}
+                md-list-item.md-3-line(ng-repeat-end)
+                    div.md-list-item-text(layout="row",layout-align="center center")
+                        ng-md-icon(icon="close",ng-if="file.errorMsg && !file.isBusy")
+                        ng-md-icon(icon="done_all",ng-if="!file.errorMsg && !file.isBusy")
+
+                        h3(flex) {{ file.result.staticUrl }}
+                        h3(flex) {{ file.type }}
+                        h4(flex) {{ file.size }}
+                        h5 {{ file.lastModifiedDate | date:'yyyy/mm/dd hh:MM:ss'}}
+                        md-progress-circular.md-accent(ng-if="file.isBusy",md-diameter="20",md-mode="determinate",value="{{file.progress}}") {{file.progress}}
+    md-card-actions(layout="column",layout-align="start start")
+        md-input-container(md-is-error="ngModel.$invalid && ngModel.$dirty",style="margin-top:0;margin-bottom:0;")
+            div(ng-messages="ngModel.$error",class="no-errors",aria-live="assertive",style="margin-top:-45px;margin-bottom: 24px;")
+            md-contact-ships.ng-hide(ng-model="$$value$$",sf-field-model,sf-changed="form",schema-validate="form",name="{{::form.key|sfCamelKey}}")
+            div(sf-message,ng-message,ng-class="{'fx-invalid':ngModel.$invalid && ngModel.$dirty}")
+            div.hint.md-char-counter(ng-if="form.showHints",ng-bind="form.description")

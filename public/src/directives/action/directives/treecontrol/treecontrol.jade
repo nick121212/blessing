@@ -1,0 +1,10 @@
+md-input-container(class="schema-form-treecontrol {{form.htmlClass}}",md-no-float="true",sf-field,md-is-error="ngModel.$error && ngModel.$invalid && ngModel.$dirty")
+    div(layout="row")
+        input(ng-model="tcBoost.item[form.tcOptions.textField]",ng-readonly="true",placeholder="{{form.title || form.placeholder}}" ,ng-class="::form.fieldHtmlClass")
+        span.nd-hide(ng-model="$$value$$",ng-readonly="true",fx-tree-control-boost,sf-field-model, fx-changed="form"  ,ng-disabled="::form.readonly" ,schema-validate="form" ,name="{{::form.key|sfCamelKey}}")
+        md-button.md-icon-button(ng-click="tcBoost.showTree($event)",flex-order="2")
+            md-icon
+                ng-md-icon(icon="expand_more")
+    div(ng-messages="ngModel.$error",aria-live="assertive")
+        div(sf-message ng-message)
+    div.hint.md-char-counter(ng-if="form.showHints" ng-bind="form.description")
