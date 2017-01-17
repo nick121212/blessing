@@ -4,7 +4,7 @@ import * as pointer from 'json-pointer';
 import * as _ from 'lodash';
 
 class Controller {
-    static $inject = ["$rootScope", "$scope", "$q", "$timeout", "fxAction", "toolbarUtils", "materialUtils"];
+    static $inject = ["$rootScope", "$scope", "$q", "$timeout", "$mdMedia", "fxAction", "toolbarUtils", "materialUtils"];
 
     key: string;
     mdLimitOptions: Array<number> = [1, 10, 30, 50, 100, 300];
@@ -40,7 +40,7 @@ class Controller {
      * @param toolbarUtils
      * @param materialUtils
      */
-    constructor(private $rootScope: angular.IRootScopeService, private $scope: angular.IScope, private $q, private $timeout, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic) {
+    constructor(private $rootScope: angular.IRootScopeService, private $scope: angular.IScope, private $q, private $timeout, private $mdMedia, private fxAction, private toolbarUtils, private materialUtils: fx.utils.materialStatic) {
         !this.clientData && (this.clientData = {});
         !this.selected && (this.selected = []);
 
@@ -156,6 +156,7 @@ class Controller {
                     this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder(actionModel.title, "md-icon-button", false).tooltipBuilder("").iconBuilder(actionModel.icon, {}).btnClick(($event, item: any) => {
                         this.doClickActionMenu($event, actionModel, this.queryData);
                     }).toValue());
+
                     menuTool.items.push(this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").tooltipBuilder("").iconBuilder(actionModel.icon, {}).btnClick(($event, item: any) => {
                         this.doClickActionMenu($event, actionModel, this.queryData);
                     }).toValue());

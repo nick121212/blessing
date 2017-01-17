@@ -2,8 +2,8 @@ md-content(layout="row",flex,style="overflow:hidden;")
     md-content(layout="column",flex)
         //头部toolbar
         md-toolbar.md-table-toolbar.md-hue-3(ng-if="listCtl.actionModel.list.toolbars.length")
-            div.md-toolbar-tools(ng-if="$mdMedia('gt-md')",fx-toolbar,layout="row",items="listCtl.actionModel.list.toolbars",ctls="listCtl",ng-disabled="listCtl.isBusy")
-            div.md-toolbar-tools(ng-if="!$mdMedia('gt-md')",fx-toolbar,layout="row",items="listCtl.topMenuToolbars",ctls="listCtl",ng-disabled="listCtl.isBusy")
+            div.md-toolbar-tools(ng-if="listCtl.$mdMedia('gt-sm')",fx-toolbar,layout="row",items="listCtl.actionModel.list.toolbars",ctls="listCtl",ng-disabled="listCtl.isBusy")
+            div.md-toolbar-tools(ng-if="!listCtl.$mdMedia('gt-sm')",fx-toolbar,layout="row",items="listCtl.topMenuToolbars",ctls="listCtl",ng-disabled="listCtl.isBusy")
         md-divider(ng-if="listCtl.actionModel.list.toolbars.length")
         //表格主题
         md-table-container(flex)
