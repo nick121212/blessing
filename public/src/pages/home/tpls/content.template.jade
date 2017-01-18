@@ -1,19 +1,19 @@
 md-content(flex)
-    treecontrol.tree-classic(tree-model="contentCtl.departs",options="contentCtl.treeOptions")
-        span {{node.title}}
+//-     treecontrol.tree-classic(tree-model="contentCtl.departs",options="contentCtl.treeOptions")
+//-         span {{node.title}}
 
-script(type="text/ng-template",id="treeControlExternalTemplate1.html")
-    ul({{options.ulClass}})
-        li(ng-repeat="node in node.{{options.nodeChildren}} | filter:filterExpression:filterComparator {{options.orderBy}}",
-            ng-class="headClass(node)",
-            {{options.liClass}},
-            set-node-to-data
-        )
-            div(layout="row")
-                div.tree-label(ng-class="[selectedClass(), unselectableClass()]", ng-click="selectNodeLabel(node)",tree-transclude,flex)
-                md-icon(ng-if="!this.options.isLeaf(node,this)")
-                    ng-md-icon(icon="expand_more")
-            treeitem(ng-show="nodeExpanded()")
+//- script(type="text/ng-template",id="treeControlExternalTemplate1.html")
+//-     ul({{options.ulClass}})
+//-         li(ng-repeat="node in node.{{options.nodeChildren}} | filter:filterExpression:filterComparator {{options.orderBy}}",
+//-             ng-class="headClass(node)",
+//-             {{options.liClass}},
+//-             set-node-to-data
+//-         )
+//-             div(layout="row")
+//-                 div.tree-label(ng-class="[selectedClass(), unselectableClass()]", ng-click="selectNodeLabel(node)",tree-transclude,flex)
+//-                 md-icon(ng-if="!this.options.isLeaf(node,this)")
+//-                     ng-md-icon(icon="expand_more")
+//-             treeitem(ng-show="nodeExpanded()")
     
     //- md-content(gridster="contentCtl.gridsterOpts")
     //-     ul(flex)
