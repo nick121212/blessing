@@ -40,12 +40,12 @@ webpackJsonp([5],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	__webpack_require__(304);
+	__webpack_require__(305);
 	var _name = "fxLoading";
 	function Directive() {
 	    return {
 	        restrict: 'EA',
-	        template: __webpack_require__(264)(),
+	        template: __webpack_require__(265)(),
 	        scope: {},
 	        replace: false,
 	        link: function ($scope) {
@@ -438,7 +438,7 @@ webpackJsonp([5],{
 
 /***/ },
 
-/***/ 264:
+/***/ 265:
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(2);
@@ -477,7 +477,7 @@ webpackJsonp([5],{
 
 /***/ },
 
-/***/ 304:
+/***/ 305:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -504,7 +504,7 @@ webpackJsonp([5],{
 
 /***/ },
 
-/***/ 341:
+/***/ 343:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {"use strict";
@@ -525,5 +525,5 @@ webpackJsonp([5],{
 
 /***/ }
 
-},[341]);
+},[343]);
 //# sourceMappingURL=index.bundle.js.map
