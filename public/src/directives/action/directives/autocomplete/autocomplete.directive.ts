@@ -7,7 +7,7 @@ const _name = "fxAutocompleteBoost";
 const _name1 = "fxSuggestBoost";
 
 class Builder {
-    searchText: string;
+    searchText: string = "";
     selected: any;
     isBusy: boolean = false;
 

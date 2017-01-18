@@ -41,7 +41,7 @@ class Provider {
                 pointer.set(item, val, pointer.get(scope.model, key));
         });
 
-        pointer.set(item, scope.form.fxOptions.keyField, ctrl.$modelValue);
+        ctrl.$modelValue && pointer.set(item, scope.form.fxOptions.keyField, ctrl.$modelValue || "");
         pointer.set(scope, options.item, item);
 
         console.log(item);
