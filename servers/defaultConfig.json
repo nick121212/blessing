@@ -1,7 +1,7 @@
 {
     "site": {
         "PORT": 3000,
-        "exportUrl": "http://172.16.140.164/excel/api/download",
+        "exportUrl": "http://172.16.140.164/excel/api/query",
         "events": "http://127.0.0.1:3000/events"
     },
     "redis": {
