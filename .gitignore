@@ -5,3 +5,4 @@ servers/uploads/*
 !servers/built/*
 typings/*
 public/npm-debug.log
+servers/npm-debug.log

@@ -4,12 +4,12 @@ import removeItem from './removeItem';
 import updateItem from './updateItem';
 import list from './list';
 import auth from '../../auth';
-// import exportExcel from "./export";
+import exportExcel from "./export";
 import suggest from "./suggest";
 
 export const routers = {
     'GET /': [auth.passport, auth.permission, list],
-    // 'GET /manual/export': [auth.passport, auth.permission, exportExcel],
+    'GET /manual/export': [auth.passport, auth.permission, exportExcel],
     'GET /manual/suggest': [auth.passport, auth.permission, suggest],
     'GET /:key/:type': [auth.passport, auth.permission, getItem],
     'POST /': [auth.passport, auth.permission, createItem],
