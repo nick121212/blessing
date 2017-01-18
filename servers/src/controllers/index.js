@@ -162,6 +162,12 @@ export class ElasticUtils extends CommonUtils {
 
         !filter.where && (filter.where = {});
         !filter.suggest && (filter.suggest = {});
+
+        if (filter.where.hasOwnProperty('_type')) {
+            filter._type = filter.where['_type'];
+            delete filter.where['_type'];
+        }
+
         // 处理搜索条件
         _.each(jsonPointer.dict(filter.where), (d, key) => {
             let path = jsonPointer.parse(key.replace(/\d/i, '-'));
@@ -176,7 +182,10 @@ export class ElasticUtils extends CommonUtils {
 
         filter.sort = sort;
         filter.esQuery = {};
-        !_.isEmpty(esQuery) && (filter.esQuery = { query: esQuery });
+
+        if (!_.isEmpty(esQuery)) {
+            filter.esQuery = { query: esQuery };
+        }
 
         return filter;
     }
@@ -201,6 +210,7 @@ export class ElasticUtils extends CommonUtils {
             size: filter.limit,
             body: filter.esQuery,
             sort: filter.sort,
+            type: filter._type || null,
             searchType: 'dfs_query_then_fetch',
             timeout: '10s'
         });

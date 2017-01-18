@@ -1,0 +1,8 @@
+md-content.schema-form-checkboxes(sf-field-model="sf-new-array",sf-new-array,ng-class="form.htmlClass",fx-checkboxes-boost)
+    div.md-subhead {{::form.title}}
+    md-checkbox(ng-checked="cbsBoost.exists(item, modelArray)",ng-click="cbsBoost.toggle(item, modelArray)",ng-repeat="item in form.titleMap track by $index")
+        span {{ item.name }}
+    div(ng-messages="ngModel.$error",class="no-errors",aria-live="assertive")
+        md-contact-ships.ng-hide(ng-model="$$value$$",sf-field-model,sf-changed="form",schema-validate="form",name="{{::form.key|sfCamelKey}}")
+        div(sf-message,ng-message,ng-class="{'fx-invalid':ngModel.$invalid && ngModel.$dirty}")
+    div.hint.md-char-counter(ng-if="form.showHints",ng-bind="form.description")

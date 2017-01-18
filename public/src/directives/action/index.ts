@@ -11,6 +11,8 @@ import './directives/form/form.directive';
 import './directives/form/list.directive';
 
 import './directives/autocomplete/autocomplete.directive';
+import './directives/checkboxes/checkboxes.directive';
+
 // import './directives/autocomplete/autocomplete.provider';
 
 import './directives/treecontrol/treecontrol.directive';

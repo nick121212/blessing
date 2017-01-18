@@ -296,6 +296,12 @@ var ElasticUtils = function (_CommonUtils2) {
 
             !filter.where && (filter.where = {});
             !filter.suggest && (filter.suggest = {});
+
+            if (filter.where.hasOwnProperty('_type')) {
+                filter._type = filter.where['_type'];
+                delete filter.where['_type'];
+            }
+
             // 处理搜索条件
             _lodash2.default.each(jsonPointer.dict(filter.where), function (d, key) {
                 var path = jsonPointer.parse(key.replace(/\d/i, '-'));
@@ -310,7 +316,10 @@ var ElasticUtils = function (_CommonUtils2) {
 
             filter.sort = sort;
             filter.esQuery = {};
-            !_lodash2.default.isEmpty(esQuery) && (filter.esQuery = { query: esQuery });
+
+            if (!_lodash2.default.isEmpty(esQuery)) {
+                filter.esQuery = { query: esQuery };
+            }
 
             return filter;
         }
@@ -345,6 +354,7 @@ var ElasticUtils = function (_CommonUtils2) {
                                     size: filter.limit,
                                     body: filter.esQuery,
                                     sort: filter.sort,
+                                    type: filter._type || null,
                                     searchType: 'dfs_query_then_fetch',
                                     timeout: '10s'
                                 });

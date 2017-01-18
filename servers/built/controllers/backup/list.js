@@ -33,25 +33,22 @@ exports.default = function () {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
-
-                            console.log(_path2.default.resolve(_config2.default.db.backup));
-
                             if (_fs2.default.existsSync(_config2.default.db.backup)) {
-                                _context.next = 3;
+                                _context.next = 2;
                                 break;
                             }
 
                             return _context.abrupt('return', ctx.body = []);
 
-                        case 3:
-                            _context.next = 5;
+                        case 2:
+                            _context.next = 4;
                             return _fs2.default.readdirSync(_config2.default.db.backup);
 
-                        case 5:
+                        case 4:
                             ctx.body = _context.sent;
                             ;
 
-                        case 7:
+                        case 6:
                         case 'end':
                             return _context.stop();
                     }

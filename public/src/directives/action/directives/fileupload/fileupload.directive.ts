@@ -74,8 +74,8 @@ module.directive('ngSchemaFile', ['Upload', '$timeout', '$q', 'fxAction', functi
         require: 'ngModel',
         link: (scope: Scope, element, attrs, ngModel: any) => {
             fxAction.getModel(scope.form.fuOptions.actionKey).then((actionModel) => {
-                _.forEach(fxAction.getActionModelInterfacesInfo(actionModel, {}),(info)=>{
-                    scope.url = info.restAngular["getRequestedUrl"]();
+                _.forEach(fxAction.getActionModelInterfacesInfo(actionModel, {}), (info) => {
+                    scope.url = info.restAngular.get;
                 });
             });
             scope.isSinglefileUpload = false;
