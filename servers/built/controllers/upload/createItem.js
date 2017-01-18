@@ -35,7 +35,7 @@ var _lodash2 = _interopRequireDefault(_lodash);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-    var ip = ip.address();
+    var localIp = _ip2.default.address();
 
     return function () {
         var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(ctx, next) {
@@ -43,7 +43,7 @@ exports.default = function () {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
-                            ctx.req.file && (ctx.req.file.staticUrl = "http://" + ip + ":3000/uploads/" + ctx.req.file.filename);
+                            ctx.req.file && (ctx.req.file.staticUrl = "http://" + localIp + ":3000/uploads/" + ctx.req.file.filename);
 
                             ctx.body = ctx.req.file;
 

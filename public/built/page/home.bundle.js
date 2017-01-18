@@ -5396,7 +5396,7 @@ webpackJsonp([2],{
 	            "content@home": {
 	                controller: content_controller_1.ContentController,
 	                controllerAs: "contentCtl",
-	                template: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./tpls/content.template.jade\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))(),
+	                template: __webpack_require__(276)(),
 	            }
 	        }
 	    });
@@ -7380,6 +7380,42 @@ webpackJsonp([2],{
 	jade_debug.shift();;return buf.join("");
 	} catch (err) {
 	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-menu-bar(md-offset=\"2 0\",ng-class=\"menuBarCtl.className\")\n    div(fx-toolbar,items=\"menuBarCtl.items\")");
+	}
+	}
+
+/***/ },
+
+/***/ 276:
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(2);
+	
+	module.exports = function template(locals) {
+	var jade_debug = [ new jade.DebugItem( 1, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ) ];
+	try {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+	
+	jade_debug.unshift(new jade.DebugItem( 0, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	jade_debug.unshift(new jade.DebugItem( 1, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<md-content flex>");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 2, "/srv/blessing/public/src/pages/home/tpls/content.template.jade" ));
+	buf.push("<span>");
+	jade_debug.unshift(new jade.DebugItem( undefined, jade_debug[0].filename ));
+	jade_debug.unshift(new jade.DebugItem( 2, jade_debug[0].filename ));
+	buf.push("helo");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</span>");
+	jade_debug.shift();
+	jade_debug.shift();
+	buf.push("</md-content>");
+	jade_debug.shift();
+	jade_debug.shift();;return buf.join("");
+	} catch (err) {
+	  jade.rethrow(err, jade_debug[0].filename, jade_debug[0].lineno, "md-content(flex)\n    span helo");
 	}
 	}
 
