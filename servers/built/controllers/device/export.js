@@ -49,7 +49,7 @@ exports.default = function () {
                             filter = _3.default.elastic.getEsQuery(ctx.query);
 
 
-                            ctx.redirect(_config2.default.site.exportUrl + "?where=" + decodeURIComponent((0, _stringify2.default)(filter.esQuery)));
+                            ctx.redirect(_config2.default.site.exportUrl + "?where=" + decodeURIComponent((0, _stringify2.default)(filter)));
 
                         case 2:
                         case 'end':
