@@ -4,17 +4,20 @@ import utils from '../';
 import os from "os";
 
 export default () => {
-    let IPv4;
+    let ips = {};
 
-    for (var i = 0; i < os.networkInterfaces().en0.length; i++) {
-        if (os.networkInterfaces().en0[i].family == 'IPv4') {
-            IPv4 = os.networkInterfaces().en0[i].address;
-        }
-    }
+    _.forEach(os.networkInterfaces(), (network) => {
+        _.each(network, (ipInfo) => {
+            !ips[ipInfo.family] && (ips[ipInfo.family] = []);
+            ipInfo.address != "127.0.0.1" && ips[ipInfo.family].push(ipInfo.address);
+        });
+    });
+
+    console.log(ips);
 
     return async(ctx, next) => {
 
-        ctx.req.file && (ctx.req.file.staticUrl = "http://" + IPv4 + ":3000/uploads/" + ctx.req.file.filename);
+        ctx.req.file && (ctx.req.file.staticUrl = "http://" + ips + ":3000/uploads/" + ctx.req.file.filename);
 
         ctx.body = ctx.req.file;
     };

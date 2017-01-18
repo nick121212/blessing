@@ -20,9 +20,9 @@ var _db = require('../../utils/db');
 
 var _db2 = _interopRequireDefault(_db);
 
-var _ = require('../');
+var _2 = require('../');
 
-var _2 = _interopRequireDefault(_);
+var _3 = _interopRequireDefault(_2);
 
 var _os = require('os');
 
@@ -31,13 +31,16 @@ var _os2 = _interopRequireDefault(_os);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-    var IPv4 = void 0;
+    var ips = {};
 
-    for (var i = 0; i < _os2.default.networkInterfaces().en0.length; i++) {
-        if (_os2.default.networkInterfaces().en0[i].family == 'IPv4') {
-            IPv4 = _os2.default.networkInterfaces().en0[i].address;
-        }
-    }
+    _.forEach(_os2.default.networkInterfaces(), function (network) {
+        _.each(network, function (ipInfo) {
+            !ips[ipInfo.family] && (ips[ipInfo.family] = []);
+            ipInfo.address != "127.0.0.1" && ips[ipInfo.family].push(ipInfo.address);
+        });
+    });
+
+    console.log(ips);
 
     return function () {
         var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(ctx, next) {
@@ -46,7 +49,7 @@ exports.default = function () {
                     switch (_context.prev = _context.next) {
                         case 0:
 
-                            ctx.req.file && (ctx.req.file.staticUrl = "http://" + IPv4 + ":3000/uploads/" + ctx.req.file.filename);
+                            ctx.req.file && (ctx.req.file.staticUrl = "http://" + ips + ":3000/uploads/" + ctx.req.file.filename);
 
                             ctx.body = ctx.req.file;
 
