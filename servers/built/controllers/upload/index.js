@@ -25,7 +25,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var storage = _koaMulter2.default.diskStorage({
     destination: function destination(req, file, cb) {
-        cb(null, __dirname + '/../../uploads/');
+        cb(null, _path2.default.resolve('./uploads'));
     },
     filename: function filename(req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + _path2.default.extname(file.originalname));

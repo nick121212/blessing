@@ -24,9 +24,9 @@ var _2 = require('../');
 
 var _3 = _interopRequireDefault(_2);
 
-var _os = require('os');
+var _ip = require('ip');
 
-var _os2 = _interopRequireDefault(_os);
+var _ip2 = _interopRequireDefault(_ip);
 
 var _lodash = require('lodash');
 
@@ -35,14 +35,7 @@ var _lodash2 = _interopRequireDefault(_lodash);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-    var ips = {};
-
-    _lodash2.default.forEach(_os2.default.networkInterfaces(), function (network) {
-        _lodash2.default.each(network, function (ipInfo) {
-            !ips[ipInfo.family] && (ips[ipInfo.family] = []);
-            ipInfo.address != "127.0.0.1" && ips[ipInfo.family].push(ipInfo.address);
-        });
-    });
+    var ip = ip.address();
 
     return function () {
         var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(ctx, next) {
@@ -50,7 +43,7 @@ exports.default = function () {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
-                            ctx.req.file && (ctx.req.file.staticUrl = "http://" + ips["IPv4"][0] + ":3000/uploads/" + ctx.req.file.filename);
+                            ctx.req.file && (ctx.req.file.staticUrl = "http://" + ip + ":3000/uploads/" + ctx.req.file.filename);
 
                             ctx.body = ctx.req.file;
 

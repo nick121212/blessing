@@ -5,7 +5,7 @@ import path from "path";
 
 let storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, __dirname + '/../../uploads/');
+        cb(null, path.resolve('./uploads'));
     },
     filename: function(req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));

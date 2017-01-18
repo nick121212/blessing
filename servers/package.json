@@ -33,6 +33,7 @@
     "elasticsearch": "^12.1.0",
     "eureca.io": "^0.6.42",
     "ioredis": "^2.2.0",
+    "ip": "^1.1.4",
     "json-pointer": "^0.6.0",
     "koa": "^2.0.0-alpha.7",
     "koa-better-body": "^3.0.2",
