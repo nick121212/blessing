@@ -13,7 +13,7 @@ md-content(layout="row",flex,style="overflow:hidden;")
                         th(md-column,md-numeric="column.numeric",md-order-by="{{column.sort}}",ng-repeat="column in listCtl.actionModel.list.columns" ) {{column.title}}
                         th(md-column,md-numeric,ng-if="listCtl.item.toolbar.length")
                 tbody(md-body)
-                    tr(md-row,md-select="row",md-auto-select="listCtl.autoSelect",md-select-id="{{listCtl.actionModel.list.selectId||0}}",ng-repeat="row in listCtl.clientData.rows | skip: listCtl.queryData.offset:listCtl.isLocal | limitTo: listCtl.queryData.limit | orderBy: listCtl.orderFunc ")
+                    tr.nga-default.nga-stagger.nga-slide-right(md-row,md-select="row",md-auto-select="listCtl.autoSelect",md-select-id="{{listCtl.actionModel.list.selectId||0}}",ng-repeat="row in listCtl.clientData.rows | skip: listCtl.queryData.offset:listCtl.isLocal | limitTo: listCtl.queryData.limit | orderBy: listCtl.orderFunc ")
                         td(md-cell,ng-repeat="column in listCtl.actionModel.list.columns")
                             section(dy-compile,item="row",html="{{column.content}}") {{column.content}}
                         td(md-cell,layout="row")

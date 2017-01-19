@@ -14,7 +14,7 @@ export class HomeController {
             toolbarUtils.labelBuilder("").attrBuilder({ flex: "" }).toValue(),
             toolbarUtils.noneBuilder("icon").className("md-margin").iconBuilder("people", {}, null, null, "24px").toValue(),
             toolbarUtils.labelBuilder("{{$root.user.username}}", "md-subhead").attrBuilder({}).toValue(),
-            toolbarUtils.menuBarBuilder().className("md-no-padding").tooltipBuilder("").items([
+            toolbarUtils.menuBarBuilder().className("md-no-padding").removeTooltip().items([
                 toolbarUtils.menuBuilder("", "md-icon-button").attrBuilder({ "md-position-mode": "left bottom" }).iconBuilder("expand_more").menuOptionsBuilder().items([
                     // toolbarUtils.menuItemBuilder("系统设置", "", true).iconBuilder("settings").btnClick(($event) => {
                     // }).toValue(),

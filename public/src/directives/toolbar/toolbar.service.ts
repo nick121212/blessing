@@ -17,7 +17,7 @@ class Service {
                     conditionInfo: {
                         condition: condition,
                         prefix: prefix,
-                        useDisabled:useDisabled
+                        useDisabled: useDisabled
                     }
                 });
 
@@ -46,6 +46,12 @@ class Service {
                         position: position
                     }
                 });
+
+                return this;
+            }
+
+            removeTooltip() {
+                this.data.tooltip = null;
 
                 return this;
             }

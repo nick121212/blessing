@@ -137,7 +137,7 @@ class Controller {
      * 初始化顶部toolbar
      */
     initToolbar() {
-        const menuTool: any = this.toolbarUtils.menuBuilder("", "md-icon-button").tooltipBuilder("").iconBuilder("dots-vertical").menuOptionsBuilder().toValue();
+        const menuTool: any = this.toolbarUtils.menuBuilder("", "md-icon-button", null).removeTooltip().iconBuilder("dots-vertical").menuOptionsBuilder().toValue();
         this.actionModel.list.toolbars = [];
         // this.topMenuToolbars = [];
         // 获取操作按钮
@@ -153,11 +153,11 @@ class Controller {
                 let actionModel = actionModels[action];
 
                 if (actionModel && actionModel.type !== ActionType.list) {
-                    this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder(actionModel.title, "md-icon-button", false).tooltipBuilder("").iconBuilder(actionModel.icon, {}).btnClick(($event, item: any) => {
+                    this.actionModel.list.toolbars.push(this.toolbarUtils.btnBuilder(actionModel.title, "md-icon-button", false).iconBuilder(actionModel.icon, {}).btnClick(($event, item: any) => {
                         this.doClickActionMenu($event, actionModel, this.queryData);
                     }).toValue());
 
-                    menuTool.items.push(this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).tooltipBuilder("").tooltipBuilder("").iconBuilder(actionModel.icon, {}).btnClick(($event, item: any) => {
+                    menuTool.items.push(this.toolbarUtils.menuItemBuilder(actionModel.title, null, true).removeTooltip().iconBuilder(actionModel.icon, {}).btnClick(($event, item: any) => {
                         this.doClickActionMenu($event, actionModel, this.queryData);
                     }).toValue());
                 }
@@ -169,7 +169,7 @@ class Controller {
                     this.doSearch(this.queryData.where || {});
                 }).toValue());
 
-                menuTool.items.push(this.toolbarUtils.menuItemBuilder("刷新", null, true).tooltipBuilder("").iconBuilder("refresh", {}).btnClick(($event) => {
+                menuTool.items.push(this.toolbarUtils.menuItemBuilder("刷新", null, true).removeTooltip("").iconBuilder("refresh", {}).btnClick(($event) => {
                     this.doSearch(this.queryData.where || {});
                 }).toValue());
             }
@@ -179,7 +179,7 @@ class Controller {
                     this.actionModel.list.showSearchPanel = !this.actionModel.list.showSearchPanel;
                 }).toValue());
 
-                menuTool.items.push(this.toolbarUtils.menuItemBuilder("{{listCtl.actionModel.list.showSearchPanel?'关闭搜索栏':'打开搜索栏'}}", null, true).tooltipBuilder("").iconBuilder("{{listCtl.actionModel.list.showSearchPanel?'window-open':'window-closed'}}", {}).btnClick(($event) => {
+                menuTool.items.push(this.toolbarUtils.menuItemBuilder("{{listCtl.actionModel.list.showSearchPanel?'关闭搜索栏':'打开搜索栏'}}", null, true).removeTooltip("").iconBuilder("{{listCtl.actionModel.list.showSearchPanel?'window-open':'window-closed'}}", {}).btnClick(($event) => {
                     this.actionModel.list.showSearchPanel = !this.actionModel.list.showSearchPanel;
                 }).toValue());
             }
