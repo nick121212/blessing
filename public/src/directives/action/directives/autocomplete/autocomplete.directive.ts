@@ -11,7 +11,7 @@ class Builder {
     selected: any;
     isBusy: boolean = false;
 
-    constructor(private form, private fxAction, private formData) {
+    constructor(private $q: ng.IQService, private form, private fxAction, private formData) {
         if (this.form.acOptions.init) {
             this.init();
         }
@@ -37,23 +37,30 @@ class Builder {
         }
 
         if (this.form.acOptions.keyField) {
-            this.searchText = viewModel;
-            return this.query(true);
+            this.searchText = viewModel.toString();
+            return this.form.acOptions.init ? this.query(true) : null;
         }
         this.searchText = viewModel[this.form.acOptions.textField];
         this.onChange(viewModel);
     }
 
     getItemText(item) {
+        let defer = this.$q.defer();
+
         if (item) {
-            return item[this.form.acOptions.textField] || " ";
+            let text = item[this.form.acOptions.textField];
+            defer.resolve(text || "");
         }
-        return this.searchText;
+        defer.resolve(this.searchText);
+
+        return defer.promise;
     }
 
     onTextChange() {
+        if (_.isObject(this.searchText)) {
+            this.searchText = "";
+        }
         if (!this.searchText) {
-            // this.selected = null;
             if (this.form.acOptions.keyField) {
                 pointer.remove(this.formData, `/${this.form.key.join('/')}`);
             } else {
@@ -76,10 +83,13 @@ class Builder {
      */
     onChange(item) {
         let curValue;
-        // this.selected = item;
 
         if (!this.searchText) {
-            return this.form.acOptions.keyField ? {} : null;
+            return this.form.acOptions.keyField ? null : "";
+        }
+
+        if (!item) {
+            return null;
         }
 
         if (this.form.acOptions.keyField) {
@@ -89,7 +99,7 @@ class Builder {
                 return curValue;
             } else {
                 console.error(`autocomplete-1-没有在item中找到${this.form.acOptions.keyField}`);
-                return undefined;
+                return null;
             }
         }
 
@@ -149,9 +159,9 @@ class Builder {
 }
 
 class Controller {
-    static $inject = ["$scope", "fxAction"];
+    static $inject = ["$scope", "fxAction", "$q"];
 
-    constructor(private $scope, private fxAction) {
+    constructor(private $scope, private fxAction, private $q) {
         let formWithIndex = $scope.copyWithIndex ? $scope.copyWithIndex($scope.$index) : null;
         let form;
         const compare = (item) => {
@@ -168,7 +178,7 @@ class Controller {
         !form && formWithIndex && (form = _.first(_.filter(formWithIndex.items, compare)));
         form = form ? form : $scope.form;
 
-        $scope.acBoost = new Builder(form, fxAction, $scope.model);
+        $scope.acBoost = new Builder($q, form, fxAction, $scope.model);
 
         $scope.$watch(() => {
             return pointer.has($scope.model, `/${form.key.join('/')}`) ? pointer.get($scope.model, `/${form.key.join('/')}`) : null;
@@ -181,8 +191,12 @@ class Controller {
 
         let onChange = $scope.acBoost.onChange.bind($scope.acBoost);
         $scope.acBoost.onChange = (item) => {
-            $scope.ngModel.$setViewValue(onChange(item));
-            $scope.ngModel.$commitViewValue();
+            let val = onChange(item);
+
+            if (val) {
+                $scope.ngModel.$setViewValue(val);
+                $scope.ngModel.$commitViewValue();
+            }
         }
         $scope.options = $scope.form.ngModelOptions;
 

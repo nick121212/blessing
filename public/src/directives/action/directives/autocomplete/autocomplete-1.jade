@@ -1,8 +1,8 @@
 md-input-container(class="schema-form-autocomplete {{form.htmlClass}}",sf-field,md-is-error="ngModel.$error && ngModel.$invalid && ngModel.$dirty",ng-class="{'md-input-has-value':acBoost.searchText}")
-    md-autocomplete(
+    md-autocomplete.fx-autocomplete(
         ng-disabled="form.readonly",
         md-no-cache="form.acOptions.noCache",
-        md-autoselect="true",
+        md-autoselect="false",
         md-delay="form.acOptions.delay",
         md-select-on-match="true",
         md-selected-item="acBoost.selected",
