@@ -50,7 +50,20 @@
         "transport": "",
         "allow": ["setStatus", "status", "createFile", "applyAuth", "deleteFile"]
     },
-
+    "mail": {
+        "admin": "xiao.feng695@chinaredstar.com,yong.sun@chinaredstar.com",
+        "config": {
+            "pool": true,
+            "host": "mail.chinaredstar.com",
+            "port": 25,
+            "secure": false,
+            "ignoreTLS": true,
+            "auth": {
+                "user": "cmdb.mail",
+                "pass": "1qaz@WSX"
+            }
+        }
+    },
     "auth": {
         "gitlab": {
             "clientID": "577923791882942bcff2835657727102fa9c8c8cec71b4b203e0529a7fa39ff7",

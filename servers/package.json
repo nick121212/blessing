@@ -58,6 +58,7 @@
     "mysqldump": "^1.3.0",
     "node-gitlab": "^1.4.0",
     "node-uuid": "^1.4.7",
+    "nodemailer": "^2.7.0",
     "nspa": "^1.0.4",
     "passport-activedirectory": "^1.0.4",
     "passport-adauth": "^0.1.2",

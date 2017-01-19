@@ -9,11 +9,6 @@ export default (app) => {
         prefix: `/passport`
     });
 
-    process.on("unhandledRejection", function(reason, p) {
-        console.log("Unhandled Rejection at: Promise", reason);
-    });
-
-
     router.addRoute('GET /login', [async(ctx, next) => {
         ctx.logout();
         throw boom.unauthorized("用户未登陆或没有权限!");
@@ -25,10 +20,9 @@ export default (app) => {
                 throw boom.create(402, user);
             }
             if (!err) {
-                throw boom.create(402, "用户名或密码不真确！");
+                throw boom.create(402, "用户名或密码不正确！");
             }
             ctx.login(err);
-
             ctx.body = {};
         })(ctx);
     }, async(ctx, next) => {
@@ -47,12 +41,10 @@ export default (app) => {
                 throw boom.create(402, "用户名或密码不真确！");
             }
             ctx.login(err);
-            // ctx.body = {};
             ctx.redirect("/");
         })(ctx);
     }, async(ctx, next) => {
         ctx.redirect("/");
-        // await next();
     }]);
 
     router.addRoute('POST /logout', [async(ctx) => {

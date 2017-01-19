@@ -6,6 +6,7 @@ import db from './utils/db';
 import { router } from './routers';
 import docs from 'koa-docs';
 import spa from "./spa";
+import mail from "./utils/mail";
 
 const app = new Koa();
 
@@ -18,6 +19,7 @@ process.on('unhandledRejection', (reason, p) => {
 });
 
 async function init() {
+    await mail.init();
     // 加载中间件
     middleware.execute(config.middleware, app);
     // 加载sequelize，初始化models
