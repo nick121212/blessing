@@ -26,8 +26,14 @@ class Controller {
      */
     clearFilterData() {
         _.forEach(this.formData, (val, key) => {
-            delete this.formData[key];
+            if (_.isArray(val)) {
+                val.length = 0;
+            } else {
+                delete this.formData[key];
+            }
         });
+
+        this.doPreSearch(null, null);
     }
 
     /**
@@ -63,11 +69,6 @@ class Controller {
                     }
                 }
             });
-
-            // if (_.isObject(this.filter) && _.isObject(searchData["where"])) {
-            //     _.extend(searchData["where"], this.filter);
-            // }
-
             this.doSearch(searchData);
         }
     }

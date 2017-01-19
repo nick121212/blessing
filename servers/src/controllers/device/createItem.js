@@ -16,17 +16,10 @@ export default (Model, config) => {
             throw boom.badData(`固定资产编号不能为空`);
         }
 
-        // console.log("--------", curConfig.type, type, model.deviceType);
-
         utils.elastic.removeAttributes(model, curConfig.removeAttributes);
         utils.elastic.setSuggest(model, curConfig.suggest);
 
-        // model.model_suggest = {
-        //     input: [model.model]
-        // };
-        // model.brand_suggest = {
-        //     input: [model.brand]
-        // };
+        model.used = false;
 
         ctx.body = await client.create({
             index: "cmdb.device",

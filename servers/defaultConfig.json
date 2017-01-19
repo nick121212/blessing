@@ -51,7 +51,7 @@
         "allow": ["setStatus", "status", "createFile", "applyAuth", "deleteFile"]
     },
     "mail": {
-        "admin": "xiao.feng695@chinaredstar.com,yong.sun@chinaredstar.com",
+        "admin": "",
         "config": {
             "pool": true,
             "host": "mail.chinaredstar.com",
