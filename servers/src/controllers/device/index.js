@@ -40,7 +40,9 @@ export const config = {
             cpu_suggest: "cpu",
             disk_suggest: "disk",
             ram_suggest: "ram",
-            os_suggest: "os"
+            os_suggest: "os",
+            depart_suggest: "depart",
+            company_suggest: "company"
         }
     },
     list: {

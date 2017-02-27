@@ -93,6 +93,10 @@
                     "search_analyzer": "ik_max_word",
                     "payloads": false
                 },
+                "company": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
                 "lastUpdateUserId": {
                     "type": "string",
                     "index": "not_analyzed"
@@ -105,10 +109,6 @@
         },
         "computer": {
             "properties": {
-                "company": {
-                    "type": "string",
-                    "index": "not_analyzed"
-                },
                 "BU": {
                     "type": "string",
                     "index": "not_analyzed"
