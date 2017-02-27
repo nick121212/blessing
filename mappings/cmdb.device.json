@@ -12,21 +12,13 @@
             "_source": {
                 "enabled": true
             },
-            "dynamic": "strict",
-            "dynamic_templates": [{
-                "template_suggest": {
-                    "match": "*_suggest",
-                    "match_mapping_type": "completion",
-                    "mapping": {
-                        "type": "completion",
-                        "analyzer": "ik_max_word",
-                        "search_analyzer": "ik_max_word",
-                        "payloads": false
-                    }
-                }
-            }],
+
             "properties": {
                 "NO": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "SN": {
                     "type": "string",
                     "index": "analyzed"
                 },
@@ -43,7 +35,7 @@
                     "index": "analyzed"
                 },
                 "used": {
-                    "type": "boolean"
+                    "type": "long"
                 },
                 "content": {
                     "type": "string",
@@ -58,7 +50,17 @@
                     "index": "analyzed",
                     "format": "strict_date_optional_time||epoch_millis"
                 },
+                "updateAt": {
+                    "type": "date",
+                    "index": "analyzed",
+                    "format": "strict_date_optional_time||epoch_millis"
+                },
                 "entryAt": {
+                    "type": "date",
+                    "index": "analyzed",
+                    "format": "strict_date_optional_time||epoch_millis"
+                },
+                "usedAt": {
                     "type": "date",
                     "index": "analyzed",
                     "format": "strict_date_optional_time||epoch_millis"
@@ -71,7 +73,7 @@
                     "type": "string",
                     "index": "not_analyzed"
                 },
-                "user": {
+                "userId": {
                     "type": "string",
                     "index": "not_analyzed"
                 },
@@ -90,16 +92,27 @@
                     "analyzer": "ik_max_word",
                     "search_analyzer": "ik_max_word",
                     "payloads": false
+                },
+                "lastUpdateUserId": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "lastUpdateUserName": {
+                    "type": "string",
+                    "index": "not_analyzed"
                 }
             }
         },
         "computer": {
             "properties": {
+                "company": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
                 "BU": {
                     "type": "string",
                     "index": "not_analyzed"
                 },
-
                 "cpu": {
                     "type": "string",
                     "index": "analyzed"
@@ -118,6 +131,26 @@
                 },
                 "ip": {
                     "type": "ip"
+                },
+                "mac": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "display": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "company_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
+                },
+                "BU_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
                 },
                 "cpu_suggest": {
                     "type": "completion",
@@ -142,6 +175,12 @@
                     "analyzer": "ik_max_word",
                     "search_analyzer": "ik_max_word",
                     "payloads": false
+                },
+                "display_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
                 }
             }
         },
@@ -153,6 +192,9 @@
                 },
                 "ip": {
                     "type": "ip"
+                },
+                "colorful": {
+                    "type": "boolean"
                 }
             }
         },
@@ -165,6 +207,79 @@
                 "mac": {
                     "type": "string",
                     "index": "not_analyzed"
+                }
+            }
+        },
+        "server": {
+            "properties": {
+                "cpu": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "disk": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "ram": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "os": {
+                    "type": "string",
+                    "index": "analyzed"
+                },
+                "ip": {
+                    "type": "ip"
+                },
+                "mac": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "computerRoom": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "frame": {
+                    "type": "long",
+                    "index": "not_analyzed"
+                },
+                "box": {
+                    "type": "long",
+                    "index": "not_analyzed"
+                },
+                "isVirtuality": {
+                    "type": "long",
+                    "index": "not_analyzed"
+                },
+                "cpu_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
+                },
+                "disk_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
+                },
+                "ram_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
+                },
+                "os_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
+                },
+                "display_suggest": {
+                    "type": "completion",
+                    "analyzer": "ik_max_word",
+                    "search_analyzer": "ik_max_word",
+                    "payloads": false
                 }
             }
         },

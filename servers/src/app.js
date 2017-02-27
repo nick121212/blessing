@@ -7,6 +7,7 @@ import { router } from './routers';
 import docs from 'koa-docs';
 import spa from "./spa";
 import mail from "./utils/mail";
+import gitlab from "./utils/gitlab";
 
 const app = new Koa();
 
@@ -26,9 +27,6 @@ async function init() {
     await db.execute(config.db, app);
     // 加载中间件
     app.use(async(ctx, next) => {
-
-        console.log(ctx.body);
-
         const start = new Date();
         return next().then(() => {
             const ms = new Date() - start;

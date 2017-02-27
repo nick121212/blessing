@@ -18,6 +18,11 @@ export default () => {
 
     return async(ctx, next) => {
         let filter = utils.mysql.query(ctx.query);
+
+        console.log(filter);
+
+        filter.suggest = filter.suggest || {};
+
         let result = await findUsers({
             sizeLimit: 20,
             filter: `(|(userPrincipalName=${filter.suggest.text}*)(employeeID=${filter.suggest.text}))`
