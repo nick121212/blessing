@@ -6,3 +6,4 @@ servers/uploads
 typings
 public/npm-debug.log
 servers/npm-debug.log
+servers/logs

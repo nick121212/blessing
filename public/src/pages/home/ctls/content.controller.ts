@@ -3,6 +3,8 @@
  */
 
 import * as _ from 'lodash';
+import * as nv from 'nvd3';
+import * as d3 from 'd3';
 
 export class ContentController {
     public static $inject = ["$rootScope", "$timeout", "materialUtils", "svgUtils", "fxAction", "iconInfoDetailForm"];
@@ -15,6 +17,9 @@ export class ContentController {
 
     departs: any;
     treeOptions: any;
+
+    departChartOptions: any;
+    departChartData: any;
 
     constructor(private $rootScope, private $timeout, private materialUtils, private svgUtils, private fxAction, private iconInfoDetailForm) {
         this.icons.length = 0;
@@ -47,14 +52,15 @@ export class ContentController {
             }
         };
 
-        this.getDetatInfo();
+        this.getDetaitInfo();
+        this.getChartInfo();
     }
 
     doOpenIconInfo($event, iconInfo: string) {
         this.fxAction.doActionModel($event, this.iconInfoDetailForm, { key: iconInfo });
     }
 
-    getDetatInfo() {
+    getDetaitInfo() {
         let promise = this.fxAction.doAction('departTreeAction', null);
 
         promise && promise.then((results) => {
@@ -112,6 +118,71 @@ export class ContentController {
                 labelSelected: "a8"
             }
         };
+    }
+
+    getChartInfo() {
+
+        this.departChartOptions = {
+            chart: {
+                type: 'multiBarChart',
+                // height: 450,
+                "margin": {
+                    "top": 50,
+                    "right": 20,
+                    "bottom": 50,
+                    "left": 50
+                },
+                x: function (d) {
+                    return d[0];
+                },
+                y: function (d) {
+                    return d[1];
+                },
+                stacked: true,
+                "clipEdge": true,
+                "duration": 500,
+                "xAxis": {
+                    "axisLabel": "设备类型",
+                    "showMaxMin": true
+                },
+                "yAxis": {
+                    "axisLabel": "数量",
+                    "axisLabelDistance": -20
+                }
+            }
+        };
+
+        this.fxAction.doAction("deviceChartAction", {}).then((result) => {
+            let dataMap = [];
+
+            let types = _.keyBy(result.deviceChart.aggregations.type_aggs.buckets, (val: any) => {
+                return val.key;
+            });
+
+            _.each(result.deviceChart.aggregations.depart_aggs.buckets, (val, key) => {
+                let data = {
+                    key: val.key,
+                    values: []
+                };
+
+                let buckets = _.keyBy(val.type_aggs.buckets, (val: any) => {
+                    return val.key;
+                });
+
+                _.forEach(types, (t, key) => {
+                    if (buckets[key]) {
+                        // data.values.push({ key: key, value: buckets[key].doc_count });
+                        data.values.push([key, buckets[key].doc_count]);
+                    } else {
+                        // data.values.push({ key: key, value: 0 });
+                        data.values.push([key, 0]);
+                    }
+                });
+                dataMap.push(data);
+            });
+
+            this.departChartData = dataMap;
+        });
     }
 }
 

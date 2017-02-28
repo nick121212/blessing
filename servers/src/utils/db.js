@@ -119,7 +119,7 @@ export class DB {
 
     async execute(config, app) {
         this.Sequelize = Sequelize;
-        this.sequelize = new Sequelize(config.database, config.username, config.password, config.options);
+        this.sequelize = new Sequelize(config.database, config.username, config.password, _.extend({}, config.options, { logging: () => {} }));
         sequelizeRelationsHelper(this.sequelize, { debug: false });
         this.models = await sequelizeImport(__dirname + '/../models', this.sequelize, {
             exclude: ['index.js']

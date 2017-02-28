@@ -1,6 +1,7 @@
 import fs from 'fs';
 import _ from 'lodash';
 import boom from 'boom';
+import moment from "moment";
 import { client } from '../../utils/es';
 
 export default () => {
@@ -15,6 +16,18 @@ export default () => {
             type: type,
             id: key
         });
+
+        // if (result._source.entryAt) {
+        //     let m = moment(result._source.entryAt);
+
+        //     result._source.entryAt = m.format("YYYY/MM/DD");
+        // }
+
+        // _.each(result._source.usedAt, (val, idx) => {
+        //     let m = moment(val);
+
+        //     result._source.usedAt[idx] = m.format("YYYY/MM/DD");
+        // });
 
         ctx.body = result;
     };

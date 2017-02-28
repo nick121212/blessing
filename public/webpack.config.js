@@ -51,7 +51,9 @@ module.exports = {
             'jquery-terminal.css': 'jquery.terminal/css/jquery.terminal.min.css',
             'tree-control.css': 'angular-tree-control/css/tree-control.css',
             'tree-control-attribute.css': 'angular-tree-control/css/tree-control-attribute.css',
-            'smdatetimerangepicker.css': 'smdatetimerangepicker/src/picker.css'
+            'smdatetimerangepicker.css': 'smdatetimerangepicker/src/picker.css',
+            'nvd3.css': __dirname + '/node_modules/nvd3/build/nv.d3.css',
+            'nvd3.js': __dirname + '/node_modules/nvd3/build/nv.d3.js',
         }
     },
     module: {

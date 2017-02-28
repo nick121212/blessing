@@ -49,7 +49,7 @@ export default (app) => {
                 }
             }
         });
-
+        ctx.req.__member__ = member;
         ctx.req.__role__ = role;
         ctx.req.__action__ = action;
         ctx.req.__groups__ = _.map(groups, (group) => {

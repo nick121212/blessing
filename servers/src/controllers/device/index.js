@@ -6,26 +6,31 @@ import list from './list';
 import auth from '../../auth';
 import exportExcel from "./export";
 import suggest from "./suggest";
+import chart from "./chart";
 
 export const routers = {
     'GET /': [auth.passport, auth.permission, list],
+    'GET /manual/chart': [auth.passport, auth.permission, chart],
     'GET /manual/export': [auth.passport, auth.permission, exportExcel],
     'GET /manual/suggest': [auth.passport, auth.permission, suggest],
     'GET /:key/:type': [auth.passport, auth.permission, getItem],
     'POST /': [auth.passport, auth.permission, createItem],
     'DELETE /:key/:type': [auth.passport, auth.permission, removeItem],
-    'PUT /:key/:type': [auth.passport, auth.permission, updateItem]
+    'PUT /:key/:type': [auth.passport, auth.permission, updateItem],
+
 }
 
 export const init = (router, sequelizeModel) => {
-
+    console.log(auth.log.info);
 }
 
 const type = {
-    "": "other",
+    "deviceAddOtherAction": "other",
     "deviceAddComputerAction": "computer",
     "deviceAddPrinterAction": "printer",
-    "deviceAddApAction": "ap"
+    "deviceAddApAction": "ap",
+    "deviceAddProjectorAction": "projector",
+    "deviceAddScreenAction": "screen"
 };
 
 export const config = {
@@ -41,8 +46,9 @@ export const config = {
             disk_suggest: "disk",
             ram_suggest: "ram",
             os_suggest: "os",
-            depart_suggest: "depart",
-            company_suggest: "company"
+            departName_suggest: "departName",
+            company_suggest: "company",
+            BU_suggest: "BU"
         }
     },
     list: {

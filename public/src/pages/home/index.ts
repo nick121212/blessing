@@ -19,8 +19,11 @@ import "./index.scss";
 
 import 'angular-gridster';
 import 'angular-tree-control';
+import 'd3';
+import 'nvd3.js';
+import 'angular-nvd3';
 
-const module = angular.module("homeModule", [actionDir, toolbar, sidemenu, svgUtilsMod, materialService, ngMaterial, 'ui.router', ngMaterialIcons, 'gridster','treeControl']);
+const module = angular.module("homeModule", [actionDir, toolbar, sidemenu, svgUtilsMod, materialService, ngMaterial, 'ui.router', 'nvd3', ngMaterialIcons, 'gridster','treeControl']);
 
 module.config([
     "$stateProvider",

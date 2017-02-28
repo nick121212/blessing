@@ -9,3 +9,5 @@ import 'angular-gridster.css';
 import 'tree-control.css';
 import 'tree-control-attribute.css';
 import 'smdatetimerangepicker.css';
+
+import 'nvd3.css';

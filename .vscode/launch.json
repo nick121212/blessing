@@ -4,8 +4,8 @@
         "name": "启动",
         "type": "node",
         "request": "launch",
-        "program": "${workspaceRoot}/servers/index.js",
-        "stopOnEntry": false,
+        "program": "${workspaceRoot}/servers/src/index.js",
+        // "stopOnEntry": false,
         "args": ["defaultConfig.json"],
         "cwd": "${workspaceRoot}/servers",
         "preLaunchTask": null,
@@ -17,26 +17,6 @@
             "NODE_ENV": "development"
         },
         "console": "internalConsole",
-        "sourceMaps": false,
-        "outDir": null
-    }, {
-        "name": "附加",
-        "type": "node",
-        "request": "attach",
-        "port": 5858,
-        "address": "localhost",
-        "restart": false,
-        "sourceMaps": false,
-        "outDir": null,
-        "localRoot": "${workspaceRoot}/public",
-        "remoteRoot": null
-    }, {
-        "name": "Attach to Process",
-        "type": "node",
-        "request": "attach",
-        "processId": "${command.PickProcess}",
-        "port": 5858,
-        "sourceMaps": false,
-        "outDir": null
+        "sourceMaps": false
     }]
 }

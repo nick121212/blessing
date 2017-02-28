@@ -1,6 +1,7 @@
 {
     "site": {
         "PORT": 3000,
+        "log": "./logs/cmdb.log",
         "exportUrl": "http://172.16.140.164/excel/api/query",
         "events": "http://127.0.0.1:3000/events"
     },
@@ -14,7 +15,7 @@
     "es": {
         "host": "172.16.140.164",
         "port": "9200",
-        "log": ["trace"]
+        "log": []
     },
     "rabbitmq": {
         "host": "172.16.140.164",

@@ -242,9 +242,9 @@ export class ElasticUtils extends CommonUtils {
         _.forEach(suggests, (valKey, key) => {
             if (modelIntance[valKey]) {
                 if (_.isArray(modelIntance[valKey])) {
-                    modelIntance[key] = {
+                    modelIntance[valKey].length && (modelIntance[key] = {
                         input: modelIntance[valKey]
-                    };
+                    });
                 } else {
                     modelIntance[key] = {
                         input: [modelIntance[valKey]]

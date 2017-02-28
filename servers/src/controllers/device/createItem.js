@@ -3,6 +3,7 @@ import _ from 'lodash';
 import boom from 'boom';
 import { client } from '../../utils/es';
 import utils from "../";
+import { logger } from "../../auth/log";
 
 export default (Model, config) => {
     return async(ctx, next) => {
@@ -19,7 +20,16 @@ export default (Model, config) => {
         utils.elastic.removeAttributes(model, curConfig.removeAttributes);
         utils.elastic.setSuggest(model, curConfig.suggest);
 
-        model.used = false;
+        model.updateAt = new Date().getTime();
+        model.lastUpdateUserId = ctx.state.user.id;
+        model.lastUpdateUserName = ctx.state.user.name;
+        model.entryAt && (model.entryAt = new Date(model.entryAt).getTime());
+        _.each(model.usedAt, (val, idx) => {
+            model.usedAt[idx] = new Date(val).getTime();
+        });
+
+        // 类型|时间|数据|操作人
+        ctx.log = { logType: 1, id: model.NO, body: model, optUser: ctx.state.user.id };
 
         ctx.body = await client.create({
             index: "cmdb.device",

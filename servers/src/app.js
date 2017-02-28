@@ -8,6 +8,7 @@ import docs from 'koa-docs';
 import spa from "./spa";
 import mail from "./utils/mail";
 import gitlab from "./utils/gitlab";
+import { info } from "./auth/log";
 
 const app = new Koa();
 
@@ -35,6 +36,7 @@ async function init() {
     });
     // 初始化路由
     router.execute(app);
+    app.use(info);
     // 初始化socket
     let server = socket.eventsIo.attach(app);
     // spa server 启动
