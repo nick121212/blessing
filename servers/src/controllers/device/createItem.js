@@ -29,7 +29,7 @@ export default (Model, config) => {
         });
 
         // 类型|时间|数据|操作人
-        ctx.log = { logType: 1, id: model.NO, body: model, optUser: ctx.state.user.id };
+        ctx.log = { logType: 1, id: model.NO, body: model, optUser: { id: ctx.state.user.id, name: ctx.state.user.name } };
 
         ctx.body = await client.create({
             index: "cmdb.device",

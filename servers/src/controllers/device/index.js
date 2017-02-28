@@ -7,9 +7,11 @@ import auth from '../../auth';
 import exportExcel from "./export";
 import suggest from "./suggest";
 import chart from "./chart";
+import logs from "./logs";
 
 export const routers = {
     'GET /': [auth.passport, auth.permission, list],
+    'GET /manual/logs': [auth.passport, auth.permission, logs],
     'GET /manual/chart': [auth.passport, auth.permission, chart],
     'GET /manual/export': [auth.passport, auth.permission, exportExcel],
     'GET /manual/suggest': [auth.passport, auth.permission, suggest],
