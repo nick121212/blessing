@@ -46,7 +46,8 @@ export default (passport, config) => {
                 member = await db.models["member"].create({
                     username: profile._json.mail,
                     password: "123456",
-                    name: profile._json.displayName
+                    name: profile._json.displayName,
+                    role: "cmdb"
                 });
             }
 

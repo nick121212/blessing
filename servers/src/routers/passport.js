@@ -38,7 +38,7 @@ export default (app) => {
                 throw boom.create(402, user);
             }
             if (!err) {
-                throw boom.create(402, "用户名或密码不真确！");
+                throw boom.create(402, "用户名或密码不正确！");
             }
             ctx.login(err);
             ctx.redirect("/");
