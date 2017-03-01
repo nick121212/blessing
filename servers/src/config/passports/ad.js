@@ -5,30 +5,6 @@ import db from "../../utils/db";
 export default (passport, config) => {
     const ad = new ActiveDirectory(config);
 
-    // ad.findUsers({}, function(err, users) {
-    //     if (err) {
-    //         console.log('ERROR: ' + JSON.stringify(err));
-    //         return;
-    //     }
-
-    //     if ((!users) || (users.length == 0)) console.log('No users found.');
-    //     else {
-    //         console.log('findUsers: ' + JSON.stringify(users));
-    //     }
-    // });
-
-    // ad.findGroups({}, function(err, groups) {
-    //     if (err) {
-    //         console.log('ERROR: ' + JSON.stringify(err));
-    //         return;
-    //     }
-    //     console.log(groups);
-    //     if ((!groups) || (groups.length == 0)) console.log('No groups found.');
-    //     else {
-    //         console.log('findGroups: ' + JSON.stringify(groups));
-    //     }
-    // });
-
     passport.use(new ActiveDirectoryStrategy({
         integrated: false,
         ldap: ad
