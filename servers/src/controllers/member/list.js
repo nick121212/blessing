@@ -16,7 +16,7 @@ export default () => {
 
         let result = await findUsers({
             sizeLimit: 20,
-            filter: `(|(sn=*${filter.suggest.text}*)(userPrincipalName=*${filter.suggest.text}*)(employeeID=${filter.suggest.text}))`
+            filter: `(|(displayName=*${filter.suggest.text}*)(sn=*${filter.suggest.text}*)(userPrincipalName=*${filter.suggest.text}*)(employeeID=${filter.suggest.text}))`
         });
 
         ctx.body = {
